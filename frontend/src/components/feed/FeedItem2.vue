@@ -84,7 +84,7 @@ export default {
       let feedNo =  feed.feedNo;
       console.dir(feed);
       let data = {
-        token : this.$store.state.token,
+        token : localStorage.getItem('token'),
         feedNo
       };
 

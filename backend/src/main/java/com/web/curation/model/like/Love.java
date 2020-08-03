@@ -3,9 +3,9 @@ package com.web.curation.model.like;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +18,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
+@IdClass(LoveId.class)
 public class Love {
     @Id
     private String userId;
     // @JsonIgnore
+    @Id
     private int feedNo;
 }
+
