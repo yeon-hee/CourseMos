@@ -16,7 +16,6 @@ export default {
 <style>
 .nav{
     position: sticky;
-    left: 0;
     bottom: 0;
     width: 100%;
     overflow: hidden;
