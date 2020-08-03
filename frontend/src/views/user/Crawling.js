@@ -15,7 +15,7 @@ const getHtml = async() => {
 getHtml()
     .then(html => {
         let ulList = [];
-        const $ = cheerio.load(html.data);
+        const $ = cheerio.load(html.data); 
         const $bodyList = $("div.list_area.list_place_col1 type_2col").children("li.list_item type_restaurant");
 
         $bodyList.each(function(i, elem){
