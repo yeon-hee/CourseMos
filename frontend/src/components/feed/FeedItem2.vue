@@ -108,12 +108,14 @@ export default {
 .feed-top{
   margin-left: 6%;
 }
+
 .feed-card{
-  clear: both;
-  margin-top: 1%;
-  margin-right: 7%;
-  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  margin-right: 25px;
+  padding: 0;
 }
+
 .space{
   height: 50px;
 }
@@ -125,7 +127,7 @@ export default {
 }
 .feed-time{
   margin-top: 10px;
-    padding-right: 5%;
+  padding-right: 5%;
   float:right;
 }
 .line{

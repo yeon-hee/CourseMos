@@ -49,4 +49,13 @@ export default {
   }
 };
 </script>
+<style scoped>
 
+.wrapB{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+</style>
