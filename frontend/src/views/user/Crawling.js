@@ -13,18 +13,15 @@ request('https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&que
 
     $bodyList.each(function(i, elem){
         ulList[i] = {
-            title: $(this).find('a.name').text(),
+            title: $(this).find('a.name').text().substring(2),
             url: $(this).find('a.name').attr('href')
 
         };
     });
 
     // const $foodList = $('div.list_area ul.list_place_col1');
+    // console.log($foodList.html());
 
-    // console.log($foodList.html())
-
-
-   // console.log($bodyList.html());
     const data = ulList.filter(n => n.title);
     console.log(data);
     return data;
