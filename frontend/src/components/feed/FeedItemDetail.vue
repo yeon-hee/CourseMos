@@ -58,19 +58,6 @@
           <button v-if="userId==comment.writer" @click="deleteComment(feed, comment, index)" class="delete-comment">삭제</button>
           <p style="clear:both;"></p>
         </div>
-
-        <!-- <div style="margin-top:3%;">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
-          <p class="comment-writer">홍길동</p>
-          <p class="comment-content">어머, 여기 맛있나요? 저도 한 번 가봐야겠어요^^</p>
-          <p style="clear:both;"></p>
-        </div>
-         <div style="margin-top:3%;">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
-          <p class="comment-writer">김싸피</p>
-          <p class="comment-content">저도 저번에 다녀왔는데 진짜 짱이었어요!</p>
-          <p style="clear:both;"></p>
-        </div> -->
       </div>
     </div>
   </div>
@@ -229,7 +216,9 @@ export default {
     }
   },
 };
+
 </script>
+
 <style scoped>
 .user-name{
   margin-top: 3%;
