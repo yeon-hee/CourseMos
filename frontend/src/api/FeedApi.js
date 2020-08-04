@@ -46,6 +46,11 @@ const deleteComment = (data, callback, errorCallback) => {
         .catch(err => errorCallback(err));
 }
 
+const getCourse = (data, callback, errorCallback) => {
+    axios.get(url.url + '/feeds/course/' + data.feedNo, data, { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
 
 const FeedApi = {
     loadFeeds: (data, callback, errorCallback) => loadFeeds(data, callback, errorCallback),
@@ -55,7 +60,8 @@ const FeedApi = {
     loadFeedComments: (feedNo, callback, errorCallback) => loadFeedComments(feedNo, callback, errorCallback),
     registerComment: (data, callback, errorCallback) => registerComment(data, callback, errorCallback),
     clickLike: (data, callback, errorCallback) => clickLike(data, callback, errorCallback),
-    deleteComment: (data, callback, errorCallback) => deleteComment(data, callback, errorCallback)
+    deleteComment: (data, callback, errorCallback) => deleteComment(data, callback, errorCallback),
+    getCourse: (data, callback, errorCallback) => getCourse(data, callback, errorCallback)
 }
 
 export default FeedApi

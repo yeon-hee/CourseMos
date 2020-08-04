@@ -200,4 +200,24 @@ public class FeedController {
         } 
         return response;
     }
+
+    @GetMapping("/course/{feedNo}")
+    @ApiOperation(value = "코스 정보 받아오기")
+    public Object getCourse(@PathVariable final int feedNo) {
+
+        Feed feed = feedDao.findByFeedNo(feedNo);
+        
+
+
+        ResponseEntity response = null;
+
+        try {
+                                  
+
+        } catch(Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } 
+        return response;
+    }
+    
 }
