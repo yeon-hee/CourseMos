@@ -23,12 +23,12 @@ export default {
 .nav{
     position: sticky;
     bottom: 0;
+    margin: 0 auto;
     width: 100%;
     overflow: hidden;
     border-top: 1px solid lightslategray;
     background-color: white;
     max-width: 500px;
-    margin: auto;
 }
 
 .nav > div > a{
