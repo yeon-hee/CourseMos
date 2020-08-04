@@ -227,10 +227,14 @@ export default {
   margin-left: 6%;
 }
 .feed-card{
-  clear: both;
-  margin-top: 1%;
-  margin-right: 7%;
-  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  margin-right: 25px;
+  padding: 0;
+}
+.feed-card > img {
+  width: 100%;
+  height: 100%;
 }
 .space{
   height: 50px;
