@@ -16,6 +16,7 @@ import Followings from './views/user/Followings.vue'
 import Search from './views/Search.vue'
 import AccountSetting from './views/user/AccountSetting.vue';
 import FeedDetail from './views/feed/FeedDetail.vue';
+import MapPage from './views/Map.vue'
 
 export default [{
         path: '/',
@@ -106,5 +107,10 @@ export default [{
         path: '/feeds/:feedNo',
         name: 'FeedDetail',
         component: FeedDetail
+    },
+    {
+        path: '/map',
+        name: 'Map',
+        component: MapPage
     }
 ]
