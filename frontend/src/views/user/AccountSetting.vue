@@ -152,11 +152,12 @@ export default {
         UserApi.requestSettings(
           data,
           response => {
+            localStorage.setItem("userId", this.userId);
             console.log(response);
             console.log('프로필 정보 변경 성공!');
             alert("변경사항이 저장되었습니다.");
             this.isSubmit = true;
-            this.$router.push("/feed/main");
+            this.$router.push("/users/profile");
           },
           error => {
             alert(error);

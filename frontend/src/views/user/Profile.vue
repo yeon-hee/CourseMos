@@ -155,6 +155,7 @@ export default {
 
 .profile-container{
     min-width: 400px;
+    min-height: 650px;
 }
 
 </style>

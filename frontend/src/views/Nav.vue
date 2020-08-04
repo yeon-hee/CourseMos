@@ -3,27 +3,32 @@
       <div><a href="#/feed/main"><i class="fas fa-home"></i></a></div>
       <div><a href="#/search"><i class="fas fa-search"></i></a></div>
       <div><a href="#/alerts"><i class="far fa-bell"></i></a></div>
-      <div><a href="#/users/profile"><i class="fas fa-user-circle"></i></a></div>
+      <div><a href="#/users/profile"><img :src="profile_photo" class="profile-avatar"/></a></div>
+      <!-- <div><a href="#/users/profile"><i class="fas fa-user-circle"></i></a></div> -->
   </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            profile_photo: require('@/assets/images/profile_default.png')
+        }
+    }
 
 }
 </script>
 
-<style>
+<style scoped>
 .nav{
     position: sticky;
-    left: 0;
     bottom: 0;
+    margin: 0 auto;
     width: 100%;
     overflow: hidden;
     border-top: 1px solid lightslategray;
     background-color: white;
     max-width: 500px;
-    margin: auto;
 }
 
 .nav > div > a{
@@ -38,6 +43,13 @@ export default {
 
 .nav > div > a >i{
     color: black;
+}
+
+.profile-avatar{
+    margin-top: 10px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
 }
 
 </style>

@@ -84,7 +84,7 @@ export default {
         let data = {
             email : localStorage.getItem('email'),
             token : localStorage.getItem('token'),
-            userId : localStorage.getItem('userId')
+            userId : this.$route.params.userId
         }
         
         ProfileApi.requestUserProfile(
