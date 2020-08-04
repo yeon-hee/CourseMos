@@ -1,6 +1,7 @@
 <template>
  <div class="feed-item">
     <div class="feed-top">
+      <br>
       <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
       <div class="user-info">
         <div class="user-name">
@@ -251,6 +252,7 @@ export default {
               data,
               response => {
                 console.log('코스 정보 받아옴!');
+                console.dir(response);
               },
               error => {
                 alert(error);
