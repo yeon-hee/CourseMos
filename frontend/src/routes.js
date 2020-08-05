@@ -17,6 +17,7 @@ import Search from './views/Search.vue'
 import AccountSetting from './views/user/AccountSetting.vue';
 import FeedDetail from './views/feed/FeedDetail.vue';
 import FeedComment from './components/feed/FeedComment.vue';
+import FeedItemDetail from './components/feed/FeedItemDetail.vue';
 import MapPage from './views/Map.vue'
 
 export default [{
@@ -118,5 +119,10 @@ export default [{
         path: '/feeds/comments/:feedNo',
         name: 'FeedComment',
         component: FeedComment
-    }
+    },
+    {
+        path: '/feeds/back/:feedNo',
+        name: 'FeedItemDetail',
+        component: FeedItemDetail
+    },
 ]

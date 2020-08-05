@@ -29,7 +29,9 @@
         <img src="../../assets/images/star.png" width="20px" height="20px" class="scrap-btn">
       </div>
     </div>
-    <div style="height:10px;"></div>
+    <div style="height:10px;"></div></div>
+
+
     <div class="line"></div>
       <!-- <div style="height:15px;"></div>
       <p>{{feed.contents}}</p>
@@ -42,13 +44,14 @@
     </div>
     <div class="comment-area"> -->
     <div style="clear: both;"></div>
-    <div style="height:15px;"></div>
-
-    <div class="box-container" style="border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
+    <div style="height:15px;"></div><br>
+      
+    <!-- 코스 들어가는 곳-->
+    <div class="box-container" style="margin-left:80px; border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
       <div style="float:left;">
         <img :src="feed.thumbnail" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
       </div>
-      <div style="float:left; margin: 9px 0px 9px 15px; line-height: 1.5em;">
+      <div style="float:left; margin: 9px 0px 9px 5px; line-height: 1.5em;">
           <div style="font-size:12px; color:rgb(51,102,255);">{{this.two}}</div>
           {{this.name}}</div>
       <div style="float:right; margin: 12px 10px 12px 0px;">
@@ -58,11 +61,11 @@
       </div>
       <!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
       <!-- <div class="box" style="border:1px solid rgb(183,183,183); height:40px; width:40px; border-radius: 10px;"></div> -->
-    </div><br>
+    </div><br><br><br><br>
 
 
 
-      <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 12px; color: rgb(51,102,255); ">댓글 보기...</a>
+      <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a>
       <!-- <p style="padding-bottom: 10px;">댓글
       <input class="comment-input"
              v-model="content"
@@ -79,7 +82,6 @@
           <p style="clear:both;"></p>
         </div>
       </div> -->
-    </div>
   </div>
 </template>
 
@@ -126,7 +128,7 @@ export default {
   created() {
     let data = {
         token : localStorage.getItem('token'),
-        feedNo : this.feedNo
+        feedNo : this.$route.params.feedNo
     };
     this.bounds = new kakao.maps.LatLngBounds();
     
@@ -141,7 +143,7 @@ export default {
       }
     );
     FeedApi.loadFeedPhotos(
-      this.feedNo,
+      this.$route.params.feedNo,
       response => {
         this.photos = response.data
         // console.dir(this.photos)
@@ -150,23 +152,12 @@ export default {
         alert('피드 이미지 조회에 실패했습니다.');
       }
     );
-    FeedApi.loadFeedComments(
-      this.feedNo,
-      response => {
-        this.comments = response.data
-        console.dir(this.comments)
-      },
-      error => {
-        alert('피드 댓글 조회에 실패했습니다.');
-      }
-    );
+  
   },
   methods: {
 
     clickComment(){
-      console.log('댓글 더보기');
-      console.log(this.feedNo);
-      this.$router.push("/feeds/comments/" + this.feedNo); // 여기 수정
+      this.$router.push("/feeds/comments/" + this.$route.params.feedNo); // 여기 수정
     },
     clickShare(){
        location.href = "holapet://share?m="+this.address;
@@ -182,6 +173,7 @@ export default {
           content
         };
         console.log('댓글 등록 들어옴.');
+        console.log(data);
         feed.commentCount += 1;
 
         FeedApi.registerComment(
@@ -394,9 +386,10 @@ export default {
 }
 .line{
   clear: both;
-  height: 1px;
-  width: 97%;
-  background-color: gray;
+  height: 0.5px;
+  width: 100%;
+  background-color: black;
+  opacity: 50%;
 }
 .feed-btn{
   padding-top: 3%;
