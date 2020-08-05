@@ -22,8 +22,8 @@ const loadFeedPhotos = (feedNo, callback, errorCallback) => {
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }
-const loadFeedComments = (feedNo, callback, errorCallback) => {
-    axios.get(url.url + '/comments/' + feedNo)
+const loadFeedComments = (data, callback, errorCallback) => {
+    axios.get(url.url + '/comments/' + data.feedNo)
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }

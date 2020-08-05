@@ -160,6 +160,12 @@ export default {
     // 검색결과 항목을 Element로 반환하는 함수입니다
         getListItem(index, places) {
 
+            //console.log(places);
+            //console.log(places.category_name);
+            //console.log(places.road_address_name);
+            console.log(places.address_name);
+            //console.log(places.category_name.split('>'));
+        
             var el = document.createElement('li'),
             itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                         '<div class="info">' +

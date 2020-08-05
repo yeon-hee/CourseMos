@@ -2,14 +2,15 @@
  <div class="feed-item">
     <div class="feed-top">
       <br>
+      <div style="font-size:25px; color:rgb(51,102,255); font-weight: bold; margin-bottom: 5px;">데이트 코스</div>
+      <!-- <br>
       <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
       <div class="user-info">
         <div class="user-name">
           <button>{{feed.userId}}</button>
         </div>
-      </div>
+      </div> -->
     </div>
-    <div class="space"></div>
     
     <div class="feed-card">
       <div class="map_wrap">
@@ -24,33 +25,52 @@
         <span>{{feed.likeCount}}</span>
         <img src="../../assets/images/comment.png" width="20px" height="20px" class="comments-btn">
         <span>{{feed.commentCount}}</span>
-        <img src="../../assets/images/share.png" width="20px" heig0t="20px" class="share-btn">
+        <a href="javascript:;" @click="clickShare()"><img src="../../assets/images/share.png" width="20px" heig0t="20px" class="share-btn"></a>
         <img src="../../assets/images/star.png" width="20px" height="20px" class="scrap-btn">
       </div>
     </div>
     <div style="height:10px;"></div>
     <div class="line"></div>
-      <div style="height:15px;"></div>
+      <!-- <div style="height:15px;"></div>
       <p>{{feed.contents}}</p>
        <div class="feed-hashtag">
          <p class="hashtag">#맛집</p>
          <p class="hashtag">#파스타</p>
          <p class="hashtag">#와인</p>
-        <!-- <p v-for="hashtag in hashtags">{{hashtag}}</p> -->
       </div>
           <h5 class="feed-time">{{feed.writeDate}}</h5>
     </div>
-    <div class="comment-area">
-    <div class="line"></div>
+    <div class="comment-area"> -->
+    <div style="clear: both;"></div>
     <div style="height:15px;"></div>
-      <p style="padding-bottom: 10px;">댓글</p>
+
+    <div class="box-container" style="border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
+      <div style="float:left;">
+        <img :src="feed.thumbnail" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+      </div>
+      <div style="float:left; margin: 9px 0px 9px 15px; line-height: 1.5em;">
+          <div style="font-size:12px; color:rgb(51,102,255);">{{this.two}}</div>
+          {{this.name}}</div>
+      <div style="float:right; margin: 12px 10px 12px 0px;">
+        <a href="javascript:;" @click="clickRoute()">
+          <img src="../../assets/images/find_route_icon.png" width="35px" height="35px">
+        </a>
+      </div>
+      <!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
+      <!-- <div class="box" style="border:1px solid rgb(183,183,183); height:40px; width:40px; border-radius: 10px;"></div> -->
+    </div><br>
+
+
+
+      <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 12px; color: rgb(51,102,255); ">댓글 보기...</a>
+      <!-- <p style="padding-bottom: 10px;">댓글
       <input class="comment-input"
              v-model="content"
              id="content"/>
       
       <button class="regist-comment"
-              @click="registComment(feed)">등록</button>
-      <div>
+              @click="registComment(feed)">등록</button> -->
+      <!-- <div>
         <div style="margin-top:3%;" v-for="(comment, index) in comments" v-bind:key="comment.commentNo">
           <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
           <p class="comment-writer">{{comment.writer}}</p>
@@ -58,7 +78,7 @@
           <button v-if="userId==comment.writer" @click="deleteComment(feed, comment, index)" class="delete-comment">삭제</button>
           <p style="clear:both;"></p>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -81,8 +101,14 @@ export default {
     return { 
       map : {},
       markers : [],
+      points: [],
       ps : {},
+      one : {},
+      two: {},
+      name: {},
+      address : {},
       infowindow : {},
+      bounds : "",
       feed : {},
       photos : [],
       comments : [],
@@ -102,7 +128,8 @@ export default {
         token : localStorage.getItem('token'),
         feedNo : this.feedNo
     };
-    console.log("feedNo : " +this.feedNo);
+    this.bounds = new kakao.maps.LatLngBounds();
+    
     FeedApi.loadFeedDetail(
       data,
       response => {
@@ -135,6 +162,18 @@ export default {
     );
   },
   methods: {
+
+    clickComment(){
+      console.log('댓글 더보기');
+      console.log(this.feedNo);
+      this.$router.push("/feeds/comments/" + this.feedNo); // 여기 수정
+    },
+    clickShare(){
+       location.href = "holapet://share?m="+this.address;
+    },
+    clickRoute(){
+       location.href = "https://maps.google.com/?daddr="+this.address;
+    },
     registComment(feed){
         let { feedNo, content } = this;
         let data = {
@@ -239,25 +278,30 @@ export default {
 
              // 코스에 대한 list 보여줄 부분 
             //this.ps.keywordSearch('호야 참치초밥 본점', this.placesSearchCB);
+           
             this.ps.keywordSearch('우마이도 건대점', this.placesSearchCB);
-            this.ps.keywordSearch('호야 참치초밥 본점', this.placesSearchCB);
+            //this.ps.keywordSearch('호야 참치초밥 본점', this.placesSearchCB);
+            //this.ps.keywordSearch('이태원 맛집', this.placesSearchCB);
+            //this.setReBound();
 
-            let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
-            let data = {
-              token : localStorage.getItem('token'),
-              feedNo
-            };
 
-            FeedApi.getCourse(
-              data,
-              response => {
-                console.log('코스 정보 받아옴!');
-                console.dir(response);
-              },
-              error => {
-                alert(error);
-              }
-            );  
+            // 코스 등록 추가되면 연동하기
+            // let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
+            // let data = {
+            //   token : localStorage.getItem('token'),
+            //   feedNo
+            // };
+
+            // FeedApi.getCourse(
+            //   data,
+            //   response => {
+            //     console.log('코스 정보 받아옴!');
+            //     console.dir(response);
+            //   },
+            //   error => {
+            //     alert(error);
+            //   }
+            // );  
         },
 
         addScript() {
@@ -277,11 +321,9 @@ export default {
                 for (var i=0; i<data.length; i++) {
                   this.displayMarker(data[i]);    
                   bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                }       
+                }     
 
-                // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-                this.map.setBounds(bounds);
-
+                this.map.setBounds(bounds);  
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
                 alert('검색 결과가 존재하지 않습니다.');
@@ -296,8 +338,14 @@ export default {
         },
 
         displayMarker(place) {
+            var str = place.category_name.split('>');
+            this.name = place.place_name;
+            this.one = str[1];
+            this.two = str[2];
+            this.address = place.address_name;
+            console.log(str[1]);
+            console.log(str[2]);
 
-          // 마커를 생성하고 지도에 표시합니다
             var marker = new kakao.maps.Marker({
                 map: this.map,
                 position: new kakao.maps.LatLng(place.y, place.x) 
@@ -306,6 +354,7 @@ export default {
             // 마커에 클릭이벤트를 등록합니다
               kakao.maps.event.addListener(marker, 'click', function() {
                 // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                
                 this.infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 this.infowindow.open(this.map, marker);
             });
@@ -346,7 +395,7 @@ export default {
 .line{
   clear: both;
   height: 1px;
-  width: 94%;
+  width: 97%;
   background-color: gray;
 }
 .feed-btn{
@@ -373,7 +422,7 @@ export default {
   height: auto;
   line-height: normal;
   padding: .3em .9em;
-  width: 80%;
+  width: 200px;
   border: none;
   border-radius: 20px;
   -webkit-appearance: none;
