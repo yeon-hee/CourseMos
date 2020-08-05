@@ -19,7 +19,7 @@
       <div class="input-wrap">
         <img src="../../assets/images/user.png" width="50px" height="50px">
         <form name="uploadForm" method="post" enctype="multipart/form-data">
-          <input type="file" name="imgFile" class="upload-input">
+          <input @change="selectImage()" type="file" ref="profileImage" name="imgFile" class="upload-input">
           <button class="upload-btn" type="submit" value="등록">등록</button>
         </form>
       </div>
@@ -75,17 +75,19 @@
 import UserApi from "../../api/UserApi";
 import axios from 'axios';
 import LogoTitle from '../LogoTitle.vue';
+import * as firebase from "firebase/app";
 
 export default {
 
   components: {LogoTitle},
   
   created() {
+    this.storageRef = firebase.storage().ref();
     this.component = this;
     console.log("created");
 
     let data = {
-        token : localStorage.getItem('token')
+        token : localStorage.getItem('token'),
     };
     UserApi.requestUserInfo(
       data,
@@ -113,6 +115,18 @@ export default {
     }
   },
   methods: {
+    selectImage() {
+      this.profileImage = this.$refs.profileImage.files[0];
+      console.dir(this.profileImage)
+      var reader = new FileReader()
+      console.log(reader.readAsDataURL(this.profileImage))
+      // this.profileImage  = window.URL.createObjectURL(this.profileImage);
+      // this.storageRef.put(this.profileImage).then(function(snapshot) {
+      //     console.dir(snapshot)
+      // }).catch(function(err) {
+      //   console.dir(err)
+      // });
+    },
     finalCheck(){
       if(this.userId.length == 0 && this.profileComment.length == 0){
         this.isSubmit = false;
@@ -180,7 +194,9 @@ export default {
         userId: false
       },
       isSubmit: false,
-      termPopup: false
+      termPopup: false,
+      profileImage : {},
+      storageRef : {}
     };
   }
 };

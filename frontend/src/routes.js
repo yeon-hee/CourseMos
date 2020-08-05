@@ -16,6 +16,8 @@ import Followings from './views/user/Followings.vue'
 import Search from './views/Search.vue'
 import AccountSetting from './views/user/AccountSetting.vue';
 import FeedDetail from './views/feed/FeedDetail.vue';
+import WriteFeedPage from './views/feed/WriteFeedPage.vue';
+import TradeDetail from './views/trade/TradeDetail.vue';
 import MapPage from './views/Map.vue'
 
 export default [{
@@ -112,5 +114,15 @@ export default [{
         path: '/map',
         name: 'Map',
         component: MapPage
+    },
+    {
+        path: '/feed/write',
+        name: 'WriteFeed',
+        component: WriteFeedPage
+    },
+    {
+        path: '/trades/detail',
+        name: 'TradeDetail',
+        component: TradeDetail
     }
 ]
