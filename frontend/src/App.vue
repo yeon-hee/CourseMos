@@ -7,6 +7,7 @@
     <router-view></router-view>
   </div>
 </template>
+
 <script>
 import "./components/css/style.scss";
 import Vue from 'vue'
