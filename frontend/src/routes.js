@@ -14,9 +14,10 @@ import Requests from './views/user/Requests.vue'
 import Followers from './views/user/Followers.vue'
 import Followings from './views/user/Followings.vue'
 import Search from './views/Search.vue'
-import AccountSetting from './views/user/AccountSetting.vue';
-import FeedDetail from './views/feed/FeedDetail.vue';
+import AccountSetting from './views/user/AccountSetting.vue'
+import FeedDetail from './views/feed/FeedDetail.vue'
 import MapPage from './views/Map.vue'
+import FeedMake from './views/feed/FeedMake.vue'
 
 export default [{
         path: '/',
@@ -112,5 +113,10 @@ export default [{
         path: '/map',
         name: 'Map',
         component: MapPage
+    },
+    {
+        path: '/feedmake',
+        name: 'FeedMake',
+        component: FeedMake
     }
 ]
