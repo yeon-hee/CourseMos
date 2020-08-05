@@ -1,6 +1,7 @@
 <template>
  <div class="feed-item">
     <div class="feed-top">
+      <br>
       <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
       <div class="user-info">
         <div class="user-name">
@@ -9,13 +10,12 @@
       </div>
     </div>
     <div class="space"></div>
+    
     <div class="feed-card">
-      <div v-if="feed.thumbnail=='NULL'">
-        <div class="img" :style="{'background-image': 'url('+defaultImage+')'}"></div>
-      </div>
-      <div v-else>
-        <img :src="feed.thumbnail" alt="img">
-      </div>
+      <div class="map_wrap">
+        <div id="map" style="width:500px;height:400px;"></div>
+            <hr>
+    </div>
     </div>
     <div class="content">
     <div class="feed-btn">
@@ -58,19 +58,6 @@
           <button v-if="userId==comment.writer" @click="deleteComment(feed, comment, index)" class="delete-comment">삭제</button>
           <p style="clear:both;"></p>
         </div>
-
-        <!-- <div style="margin-top:3%;">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
-          <p class="comment-writer">홍길동</p>
-          <p class="comment-content">어머, 여기 맛있나요? 저도 한 번 가봐야겠어요^^</p>
-          <p style="clear:both;"></p>
-        </div>
-         <div style="margin-top:3%;">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
-          <p class="comment-writer">김싸피</p>
-          <p class="comment-content">저도 저번에 다녀왔는데 진짜 짱이었어요!</p>
-          <p style="clear:both;"></p>
-        </div> -->
       </div>
     </div>
   </div>
@@ -82,11 +69,20 @@ import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
 import UserApi from "../../api/UserApi";
 import AlertApi from "../../api/AlertApi";
+import Map from "../../views/Map.vue";
 
 export default {
   props : {feedNo : String},
+  mounted() {
+        window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
+
+  },
   data: () => {
     return { 
+      map : {},
+      markers : [],
+      ps : {},
+      infowindow : {},
       feed : {},
       photos : [],
       comments : [],
@@ -223,13 +219,103 @@ export default {
           alert(error);
         }
       );
+    },
 
+    initMap() { 
+            var container = document.getElementById('map')
+            var options = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667),
+                level: 3
+            }
+            this.map = new kakao.maps.Map(container, options)
+            
+            this.ps = new kakao.maps.services.Places()
+            this.infowindow = new kakao.maps.InfoWindow({zIndex:1})
+            //마커추가하려면 객체를 아래와 같이 하나 만든다. 
+            var marker = new kakao.maps.Marker({
+                position: this.map.getCenter()
+            })
+            marker.setMap(this.map)
 
+             // 코스에 대한 list 보여줄 부분 
+            //this.ps.keywordSearch('호야 참치초밥 본점', this.placesSearchCB);
+            this.ps.keywordSearch('우마이도 건대점', this.placesSearchCB);
+            this.ps.keywordSearch('호야 참치초밥 본점', this.placesSearchCB);
 
-    }
+            let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
+            let data = {
+              token : localStorage.getItem('token'),
+              feedNo
+            };
+
+            FeedApi.getCourse(
+              data,
+              response => {
+                console.log('코스 정보 받아옴!');
+                console.dir(response);
+              },
+              error => {
+                alert(error);
+              }
+            );  
+        },
+
+        addScript() {
+            const script = document.createElement('script')
+            /* global kakao */
+            script.onload = () => kakao.maps.load(this.initMap)
+            script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=6eef005ce939915ab51bb458c785e9f4&autoload=false&libraries=services,clusterer,drawing'
+            document.head.appendChild(script);
+        },
+
+        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+        placesSearchCB(data, status, pagination) {
+
+            if (status === kakao.maps.services.Status.OK) {
+
+                var bounds = new kakao.maps.LatLngBounds();
+                for (var i=0; i<data.length; i++) {
+                  this.displayMarker(data[i]);    
+                  bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                }       
+
+                // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                this.map.setBounds(bounds);
+
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+                alert('검색 결과가 존재하지 않습니다.');
+                return;
+
+            } else if (status === kakao.maps.services.Status.ERROR) {
+
+                alert('검색 결과 중 오류가 발생했습니다.');
+                return;
+
+            }
+        },
+
+        displayMarker(place) {
+
+          // 마커를 생성하고 지도에 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: this.map,
+                position: new kakao.maps.LatLng(place.y, place.x) 
+            });
+            
+            // 마커에 클릭이벤트를 등록합니다
+              kakao.maps.event.addListener(marker, 'click', function() {
+                // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                this.infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                this.infowindow.open(this.map, marker);
+            });
+        }
   },
 };
+
 </script>
+
+
 <style scoped>
 .user-name{
   margin-top: 3%;
@@ -238,14 +324,10 @@ export default {
   margin-left: 6%;
 }
 .feed-card{
-  display: flex;
-  justify-content: center;
-  margin-right: 25px;
-  padding: 0;
-}
-.feed-card > img {
-  width: 100%;
-  height: 100%;
+  clear: both;
+  margin-top: 1%;
+  margin-right: 5%;
+  border-radius: 0;
 }
 .space{
   height: 50px;
@@ -331,4 +413,41 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:100%;height:400px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option button {margin-left:5px;}
+#placesList li {list-style: none;}
+#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList .item span {display: block;margin-top:4px;}
+#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item .info{padding:10px 0 10px 55px;}
+#placesList .info .gray {color:#8a8a8a;}
+#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .info .tel {color:#009900;}
+#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList .item .marker_1 {background-position: 0 -10px;}
+#placesList .item .marker_2 {background-position: 0 -56px;}
+#placesList .item .marker_3 {background-position: 0 -102px}
+#placesList .item .marker_4 {background-position: 0 -148px;}
+#placesList .item .marker_5 {background-position: 0 -194px;}
+#placesList .item .marker_6 {background-position: 0 -240px;}
+#placesList .item .marker_7 {background-position: 0 -286px;}
+#placesList .item .marker_8 {background-position: 0 -332px;}
+#placesList .item .marker_9 {background-position: 0 -378px;}
+#placesList .item .marker_10 {background-position: 0 -423px;}
+#placesList .item .marker_11 {background-position: 0 -470px;}
+#placesList .item .marker_12 {background-position: 0 -516px;}
+#placesList .item .marker_13 {background-position: 0 -562px;}
+#placesList .item .marker_14 {background-position: 0 -608px;}
+#placesList .item .marker_15 {background-position: 0 -654px;}
+#pagination {margin:10px auto;text-align: center;}
+#pagination a {display:inline-block;margin-right:10px;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;}
 </style>
