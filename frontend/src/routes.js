@@ -17,6 +17,8 @@ import Search from './views/Search.vue'
 import AccountSetting from './views/user/AccountSetting.vue';
 import FeedDetail from './views/feed/FeedDetail.vue';
 import MapPage from './views/Map.vue'
+import WriteFeedPage from './views/feed/WriteFeed.vue';
+
 
 export default [{
         path: '/',
@@ -112,5 +114,11 @@ export default [{
         path: '/map',
         name: 'Map',
         component: MapPage
-    }
+    },
+    {
+        path: '/feed/write',
+        name: 'WriteFeed',
+        component: WriteFeedPage
+    },
+
 ]
