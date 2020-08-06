@@ -18,7 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
             "/feeds/**",
             "/comments/**",
             "/requests/**",
-            "/alerts/**"
+            "/alerts/**",
+            "/photos/**"
     };
 
     @Autowired

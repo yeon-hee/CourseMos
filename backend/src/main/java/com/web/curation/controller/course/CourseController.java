@@ -44,18 +44,33 @@ public class CourseController {
 
     @Autowired
     CourseDao courseDao;
-    
+
     @Autowired
     JwtService jwtService;
 
     @GetMapping("/course/{feedNo}")
     @ApiOperation(value = "코스 정보 받아오기")
-    public Object getCourse(@PathVariable final int feedNo) {
+    public Object getCourse(@RequestBody final int feedNo) {
 
         ResponseEntity response = null;
 
         try {
-            List<Course> course = courseDao.findAllByFeedNo(feedNo);               
+            List<Course> course = courseDao.findAllByFeedNo(feedNo);
+            response = new ResponseEntity<>(course, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
+    @PostMapping()
+    @ApiOperation(value = "코스 정보 업로드")
+    public Object getCourse(@PathVariable final Course course) {
+
+        ResponseEntity response = null;
+
+        try {
+            courseDao.save(course);
             response = new ResponseEntity<>(course, HttpStatus.OK); 
         } catch(Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

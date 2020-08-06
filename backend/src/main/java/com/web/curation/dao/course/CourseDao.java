@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.web.curation.model.course.Course;
+import com.web.curation.model.feed.Feed;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
 public interface CourseDao extends JpaRepository<Course, Integer> {
 
     List<Course> findAllByFeedNo(int feedNo);
+
+    int countByFeedNo(int feedNo);
 
     @Transactional
     void deleteByFeedNoAndCourseOrder(int feedNo, int courseOrder);

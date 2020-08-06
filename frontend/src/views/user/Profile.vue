@@ -101,6 +101,7 @@ export default {
             res => {
                 this.user_id = res.data.userId
                 this.profile_comment = res.data.profileComment
+                this.profile_photo = res.data.profilePhoto
             },
             error => {
                 alert(error);

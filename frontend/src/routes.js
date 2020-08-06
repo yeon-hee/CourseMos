@@ -14,9 +14,16 @@ import Requests from './views/user/Requests.vue'
 import Followers from './views/user/Followers.vue'
 import Followings from './views/user/Followings.vue'
 import Search from './views/Search.vue'
+
+
 import AccountSetting from './views/user/AccountSetting.vue';
 import FeedDetail from './views/feed/FeedDetail.vue';
+import FeedComment from './components/feed/FeedComment.vue';
+import FeedItemDetail from './components/feed/FeedItemDetail.vue';
 import MapPage from './views/Map.vue'
+import WriteFeedPage from './views/feed/WriteFeed.vue';
+
+import FeedMake from './views/feed/FeedMake.vue'
 
 export default [{
         path: '/',
@@ -112,5 +119,26 @@ export default [{
         path: '/map',
         name: 'Map',
         component: MapPage
-    }
+    },
+    {
+        
+        path: '/feed/write',
+        name: 'WriteFeed',
+        component: WriteFeedPage
+    },
+    {
+        path: '/feedmake',
+        name: 'FeedMake',
+        component: FeedMake
+    },
+    {
+        path: '/feeds/comments/:feedNo',
+        name: 'FeedComment',
+        component: FeedComment
+    },
+    {
+        path: '/feeds/back/:feedNo',
+        name: 'FeedItemDetail',
+        component: FeedItemDetail
+    },
 ]

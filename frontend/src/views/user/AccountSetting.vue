@@ -17,11 +17,11 @@
     
     <div class="form-wrap">
       <div class="input-wrap">
-        <img src="../../assets/images/user.png" width="50px" height="50px">
-        <form name="uploadForm" method="post" enctype="multipart/form-data">
-          <input type="file" name="imgFile" class="upload-input">
-          <button class="upload-btn" type="submit" value="등록">등록</button>
-        </form>
+        <img :src="profileThumbnail" width="50px" height="50px">
+        <!-- <form name="uploadForm" method="post" enctype="multipart/form-data"> -->
+          <input @change="selectImage()" type="file" ref="profileImage" name="imgFile" class="upload-input" accept="image/*">
+          <button class="upload-btn" @click="updateProfileImage()" value="등록">등록</button>
+        <!-- </form> -->
       </div>
       <div class="input-wrap">
         <label for="userId">아이디</label>
@@ -75,6 +75,7 @@
 import UserApi from "../../api/UserApi";
 import axios from 'axios';
 import LogoTitle from '../LogoTitle.vue';
+import * as firebase from "firebase/app";
 
 export default {
 
@@ -95,6 +96,7 @@ export default {
         this.placeUserId = response.data.userId;
         this.placeProfileComment = response.data.profileComment;
         this.email = response.data.email;
+        this.profileThumbnail = response.data.profilePhoto;
       },
       error => {
         alert(error);
@@ -113,6 +115,45 @@ export default {
     }
   },
   methods: {
+    selectImage() {
+      this.profileImage = this.$refs.profileImage.files[0];
+      // console.dir(this.profileImage)
+      this.profileThumbnail = window.URL.createObjectURL(this.profileImage);
+      
+    },
+    updateProfileImage() {
+      var fullPath = new Date().getTime() + this.profileImage.name
+      console.log(fullPath)
+      var storageRef = firebase.storage().ref('images/' + fullPath);
+      // this.uploadTask = firestorage.ref('images/' + file.name).put(file)
+
+      storageRef.put(this.profileImage).then( (snapshot) => {
+          var imageUrl = firebase.storage().ref('images/' + fullPath).getDownloadURL();
+          imageUrl.then((url) => {
+            console.log(url)
+            this.profilePhoto = url
+            let { userId, email, profileComment, profilePhoto } = this;
+            let data = {
+              token : localStorage.getItem('token'),
+              userId,
+              email,
+              profileComment,
+              profilePhoto
+            };
+
+            UserApi.changeProfileImage(
+              data,
+              response => {
+                alert("변경사항이 저장되었습니다.");
+                this.$router.push("/users/profile");
+              },
+              error => {
+                alert(error);
+              }
+            );
+          })
+      })
+    },
     finalCheck(){
       if(this.userId.length == 0 && this.profileComment.length == 0){
         this.isSubmit = false;
@@ -172,6 +213,7 @@ export default {
     return {
       userId:"",
       email:"",
+      profilePhoto : "", 
       profileComment: "",
       placeUserId: "",
       placeEmail: "",
@@ -181,7 +223,9 @@ export default {
         userId: false
       },
       isSubmit: false,
-      termPopup: false
+      termPopup: false,
+      profileImage : {},
+      profileThumbnail : "../../assets/images/user.png"
     };
   }
 };
