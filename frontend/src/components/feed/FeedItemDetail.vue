@@ -45,23 +45,28 @@
     <div style="clear: both;"></div>
     <div style="height:15px;"></div><br>
       
-    <!-- 코스 들어가는 곳-->
-    <div class="box-container" style="margin-left:30px; border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
+
+
+    <li v-for="course in courseList" :key="course.id">
+        <div class="box-container" style="margin-left:30px; border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
       <div style="float:left;">
-        <img :src="feed.thumbnail" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+        <!-- {{initMap('건대')}} -->
+        <img :src="course.thumbnailUrl" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
       </div>
-      <div style="float:left; margin: 9px 0px 9px 5px; line-height: 1.5em;">
-          <div style="font-size:12px; color:rgb(51,102,255);">{{this.two}}</div>
-          {{this.name}}</div>
+      <div style="float:left; margin: 9px 0px 9px 10px; line-height: 1.5em;">
+          <div style="font-size:12px; color:rgb(51,102,255);"></div>
+           {{course.tradeName}} 
+          </div>
       <div style="float:right; margin: 12px 10px 12px 0px;">
         <a href="javascript:;" @click="clickRoute()">
           <img src="../../assets/images/find_route_icon.png" width="35px" height="35px">
         </a>
       </div>
-      <!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
+    </div><br>
+    </li>
+    <!-- 코스 들어가는 곳-->
+<!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
       <!-- <div class="box" style="border:1px solid rgb(183,183,183); height:40px; width:40px; border-radius: 10px;"></div> -->
-    </div><br><br><br><br>
-
 
 
       <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a>
@@ -93,13 +98,14 @@ import UserApi from "../../api/UserApi";
 import AlertApi from "../../api/AlertApi";
 import Map from "../../views/Map.vue";
 import Nav from "../../views/Nav.vue";
+import axios from "axios";
 
 export default {
   components: { Nav },
   props : {feedNo : String},
   mounted() {
-        window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
-
+    console.log('마운트')
+    window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
   },
   data: () => {
     return { 
@@ -110,8 +116,11 @@ export default {
       one : {},
       two: {},
       name: {},
+      x: {},
+      tempList: [],
       address : {},
       infowindow : {},
+      courseList: [],
       bounds : "",
       feed : {},
       photos : [],
@@ -128,11 +137,25 @@ export default {
     };
   }, 
   created() {
+    console.log('여기입니다');
     let data = {
         token : localStorage.getItem('token'),
         feedNo : this.$route.params.feedNo
     };
-    this.bounds = new kakao.maps.LatLngBounds();
+    
+    // 코스 등록 추가되면 연동하기
+    //let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
+    FeedApi.getCourse(
+      data,
+      res => {
+          this.courseList = res.data;
+          console.log('코스 정보 받아옴!');
+          this.category()
+      },
+      error => {
+        alert(error);
+      }
+    );  
     
     FeedApi.loadFeedDetail(
       data,
@@ -154,10 +177,15 @@ export default {
         alert('피드 이미지 조회에 실패했습니다.');
       }
     );
-  
+
   },
   methods: {
-
+    category(){
+      console.log('분류');
+      for(var i=0;i<this.courseList.length;i++){
+        this.ps.keywordSearch(this.courseList[i].tradeName, this.placesSearchCB);
+      }
+    },
     clickComment(){
       this.$router.push("/feeds/comments/" + this.$route.params.feedNo); // 여기 수정
     },
@@ -166,32 +194,6 @@ export default {
     },
     clickRoute(){
        location.href = "https://maps.google.com/?daddr="+this.address;
-    },
-    registComment(feed){
-        let { feedNo, content } = this;
-        let data = {
-          token : localStorage.getItem('token'),
-          feedNo,
-          content
-        };
-        console.log('댓글 등록 들어옴.');
-        console.log(data);
-        feed.commentCount += 1;
-
-        FeedApi.registerComment(
-          data,
-          response => {
-            console.log(response);
-            console.log('댓글 등록 성공');
-            alert("댓글이 등록되었습니다.");
-            this.comments.push(response.data);
-
-          },
-          error => {
-            alert(error);
-          }
-        );
-
     },
     clickLikeBtn(feed){
       if(!feed.mine){
@@ -230,31 +232,10 @@ export default {
       //     }
       //   );
     },
-    deleteComment(feed, comment, index){
-      //this.comments.splice(index, 1);
-      let feedNo =  this.feedNo;
-      let commentNo = comment.commentNo;
-      let data = {
-        token : localStorage.getItem('token'),
-        feedNo,
-        commentNo
-      };
-
-      FeedApi.deleteComment(
-        data,
-        response => {
-          alert("댓글이 삭제되었습니다.");
-          this.comments.splice(index, 1);
-          // location.reload();
-          // this.$router.push("/feed/main");
-        },
-        error => {
-          alert(error);
-        }
-      );
-    },
 
     initMap() { 
+      console.log('맵 초기화 ~~');
+
             var container = document.getElementById('map')
             var options = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -270,32 +251,73 @@ export default {
             })
             marker.setMap(this.map)
 
-             // 코스에 대한 list 보여줄 부분 
-            //this.ps.keywordSearch('호야 참치초밥 본점', this.placesSearchCB);
-           
-            this.ps.keywordSearch('우마이도 건대점', this.placesSearchCB);
+            // var keyword = '우마이도 건대점';
+            // var url = 'https://map.naver.com/v5/search/'; // 크롤링 url로 바꾸기 
+            // for(var i=0; i<keyword.length;i++){
+            //   if(keyword[i] == " ") url += '%20';
+            //   else url += keyword[i];
+            // }
+            // url += '/place/';
+            // console.log(url);
+
+            // for (var i=0; i<this.courseList.length; i++) {
+            //       //this.ps.keywordSearch(this.courseList[i]., this.placesSearchCB);
+            //       console.log(this.courseList[i]);
+            // }
+
+
+            //this.test(url);
+            //this.crawling(url);
+            //this.ps.keywordSearch(name, this.placesSearchCB);
+            // keyword로 이미지 찾아오기
+
             //this.ps.keywordSearch('호야 참치초밥 본점', this.placesSearchCB);
             //this.ps.keywordSearch('이태원 맛집', this.placesSearchCB);
             //this.setReBound();
+        },
 
+        crawling(url){
+          console.log('로그들어옴')
+            const request = require('request-promise')
+            const cheerio = require('cheerio')
+            const v = require('voca')
+            const log = console.log;
 
-            // 코스 등록 추가되면 연동하기
-            // let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
-            // let data = {
-            //   token : localStorage.getItem('token'),
-            //   feedNo
-            // };
+            request(url)
+              .then(html => {
+                  let ulList = [];
+                  const $ = cheerio.load(html); 
+                  const $bodyList = $("div.link_search a.thumb_box");
+                  console.log($bodyList);
 
-            // FeedApi.getCourse(
-            //   data,
-            //   response => {
-            //     console.log('코스 정보 받아옴!');
-            //     console.dir(response);
-            //   },
-            //   error => {
-            //     alert(error);
-            //   }
-            // );  
+                  // $bodyList.each(function(i, elem){
+                  //     ulList[i] = {
+                  //         src: $(this).find('a.nathumb_boxme').attr('src')
+                  //     };
+                  // });
+
+                  // const data = ulList.filter(n => n.src);
+                  // console.log(data);
+                  // return data;
+            })
+        },
+
+        test(url) {
+                var optionAxios = {
+                      headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
+                        'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length, X-Requested-With'
+                      }
+                }
+
+                axios.get('https://cors-anywhere.herokuapp.com/' + 'https://place.map.kakao.com/26849085', optionAxios)
+                  .then((response) => {
+                    var htmlText = response.data;
+                    console.log(htmlText);
+                    //this.crawling(htmlText);
+                  })
         },
 
         addScript() {
@@ -312,9 +334,10 @@ export default {
             if (status === kakao.maps.services.Status.OK) {
 
                 var bounds = new kakao.maps.LatLngBounds();
+            
                 for (var i=0; i<data.length; i++) {
-                  this.displayMarker(data[i]);    
-                  bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                    this.displayMarker(data[i]);    
+                    bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                 }     
 
                 this.map.setBounds(bounds);  
@@ -337,8 +360,6 @@ export default {
             this.one = str[1];
             this.two = str[2];
             this.address = place.address_name;
-            console.log(str[1]);
-            console.log(str[2]);
 
             var marker = new kakao.maps.Marker({
                 map: this.map,
