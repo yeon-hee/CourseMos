@@ -37,6 +37,7 @@
 import "../../assets/css/components.scss";
 import "../../components/css/user/profile.css";
 import FeedApi from "../../api/FeedApi";
+import CourseApi from "../../api/CourseApi";
 import * as firebase from "firebase/app";
 
 export default {
@@ -49,7 +50,8 @@ export default {
             uploadedImageUrl : [],
             token : localStorage.getItem('token'),
             userId : localStorage.getItem('userId'),
-            contents : ""
+            contents : "",
+            courses : []
         };
     },
     methods : {
@@ -127,6 +129,34 @@ export default {
                     else {
                         this.$router.push("/feed/main");
                     }
+
+                    let courseData = {
+                        feedNo : response.data.feedNo,
+                        courseOrder : "",
+                        tradeName : "",
+                        latitude : {},
+                        longitude : {},
+                        thumbnailUrl : ""
+                    }
+
+                    for(var idx in this.courses) {
+                        courseData.courseOrder = idx+1
+                        courseData.tradeName = this.courses[idx].tradeName
+                        courseData.latitude = this.courses[idx].latitude
+                        courseData.longitude = this.courses[idx].longitude
+                        courseData.thumbnailUrl = this.courses[idx].thumbnailUrl
+                        CourseApi.uploadFeedCourses(
+                            courseData,
+                            response => {
+                                console.log(response)
+                            },
+                            error => {
+                                alert(error);
+                            }
+                        )
+                    }
+
+
                 },
                 error => {
                     alert(error);

@@ -41,6 +41,15 @@
                 <p>{{trade.address}}</p>
             </div>
 
+            <div class="wrap">
+                <ul>
+                    <li v-for="item in menu" :key="item">
+                        <p>{{item.name}}</p>
+                        <p>{{item.price}}</p>
+                    </li>
+                </ul>
+            </div>
+
             <h2>블로그 리뷰</h2>
             <div class="wrap">
                 <div v-for="blog in blogs" :key="blog">
@@ -67,7 +76,7 @@ export default {
                 telephone : "02-581-1419",
                 address : "서울 동작구 동작대로 7길 19",
                 menu : [],
-                blogs : {}
+                blogs : []
           }
       }
   }
