@@ -1,11 +1,20 @@
 <template>
     <div>
-    <LogoTitle/>
-        <div id="alerts">
-            <section class="tab">
-                <a class="active-tab" href="#"><div class="tab-alerts">알림</div></a>
-                <a href="#/requests"><div class="tab-requests">요청</div></a>
-            </section>
+        <LogoTitle/>
+        <tab/>
+        <v-list subheader>
+            <v-subheader><v-btn text @click="closeAll"><span>모두 닫기</span></v-btn></v-subheader>
+            <v-list-tile v-for="(alert, index) in alertList" :key="alert.id">
+                <v-list-tile-avatar>
+                    <img src="@/assets/images/profile_default.png">
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                    <v-list-tile-title v-html="alert.message"></v-list-tile-title>
+                </v-list-tile-content>
+                <v-btn icon @click="close(alert, index)"><v-icon>fas fa-times</v-icon></v-btn>
+            </v-list-tile>
+        </v-list>
+        <!-- <div id="alerts">
             <div class="all-button">
                 <button class="all-close" @click="closeAll()">모두닫기</button>
             </div>
@@ -24,7 +33,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
     <Nav/>
     </div>
   
@@ -36,12 +45,14 @@ import Nav from "../Nav.vue";
 import "../../components/css/user/alerts.css";
 import axios from 'axios';
 import AlertApi from "../../api/AlertApi";
+import Tab from "../../components/alert/Tab";
 
 
 export default {
     components: {
         LogoTitle,
-        Nav
+        Nav,
+        Tab
     },
     created() {
         let data = {
@@ -94,21 +105,13 @@ export default {
                     console.log(error);
                 }
             );
-        }
+        },
+
     }
 }
 
 </script>
 
 <style scoped>
-
-hr{
-    margin: 0;
-}
-
-.tab-alerts{
-    background-color: bisque;
-    opacity: 80%;
-}
 
 </style>

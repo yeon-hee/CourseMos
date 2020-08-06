@@ -1,12 +1,23 @@
 <template>
-  <div class="nav">
-      <div><a href="#/feed/main"><i class="fas fa-home"></i></a></div>
-      <div><a href="#/search"><i class="fas fa-search"></i></a></div>
-      <div><a href="#/feedmake"><i class="far fa-plus-square fa-w-16"></i></a></div>
-      <div><a href="#/alerts"><i class="far fa-bell"></i></a></div>
-      <div><a href="#/users/profile"><img :src="profile_photo" class="profile-avatar"/></a></div>
-      <!-- <div><a href="#/users/profile"><i class="fas fa-user-circle"></i></a></div> -->
-  </div>
+<v-card height="200px" flat>
+  <v-bottom-navigation fixed>
+      <v-btn icon color="teal" value="recent" @click="goMain">
+        <v-icon>fas fa-home</v-icon>
+      </v-btn>
+      <v-btn icon color="teal" value="recent" @click="goSearch">
+        <v-icon>fas fa-search</v-icon>
+      </v-btn>
+      <v-btn icon color="teal" value="recent" @click="goFeedMake">
+        <v-icon>far fa-plus-square fa-w-16"</v-icon>
+      </v-btn>
+      <v-btn icon color="teal" value="recent" @click="goAlerts">
+        <v-icon>far fa-bell</v-icon>
+      </v-btn>
+      <v-btn icon color="teal" value="recent" @click="goProfile">
+        <v-icon>fas fa-user-circle</v-icon>
+      </v-btn>
+  </v-bottom-navigation>
+</v-card>
 </template>
 
 <script>
@@ -15,42 +26,27 @@ export default {
         return {
             profile_photo: require('@/assets/images/profile_default.png')
         }
+    },
+    methods: {
+        goMain(event){
+            this.$router.push('/feed/main')
+        },
+        goSearch() {
+            this.$router.push('/search')
+        },
+        goFeedMake() {
+            this.$router.push('/feedmake')
+        },
+        goAlerts() {
+            this.$router.push('/alerts')
+        },
+        goProfile() {
+            this.$router.push('/users/profile')
+        }
     }
-
 }
 </script>
 
 <style scoped>
-.nav{
-    position: fixed;
-    bottom: 0;
-    width: 400px;
-    margin: 0 auto;
-    overflow: hidden;
-    border-top: 1px solid lightslategray;
-    background-color: white;
-    max-width: 500px;
-}
-
-.nav > div > a{
-    float: left;
-    width: 20%;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    text-decoration: none;
-    color: black;
-}
-
-.nav > div > a >i{
-    color: black;
-}
-
-.profile-avatar{
-    margin-top: 10px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-}
 
 </style>
