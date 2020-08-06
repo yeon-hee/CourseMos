@@ -15,18 +15,18 @@ import "../components/css/logotitle.css";
 export default {
   data() {
     return {
-      userId: localStorage.getItem('userId')
-    }
+      userId: localStorage.getItem("userId"),
+    };
   },
   methods: {
-    logout(){
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('email');
-      alert("로그아웃 되었습니다.")
+    logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("email");
+      alert("로그아웃 되었습니다.");
       this.$router.push("/");
     },
-    goToWrite(){
+    goToWrite() {
       this.$router.push("/feed/write");
     }
   }
