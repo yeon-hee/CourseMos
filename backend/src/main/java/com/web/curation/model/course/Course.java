@@ -21,25 +21,21 @@ public class Course {
 
     @Id
     @Column(name = "feed_no")
-    private int feedNo; 
+    private int feedNo;
 
     @Id
     @Column(name = "course_order")
     private int courseOrder;
 
-    @Id
     @Column(name = "trade_name")
     private String tradeName;
 
-    @Id
     @Column(name = "latitude")
     private String latitude;
 
-    @Id
     @Column(name = "longitude")
     private String longitude;
 
-    @Id
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 }

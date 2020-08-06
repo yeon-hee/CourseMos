@@ -1,16 +1,24 @@
 <template>
     <div>
         <LogoTitle/>
-        <div class="requests">
-            <section class="tab">
-                <a href="#/alerts"><div class="tab-alerts">알림</div></a>
-                <a class="active-tab" href="#"><div class="tab-requests">요청</div></a>
-            </section>
-            <div class="all-button">
-                <button class="all-deny" @click="rejectAll()">모두거절</button>
-                <button class="all-approve" @click="allowAll()">모두승인</button>
-
-            </div>
+        <tab></tab>
+        <v-list subheader>
+            <v-subheader>
+                <v-btn text @click="rejectAll"><span>모두 거절</span></v-btn>
+                <v-btn text @click="allowAll"><span>모두 승인</span></v-btn>
+            </v-subheader>
+            <v-list-tile v-for="(request, index) in requestList" :key="request.id">
+                <v-list-tile-avatar>
+                    <img src="@/assets/images/profile_default.png">
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                    <v-list-tile-title>{{request.follower}}님이 팔로우를 요청하였습니다.</v-list-tile-title>
+                </v-list-tile-content>
+                <v-btn text @click="reject(request, index)"><span>거절</span></v-btn>
+                <v-btn text @click="allow(request, index)"><span>승인</span></v-btn>
+            </v-list-tile>
+        </v-list>
+        <!-- <div class="requests">
             <section class="tab-list">
                 <ul class="request-list">
                     <li v-for="(request, index) in requestList" :key="request.id">
@@ -29,7 +37,7 @@
                     <hr>
                 </ul>
             </section>
-        </div>
+        </div> -->
         <Nav/>
     </div>
   
@@ -41,11 +49,13 @@ import Nav from "../Nav.vue";
 import "../../components/css/user/requests.css";
 import axios from 'axios';
 import RequestApi from "../../api/RequestApi";
+import Tab from "../../components/alert/Tab";
 
 export default {
     components: {
         LogoTitle,
-        Nav
+        Nav,
+        Tab
     },
     created() {
         let data = {

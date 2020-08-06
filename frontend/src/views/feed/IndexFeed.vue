@@ -1,7 +1,7 @@
 <template>
-  <div class="feed newsfeed">
+  <div>
     <logo-title/>
-    <div class="wrapB">
+    <div class="container">
       <search-bar
           inputValue="text"
           placeholder="검색어를 입력해주세요."
@@ -127,12 +127,5 @@ export default {
 };
 </script>
 <style scoped>
-
-.wrapB{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-}
 
 </style>
