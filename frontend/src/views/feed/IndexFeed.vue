@@ -2,13 +2,16 @@
   <div class="feed newsfeed">
     <logo-title/>
     <div class="wrapB">
-      <!-- <br><h1 style="text-align : center">뉴스피드</h1> -->
-
+      <search-bar
+          inputValue="text"
+          placeholder="검색어를 입력해주세요."
+          label="검색"
+          @search="searchFeeds"
+      />
       <FeedItem2 v-for="feed in feeds" v-bind:key="feed" v-bind:feed="feed"/>
 
-      <!-- <FeedItem />
-      <FeedItem />
-      <FeedItem /> -->
+      <infinite-loading slot="append" @infinite="infiniteHandler" force-use-infinite-wrapper=".el-table__body-wrapper">
+      </infinite-loading>
       <Nav/>
     </div>
   </div>
@@ -22,30 +25,79 @@ import FeedItem2 from "../../components/feed/FeedItem2.vue";
 import FeedApi from "../../api/FeedApi";
 import Nav from "../../views/Nav";
 import LogoTitle from "../LogoTitle.vue";
+import InfiniteLoading from "vue-infinite-loading";
+import SearchBar from "../../components/feed/SearchBar";
 
 export default {
   props: ["keyword"],
   data: () => {
     return {
-      feeds : []
+      page : 0,
+      feeds : [],
+      text : "",
+      error: {
+        email: "",
+        text: ""
+      },
+      isSearch : false,
+      search : ""
     };
   },
-  components: { FeedItem2, Nav, LogoTitle },
+  components: { SearchBar, FeedItem2, Nav, LogoTitle, InfiniteLoading },
   created() {
-    let token = localStorage.getItem('token');
-    let data = { token }
-    FeedApi.loadFeeds(
-      data,
-      response => {
-        this.feeds = response.data
-        console.dir(this.feeds)
-      },
-      error => {
-        alert('피드 목록 조회에 실패했습니다.');
-      }
-    );
   },
   methods : {
+    infiniteHandler($state) {
+      if(!this.isSearch) {
+        let data = {
+          token : localStorage.getItem("token"),
+          page : this.page
+        }
+        FeedApi.loadFeeds(
+          data,
+          response => {
+            if (response.data.content.length) {
+              this.page += 1;
+              this.feeds = this.feeds.concat(response.data.content);
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          },
+          error => {
+            alert(error);
+          }
+        )
+      } else {
+        let data = {
+          token : localStorage.getItem("token"),
+          search : this.search,
+          page : this.page
+        };
+        FeedApi.searchFeeds(
+          data,
+          response => {
+            if (response.data.length) {
+              this.page += 1;
+              this.feeds = this.feeds.concat(response.data);
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          },
+          error => {
+            alert(error);
+          }
+        )
+
+      }
+    },
+    searchFeeds(search) {
+      this.isSearch = true;
+      this.search = search;
+      this.feeds = [];
+      this.page = 0;
+    }
   }
 };
 </script>

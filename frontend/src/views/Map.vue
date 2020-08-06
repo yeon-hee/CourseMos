@@ -1,12 +1,12 @@
 <template>
     <div class="map_wrap">
-        <div id="map" style="width:500px;height:400px;"></div>
+        <div id="map" style="width:350px;height:350px;"></div>
 
         <div id="menu_wrap" class="bg_white">
             <div class="option">
                 <div>
                     <form v-on:submit.prevent="searchPlaces">
-                        키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
+                        키워드 : <input type="text" value="이태원 맛집" id="keyword" > 
                         <button type="submit">검색하기</button> 
                     </form>
                 </div>
@@ -79,6 +79,10 @@ export default {
 
             if (status === kakao.maps.services.Status.OK) {
 
+                ////////////////////////////////////////////////
+                console.log(data)
+
+
                 // 정상적으로 검색이 완료됐으면
                 // 검색 목록과 마커를 표출합니다
                 this.displayPlaces(data);
@@ -129,7 +133,7 @@ export default {
                 // 해당 장소에 인포윈도우에 장소명을 표시합니다
                 // mouseout 했을 때는 인포윈도우를 닫습니다
                 (function(marker, title) {
-                    kakao.maps.event.addListener(marker, 'mouseover', function() {
+                    kakao.maps.event.addListener(marker, 'click', function() {
                         this.displayInfowindow(marker, title);
                     });
 
@@ -160,6 +164,12 @@ export default {
     // 검색결과 항목을 Element로 반환하는 함수입니다
         getListItem(index, places) {
 
+            //console.log(places);
+            //console.log(places.category_name);
+            //console.log(places.road_address_name);
+            console.log(places.address_name);
+            //console.log(places.category_name.split('>'));
+        
             var el = document.createElement('li'),
             itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                         '<div class="info">' +
@@ -245,6 +255,14 @@ export default {
     // 인포윈도우에 장소명을 표시합니다
         displayInfowindow(marker, title) {
             var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+            var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content : iwContent,
+                removable : iwRemoveable
+            });
 
             this.infowindow.setContent(content);
             this.infowindow.open(this.map, marker);
@@ -255,7 +273,8 @@ export default {
             while (el.hasChildNodes()) {
                 el.removeChild (el.lastChild);
             }
-        }
+        },
+        
 
     },
 
@@ -263,15 +282,17 @@ export default {
 </script>
 
 <style scoped>
-    .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap, .map_wrap * {margin:0 auto;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#map{width:300px;height:300px;}
+#menu_wrap {display: block; top:0;left:0;bottom:0;width:300px;margin:0 auto;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
+#keyword {width: 150px; height: 30px;}
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
 #placesList .item span {display: block;margin-top:4px;}

@@ -44,7 +44,7 @@ public class CourseController {
 
     @Autowired
     CourseDao courseDao;
-    
+
     @Autowired
     JwtService jwtService;
 
@@ -55,11 +55,11 @@ public class CourseController {
         ResponseEntity response = null;
 
         try {
-            List<Course> course = courseDao.findAllByFeedNo(feedNo);               
-            response = new ResponseEntity<>(course, HttpStatus.OK); 
-        } catch(Exception e) {
+            List<Course> course = courseDao.findAllByFeedNo(feedNo);
+            response = new ResponseEntity<>(course, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } 
+        }
         return response;
     }
 

@@ -3,20 +3,23 @@ package com.web.curation.controller.feed;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.web.curation.dao.comment.CommentDao;
+import com.web.curation.dao.course.CourseDao;
 import com.web.curation.dao.feed.FeedDao;
 import com.web.curation.dao.like.LoveDao;
 import com.web.curation.dao.photo.PhotoDao;
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.comment.Comment;
 import com.web.curation.model.feed.Feed;
 import com.web.curation.model.like.Love;
 import com.web.curation.model.photo.Photo;
 import com.web.curation.service.JwtService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -51,19 +55,24 @@ public class FeedController {
     @Autowired
     LoveDao likeDao;
     @Autowired
+    CourseDao courseDao;
+    @Autowired
     JwtService jwtService;
 
     @GetMapping
     @ApiOperation(value = "피드 전체보기")
-    public Object loadFeeds() {
+    public Object loadFeeds(@RequestParam int page) {
         
         String userId = (String) jwtService.getUserId();
-        List<Feed> feeds;
+        Page<Feed> feeds;
         ResponseEntity response = null;
-
+        System.out.println(page);
         try {
-            feeds = feedDao.findAll();
+            PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
+
+            feeds = feedDao.findAll(request);
             for(Feed feed : feeds) {
+                System.out.println(feed);
                 int feedNo = feed.getFeedNo();
                 feed.setCommentCount(commentDao.countByFeedNo(feedNo));
                 feed.setLikeCount(likeDao.countByFeedNo(feedNo));
@@ -198,6 +207,22 @@ public class FeedController {
         } catch(Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } 
+        return response;
+    }
+
+    @GetMapping("/search/{search}")
+    @ApiOperation(value = "키워드로 피드 검색")
+    public Object searchFeeds(@PathVariable final String search, @RequestParam int page) {
+        String userId = (String)jwtService.getUserId();
+        
+        ResponseEntity response = null;
+        try {
+            PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
+            List<Feed> feeds = feedDao.findAllBySearch(search, request);
+            response = new ResponseEntity<>(feeds, HttpStatus.OK);
+        } catch(Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
         return response;
     }
     
