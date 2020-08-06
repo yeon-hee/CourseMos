@@ -389,7 +389,8 @@ export default {
 }
 .courseMake {
   display: flex;
-  position: sticky;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
 }
 .placeList {
   width: 300px;
