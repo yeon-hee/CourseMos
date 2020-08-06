@@ -9,8 +9,9 @@
           @search="searchFeeds"
       />
       <FeedItem2 v-for="feed in feeds" v-bind:key="feed" v-bind:feed="feed"/>
-
-      <infinite-loading slot="append" @infinite="infiniteHandler" force-use-infinite-wrapper=".el-table__body-wrapper">
+      
+      <button @click="initPage" v-if="isSearch && page==0">Load more</button>
+      <infinite-loading v-else slot="append" @infinite="infiniteHandler" force-use-infinite-wrapper=".el-table__body-wrapper">
       </infinite-loading>
       <Nav/>
     </div>
@@ -47,6 +48,29 @@ export default {
   created() {
   },
   methods : {
+    initPage() {
+      let data = {
+          token : localStorage.getItem("token"),
+          search : this.search,
+          page : this.page
+      };
+      console.dir(data);
+      FeedApi.searchFeeds(
+          data,
+          response => {
+            console.dir(response);
+            if (response.data.length) {
+              this.page += 1;
+              this.feeds = this.feeds.concat(response.data);
+            }else {
+              alert("검색 결과가 없습니다.");
+            }
+          },
+          error => {
+            alert(error);
+          }
+        )
+    },
     infiniteHandler($state) {
       if(!this.isSearch) {
         let data = {
@@ -97,6 +121,7 @@ export default {
       this.search = search;
       this.feeds = [];
       this.page = 0;
+      this.$refs.InfiniteLoading.stateChanger.reset();
     }
   }
 };
