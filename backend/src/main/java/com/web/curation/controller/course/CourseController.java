@@ -71,11 +71,11 @@ public class CourseController {
 
         try {
             courseDao.save(course);
-            response = new ResponseEntity<>(course, HttpStatus.OK); 
-        } catch(Exception e) {
+            response = new ResponseEntity<>(course, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } 
+        }
         return response;
     }
-    
+
 }
