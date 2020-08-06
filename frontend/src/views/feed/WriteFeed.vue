@@ -26,7 +26,7 @@
         </ul>
       </div>
       <div class="wrap">
-        <input type="button" value="피드 추가" @click="checkImage()" />
+        <input class="addButton" type="button" value="피드 추가" @click="checkImage()" />
       </div>
     </div>
   </div>
@@ -153,7 +153,7 @@ export default {
               }
             );
           }
-          // this.$router.push("/feed/main");
+          this.$router.push("/feed/main");
         },
         (error) => {
           alert(error);
@@ -164,4 +164,5 @@ export default {
 };
 </script>
 
-<style scoped></style>;
+<style scoped>
+</style>;

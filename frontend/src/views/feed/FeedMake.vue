@@ -10,10 +10,12 @@
             class="place"
             v-on:click="doRemove(index)"
           >
-            <img :src="course.thumbnailUrl" alt="img" style="position: relative;" />
+            <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
           </li>
         </ul>
-        <button v-on:click="saveCourse" class="next">글작성하기</button>
+        <button v-on:click="saveCourse" class="next">
+          <v-icon x-large>fas fa-arrow-right</v-icon>
+        </button>
       </div>
       <div class="map_wrap">
         <div id="map" style="width:350px;height:350px;"></div>
@@ -185,13 +187,18 @@ export default {
 
         var temp = this.displayInfowindow;
         var temp2 = this.infowindow;
+        var temp3 = this.addplace;
         (function (marker, title) {
           kakao.maps.event.addListener(marker, "mouseover", function () {
             temp(marker, title);
           });
 
           kakao.maps.event.addListener(marker, "mouseout", function () {
-            temp2.close();
+            temp2(marker);
+          });
+
+          kakao.maps.event.addListener(marker, "click", function () {
+            temp3(marker, title);
           });
 
           itemEl.onmouseover = function () {
@@ -200,6 +207,10 @@ export default {
 
           itemEl.onmouseout = function () {
             temp2.close();
+          };
+
+          itemEl.onclick = function () {
+            temp3(marker, title);
           };
         })(marker, places[i].place_name);
 
@@ -227,9 +238,11 @@ export default {
           (index + 1) +
           '"></span>' +
           '<div class="info">' +
-          "   <h5>" +
+          "   <h3>" +
+          (index + 1) +
+          ". " +
           places.place_name +
-          "</h5>";
+          "</h3>";
 
       if (places.road_address_name) {
         itemStr +=
@@ -322,8 +335,18 @@ export default {
       var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
 
       // 인포윈도우를 생성합니다
-      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      // var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
+      this.infowindow.setContent(content);
+      this.infowindow.open(this.map, marker);
+    },
+
+    infowindow(marker) {
+      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      infowindow.close(this.map, marker);
+    },
+
+    addplace(marker, title) {
       for (var i = 0; i < this.places.length; i++) {
         if (this.places[i].place_name == title) {
           this.courses.push({
@@ -336,8 +359,6 @@ export default {
         }
       }
       console.log(this.courses);
-      infowindow.setContent(content);
-      infowindow.open(this.map, marker);
     },
 
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -368,16 +389,18 @@ export default {
 }
 .courseMake {
   display: flex;
+  position: sticky;
 }
 .placeList {
-  width: 290px;
-  min-width: 290px;
+  width: 300px;
+  min-width: 300px;
   max-width: 500px;
   margin: 5px 0;
   margin-left: 20px;
   height: 60px;
   border: 1px solid rgba(0, 0, 0, 0.0975);
   border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px grey;
 }
 .place {
   display: inline-flex;
@@ -389,6 +412,7 @@ export default {
 .place > img {
   width: 100%;
   height: 100%;
+  border-radius: 5px;
 }
 .next {
   margin-left: 10px;
@@ -420,7 +444,7 @@ export default {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 300px;
+  width: 380px;
   margin: 0 auto;
   padding: 5px;
   overflow-y: auto;
@@ -487,8 +511,8 @@ export default {
   color: #009900;
 }
 #placesList .item .markerbg {
-  float: left;
-  position: absolute;
+  /* float: left;
+  position: absolute; */
   width: 36px;
   height: 37px;
   margin: 10px 0 0 10px;
@@ -552,5 +576,46 @@ export default {
   font-weight: bold;
   cursor: default;
   color: #777;
+}
+.thumbnail:hover {
+  opacity: 0.5;
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 </style>
