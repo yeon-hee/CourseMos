@@ -44,7 +44,7 @@ public class CourseController {
 
     @Autowired
     CourseDao courseDao;
-    
+
     @Autowired
     JwtService jwtService;
 
@@ -55,12 +55,36 @@ public class CourseController {
         ResponseEntity response = null;
 
         try {
-            List<Course> course = courseDao.findAllByFeedNo(feedNo);               
-            response = new ResponseEntity<>(course, HttpStatus.OK); 
-        } catch(Exception e) {
+            List<Course> course = courseDao.findAllByFeedNo(feedNo);
+            response = new ResponseEntity<>(course, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } 
+        }
         return response;
     }
-    
+
+    // 피드 작성하기
+    @PostMapping
+    @ApiOperation(value = "코스 피드 만들기")
+    public Object makeFeed(@PathVariable final int feedNo) {
+
+        ResponseEntity response = null;
+
+        try {
+            String userId = (String) jwtService.getUserId();
+
+            course.setWriter(userId);
+
+            courseDao.save(course);
+            response = new ResponseEntity<>(course, HttpStatus.OK);
+
+        } catch (Exception e) {
+            final BasicResponse result = new BasicResponse();
+            result.status = false;
+            result.data = e.toString();
+            response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
 }

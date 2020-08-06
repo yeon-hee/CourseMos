@@ -6,7 +6,7 @@
             <div class="option">
                 <div>
                     <form v-on:submit.prevent="searchPlaces">
-                        키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
+                        키워드 : <input type="text" value="이태원 맛집" id="keyword" > 
                         <button type="submit">검색하기</button> 
                     </form>
                 </div>
@@ -78,6 +78,10 @@ export default {
         placesSearchCB(data, status, pagination) {
 
             if (status === kakao.maps.services.Status.OK) {
+
+                ////////////////////////////////////////////////
+                console.log(data)
+
 
                 // 정상적으로 검색이 완료됐으면
                 // 검색 목록과 마커를 표출합니다
@@ -245,6 +249,14 @@ export default {
     // 인포윈도우에 장소명을 표시합니다
         displayInfowindow(marker, title) {
             var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+            var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content : iwContent,
+                removable : iwRemoveable
+            });
 
             this.infowindow.setContent(content);
             this.infowindow.open(this.map, marker);
@@ -255,7 +267,8 @@ export default {
             while (el.hasChildNodes()) {
                 el.removeChild (el.lastChild);
             }
-        }
+        },
+        
 
     },
 
@@ -273,6 +286,7 @@ export default {
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
+#keyword {width: 150px; height: 30px;}
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
 #placesList .item span {display: block;margin-top:4px;}
