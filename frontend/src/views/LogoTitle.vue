@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="logo-title">
-      <a href="#/feed/main"><img src="../assets/images/logo.jpg" width="30px" height="30px" alt="logo" class="logo"></a>
+      <a href="#/feed/main">
+        <img src="../assets/images/logo.jpg" width="30px" height="30px" alt="logo" class="logo" />
+      </a>
       <span class="title u-fat-text">맛동산</span>
       <div class="logout-button">
-        <button @click="goToWrite">addFeed</button>
+        <!-- <button @click="goToWrite">addFeed</button> -->
         <button @click="logout">Logout</button>
       </div>
       <!-- <b-button v-b-toggle.sidebar-right><b-icon icon="text-right" aria-hidden="true"></b-icon></b-button>
@@ -17,9 +19,9 @@
             <b-icon icon="power" aria-hidden="true"></b-icon> Logout
           </b-button>
         </div>
-      </b-sidebar> -->
+      </b-sidebar>-->
     </div>
-    <hr>
+    <hr />
   </div>
 </template>
 
@@ -29,31 +31,30 @@ import "../components/css/logotitle.css";
 export default {
   data() {
     return {
-      userId: localStorage.getItem('userId')
-    }
+      userId: localStorage.getItem("userId"),
+    };
   },
   methods: {
-    logout(){
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('email');
-      alert("로그아웃 되었습니다.")
+    logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("email");
+      alert("로그아웃 되었습니다.");
       this.$router.push("/");
     },
-    goToWrite(){
+    goToWrite() {
       this.$router.push("/feed/write");
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-.logo-title{
+.logo-title {
   max-width: 500px;
 }
 
-.logout-button{
+.logout-button {
   margin-left: auto;
 }
-
 </style>
