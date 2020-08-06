@@ -50,7 +50,7 @@ public class CourseController {
 
     @GetMapping("/course/{feedNo}")
     @ApiOperation(value = "코스 정보 받아오기")
-    public Object getCourse(@PathVariable final int feedNo) {
+    public Object getCourse(@RequestBody final int feedNo) {
 
         ResponseEntity response = null;
 
@@ -63,28 +63,19 @@ public class CourseController {
         return response;
     }
 
-    // 피드 작성하기
-    @PostMapping
-    @ApiOperation(value = "코스 피드 만들기")
-    public Object makeFeed(@PathVariable final int feedNo) {
+    @PostMapping()
+    @ApiOperation(value = "코스 정보 업로드")
+    public Object getCourse(@PathVariable final Course course) {
 
         ResponseEntity response = null;
 
         try {
-            String userId = (String) jwtService.getUserId();
-
-            course.setWriter(userId);
-
             courseDao.save(course);
-            response = new ResponseEntity<>(course, HttpStatus.OK);
-
-        } catch (Exception e) {
-            final BasicResponse result = new BasicResponse();
-            result.status = false;
-            result.data = e.toString();
-            response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
-        }
+            response = new ResponseEntity<>(course, HttpStatus.OK); 
+        } catch(Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } 
         return response;
     }
-
+    
 }

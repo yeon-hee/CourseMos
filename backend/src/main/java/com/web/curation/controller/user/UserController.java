@@ -236,6 +236,32 @@ public class UserController {
         return response;
     }
 
+    @PutMapping("/profile/image")
+    @ApiOperation(value = "프로필 이미지 수정") // 계정 정보 수정 - 유저아이디 중복 될 경우 알려주기!!!
+    public Object profileImageEdit(@Valid @RequestBody  final User user) {
+        // Put 방식 -> RequestBody로 넘기기 (객체로 받기)
+
+        ResponseEntity response = null;
+
+        try {
+            User people = userDao.findByEmail(user.getEmail());
+            people.setProfilePhoto(user.getProfilePhoto());
+            userDao.save(people);
+
+            final BasicResponse result = new BasicResponse();
+            result.status = true;
+            result.data = "success";
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+
+        } catch(Exception e) {
+            final BasicResponse result = new BasicResponse();
+            result.status = false;
+            result.data = e.toString();
+            response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
     @GetMapping("/{keyword}")
     @ApiOperation(value = "유저목록 조회") // 유저 목록 조회
     public Object userList(@PathVariable final String keyword) { // 이 단어 포함된 유저 목록 리턴

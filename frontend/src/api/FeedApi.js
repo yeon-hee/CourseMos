@@ -13,7 +13,7 @@ const loadUserFeeds = (data, callback, errorCallback) => {
 }
 
 const loadFeedDetail = (data, callback, errorCallback) => {
-    axios.get(url.url+'/feeds/' + data.feedNo, {headers : {"Authorization" : data.token}})
+    axios.get(url.url + '/feeds/' + data.feedNo, { headers: { "Authorization": data.token } })
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }
@@ -52,6 +52,18 @@ const getCourse = (data, callback, errorCallback) => {
         .catch(err => errorCallback(err));
 }
 
+const writeFeed = (data, callback, errorCallback) => {
+    axios.post(url.url + '/feeds', data, { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
+const uploadFeedImage = (data, callback, errorCallback) => {
+    axios.post(url.url + '/photos', data, { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
 const searchFeeds = (data, callback, errorCallback) => {
     axios.get(url.url + '/feeds/search/' + data.search + "?page=" + data.page, { headers: { "Authorization": data.token } })
         .then(res => callback(res))
@@ -68,6 +80,8 @@ const FeedApi = {
     clickLike: (data, callback, errorCallback) => clickLike(data, callback, errorCallback),
     deleteComment: (data, callback, errorCallback) => deleteComment(data, callback, errorCallback),
     getCourse: (data, callback, errorCallback) => getCourse(data, callback, errorCallback),
+    writeFeed: (data, callback, errorCallback) => writeFeed(data, callback, errorCallback),
+    uploadFeedImage: (data, callback, errorCallback) => uploadFeedImage(data, callback, errorCallback),
     searchFeeds: (data, callback, errorCallback) => searchFeeds(data, callback, errorCallback)
 }
 

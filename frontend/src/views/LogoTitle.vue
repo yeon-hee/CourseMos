@@ -4,6 +4,7 @@
       <a href="#/feed/main"><img src="../assets/images/logo.jpg" width="30px" height="30px" alt="logo" class="logo"></a>
       <span class="title u-fat-text">맛동산</span>
       <div class="logout-button">
+        <button @click="goToWrite">addFeed</button>
         <button @click="logout">Logout</button>
       </div>
       <!-- <b-button v-b-toggle.sidebar-right><b-icon icon="text-right" aria-hidden="true"></b-icon></b-button>
@@ -38,6 +39,9 @@ export default {
       localStorage.removeItem('email');
       alert("로그아웃 되었습니다.")
       this.$router.push("/");
+    },
+    goToWrite(){
+      this.$router.push("/feed/write");
     }
   }
 }
