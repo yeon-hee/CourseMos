@@ -1,14 +1,10 @@
 <template>
-  <div class="feed-item">
-    <div class="feed-top">
-      <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
-      <div class="user-info">
-        <div class="user-name">
-          <button>{{feed.userId}}</button>
-        </div>
-      </div>
-    </div>
-    <div class="space"></div>
+<div class="w3-col m7">
+  <div class="w3-container w3-card w3-white w3-round w3-margin">
+      <!-- <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div> -->
+    <button class="w3-left w3-circle w3-margin-right">{{feed.userId}}</button>
+    <span class="w3-right w3-opacity">{{feed.writeDate}}</span>
+    <hr class="w3-clear">
     <div class="feed-card" @click="onImgClick">
         <div style="margin-top:3%;" v-for="course in courses" v-bind:key="course.courseOrder" class="content">
           <img v-bind:src="course.thumbnailUrl" width="36px" height="36px" class="comment-profile"/>
@@ -36,6 +32,7 @@
       <h5 class="feed-time">{{feed.writeDate}}</h5>
     </div>
   </div>
+</div>
 </template>
 
 <script>
