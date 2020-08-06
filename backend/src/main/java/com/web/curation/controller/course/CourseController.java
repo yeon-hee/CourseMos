@@ -39,7 +39,7 @@ import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = { "*" })
 @RestController
-@RequestMapping("/feeds")
+@RequestMapping("/courses")
 public class CourseController {
 
     @Autowired
@@ -50,7 +50,7 @@ public class CourseController {
 
     @GetMapping("/course/{feedNo}")
     @ApiOperation(value = "코스 정보 받아오기")
-    public Object getCourse(@RequestBody final int feedNo) {
+    public Object getCourse(@PathVariable final int feedNo) {
 
         ResponseEntity response = null;
 
