@@ -9,9 +9,11 @@
       </div>
     </div>
     <div class="space"></div>
-    <div class="feed-card">
-      <!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
-      <img :src="feed.thumbnail" alt="img" @click="onImgClick">
+    <div class="feed-card" @click="onImgClick">
+        <div style="margin-top:3%;" v-for="course in courses" v-bind:key="course.courseOrder" class="content">
+          <img v-bind:src="course.thumbnailUrl" width="36px" height="36px" class="comment-profile"/>
+          <p class="comment-writer">{{course.courseOrder + " : "+ course.tradeName}}</p>
+        </div>
     </div>
     <div class="content">
     <div class="feed-btn">
@@ -30,20 +32,9 @@
     <div style="height:10px;"></div>
     <div class="line"></div>
       <div style="height:15px;"></div>
-      <p>{{feed.contents}}</p>
-       <div class="feed-hashtag">
-         <p class="hashtag">#맛집</p>
-         <p class="hashtag">#파스타</p>
-         <p class="hashtag">#와인</p>
-        <!-- <p v-for="hashtag in hashtags">{{hashtag}}</p> -->
-      </div>
-          <h5 class="feed-time">{{feed.writeDate}}</h5>
+      <!-- <p>{{feed.contents}}</p> -->
+      <h5 class="feed-time">{{feed.writeDate}}</h5>
     </div>
-       <!-- <p class="date">9시간 전</p> -->
-    <!---->
-
-    <!---->
-    <!---->
   </div>
 </template>
 
@@ -51,26 +42,41 @@
 import defaultImage from "../../assets/images/img-placeholder.png";
 import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
+import moment from "moment";
 
 export default {
   props : ['feed'],
   data: () => {
     return { 
-      // feed: this.feed,
       defaultImage,
       defaultProfile,
-      hashtags: ['#맛집','#파스타','#와인'],
+      // hashtags: ['#맛집','#파스타','#와인'],
       heartChange: false,
       emptyHeart: require('../../assets/images/empty-heart.png'),
-      redHeart: require('../../assets/images/red-heart.png')
+      redHeart: require('../../assets/images/red-heart.png'),
+      courses : []
     };
   },
-
+  created() {
+    this.feed.writeDate = moment(this.feed.writeDate).format( 'YYYY-MM-DD HH시');
+    let data = {
+      token : localStorage.getItem("token"),
+      feedNo : this.feed.feedNo
+    }
+    FeedApi.getCourse(data,
+      response => {
+        if(response.data.length ==0) return;
+        this.courses = this.courses.concat(response.data);
+      },
+      error => {
+        alert(error);
+      }
+    )
+  },
   methods : {
     onImgClick() {
       // this.$router.push({name : "/feeds/" + this.feed.feedNo, query : {feedNo : this.feed.feedNo}});
       this.$router.push("/feeds/" + this.feed.feedNo);
-      // console.log(this.feed.feedNo);
     },
     clickLikeBtn(feed){
       if(!feed.mine){
@@ -82,7 +88,6 @@ export default {
       }
 
       let feedNo =  feed.feedNo;
-      console.dir(feed);
       let data = {
         token : localStorage.getItem('token'),
         feedNo

@@ -58,7 +58,6 @@ public class UserController {
         User findUser = userDao.findUserByEmailAndPassword(user.getEmail(), user.getPassword()).get();
         findUser.setPassword(null);
         findUser.setCreateDate(null);
-        System.out.println(findUser);
         String token = jwtService.create("user", findUser, "user");
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("token", token);
