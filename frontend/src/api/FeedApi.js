@@ -47,7 +47,7 @@ const deleteComment = (data, callback, errorCallback) => {
 }
 
 const getCourse = (data, callback, errorCallback) => {
-    axios.get(url.url + '/feeds/course/' + data.feedNo, data, { headers: { "Authorization": data.token } })
+    axios.get(url.url + '/courses/course/' + data.feedNo, { headers: { "Authorization": data.token } })
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }
