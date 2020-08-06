@@ -27,13 +27,32 @@ export default {
   data: () => {
     return {
       map: {},
+      places: null,
       markers: [],
       ps: {},
       infowindow: {},
+      courses: [],
     };
   },
   methods: {
     initMap() {
+      var markers = [];
+
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
+
+      // 지도를 생성합니다
+      var map = new kakao.maps.Map(mapContainer, mapOption);
+
+      // 장소 검색 객체를 생성합니다
+      var ps = new kakao.maps.services.Places();
+
+      // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
       var container = document.getElementById("map");
       var options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -49,6 +68,12 @@ export default {
       });
       marker.setMap(this.map);
     },
+    // displayInfowindow(marker, title) {
+    //   var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
+
+    //   this.infowindow.setContent(content);
+    //   this.infowindow.open(this.map, this.marker);
+    // },
     addScript() {
       const script = document.createElement("script");
       /* global kakao */
@@ -75,6 +100,7 @@ export default {
       if (status === kakao.maps.services.Status.OK) {
         ////////////////////////////////////////////////
         console.log(data);
+        this.places = data;
 
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
@@ -118,21 +144,24 @@ export default {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
+
+        var temp = this.displayInfowindow;
+        var temp2 = this.infowindow;
         (function (marker, title) {
-          kakao.maps.event.addListener(marker, "click", function () {
-            this.displayInfowindow(marker, title);
+          kakao.maps.event.addListener(marker, "mouseover", function () {
+            temp(marker, title);
           });
 
           kakao.maps.event.addListener(marker, "mouseout", function () {
-            this.infowindow.close();
+            temp2.close();
           });
 
           itemEl.onmouseover = function () {
-            this.displayInfowindow(marker, title);
+            temp(marker, title);
           };
 
           itemEl.onmouseout = function () {
-            this.infowindow.close();
+            temp2.close();
           };
         })(marker, places[i].place_name);
 
@@ -152,7 +181,6 @@ export default {
       //console.log(places);
       //console.log(places.category_name);
       //console.log(places.road_address_name);
-      console.log(places.address_name);
       //console.log(places.category_name.split('>'));
 
       var el = document.createElement("li"),
@@ -254,17 +282,24 @@ export default {
     // 인포윈도우에 장소명을 표시합니다
     displayInfowindow(marker, title) {
       var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
-      var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
       // 인포윈도우를 생성합니다
-      var infowindow = new kakao.maps.InfoWindow({
-        content: iwContent,
-        removable: iwRemoveable,
-      });
+      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-      this.infowindow.setContent(content);
-      this.infowindow.open(this.map, marker);
+      for (var i = 0; i < this.places.length; i++) {
+        if (this.places[i].place_name == title) {
+          this.courses.push({
+            tradeName: this.places[i].place_name,
+            latitude: this.places[i].x,
+            longitude: this.places[i].y,
+            thumbnailUrl:
+              "https://2.bp.blogspot.com/-F3_mfQGh8JI/XIxFMDO8YuI/AAAAAAAAKPo/IaE7QjW-h8wCh2G62AZoFRYeJDdEMBvggCLcBGAs/s1600/1552639462050.jpg",
+          });
+        }
+      }
+      console.log(this.courses);
+      infowindow.setContent(content);
+      infowindow.open(this.map, marker);
     },
 
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다

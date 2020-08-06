@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,7 +55,7 @@ public class CourseController {
 
     @PostMapping()
     @ApiOperation(value = "코스 정보 업로드")
-    public Object getCourse(@PathVariable final Course course) {
+    public Object uploadCourse(@RequestBody final Course course) {
 
         ResponseEntity response = null;
 
@@ -62,7 +63,7 @@ public class CourseController {
             courseDao.save(course);
             response = new ResponseEntity<>(course, HttpStatus.OK);
         } catch (Exception e) {
-            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            response = new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
         }
         return response;
     }
