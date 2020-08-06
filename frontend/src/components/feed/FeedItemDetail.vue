@@ -2,7 +2,7 @@
  <div class="feed-item">
     <div class="feed-top">
       <br>
-      <div style="font-size:25px; color:rgb(51,102,255); font-weight: bold; margin-bottom: 5px;">데이트 코스</div>
+      <div style="font-size:25px; color:rgb(51,102,255); font-weight: bold; margin-bottom: 10px;">데이트 코스</div>
       <!-- <br>
       <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
       <div class="user-info">
@@ -12,10 +12,9 @@
       </div> -->
     </div>
     
-    <div class="feed-card">
+    <div class="feed-car">
       <div class="map_wrap">
         <div id="map" style="width:500px;height:400px;"></div>
-            <hr>
     </div>
     </div>
     <div class="content">
@@ -47,7 +46,7 @@
     <div style="height:15px;"></div><br>
       
     <!-- 코스 들어가는 곳-->
-    <div class="box-container" style="margin-left:80px; border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
+    <div class="box-container" style="margin-left:30px; border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
       <div style="float:left;">
         <img :src="feed.thumbnail" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
       </div>
@@ -82,6 +81,7 @@
           <p style="clear:both;"></p>
         </div>
       </div> -->
+      <Nav />
   </div>
 </template>
 
@@ -92,8 +92,10 @@ import FeedApi from "../../api/FeedApi";
 import UserApi from "../../api/UserApi";
 import AlertApi from "../../api/AlertApi";
 import Map from "../../views/Map.vue";
+import Nav from "../../views/Nav.vue";
 
 export default {
+  components: { Nav },
   props : {feedNo : String},
   mounted() {
         window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
@@ -343,12 +345,15 @@ export default {
                 position: new kakao.maps.LatLng(place.y, place.x) 
             });
             
+            
             // 마커에 클릭이벤트를 등록합니다
-              kakao.maps.event.addListener(marker, 'click', function() {
+            var temp = this.infowindow;
+            var temp_map = this.map;
+            kakao.maps.event.addListener(marker, 'click', function() {
                 // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                 
-                this.infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-                this.infowindow.open(this.map, marker);
+                temp.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                temp.open(temp_map, marker);
             });
         }
   },
