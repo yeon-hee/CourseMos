@@ -62,6 +62,14 @@ export default {
       ps: {},
       infowindow: {},
       courses: [],
+      idx: 0,
+      thumbnails: [
+        "https://mp-seoul-image-production-s3.mangoplate.com/549779_1554251346194232.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80",
+        "https://mp-seoul-image-production-s3.mangoplate.com/330223/180342_1532235487795_285080?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80",
+        "https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg",
+        "https://t1.daumcdn.net/cfile/tistory/244CE24556B5642E36",
+        "https://lh3.googleusercontent.com/proxy/UAxK_k2eBbpKoDGXhqZTDKL1gH7iAYDybHVkHAy5Bw4Otc3dRTlUOVq8EENkfGQCAt6oPOTCrtwZSzAGa7DMl4tdbyakm2vHIO-8kPimGGU39ZwfmzayxuQNCU0_JYCczKqHZmAYQij-BR24xmcMNaAa4Xwqzkfz5ZxlxKwFTN7Hmld1mpTUQbgvfw8_dgo-ykqTrm4jPtFoMGcPwfJVpU8--h4JoxPO6mIGv8JQ1RXE",
+      ],
     };
   },
   methods: {
@@ -322,9 +330,9 @@ export default {
             tradeName: this.places[i].place_name,
             latitude: this.places[i].x,
             longitude: this.places[i].y,
-            thumbnailUrl:
-              "https://2.bp.blogspot.com/-F3_mfQGh8JI/XIxFMDO8YuI/AAAAAAAAKPo/IaE7QjW-h8wCh2G62AZoFRYeJDdEMBvggCLcBGAs/s1600/1552639462050.jpg",
+            thumbnailUrl: this.thumbnails[this.idx],
           });
+          this.idx++;
         }
       }
       console.log(this.courses);
