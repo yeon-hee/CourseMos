@@ -15,6 +15,8 @@ public interface CourseDao extends JpaRepository<Course, Integer> {
 
     List<Course> findAllByFeedNo(int feedNo);
 
+    int countByFeedNo(int feedNo);
+
     @Transactional
     void deleteByFeedNoAndCourseOrder(int feedNo, int courseOrder);
 }

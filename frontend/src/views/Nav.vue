@@ -2,6 +2,7 @@
   <div class="nav">
       <div><a href="#/feed/main"><i class="fas fa-home"></i></a></div>
       <div><a href="#/search"><i class="fas fa-search"></i></a></div>
+      <div><a href="#/feedmake"><i class="far fa-plus-square fa-w-16"></i></a></div>
       <div><a href="#/alerts"><i class="far fa-bell"></i></a></div>
       <div><a href="#/users/profile"><img :src="profile_photo" class="profile-avatar"/></a></div>
       <!-- <div><a href="#/users/profile"><i class="fas fa-user-circle"></i></a></div> -->
@@ -21,10 +22,10 @@ export default {
 
 <style scoped>
 .nav{
-    position: sticky;
+    position: fixed;
     bottom: 0;
+    width: 400px;
     margin: 0 auto;
-    width: 100%;
     overflow: hidden;
     border-top: 1px solid lightslategray;
     background-color: white;
@@ -33,7 +34,7 @@ export default {
 
 .nav > div > a{
     float: left;
-    width: 25%;
+    width: 20%;
     height: 50px;
     line-height: 50px;
     text-align: center;
