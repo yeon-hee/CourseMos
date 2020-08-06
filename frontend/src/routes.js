@@ -14,8 +14,15 @@ import Requests from './views/user/Requests.vue'
 import Followers from './views/user/Followers.vue'
 import Followings from './views/user/Followings.vue'
 import Search from './views/Search.vue'
+<<<<<<< frontend/src/routes.js
 import AccountSetting from './views/user/AccountSetting.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
+=======
+import AccountSetting from './views/user/AccountSetting.vue';
+import FeedDetail from './views/feed/FeedDetail.vue';
+import FeedComment from './components/feed/FeedComment.vue';
+import FeedItemDetail from './components/feed/FeedItemDetail.vue';
+>>>>>>> frontend/src/routes.js
 import MapPage from './views/Map.vue'
 import FeedMake from './views/feed/FeedMake.vue'
 
@@ -118,5 +125,15 @@ export default [{
         path: '/feedmake',
         name: 'FeedMake',
         component: FeedMake
-    }
+    },
+    {
+        path: '/feeds/comments/:feedNo',
+        name: 'FeedComment',
+        component: FeedComment
+    },
+    {
+        path: '/feeds/back/:feedNo',
+        name: 'FeedItemDetail',
+        component: FeedItemDetail
+    },
 ]

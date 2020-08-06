@@ -2,7 +2,7 @@ import axios from "axios";
 import url from "./Url.js";
 
 const loadFeeds = (data, callback, errorCallback) => {
-    axios.get(url.url + '/feeds', { headers: { "Authorization": data.token } })
+    axios.get(url.url + '/feeds?page=' + data.page, { headers: { "Authorization": data.token } })
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }
@@ -22,8 +22,8 @@ const loadFeedPhotos = (feedNo, callback, errorCallback) => {
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }
-const loadFeedComments = (feedNo, callback, errorCallback) => {
-    axios.get(url.url + '/comments/' + feedNo)
+const loadFeedComments = (data, callback, errorCallback) => {
+    axios.get(url.url + '/comments/' + data.feedNo)
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }
@@ -52,6 +52,12 @@ const getCourse = (data, callback, errorCallback) => {
         .catch(err => errorCallback(err));
 }
 
+const searchFeeds = (data, callback, errorCallback) => {
+    axios.get(url.url + '/feeds/search/' + data.search + "?page=" + data.page, { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
 const FeedApi = {
     loadFeeds: (data, callback, errorCallback) => loadFeeds(data, callback, errorCallback),
     loadUserFeeds: (data, callback, errorCallback) => loadUserFeeds(data, callback, errorCallback),
@@ -61,7 +67,8 @@ const FeedApi = {
     registerComment: (data, callback, errorCallback) => registerComment(data, callback, errorCallback),
     clickLike: (data, callback, errorCallback) => clickLike(data, callback, errorCallback),
     deleteComment: (data, callback, errorCallback) => deleteComment(data, callback, errorCallback),
-    getCourse: (data, callback, errorCallback) => getCourse(data, callback, errorCallback)
+    getCourse: (data, callback, errorCallback) => getCourse(data, callback, errorCallback),
+    searchFeeds: (data, callback, errorCallback) => searchFeeds(data, callback, errorCallback)
 }
 
 export default FeedApi
