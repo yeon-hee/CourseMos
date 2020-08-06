@@ -1,19 +1,10 @@
 package com.web.curation.controller.course;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.web.curation.dao.comment.CommentDao;
 import com.web.curation.dao.course.CourseDao;
-import com.web.curation.dao.feed.FeedDao;
-import com.web.curation.dao.like.LoveDao;
-import com.web.curation.dao.photo.PhotoDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.course.Course;
-import com.web.curation.model.feed.Feed;
-import com.web.curation.model.like.Love;
-import com.web.curation.model.photo.Photo;
 import com.web.curation.service.JwtService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +14,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
