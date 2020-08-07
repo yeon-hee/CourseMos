@@ -16,37 +16,36 @@
       <v-btn icon color="teal" value="recent" @click="goProfile">
         <v-icon>fas fa-user-circle</v-icon>
       </v-btn>
-  </v-bottom-navigation>
-</v-card>
+    </v-bottom-navigation>
+  </v-card>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            profile_photo: require('@/assets/images/profile_default.png')
-        }
+  data() {
+    return {
+      profile_photo: require("@/assets/images/profile_default.png"),
+    };
+  },
+  methods: {
+    goMain(event) {
+      this.$router.push("/feed/main");
     },
-    methods: {
-        goMain(event){
-            this.$router.push('/feed/main')
-        },
-        goSearch() {
-            this.$router.push('/search')
-        },
-        goFeedMake() {
-            this.$router.push('/feedmake')
-        },
-        goAlerts() {
-            this.$router.push('/alerts')
-        },
-        goProfile() {
-            this.$router.push('/users/profile')
-        }
-    }
-}
+    goSearch() {
+      this.$router.push("/search");
+    },
+    goFeedMake() {
+      this.$router.push("/feedmake");
+    },
+    goAlerts() {
+      this.$router.push("/alerts");
+    },
+    goProfile() {
+      this.$router.push("/users/profile");
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
