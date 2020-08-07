@@ -5,6 +5,7 @@ import routes from './routes'
 import store from './vuex/store'
 import * as firebase from "firebase/app";
 import "firebase/storage";
+import vuetify from '@/plugins/vuetify';
 
 var firebaseConfig = {
     apiKey: "AIzaSyC6lONSAuIKnw_a2Spz80_b_I9XHSM4xOE",
@@ -32,5 +33,6 @@ const router = new VueRouter({
 new Vue({
     router,
     store,
-    render: h => h(App),
+    vuetify,
+    render: h => h(App)
 }).$mount('#app');

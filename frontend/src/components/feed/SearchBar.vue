@@ -1,11 +1,12 @@
 <template>
-    <div class="input-with-label">
+    <div>
 
         <input v-model="text"
                :id="inputValue" :placeholder="placeholder"
                type="text"
-               @keyup.enter="submit"/>
-        <label :for="inputValue">{{label}}</label>
+               @keyup.enter="submit"
+               class="form-control form-control"/>
+        <label :for="inputValue"></label>
     </div>
 </template>
 
@@ -26,3 +27,8 @@
         }
     }
 </script>
+<style scoped>
+div {
+    padding-top : 0;
+}
+</style>
