@@ -46,37 +46,44 @@
     <div style="height:15px;"></div><br>
       
 
-
+ <v-timeline :reverse="reverse" :dense="$vuetify.breakpoint.smAndDown">
     <li v-for="course in courseList" :key="course.id">
-        <div class="box-container" style="margin-left:30px; border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
-      <div style="float:left;">
-        <!-- {{initMap('건대')}} -->
-        <img :src="course.thumbnailUrl" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
-      </div>
-      <div style="float:left; margin: 9px 0px 9px 10px; line-height: 1.5em;">
-          <div style="font-size:12px; color:rgb(51,102,255);">{{course.categoryName}}</div>
-           {{course.tradeName}} 
+      <div data-v-19a3425a="" class="v-timeline-item theme--light" style="width: 400px">
+        <div class="v-timeline-item__body">
+          <div data-v-19a3425a="" class="elevation-2 v-card v-sheet theme--light">
+            <div style="float:left;">
+              <img :src="course.thumbnailUrl" style="height:60px; width:60px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+            </div>
+            <div style="float:left; margin: 14px 0px 9px 10px; line-height: 1.5em;">
+                <div style="font-size:13px; color:rgb(51,102,255);">{{course.categoryName}}</div>
+                <div style="font-size:16px;">{{course.tradeName}} </div>
+            </div>
+            <div data-v-19a3425a="" class="v-card__title headline" style="height: 70px; float : right;">
+              <a href="javascript:;" @click="clickRoute()">
+                <img src="../../assets/images/find_route_icon.png" width="35px" height="35px">
+              </a>
+            </div>
+            <div style="clear: both;"></div>
+            </div>
+            </div>
+            <div class="v-timeline-item__divider">
+              <div class="v-timeline-item__dot">
+              
+                <div class="v-timeline-item__inner-dot primary"></div>
+              </div>
+            </div>
+          <div class="v-timeline-item__opposite">
           </div>
-      <div style="float:right; margin: 12px 10px 12px 0px;">
-        <a href="javascript:;" @click="clickRoute()">
-          <img src="../../assets/images/find_route_icon.png" width="35px" height="35px">
-        </a>
       </div>
-    </div><br>
     </li>
+    </v-timeline><br>
     <!-- 코스 들어가는 곳-->
 <!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
       <!-- <div class="box" style="border:1px solid rgb(183,183,183); height:40px; width:40px; border-radius: 10px;"></div> -->
 
 
-      <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a>
+      <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a><br><br>
       
-      
-      <v-timeline>
-    <v-timeline-item>timeline item</v-timeline-item>
-    <v-timeline-item class="text-right">timeline item</v-timeline-item>
-    <v-timeline-item>timeline item</v-timeline-item>
-  </v-timeline>
   
   <!-- <p style="padding-bottom: 10px;">댓글
       <input class="comment-input"
