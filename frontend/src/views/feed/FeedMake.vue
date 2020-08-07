@@ -349,10 +349,13 @@ export default {
     addplace(marker, title) {
       for (var i = 0; i < this.places.length; i++) {
         if (this.places[i].place_name == title) {
+          var tmpstr = this.places[i].category_name.split(">");
+          var category_name = tmpstr[tmpstr.length - 1];
           this.courses.push({
             tradeName: this.places[i].place_name,
             latitude: this.places[i].x,
             longitude: this.places[i].y,
+            categoryName: category_name,
             thumbnailUrl: this.thumbnails[this.idx],
           });
           this.idx++;

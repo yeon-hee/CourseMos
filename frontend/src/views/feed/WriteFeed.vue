@@ -139,6 +139,7 @@ export default {
               latitude: this.courses[idx].latitude,
               longitude: this.courses[idx].longitude,
               thumbnailUrl: this.courses[idx].thumbnailUrl,
+              categoryName: this.courses[idx].categoryName,
               token: localStorage.getItem("token"),
             };
 

@@ -1,6 +1,6 @@
 <template>
-<v-card height="200px" flat>
-  <v-bottom-navigation fixed color="purple lighten-1">
+  <v-card height="200px" flat>
+    <v-bottom-navigation fixed color="purple lighten-1">
       <v-btn icon color="teal" value="recent" @click="goMain">
         <v-icon>fas fa-home</v-icon>
       </v-btn>
