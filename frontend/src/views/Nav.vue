@@ -1,6 +1,6 @@
 <template>
-  <v-card height="200px" flat>
-    <v-bottom-navigation fixed>
+<v-card height="200px" flat>
+  <v-bottom-navigation fixed color="purple lighten-1">
       <v-btn icon color="teal" value="recent" @click="goMain">
         <v-icon>fas fa-home</v-icon>
       </v-btn>
@@ -8,7 +8,7 @@
         <v-icon>fas fa-search</v-icon>
       </v-btn>
       <v-btn icon color="teal" value="recent" @click="goFeedMake">
-        <v-icon>fas fa-plus</v-icon>
+        <v-icon>far fa-plus-square fa-w-16</v-icon>
       </v-btn>
       <v-btn icon color="teal" value="recent" @click="goAlerts">
         <v-icon>far fa-bell</v-icon>

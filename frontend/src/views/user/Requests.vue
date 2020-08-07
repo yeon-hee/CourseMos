@@ -7,16 +7,20 @@
                 <v-btn text @click="rejectAll"><span>모두 거절</span></v-btn>
                 <v-btn text @click="allowAll"><span>모두 승인</span></v-btn>
             </v-subheader>
-            <v-list-tile v-for="(request, index) in requestList" :key="request.id">
-                <v-list-tile-avatar>
+            <v-list-item v-for="(request, index) in requestList" :key="request.id">
+                <v-list-item-avatar>
                     <img src="@/assets/images/profile_default.png">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{request.follower}}님이 팔로우를 요청하였습니다.</v-list-tile-title>
-                </v-list-tile-content>
-                <v-btn text @click="reject(request, index)"><span>거절</span></v-btn>
-                <v-btn text @click="allow(request, index)"><span>승인</span></v-btn>
-            </v-list-tile>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                    {{request.follower}}님이 팔로우를 요청하였습니다.
+                </v-list-item-content>
+                <v-list-item-icon>
+                    <v-btn icon @click="reject(request, index)"><v-icon>fas fa-times</v-icon></v-btn>
+                </v-list-item-icon>
+                <v-list-item-icon>
+                    <v-btn icon @click="allow(request, index)"><v-icon>fas fa-check</v-icon></v-btn>
+                </v-list-item-icon>
+            </v-list-item>
         </v-list>
         <!-- <div class="requests">
             <section class="tab-list">
@@ -49,7 +53,7 @@ import Nav from "../Nav.vue";
 import "../../components/css/user/requests.css";
 import axios from 'axios';
 import RequestApi from "../../api/RequestApi";
-import Tab from "../../components/alert/Tab";
+import Tab from "../../components/alert/AlertTab";
 
 export default {
     components: {
