@@ -12,13 +12,5 @@
 
 <script>
     export default {
-        methods : {
-            goRequest() {
-                this.$router.push('/requests');
-            },
-            goAlert() {
-                this.$router.push('/alerts');
-            }
-        }
     }
 </script>

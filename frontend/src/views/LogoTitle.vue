@@ -3,8 +3,9 @@
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-toolbar-title>코스모스</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon @click="logout">
-      <v-icon>fas fa-sign-out-alt</v-icon>
+    <v-btn text @click="logout">
+      <span>logout</span>
+      <!-- <v-icon>fas fa-sign-out-alt</v-icon> -->
     </v-btn>
   </v-toolbar>
 </template>

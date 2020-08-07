@@ -4,15 +4,17 @@
         <tab/>
         <v-list subheader>
             <v-subheader><v-btn text @click="closeAll"><span>모두 닫기</span></v-btn></v-subheader>
-            <v-list-tile v-for="(alert, index) in alertList" :key="alert.id">
-                <v-list-tile-avatar>
+            <v-list-item v-for="(alert, index) in alertList" :key="alert.id">
+                <v-list-item-avatar>
                     <img src="@/assets/images/profile_default.png">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title v-html="alert.message"></v-list-tile-title>
-                </v-list-tile-content>
-                <v-btn icon @click="close(alert, index)"><v-icon>fas fa-times</v-icon></v-btn>
-            </v-list-tile>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                    <v-list-item-title v-html="alert.message"></v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                    <v-btn icon @click="close(alert, index)"><v-icon>fas fa-times</v-icon></v-btn>
+                </v-list-item-icon>
+            </v-list-item>
         </v-list>
         <!-- <div id="alerts">
             <div class="all-button">
@@ -45,7 +47,7 @@ import Nav from "../Nav.vue";
 import "../../components/css/user/alerts.css";
 import axios from 'axios';
 import AlertApi from "../../api/AlertApi";
-import Tab from "../../components/alert/Tab";
+import Tab from "../../components/alert/AlertTab";
 
 
 export default {
