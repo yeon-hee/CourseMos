@@ -1,6 +1,6 @@
 <template>
     <div>
-        <LogoTitle/>
+        <!-- <LogoTitle/> -->
         <tab/>
         <v-list subheader>
             <v-subheader><v-btn text @click="closeAll"><span>모두 닫기</span></v-btn></v-subheader>
@@ -36,14 +36,14 @@
                 </ul>
             </div>
         </div> -->
-    <Nav/>
+    <!-- <Nav/> -->
     </div>
   
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
+// import LogoTitle from "../LogoTitle.vue";
+// import Nav from "../Nav.vue";
 import "../../components/css/user/alerts.css";
 import axios from 'axios';
 import AlertApi from "../../api/AlertApi";
@@ -52,8 +52,8 @@ import Tab from "../../components/alert/AlertTab";
 
 export default {
     components: {
-        LogoTitle,
-        Nav,
+        // LogoTitle,
+        // Nav,
         Tab
     },
     created() {

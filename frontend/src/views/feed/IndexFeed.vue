@@ -1,6 +1,6 @@
 <template>
   <div>
-    <logo-title/>
+    <!-- <logo-title/> -->
     <div class="container">
       <search-bar
           inputValue="text"
@@ -13,7 +13,7 @@
       <button @click="initPage" v-if="isSearch && page==0">Load more</button>
       <infinite-loading v-else slot="append" @infinite="infiniteHandler" force-use-infinite-wrapper=".el-table__body-wrapper">
       </infinite-loading>
-      <Nav/>
+      <!-- <Nav/> -->
     </div>
   </div>
 </template>
@@ -24,8 +24,8 @@ import "../../components/css/feed/feed-item.scss";
 import "../../components/css/feed/newsfeed.scss";
 import FeedItem2 from "../../components/feed/FeedItem2.vue";
 import FeedApi from "../../api/FeedApi";
-import Nav from "../../views/Nav";
-import LogoTitle from "../LogoTitle.vue";
+// import Nav from "../../views/Nav";
+// import LogoTitle from "../LogoTitle.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import SearchBar from "../../components/feed/SearchBar";
 
@@ -44,7 +44,13 @@ export default {
       search : ""
     };
   },
-  components: { SearchBar, FeedItem2, Nav, LogoTitle, InfiniteLoading },
+  components: { 
+    SearchBar, 
+    FeedItem2, 
+    // Nav, 
+    // LogoTitle, 
+    InfiniteLoading 
+  },
   created() {
   },
   methods : {

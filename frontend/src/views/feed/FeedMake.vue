@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LogoTitle />
+    <!-- <LogoTitle /> -->
     <div id="feedMake">
       <div class="courseMake">
         <ul class="placeList">
@@ -36,19 +36,19 @@
         </div>
       </div>
     </div>
-    <Nav />
+    <!-- <Nav /> -->
   </div>
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
+// import LogoTitle from "../LogoTitle.vue";
+// import Nav from "../Nav.vue";
 import UserApi from "../../api/UserApi";
 
 export default {
   components: {
-    LogoTitle,
-    Nav,
+    // LogoTitle,
+    // Nav,
   },
   created() {
     this.$store.state.courses = [];

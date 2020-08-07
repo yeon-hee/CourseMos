@@ -1,6 +1,6 @@
 <template>
     <div>
-        <LogoTitle/>
+        <!-- <LogoTitle/> -->
             <tab/>
             <v-list subheader>
                 <v-list-item v-for="(following, index) in followingList" :key="following.id">
@@ -39,14 +39,14 @@
                     </ul>
                 </section>
             </div> -->
-        <Nav/>
+        <!-- <Nav/> -->
     </div>
   
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
+// import LogoTitle from "../LogoTitle.vue";
+// import Nav from "../Nav.vue";
 import axios from 'axios';
 import FollowApi from "../../api/FollowApi";
 import ProfileApi from "../../api/ProfileApi";
@@ -55,8 +55,8 @@ import Tab from "../../components/follow/FollowTab";
 
 export default {
     components: {
-        LogoTitle,
-        Nav,
+        // LogoTitle,
+        // Nav,
         Tab
     },
     created() {

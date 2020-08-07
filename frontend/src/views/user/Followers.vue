@@ -1,6 +1,6 @@
 <template>
     <div>
-        <LogoTitle/>
+        <!-- <LogoTitle/> -->
         <tab/>
         <v-list subheader>
             <v-list-item v-for="(follower, index) in followerList" :key="follower.id">
@@ -38,7 +38,7 @@
                     </ul>
                 </section>
             </div> -->
-        <Nav/>
+        <!-- <Nav/> -->
     </div>
   
 </template>
@@ -54,8 +54,8 @@ import Tab from "../../components/follow/FollowTab";
 
 export default {
     components: {
-        LogoTitle,
-        Nav,
+        // LogoTitle,
+        // Nav,
         Tab
     },
     created() {
