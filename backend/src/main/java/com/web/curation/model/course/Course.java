@@ -38,4 +38,7 @@ public class Course {
 
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;
+
+    @Column(name = "category_name")
+    private String categoryName;
 }
