@@ -54,7 +54,7 @@
         <img :src="course.thumbnailUrl" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
       </div>
       <div style="float:left; margin: 9px 0px 9px 10px; line-height: 1.5em;">
-          <div style="font-size:12px; color:rgb(51,102,255);"></div>
+          <div style="font-size:12px; color:rgb(51,102,255);">{{course.categoryName}}</div>
            {{course.tradeName}} 
           </div>
       <div style="float:right; margin: 12px 10px 12px 0px;">
@@ -70,6 +70,7 @@
 
 
       <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a>
+  
       <!-- <p style="padding-bottom: 10px;">댓글
       <input class="comment-input"
              v-model="content"
@@ -137,7 +138,6 @@ export default {
     };
   }, 
   created() {
-    console.log('여기입니다');
     let data = {
         token : localStorage.getItem('token'),
         feedNo : this.$route.params.feedNo
@@ -149,8 +149,7 @@ export default {
       data,
       res => {
           this.courseList = res.data;
-          console.log('코스 정보 받아옴!');
-          this.category()
+          console.log('코스 정보 받아옴!!');
       },
       error => {
         alert(error);
@@ -182,9 +181,10 @@ export default {
   methods: {
     category(){
       console.log('분류');
-      for(var i=0;i<this.courseList.length;i++){
-        this.ps.keywordSearch(this.courseList[i].tradeName, this.placesSearchCB);
-      }
+      // console.log(this.ps);
+      // for(var i=0;i<this.courseList.length;i++){
+      //   this.ps.keywordSearch(this.courseList[i].tradeName, this.placesSearchCB);
+      // }
     },
     clickComment(){
       this.$router.push("/feeds/comments/" + this.$route.params.feedNo); // 여기 수정
@@ -250,6 +250,7 @@ export default {
                 position: this.map.getCenter()
             })
             marker.setMap(this.map)
+            //if(this.courseList.length != 0) this.category();
 
             // var keyword = '우마이도 건대점';
             // var url = 'https://map.naver.com/v5/search/'; // 크롤링 url로 바꾸기 
@@ -321,6 +322,7 @@ export default {
         },
 
         addScript() {
+          console.log('지도 add');
             const script = document.createElement('script')
             /* global kakao */
             script.onload = () => kakao.maps.load(this.initMap)
@@ -370,12 +372,13 @@ export default {
             // 마커에 클릭이벤트를 등록합니다
             var temp = this.infowindow;
             var temp_map = this.map;
-            kakao.maps.event.addListener(marker, 'click', function() {
-                // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+            // kakao.maps.event.addListener(marker, 'click', function() {
+            //     // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                 
-                temp.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-                temp.open(temp_map, marker);
-            });
+            //     temp.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+            //     temp.open(temp_map, marker);
+            // }
+            // );
         }
   },
 };
