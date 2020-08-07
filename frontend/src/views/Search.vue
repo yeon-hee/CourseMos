@@ -1,6 +1,6 @@
 <template>
     <div>
-        <LogoTitle/>
+        <!-- <LogoTitle/> -->
         <div id="search">
             <div class="searchBar">
                 <input type="text" placeholder="유저검색" v-model="keyword">
@@ -12,7 +12,7 @@
                 </select>
             </div>
         </div>
-        <Nav/>
+        <!-- <Nav/> -->
     </div>
 </template>
 
@@ -23,8 +23,8 @@ import UserApi from "../api/UserApi";
 
 export default {
     components: {
-        LogoTitle,
-        Nav
+        // LogoTitle,
+        // Nav
     },
     methods : {
         onChange(event) {

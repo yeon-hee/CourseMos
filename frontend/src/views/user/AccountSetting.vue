@@ -1,7 +1,7 @@
 
 <template>
   <div>
-  <LogoTitle />
+  <!-- <LogoTitle /> -->
   <div class="join wrapC total">
     <div class="title">
         <a href="#/users/profile"><img src="../../assets/images/back-arrow.png" width="30px" height="30px" class="back-arrow"></a>
@@ -74,12 +74,12 @@
 <script>
 import UserApi from "../../api/UserApi";
 import axios from 'axios';
-import LogoTitle from '../LogoTitle.vue';
+// import LogoTitle from '../LogoTitle.vue';
 import * as firebase from "firebase/app";
 
 export default {
 
-  components: {LogoTitle},
+  // components: {LogoTitle},
   
   created() {
     this.component = this;

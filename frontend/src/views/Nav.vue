@@ -1,18 +1,18 @@
 <template>
   <v-bottom-navigation fixed>
-      <v-btn icon value="recent" @click="goMain">
+      <v-btn icon color="teal" value="recent" @click="goMain">
         <v-icon>fas fa-home</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goSearch">
+      <v-btn icon color="teal" value="recent" @click="goSearch">
         <v-icon>fas fa-search</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goFeedMake">
+      <v-btn icon color="teal" value="recent" @click="goFeedMake">
         <v-icon>far fa-plus-square fa-w-16</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goAlerts">
+      <v-btn icon color="teal" value="recent" @click="goAlerts">
         <v-icon>far fa-bell</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goProfile">
+      <v-btn icon color="teal" value="recent" @click="goProfile">
         <v-icon>fas fa-user-circle</v-icon>
       </v-btn>
   </v-bottom-navigation>

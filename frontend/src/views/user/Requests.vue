@@ -1,6 +1,6 @@
 <template>
     <div>
-        <LogoTitle/>
+        <!-- <LogoTitle/> -->
         <tab></tab>
         <v-list subheader>
             <v-subheader>
@@ -42,14 +42,14 @@
                 </ul>
             </section>
         </div> -->
-        <Nav/>
+        <!-- <Nav/> -->
     </div>
   
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
+// import LogoTitle from "../LogoTitle.vue";
+// import Nav from "../Nav.vue";
 import "../../components/css/user/requests.css";
 import axios from 'axios';
 import RequestApi from "../../api/RequestApi";
@@ -57,8 +57,8 @@ import Tab from "../../components/alert/AlertTab";
 
 export default {
     components: {
-        LogoTitle,
-        Nav,
+        // LogoTitle,
+        // Nav,
         Tab
     },
     created() {
