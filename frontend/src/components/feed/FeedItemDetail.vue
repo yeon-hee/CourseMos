@@ -70,8 +70,15 @@
 
 
       <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a>
+      
+      
+      <v-timeline>
+    <v-timeline-item>timeline item</v-timeline-item>
+    <v-timeline-item class="text-right">timeline item</v-timeline-item>
+    <v-timeline-item>timeline item</v-timeline-item>
+  </v-timeline>
   
-      <!-- <p style="padding-bottom: 10px;">댓글
+  <!-- <p style="padding-bottom: 10px;">댓글
       <input class="comment-input"
              v-model="content"
              id="content"/>
