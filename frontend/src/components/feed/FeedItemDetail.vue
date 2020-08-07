@@ -54,7 +54,7 @@
         <img :src="course.thumbnailUrl" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
       </div>
       <div style="float:left; margin: 9px 0px 9px 10px; line-height: 1.5em;">
-          <div style="font-size:12px; color:rgb(51,102,255);">{{course.categoryName}} </div>
+          <div style="font-size:12px; color:rgb(51,102,255);">{{course.categoryName}}</div>
            {{course.tradeName}} 
           </div>
       <div style="float:right; margin: 12px 10px 12px 0px;">
@@ -70,6 +70,7 @@
 
 
       <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a>
+  
       <!-- <p style="padding-bottom: 10px;">댓글
       <input class="comment-input"
              v-model="content"
