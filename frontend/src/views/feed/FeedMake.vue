@@ -10,10 +10,12 @@
             class="place"
             v-on:click="doRemove(index)"
           >
-            <img :src="course.thumbnailUrl" alt="img" style="position: relative;" />
+            <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
           </li>
         </ul>
-        <button v-on:click="saveCourse" class="next">글작성하기</button>
+        <button v-on:click="saveCourse" class="next">
+          <v-icon x-large>fas fa-arrow-right</v-icon>
+        </button>
       </div>
       <div class="map_wrap">
         <div id="map" style="width:350px;height:350px;"></div>
@@ -62,6 +64,14 @@ export default {
       ps: {},
       infowindow: {},
       courses: [],
+      idx: 0,
+      thumbnails: [
+        "https://mp-seoul-image-production-s3.mangoplate.com/549779_1554251346194232.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80",
+        "https://mp-seoul-image-production-s3.mangoplate.com/330223/180342_1532235487795_285080?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80",
+        "https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg",
+        "https://t1.daumcdn.net/cfile/tistory/244CE24556B5642E36",
+        "https://lh3.googleusercontent.com/proxy/UAxK_k2eBbpKoDGXhqZTDKL1gH7iAYDybHVkHAy5Bw4Otc3dRTlUOVq8EENkfGQCAt6oPOTCrtwZSzAGa7DMl4tdbyakm2vHIO-8kPimGGU39ZwfmzayxuQNCU0_JYCczKqHZmAYQij-BR24xmcMNaAa4Xwqzkfz5ZxlxKwFTN7Hmld1mpTUQbgvfw8_dgo-ykqTrm4jPtFoMGcPwfJVpU8--h4JoxPO6mIGv8JQ1RXE",
+      ],
     };
   },
   methods: {
@@ -177,13 +187,18 @@ export default {
 
         var temp = this.displayInfowindow;
         var temp2 = this.infowindow;
+        var temp3 = this.addplace;
         (function (marker, title) {
           kakao.maps.event.addListener(marker, "mouseover", function () {
             temp(marker, title);
           });
 
           kakao.maps.event.addListener(marker, "mouseout", function () {
-            temp2.close();
+            temp2(marker);
+          });
+
+          kakao.maps.event.addListener(marker, "click", function () {
+            temp3(marker, title);
           });
 
           itemEl.onmouseover = function () {
@@ -192,6 +207,10 @@ export default {
 
           itemEl.onmouseout = function () {
             temp2.close();
+          };
+
+          itemEl.onclick = function () {
+            temp3(marker, title);
           };
         })(marker, places[i].place_name);
 
@@ -219,9 +238,11 @@ export default {
           (index + 1) +
           '"></span>' +
           '<div class="info">' +
-          "   <h5>" +
+          "   <h3>" +
+          (index + 1) +
+          ". " +
           places.place_name +
-          "</h5>";
+          "</h3>";
 
       if (places.road_address_name) {
         itemStr +=
@@ -314,22 +335,30 @@ export default {
       var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
 
       // 인포윈도우를 생성합니다
-      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      // var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
+      this.infowindow.setContent(content);
+      this.infowindow.open(this.map, marker);
+    },
+
+    infowindow(marker) {
+      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      infowindow.close(this.map, marker);
+    },
+
+    addplace(marker, title) {
       for (var i = 0; i < this.places.length; i++) {
         if (this.places[i].place_name == title) {
           this.courses.push({
             tradeName: this.places[i].place_name,
             latitude: this.places[i].x,
             longitude: this.places[i].y,
-            thumbnailUrl:
-              "https://2.bp.blogspot.com/-F3_mfQGh8JI/XIxFMDO8YuI/AAAAAAAAKPo/IaE7QjW-h8wCh2G62AZoFRYeJDdEMBvggCLcBGAs/s1600/1552639462050.jpg",
+            thumbnailUrl: this.thumbnails[this.idx],
           });
+          this.idx++;
         }
       }
       console.log(this.courses);
-      infowindow.setContent(content);
-      infowindow.open(this.map, marker);
     },
 
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -360,16 +389,19 @@ export default {
 }
 .courseMake {
   display: flex;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
 }
 .placeList {
-  width: 290px;
-  min-width: 290px;
+  width: 300px;
+  min-width: 300px;
   max-width: 500px;
   margin: 5px 0;
   margin-left: 20px;
   height: 60px;
   border: 1px solid rgba(0, 0, 0, 0.0975);
   border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px grey;
 }
 .place {
   display: inline-flex;
@@ -381,6 +413,7 @@ export default {
 .place > img {
   width: 100%;
   height: 100%;
+  border-radius: 5px;
 }
 .next {
   margin-left: 10px;
@@ -412,7 +445,7 @@ export default {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 300px;
+  width: 380px;
   margin: 0 auto;
   padding: 5px;
   overflow-y: auto;
@@ -479,8 +512,8 @@ export default {
   color: #009900;
 }
 #placesList .item .markerbg {
-  float: left;
-  position: absolute;
+  /* float: left;
+  position: absolute; */
   width: 36px;
   height: 37px;
   margin: 10px 0 0 10px;
@@ -544,5 +577,46 @@ export default {
   font-weight: bold;
   cursor: default;
   color: #777;
+}
+.thumbnail:hover {
+  opacity: 0.5;
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 </style>
