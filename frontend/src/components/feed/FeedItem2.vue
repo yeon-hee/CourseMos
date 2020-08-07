@@ -1,7 +1,45 @@
 <template>
-<div class="w3-col m7">
+<div>
+  <v-card class="mx-auto">
+
+    <v-list-item>
+      <v-list-item-avatar color="grey">
+        <img src="@/assets/images/profile_default.png"/>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">{{feed.userId}}</v-list-item-title>
+        <v-list-item-subtitle>{{feed.writeDate}}</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-row>
+      <v-col v-for="course in courses" :key="course.courseOrder" cols=3>
+        <v-badge color="#1A237E" :content="Number(course.courseOrder)" overlap>
+          <v-card class="mx-auto" @click="onImgClick">
+            <v-img :src="course.thumbnailUrl" aspect-ratio="1" class="grey lighten-2"/>
+            <v-card-subtitle class="pb-0" style="font-size:0.8em">{{cutStr(course.tradeName)}}</v-card-subtitle>
+          </v-card>
+        </v-badge>
+      </v-col>
+    </v-row>
+    <v-card-actions>
+      <v-btn class="ma-2" tile @click="clickLikeBtn(feed)">
+        <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left/>
+        <span>{{feed.likeCount}}</span>
+      </v-btn>
+      <v-btn class="ma-2" tile @click="onImgClick">
+        <v-icon left>far fa-comment</v-icon>
+        <span>{{feed.commentCount}}</span>
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn class="ma-2" tile>
+        <v-icon>mdi-bookmark</v-icon>
+      </v-btn>
+    </v-card-actions>
+
+  </v-card>
+<!-- <div class="w3-col m7">
   <div class="w3-container w3-card w3-white w3-round w3-margin">
-      <!-- <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div> -->
     <button class="w3-left w3-circle w3-margin-right">{{feed.userId}}</button>
     <span class="w3-right w3-opacity">{{feed.writeDate}}</span>
     <hr class="w3-clear">
@@ -28,10 +66,10 @@
     <div style="height:10px;"></div>
     <div class="line"></div>
       <div style="height:15px;"></div>
-      <!-- <p>{{feed.contents}}</p> -->
       <h5 class="feed-time">{{feed.writeDate}}</h5>
     </div>
   </div>
+</div> -->
 </div>
 </template>
 
@@ -99,64 +137,14 @@ export default {
             alert(error);
           }
         );
+    },
+    cutStr(str) {
+      if(str.length >= 3){
+          return str.substr(0,3)+"...";
+      } else return str;
     }
   }
 };
 </script>
 <style scoped>
-.user-name{
-  margin-top: 3%;
-}
-.feed-top{
-  margin-left: 6%;
-}
-
-.feed-card{
-  display: flex;
-  justify-content: center;
-  margin-right: 25px;
-  padding: 0;
-}
-
-.space{
-  height: 50px;
-}
-.content{
-  margin-right: 15px;
-}
-.hashtag{
-  float: left;
-}
-.feed-time{
-  margin-top: 10px;
-  padding-right: 5%;
-  float:right;
-}
-.line{
-  clear: both;
-  height: 1px;
-  width: 94%;
-  background-color: gray;
-}
-.feed-btn{
-  padding-top: 3%;
-}
-.like-btn{
-  margin-right: 10px;
-}
-.comments-btn{
-  margin-left: 10px;
-}
-.share-btn{
-  margin-left: 20px;
-}
-.scrap-btn{
-  float: right;
-  padding-right: 7%;
-}
-
-.feed-card > img {
-  width: 100%;
-  height: 100%;
-}
 </style>

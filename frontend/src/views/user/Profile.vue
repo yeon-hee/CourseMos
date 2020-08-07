@@ -1,7 +1,7 @@
 <template>
     <div>
         <main class="profile-container">
-            <LogoTitle/>
+            <!-- <LogoTitle/> -->
             <section class="profile">
                 <header class="profile-header">
                     <div class="profile-avatar-container">
@@ -61,13 +61,13 @@
                 </ul>
             </section>
         </main>
-     <Nav/>
+     <!-- <Nav/> -->
     </div>
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
+// import LogoTitle from "../LogoTitle.vue";
+// import Nav from "../Nav.vue";
 import "../../components/css/user/profile.css";
 import ProfileApi from "../../api/ProfileApi";
 import FeedApi from "../../api/FeedApi";
@@ -75,8 +75,8 @@ import FeedApi from "../../api/FeedApi";
 
 export default {
     components: {
-        LogoTitle,
-        Nav
+        // LogoTitle,
+        // Nav
     },
     created() {
         let data = {

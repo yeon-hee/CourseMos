@@ -21,6 +21,7 @@ import FeedItemDetail from "./components/feed/FeedItemDetail.vue";
 import MapPage from "./views/Map.vue";
 import WriteFeedPage from "./views/feed/WriteFeed.vue";
 import FeedMake from "./views/feed/FeedMake.vue";
+import Main from "./views/Main";
 
 export default [
   {
@@ -39,26 +40,6 @@ export default [
     component: FindPassword,
   },
   {
-    path: "/feed/main",
-    name: "FeedMain",
-    component: FeedMain,
-  },
-  {
-    path: "/components",
-    name: "Components",
-    component: Components,
-  },
-  {
-    path: "/users/profile/password",
-    name: "ChangePassword",
-    component: ChangePassword,
-  },
-  {
-    path: "/user/signup/complete",
-    name: "SignUpComplete",
-    component: SignUpComplete,
-  },
-  {
     path: "/error",
     name: "Error",
     component: Error,
@@ -69,73 +50,101 @@ export default [
     component: NotFound,
   },
   {
-    path: "/users/profile",
-    name: "Profile",
-    component: Profile,
+    path : "/",
+    name : "Main",
+    component : Main,
+    children : [
+      {
+        path: "/feed/main",
+        name: "FeedMain",
+        component: FeedMain,
+      },
+      {
+        path: "/components",
+        name: "Components",
+        component: Components,
+      },
+      {
+        path: "/users/profile/password",
+        name: "ChangePassword",
+        component: ChangePassword,
+      },
+      {
+        path: "/user/signup/complete",
+        name: "SignUpComplete",
+        component: SignUpComplete,
+      },
+      {
+        path: "/users/profile",
+        name: "Profile",
+        component: Profile,
+      },
+      {
+        path: "/users/profile/info/:userId",
+        name: "UserProfile",
+        component: UserProfile,
+      },
+      {
+        path: "/alerts",
+        name: "Alerts",
+        component: Alerts,
+      },
+      {
+        path: "/requests",
+        name: "Requests",
+        component: Requests,
+      },
+      {
+        path: "/friends/followers",
+        name: "Followers",
+        component: Followers,
+      },
+      {
+        path: "/friends/followings",
+        name: "Followings",
+        component: Followings,
+      },
+      {
+        path: "/search",
+        name: "Search",
+        component: Search,
+      },
+      {
+        path: "/users/profile/setting",
+        name: "AccountSetting",
+        component: AccountSetting,
+      },
+      {
+        path: "/feeds/:feedNo",
+        name: "FeedDetail",
+        component: FeedDetail,
+      },
+      {
+        path: "/map",
+        name: "Map",
+        component: MapPage,
+      },
+      {
+        path: "/feed/write",
+        name: "WriteFeed",
+        component: WriteFeedPage,
+      },
+      {
+        path: "/feedmake",
+        name: "FeedMake",
+        component: FeedMake,
+      },
+      {
+        path: "/feeds/comments/:feedNo",
+        name: "FeedComment",
+        component: FeedComment,
+      },
+      {
+        path: "/feeds/back/:feedNo",
+        name: "FeedItemDetail",
+        component: FeedItemDetail,
+      },
+    ]
   },
-  {
-    path: "/users/profile/info/:userId",
-    name: "UserProfile",
-    component: UserProfile,
-  },
-  {
-    path: "/alerts",
-    name: "Alerts",
-    component: Alerts,
-  },
-  {
-    path: "/requests",
-    name: "Requests",
-    component: Requests,
-  },
-  {
-    path: "/friends/followers",
-    name: "Followers",
-    component: Followers,
-  },
-  {
-    path: "/friends/followings",
-    name: "Followings",
-    component: Followings,
-  },
-  {
-    path: "/search",
-    name: "Search",
-    component: Search,
-  },
-  {
-    path: "/users/profile/setting",
-    name: "AccountSetting",
-    component: AccountSetting,
-  },
-  {
-    path: "/feeds/:feedNo",
-    name: "FeedDetail",
-    component: FeedDetail,
-  },
-  {
-    path: "/map",
-    name: "Map",
-    component: MapPage,
-  },
-  {
-    path: "/feed/write",
-    name: "WriteFeed",
-    component: WriteFeedPage,
-  },
-  {
-    path: "/feedmake",
-    name: "FeedMake",
-    component: FeedMake,
-  },
-  {
-    path: "/feeds/comments/:feedNo",
-    name: "FeedComment",
-    component: FeedComment,
-  },
-  {
-    path: "/feeds/back/:feedNo",
-    name: "FeedItemDetail",
-    component: FeedItemDetail,
-  },
+  
 ];
