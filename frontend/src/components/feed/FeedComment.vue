@@ -15,8 +15,8 @@
               @click="registComment(feed)">등록</button> -->
               <br>
       <div>
-        <div v-for="(comment, index) in comments" v-bind:key="comment.commentNo">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
+        <div v-for="(comment, index) in comments" v-bind:key="comment.commentNo" style="height: 44px;">
+          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile">
           <p class="comment-writer">{{comment.writer}}</p>
           <p class="comment-content">{{comment.content}}</p>
           <button v-if="userId==comment.writer" @click="deleteComment(feed, comment, index)" class="delete-comment">삭제</button>
@@ -27,7 +27,7 @@
 
     <div class="plane">
       <img src="../../assets/images/send_120237.png" class="send" width="43px" height="43px" style="padding: 7px; float: left; position: sticky;">
-      <input style="border:none; width:75%" v-model="content" id="content"/>
+      <input style="border:none; width:70%" v-model="content" id="content"/>
       <button class="regist-comment" @click="registComment(feed)">등록</button>
     </div>
 </div>
@@ -146,7 +146,7 @@ export default {
 .plane{
     position: absolute;
     bottom: 57px;
-    width: 100%;
+    width: 380px;
     overflow: hidden;
     border-top: 1px solid lightslategray;
     background-color: white;
@@ -210,7 +210,7 @@ export default {
   padding-left: 7%;
 }
 .comment-input{
-  margin-left: 5%;
+  margin-left: 4%;
   height: auto;
   line-height: normal;
   padding: .3em .9em;
@@ -222,6 +222,7 @@ export default {
 }
 .regist-comment{
   padding: 1%;
+  margin-top: 5px;
   margin-left: 3%;
   border: 1px groove gray;
   border-radius: 2px;
@@ -231,7 +232,7 @@ export default {
 }
 .comment-writer{
   padding-top: 1.4%;
-  margin-left: 1%;
+  margin-left: 2%;
   font-size: 15px;
   font-weight: 600;
   float: left;
@@ -239,6 +240,7 @@ export default {
 .comment-content{
   margin-left: 2%;
   padding-top: 1.5%;
+  font-size: 15px;
   float: left;
 }
 .delete-comment{
@@ -247,7 +249,6 @@ export default {
   border-radius: 2px;
   float: right;
   margin-right: 3%;
-  margin-top: 2%;
 }
 .line{
   clear: both;
