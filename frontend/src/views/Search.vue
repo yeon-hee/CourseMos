@@ -1,10 +1,10 @@
 <template>
     <div>
-        <!-- <LogoTitle/> -->
         <v-form>
             <v-container>
                 <v-row>
-                    <v-col cols="6" sm="6">
+                    <v-col cols="6" sm="6"
+                            class="mx-auto">
                         <v-text-field
                             align="center"
                             outlined
@@ -15,28 +15,19 @@
                         ></v-text-field>
                     </v-col>
                 </v-row>
-                <v-row>
+                <v-row class="pa-0">
+                    <v-col cols="6" sm="6"
+                            class="mx-auto">
                     <div class="resultContainer">
                         <select v-show="users.length > 0" multiple @change="onChange($event)">
                             <option v-for="user in users" v-bind:key="user.userId">{{user.userId}}</option>
                         </select>
                     </div>
+                    </v-col>
                 </v-row>
             </v-container>
         </v-form>
                 
-        <!-- <div id="search">
-            <div class="searchBar">
-                <input type="text" placeholder="유저검색" v-model="keyword">
-                <button>검색</button>
-            </div>
-            <div class="resultContainer">
-                <select v-show="users.length > 0" multiple @change="onChange($event)">
-                    <option v-for="user in users" v-bind:key="user.userId">{{user.userId}}</option>
-                </select>
-            </div>
-        </div> -->
-        <!-- <Nav/> -->
     </div>
 </template>
 
@@ -89,61 +80,9 @@ export default {
 
 <style scoped>
 
-#search{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 85vh;
-    z-index: 1;
-}
-
-/* #search::after{
-    position: absolute;
-    top:0;
-    left:0;
-    content:"";
-    width:100%;
-    height: 100%;
-    opacity: 0.5;
-    z-index: -1;
-    background-image: url(../assets/images/foods.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
-
-
-.resultContainer > select > option{
+.resultContainer > select{
     padding-left: 5px;
-    width: 250px;
-}
-
-.searchBar{
-    display: flex;
-    align-items: center;
-    height: 40px;
-    width: 250px;
-    border: 1px solid #1b5ac2;
-    background: white;
-
-}
-
-input{
-    font-size: 16px;
-    width: 75%;
-    padding-left: 10px;
-    border: 0px;
-    outline: none;
-}
-
-button{
-    width: 25%;
-    height: 100%;
-    border: 0px;
-    background: #1b5ac2;
-    outline: none;
-    float: right;
-    color: white;
+    width: 100%;
 }
 
 </style>
