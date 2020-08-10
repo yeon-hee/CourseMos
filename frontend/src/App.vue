@@ -19,11 +19,11 @@ import "./components/css/style.scss";
 // Vue.use(IconsPlugin)
 
 export default {
-  name: "app"
+  name: "app",
 };
 </script>
 <style scoped>
-#app{
+#app {
   margin: auto;
 }
 </style>

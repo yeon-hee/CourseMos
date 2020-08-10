@@ -3,11 +3,11 @@
 <template>
   <div class="user" id="login">
     <div class="wrapC">
-      <br>
-      <h1>
-        로그인을 하고 나면
-        <br />좋은 일만 있을 거예요.
-      </h1>
+      <br />
+      <div
+        class="mt-10 mb-16 font-weight-bold text-center text-sm-h1 text-h2 indigo--text text--darken-2"
+      >Cosmos</div>
+      <!-- <h1>Cosmos</h1> -->
 
       <div class="input-with-label">
         <input
@@ -17,7 +17,7 @@
           id="email"
           placeholder="이메일을 입력하세요."
           type="text"
-          autocapitalize= "none"
+          autocapitalize="none"
         />
         <label for="email">이메일</label>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
@@ -42,7 +42,7 @@
         :class="{disabled : !isSubmit}"
       >로그인</button>
 
-      <div class="sns-login">
+      <!-- <div class="sns-login">
         <div class="text">
           <p>SNS 간편 로그인</p>
           <div class="bar"></div>
@@ -50,7 +50,7 @@
 
         <kakaoLogin :component="component" />
         <GoogleLogin :component="component" />
-      </div>
+      </div>-->
       <div class="add-option">
         <div class="text">
           <p>혹시</p>
@@ -80,8 +80,8 @@ import axios from "axios";
 
 export default {
   components: {
-    KakaoLogin,
-    GoogleLogin
+    // KakaoLogin,
+    // GoogleLogin,
   },
   created() {
     this.component = this;
@@ -97,12 +97,12 @@ export default {
       .letters();
   },
   watch: {
-    password: function(v) {
+    password: function (v) {
       this.checkForm();
     },
-    email: function(v) {
+    email: function (v) {
       this.checkForm();
-    }
+    },
   },
   methods: {
     checkForm() {
@@ -118,7 +118,7 @@ export default {
       else this.error.password = false;
 
       let isSubmit = true;
-      Object.values(this.error).map(v => {
+      Object.values(this.error).map((v) => {
         if (v) isSubmit = false;
       });
       this.isSubmit = isSubmit;
@@ -128,14 +128,14 @@ export default {
         let { email, password } = this;
         let data = {
           email,
-          password
+          password,
         };
         this.isSubmit = false;
         UserApi.requestLogin(
           data,
-          response => {
-            console.log('로그인 성공');
-            alert('로그인에 성공하였습니다.');
+          (response) => {
+            console.log("로그인 성공");
+            alert("로그인에 성공하였습니다.");
             localStorage.setItem("token", response.data.object.token);
             localStorage.setItem("userId", response.data.object.user.userId);
             localStorage.setItem("email", response.data.object.user.email);
@@ -146,13 +146,13 @@ export default {
             this.isSubmit = true;
             this.$router.push("/feed/main");
           },
-          error => {
-            alert('로그인에 실패하였습니다.');
+          (error) => {
+            alert("로그인에 실패하였습니다.");
             this.isSubmit = true;
           }
         );
       }
-    }
+    },
   },
 
   data: () => {
@@ -162,12 +162,12 @@ export default {
       passwordSchema: new PV(),
       error: {
         email: false,
-        passowrd: false
+        passowrd: false,
       },
       isSubmit: false,
-      component: this
+      component: this,
     };
-  }
+  },
 };
 </script>
 
