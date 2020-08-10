@@ -357,6 +357,7 @@ export default {
             longitude: this.places[i].y,
             categoryName: category_name,
             thumbnailUrl: this.thumbnails[this.idx],
+            roadAddress : this.places[i].road_address_name
           });
           this.idx++;
         }

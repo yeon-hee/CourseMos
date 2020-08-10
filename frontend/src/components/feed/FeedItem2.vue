@@ -8,7 +8,7 @@
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>{{feed.userId}}</v-list-item-title>
-        <v-list-item-subtitle></v-list-item-subtitle>
+        <v-list-item-subtitle>{{region}}</v-list-item-subtitle>
       </v-list-item-content>
       <v-spacer></v-spacer>
       <v-list-item-content>
@@ -66,7 +66,8 @@ export default {
       heartChange: false,
       emptyHeart: require('../../assets/images/empty-heart.png'),
       redHeart: require('../../assets/images/red-heart.png'),
-      courses : []
+      courses : [],
+      region : ""
     };
   },
   created() {
@@ -88,6 +89,8 @@ export default {
       response => {
         if(response.data.length ==0) return;
         this.courses = this.courses.concat(response.data);
+        // console.log(this.courses)
+        this.getRegionStr(this.courses)
       },
       error => {
         alert(error);
@@ -128,6 +131,27 @@ export default {
       if(str.length >= 3){
           return str.substr(0,3)+"...";
       } else return str;
+    },
+    getRegionStr(courses) {
+      var set = new Set()
+      for(var course of courses) {
+        const roadAddressArray = course.roadAddress.split(' ')
+        const roadAddress = roadAddressArray[0].concat(" ", roadAddressArray[1])
+        set.add(roadAddress)
+      }
+
+      const regionArray = [... set]
+      // console.dir(regionArray)
+      for(var i = 0 ; i < regionArray.length; i++) {
+        console.log(regionArray[i])
+        if(regionArray.length - 1 != i) {
+          this.region += (regionArray[i] + ", ")
+        } else {
+          this.region += (regionArray[i])
+        }
+      }
+      
+        // console.log(this.region)
     }
   }
 };

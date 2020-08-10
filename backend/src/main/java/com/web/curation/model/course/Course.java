@@ -41,4 +41,7 @@ public class Course {
 
     @Column(name = "category_name")
     private String categoryName;
+
+    @Column(name = "road_address")
+    private String roadAddress;
 }
