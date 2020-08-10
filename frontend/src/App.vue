@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <v-app id="app">
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,15 +6,6 @@
     </head>
     <router-view></router-view>
   </v-app>
-=======
-<div id="app">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>코스모스</title>
-  </head>
-  <router-view></router-view>
-</div>
->>>>>>> 471e742f91fb5a43df580f71f496c732d973b999
 </template>
 
 <script>
