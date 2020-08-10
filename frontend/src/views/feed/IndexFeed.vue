@@ -1,21 +1,21 @@
 <template>
-  <div>
+  <v-container fluid>
     <!-- <logo-title/> -->
-    <div class="container">
+    <div style="padding-top:0px">
       <search-bar
           inputValue="text"
           placeholder="검색어를 입력해주세요."
           label="검색"
           @search="searchFeeds"
       />
-      <FeedItem2 v-for="feed in feeds" v-bind:key="feed" v-bind:feed="feed"/>
+      <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed"/>
       
       <button @click="initPage" v-if="isSearch && page==0">Load more</button>
       <infinite-loading v-else slot="append" @infinite="infiniteHandler" force-use-infinite-wrapper=".el-table__body-wrapper">
       </infinite-loading>
       <!-- <Nav/> -->
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -60,11 +60,9 @@ export default {
           search : this.search,
           page : this.page
       };
-      console.dir(data);
       FeedApi.searchFeeds(
           data,
           response => {
-            console.dir(response);
             if (response.data.length) {
               this.page += 1;
               this.feeds = this.feeds.concat(response.data);

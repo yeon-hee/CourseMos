@@ -1,6 +1,6 @@
 <template>
   <v-toolbar>
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+    <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>코스모스</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn text @click="logout">

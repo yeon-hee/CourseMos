@@ -1,19 +1,19 @@
 <template>
 
-  <v-bottom-navigation fixed>
-      <v-btn icon color="teal" value="recent" @click="goMain">
+  <v-bottom-navigation fixed :value="activeBtn" color="deep-orange darken-1">
+      <v-btn icon value="recent" @click="goMain">
         <v-icon>fas fa-home</v-icon>
       </v-btn>
-      <v-btn icon color="teal" value="recent" @click="goSearch">
+      <v-btn icon value="recent" @click="goSearch">
         <v-icon>fas fa-search</v-icon>
       </v-btn>
-      <v-btn icon color="teal" value="recent" @click="goFeedMake">
+      <v-btn icon value="recent" @click="goFeedMake">
         <v-icon>far fa-plus-square fa-w-16</v-icon>
       </v-btn>
-      <v-btn icon color="teal" value="recent" @click="goAlerts">
+      <v-btn icon value="recent" @click="goAlerts">
         <v-icon>far fa-bell</v-icon>
       </v-btn>
-      <v-btn icon color="teal" value="recent" @click="goProfile">
+      <v-btn icon value="recent" @click="goProfile">
         <v-icon>fas fa-user-circle</v-icon>
       </v-btn>
   </v-bottom-navigation>
@@ -23,7 +23,8 @@
 export default {
     data() {
         return {
-            profile_photo: require('@/assets/images/profile_default.png')
+            profile_photo: require('@/assets/images/profile_default.png'),
+            activeBtn: 1,
         }
     },
     methods: {
