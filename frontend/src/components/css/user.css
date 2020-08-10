@@ -3,7 +3,7 @@
   float: left;
   min-height: 100%;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /*로그인*/
 }
 
@@ -36,7 +36,7 @@
 
 .user#login .text .bar {
   height: 1px;
-  background-color: #CCCCCC;
+  background-color: #cccccc;
   float: right;
   margin-top: 9px;
   margin-bottom: 20px;
@@ -51,7 +51,9 @@
   width: calc(100% - 100px);
 }
 
-.user#login .sns-login .btn--naver, .user#login .sns-login #kakao-login, .user#login .sns-login .google-login {
+.user#login .sns-login .btn--naver,
+.user#login .sns-login #kakao-login,
+.user#login .sns-login .google-login {
   display: inline-block;
 }
 
@@ -103,7 +105,7 @@
 }
 
 .user.join .form-wrap span.active .fa-eye {
-  color: #3893A8;
+  color: #3893a8;
 }
 
 .user.join .go-term {
@@ -114,7 +116,7 @@
   font-size: 0.857em;
 }
 
-.user.join input[type=password] {
+.user.join input[type="password"] {
   padding-right: 50px;
 }
 
@@ -138,10 +140,10 @@
 }
 
 .user.changePassword .form-wrap span.active .fa-eye {
-  color: #3893A8;
+  color: #3893a8;
 }
 
-.user.changePassword .form-wrap input[type=password] {
+.user.changePassword .form-wrap input[type="password"] {
   padding-right: 50px;
 }
 
@@ -151,7 +153,7 @@
 }
 
 .user.secession .terms a {
-  color: #3893A8;
+  color: #3893a8;
 }
 
 .user.creator h5 {
@@ -170,7 +172,7 @@
   z-index: 99;
   padding-top: 50px;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   overflow: auto;
   padding-bottom: 90px;
 }

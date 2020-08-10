@@ -1,8 +1,6 @@
 <template>
  <div class="feed-item">
     <div class="feed-top">
-      <br>
-      <div style="font-size:25px; color:rgb(51,102,255); font-weight: bold; margin-bottom: 10px;">데이트 코스</div>
       <!-- <br>
       <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
       <div class="user-info">
@@ -30,6 +28,8 @@
     </div>
     <div style="height:10px;"></div></div>
 
+    
+
 
     <div class="line"></div>
       <!-- <div style="height:15px;"></div>
@@ -46,32 +46,80 @@
     <div style="height:15px;"></div><br>
       
 
-
+ <v-timeline :reverse="reverse" :dense="$vuetify.breakpoint.smAndDown">
+   
     <li v-for="course in courseList" :key="course.id">
-        <div class="box-container" style="margin-left:30px; border:1px solid rgb(183,183,183); height:60px; width:350px; border-radius: 10px;">
-      <div style="float:left;">
-        <!-- {{initMap('건대')}} -->
-        <img :src="course.thumbnailUrl" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
-      </div>
-      <div style="float:left; margin: 9px 0px 9px 10px; line-height: 1.5em;">
-          <div style="font-size:12px; color:rgb(51,102,255);">{{course.categoryName}}</div>
-           {{course.tradeName}} 
+       <v-timeline-item
+            color="teal lighten-3"
+            small
+          >
+      <div data-v-19a3425a="" class="v-timeline-item theme--light" style="width: 480px; height: 65px;">
+        <div class="v-timeline-item__body" style="margin-right: 100px;">
+          <div data-v-19a3425a="" class="elevation-2 v-card v-sheet theme--light">
+            <div style="float:left;">
+              <img :src="course.thumbnailUrl" style="height:60px; width:60px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+            </div>
+            <div style="float:left; margin: 14px 0px 9px 10px; line-height: 1.5em;">
+                <div style="font-size:13px; color:rgb(51,102,255);">{{course.categoryName}}</div>
+                <div style="font-size:16px;">{{course.tradeName}} </div>
+            </div>
+            <div data-v-19a3425a="" class="v-card__title headline" style="height: 70px; float : right;">
+              <a href="javascript:;" @click="clickRoute()">
+                <img src="../../assets/images/find_route_icon.png" width="35px" height="35px">
+              </a>
+            </div>
+            <div style="clear: both;"></div>
+            </div>
+            </div>
+           
+          <div class="v-timeline-item__opposite">
           </div>
-      <div style="float:right; margin: 12px 10px 12px 0px;">
-        <a href="javascript:;" @click="clickRoute()">
-          <img src="../../assets/images/find_route_icon.png" width="35px" height="35px">
-        </a>
       </div>
-    </div><br>
+        </v-timeline-item>
     </li>
+    </v-timeline><br>
     <!-- 코스 들어가는 곳-->
 <!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
       <!-- <div class="box" style="border:1px solid rgb(183,183,183); height:40px; width:40px; border-radius: 10px;"></div> -->
+    
+     <v-carousel
+    cycle
+    height="400"
+    hide-delimiter-background
+    show-arrows-on-hover
+    style="padding : 85px;"
+  >
+    <v-carousel-item
+      v-for="(photo, i) in photoList"
+      :key="i"
+    >
+      <v-sheet>
+        <img :src="photo.photoUrl">
+        <v-row
+          class="fill-height"
+          align="center"
+          justify="center"
+        >
+          <div class="display-3">{{ slide }} Slide</div>
+        </v-row>
+      </v-sheet>
+    </v-carousel-item>
+  </v-carousel>
 
 
-      <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a>
+
+
+
+
+
+
+
+
+
+      <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a><br><br>
+      
   
-      <!-- <p style="padding-bottom: 10px;">댓글
+  <!-- <p style="padding-bottom: 10px;">댓글
       <input class="comment-input"
              v-model="content"
              id="content"/>
@@ -107,6 +155,25 @@ export default {
   mounted() {
     console.log('마운트')
     window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
+    let data = {
+        token : localStorage.getItem('token'),
+        feedNo : this.$route.params.feedNo
+    };
+    
+    // 코스 등록 추가되면 연동하기
+    //let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
+    FeedApi.getCourse(
+      data,
+      res => {
+          this.courseList = res.data;
+          console.log('코스 정보 받아옴!!');
+          this.initMap();
+          this.category();
+      },
+      error => {
+        alert(error);
+      }
+    );  
   },
   data: () => {
     return { 
@@ -122,9 +189,10 @@ export default {
       address : {},
       infowindow : {},
       courseList: [],
-      bounds : "",
+      bounds : {},
       feed : {},
       photos : [],
+      photoList: [],
       comments : [],
       content: "",
       defaultImage, 
@@ -134,7 +202,21 @@ export default {
       emptyHeart: require('../../assets/images/empty-heart.png'),
       redHeart: require('../../assets/images/red-heart.png'),
       myComment: false,
-      userId: ""
+      userId: "",
+      colors: [
+          'indigo',
+          'warning',
+          'pink darken-2',
+          'red lighten-1',
+          'deep-purple accent-4',
+        ],
+      slides: [
+          'First',
+          'Second',
+          'Third',
+          'Fourth',
+          'Fifth',
+      ],
     };
   }, 
   created() {
@@ -143,18 +225,30 @@ export default {
         feedNo : this.$route.params.feedNo
     };
     
-    // 코스 등록 추가되면 연동하기
-    //let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
-    FeedApi.getCourse(
+    FeedApi.getFeedPhoto(
       data,
-      res => {
-          this.courseList = res.data;
-          console.log('코스 정보 받아옴!!');
+      response => {
+        console.log('이미지 가져옴!!!!!!!!!!!');
+        this.photoList = response.data;
+        console.log(this.photoList);
       },
       error => {
-        alert(error);
+        alert('피드 이미지 조회에 실패했습니다.');
       }
-    );  
+    );
+
+    // // 코스 등록 추가되면 연동하기
+    // //let feedNo =  this.feedNo; // 피드 넘버에 대한 코스 받아오기
+    // FeedApi.getCourse(
+    //   data,
+    //   res => {
+    //       this.courseList = res.data;
+    //       console.log('코스 정보 받아옴!!');
+    //   },
+    //   error => {
+    //     alert(error);
+    //   }
+    // );  
     
     FeedApi.loadFeedDetail(
       data,
@@ -170,7 +264,6 @@ export default {
       this.$route.params.feedNo,
       response => {
         this.photos = response.data
-        // console.dir(this.photos)
       },
       error => {
         alert('피드 이미지 조회에 실패했습니다.');
@@ -181,10 +274,10 @@ export default {
   methods: {
     category(){
       console.log('분류');
-      // console.log(this.ps);
-      // for(var i=0;i<this.courseList.length;i++){
-      //   this.ps.keywordSearch(this.courseList[i].tradeName, this.placesSearchCB);
-      // }
+      console.log(this.ps);
+      for(var i=0;i<this.courseList.length;i++){
+        this.ps.keywordSearch(this.courseList[i].tradeName, this.placesSearchCB);
+      }
     },
     clickComment(){
       this.$router.push("/feeds/comments/" + this.$route.params.feedNo); // 여기 수정
@@ -221,22 +314,13 @@ export default {
             alert(error);
           }
         );
-
-      //  AlertApi.requestLike(
-      //     data,
-      //     response => {
-      //       console.log("좋아요 알림 보내기!");
-      //     },
-      //     error => {
-      //       alert(error);
-      //     }
-      //   );
     },
 
     initMap() { 
       console.log('맵 초기화 ~~');
 
             var container = document.getElementById('map')
+            this.bounds = new kakao.maps.LatLngBounds();   
             var options = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667),
                 level: 3
@@ -332,35 +416,40 @@ export default {
 
         // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
         placesSearchCB(data, status, pagination) {
+            for(var k=0; k<this.courseList.length;k++){
+              for(var j=0; j<data.length;j++){
+                if(this.courseList[k].latitude == data[j].x && this.courseList[k].longitude == data[j].y){
+                     if (status === kakao.maps.services.Status.OK) {
+                        //var bounds = new kakao.maps.LatLngBounds();
+                        this.displayMarker(data[j]);    
+                        //bounds.extend(new kakao.maps.LatLng(data[j].y, data[j].x));
+                        this.bounds.extend(new kakao.maps.LatLng(data[j].y, data[j].x));
+                        this.tempList.push(data[j]);
+                        console.log('사이즈는'+this.tempList.length);
+                        if(this.tempList.length == this.courseList.length) {
+                          console.log(this.bounds);
+                          this.map.setBounds(this.bounds); // 범위 재설정  
+                        }
 
-            if (status === kakao.maps.services.Status.OK) {
+                      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
-                var bounds = new kakao.maps.LatLngBounds();
-            
-                for (var i=0; i<data.length; i++) {
-                    this.displayMarker(data[i]);    
-                    bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                }     
+                          alert('검색 결과가 존재하지 않습니다.');
+                          return;
 
-                this.map.setBounds(bounds);  
-            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+                      } else if (status === kakao.maps.services.Status.ERROR) {
 
-                alert('검색 결과가 존재하지 않습니다.');
-                return;
+                          alert('검색 결과 중 오류가 발생했습니다.');
+                          return;
 
-            } else if (status === kakao.maps.services.Status.ERROR) {
-
-                alert('검색 결과 중 오류가 발생했습니다.');
-                return;
-
-            }
+                      }
+                    }
+                 }
+              }
         },
 
         displayMarker(place) {
             var str = place.category_name.split('>');
             this.name = place.place_name;
-            this.one = str[1];
-            this.two = str[2];
             this.address = place.address_name;
 
             var marker = new kakao.maps.Marker({
@@ -372,19 +461,18 @@ export default {
             // 마커에 클릭이벤트를 등록합니다
             var temp = this.infowindow;
             var temp_map = this.map;
-            // kakao.maps.event.addListener(marker, 'click', function() {
-            //     // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+            kakao.maps.event.addListener(marker, 'click', function() {
+                // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                 
-            //     temp.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-            //     temp.open(temp_map, marker);
-            // }
-            // );
+                temp.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                temp.open(temp_map, marker);
+            }
+            );
         }
   },
 };
 
 </script>
-
 
 <style scoped>
 .user-name{

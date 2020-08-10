@@ -256,8 +256,8 @@ export default {
         itemStr += "    <span>" + places.address_name + "</span>";
       }
 
-      itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
-
+      // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
+      itemStr += "<hr class='p-2'/>";
       el.innerHTML = itemStr;
       el.className = "item";
 
@@ -407,6 +407,9 @@ export default {
   border-radius: 3px;
   box-shadow: 1px 1px 1px 1px grey;
 }
+.info {
+  padding: 2px;
+}
 .place {
   display: inline-flex;
   align-items: center;
@@ -417,7 +420,9 @@ export default {
 .place > img {
   width: 100%;
   height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.0975);
   border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px grey;
 }
 .next {
   margin-left: 10px;

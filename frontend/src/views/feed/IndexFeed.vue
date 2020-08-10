@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-container fluid>
     <!-- <logo-title/> -->
-    <div class="container">
+    <div style="padding-top:0px">
       <search-bar
           inputValue="text"
           placeholder="검색어를 입력해주세요."
@@ -15,7 +15,7 @@
       </infinite-loading>
       <!-- <Nav/> -->
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
