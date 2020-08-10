@@ -1,75 +1,50 @@
 <template>
 <div>
-  <v-card class="mx-auto">
+  <v-card>
 
     <v-list-item>
       <v-list-item-avatar color="grey">
         <img src="@/assets/images/profile_default.png"/>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline">{{feed.userId}}</v-list-item-title>
-        <v-list-item-subtitle>{{feed.writeDate}}</v-list-item-subtitle>
+        <v-list-item-title>{{feed.userId}}</v-list-item-title>
+        <v-list-item-subtitle></v-list-item-subtitle>
+      </v-list-item-content>
+      <v-spacer></v-spacer>
+      <v-list-item-content>
+        <v-list-item-subtitle v-text="feed.writeDate"></v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
     <v-row>
       <v-col v-for="course in courses" :key="course.courseOrder" cols=3>
-        <v-badge color="#1A237E" :content="Number(course.courseOrder)" overlap>
-          <v-card class="mx-auto" @click="onImgClick">
-            <v-img :src="course.thumbnailUrl" aspect-ratio="1" class="grey lighten-2"/>
+        <v-badge color="indigo" :content="Number(course.courseOrder)" overlap>
+          <v-card @click="onImgClick">
+            <v-img :src="course.thumbnailUrl" height="70px" aspect-ratio="1" class="grey lighten-2"/>
             <v-card-subtitle class="pb-0" style="font-size:0.8em">{{cutStr(course.tradeName)}}</v-card-subtitle>
           </v-card>
         </v-badge>
+
+        <span>{{course.content}}</span>
       </v-col>
     </v-row>
+    <v-divider></v-divider>
     <v-card-actions>
-      <v-btn class="ma-2" tile @click="clickLikeBtn(feed)">
+      <v-btn text @click="clickLikeBtn(feed)">
         <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left/>
         <span>{{feed.likeCount}}</span>
       </v-btn>
-      <v-btn class="ma-2" tile @click="onImgClick">
+      <v-btn text @click="onImgClick">
         <v-icon left>far fa-comment</v-icon>
         <span>{{feed.commentCount}}</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn class="ma-2" tile>
+      <v-btn text>
         <v-icon>mdi-bookmark</v-icon>
       </v-btn>
     </v-card-actions>
-
   </v-card>
-<!-- <div class="w3-col m7">
-  <div class="w3-container w3-card w3-white w3-round w3-margin">
-    <button class="w3-left w3-circle w3-margin-right">{{feed.userId}}</button>
-    <span class="w3-right w3-opacity">{{feed.writeDate}}</span>
-    <hr class="w3-clear">
-    <div class="feed-card" @click="onImgClick">
-        <div style="margin-top:3%;" v-for="course in courses" v-bind:key="course.courseOrder" class="content">
-          <img v-bind:src="course.thumbnailUrl" width="36px" height="36px" class="comment-profile"/>
-          <p class="comment-writer">{{course.courseOrder + " : "+ course.tradeName}}</p>
-        </div>
-    </div>
-    <div class="content">
-    <div class="feed-btn">
-      <div>
-        <img :src="feed.mine ? redHeart: emptyHeart" width="20px" height="20px"
-            class="like-btn" @click="clickLikeBtn(feed)">
-        <span>{{feed.likeCount}}</span>
-        <img src="../../assets/images/comment.png" width="20px" height="20px"
-            class="comments-btn" @click="onImgClick">
-        <span>{{feed.commentCount}}</span>
-        <img src="../../assets/images/share.png" width="20px" heig0t="20px" 
-              class="share-btn">
-        <img src="../../assets/images/star.png" width="20px" height="20px" class="scrap-btn">
-      </div>
-    </div>
-    <div style="height:10px;"></div>
-    <div class="line"></div>
-      <div style="height:15px;"></div>
-      <h5 class="feed-time">{{feed.writeDate}}</h5>
-    </div>
-  </div>
-</div> -->
+  <br>
 </div>
 </template>
 
@@ -78,11 +53,13 @@ import defaultImage from "../../assets/images/img-placeholder.png";
 import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
 import moment from "moment";
+import ProfileApi from '../../api/ProfileApi';
 
 export default {
   props : ['feed'],
   data: () => {
     return { 
+      followCount : 0,
       defaultImage,
       defaultProfile,
       // hashtags: ['#맛집','#파스타','#와인'],
@@ -93,11 +70,20 @@ export default {
     };
   },
   created() {
-    this.feed.writeDate = moment(this.feed.writeDate).format( 'YYYY-MM-DD HH시');
+    this.feed.writeDate = moment(this.feed.writeDate).format( 'MM월DD일 HH시');
     let data = {
       token : localStorage.getItem("token"),
-      feedNo : this.feed.feedNo
+      feedNo : this.feed.feedNo,
+      userId : this.feed.userId
     }
+    ProfileApi.requestUserProfile(data,
+      response => {
+        this.followCount = response.data.userId
+      },
+      error => {
+        alert(error);
+      }
+    )
     FeedApi.getCourse(data,
       response => {
         if(response.data.length ==0) return;
