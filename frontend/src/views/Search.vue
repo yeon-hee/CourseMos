@@ -1,17 +1,41 @@
 <template>
     <div>
         <!-- <LogoTitle/> -->
-        <div id="search">
+        <v-form>
+            <v-container>
+                <v-row>
+                    <v-col cols="6" sm="6">
+                        <v-text-field
+                            align="center"
+                            outlined
+                            type="text"
+                            label="유저 검색"
+                            prepend-inner-icon="mdi-map-marker"
+                            v-model="keyword"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <div class="resultContainer">
+                        <select v-show="users.length > 0" multiple @change="onChange($event)">
+                            <option v-for="user in users" v-bind:key="user.userId">{{user.userId}}</option>
+                        </select>
+                    </div>
+                </v-row>
+            </v-container>
+        </v-form>
+                
+        <!-- <div id="search">
             <div class="searchBar">
                 <input type="text" placeholder="유저검색" v-model="keyword">
                 <button>검색</button>
             </div>
             <div class="resultContainer">
                 <select v-show="users.length > 0" multiple @change="onChange($event)">
-                    <option v-for="user in users" v-bind:key="user">{{user.userId}}</option>
+                    <option v-for="user in users" v-bind:key="user.userId">{{user.userId}}</option>
                 </select>
             </div>
-        </div>
+        </div> -->
         <!-- <Nav/> -->
     </div>
 </template>
