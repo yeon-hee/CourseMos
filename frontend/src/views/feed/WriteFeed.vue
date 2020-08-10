@@ -3,12 +3,14 @@
     <div class="wrapB">
       <h1>피드 작성하기</h1>
 
-      <h2>form</h2>
+      <h2>내용</h2>
       <div class="wrap">
         <!-- input type=text -->
 
-        <textarea cols="50" rows="10" v-model="contents" style="border-style: solid;"></textarea>
+        <textarea cols="50" rows="5" v-model="contents" style="border-style: solid;"></textarea>
       </div>
+
+      <h2>사진 추가하기</h2>
 
       <div class="wrap">
         <input
@@ -26,7 +28,8 @@
         </ul>
       </div>
       <div class="wrap">
-        <input class="addButton" type="button" value="피드 추가" @click="checkImage()" />
+        <v-btn class="addButton" large color="primary" @click="checkImage()">피드 추가</v-btn>
+        <!-- <input class="addButton" type="button" value="피드 추가" @click="checkImage()" /> -->
       </div>
     </div>
   </div>
@@ -166,4 +169,8 @@ export default {
 </script>
 
 <style scoped>
+.addButton {
+  border: black;
+  float: right;
+}
 </style>;
