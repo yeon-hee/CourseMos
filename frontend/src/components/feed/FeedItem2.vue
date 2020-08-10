@@ -135,9 +135,17 @@ export default {
     getRegionStr(courses) {
       var set = new Set()
       for(var course of courses) {
-        const roadAddressArray = course.roadAddress.split(' ')
-        const roadAddress = roadAddressArray[0].concat(" ", roadAddressArray[1])
-        set.add(roadAddress)
+        try{
+          const roadAddressArray = course.roadAddress.split(' ');
+          const roadAddress = roadAddressArray[0].concat(" ", roadAddressArray[1]);
+          set.add(roadAddress);
+        }
+        catch(e) {
+          console.log(e);
+        }
+        //const roadAddressArray = course.roadAddress.split(' ')
+        //const roadAddress = roadAddressArray[0].concat(" ", roadAddressArray[1])
+        //set.add(roadAddress)
       }
 
       const regionArray = [... set]

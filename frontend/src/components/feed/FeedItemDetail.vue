@@ -53,7 +53,7 @@
             color="teal lighten-3"
             small
           >
-      <div data-v-19a3425a="" class="v-timeline-item theme--light" style="width: 480px; height: 65px;">
+      <div data-v-19a3425a="" class="v-timeline-item theme--light" style="width: 100%; height: 65px;">
         <div class="v-timeline-item__body" style="margin-right: 100px;">
           <div data-v-19a3425a="" class="elevation-2 v-card v-sheet theme--light">
             <div style="float:left;">
