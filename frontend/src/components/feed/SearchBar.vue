@@ -1,12 +1,13 @@
 <template>
     <div>
-
-        <input v-model="text"
+        <!-- <input v-model="text"
                :id="inputValue" :placeholder="placeholder"
                type="text"
                @keyup.enter="submit"
                class="form-control form-control"/>
-        <label :for="inputValue"></label>
+        <label :for="inputValue"></label> -->
+
+        <v-text-field v-model="text" label="검색어를 입력하세요" @keyup.enter="submit"></v-text-field>
     </div>
 </template>
 
@@ -28,7 +29,7 @@
     }
 </script>
 <style scoped>
-div {
+/* div {
     padding-top : 0;
-}
+} */
 </style>
