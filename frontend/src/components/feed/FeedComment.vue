@@ -1,10 +1,9 @@
 <template>
-<div>
+<div> 
     <div style="padding: 15px; height: 20px;">
         <img src="../../assets/images/backwards_icon_149034.png" width="20px" height="20px" style="float: left;" @click="goBack()">
         <div style="text-align: center; font-weight: bold; font-size: 17px;">댓글</div>
     </div>
-      <p class="line"></p>
 
       <div style="padding: 20px;">
       <!-- <p style="padding-bottom: 10px;">댓글
@@ -14,8 +13,9 @@
       
       <button class="regist-comment"
               @click="registComment(feed)">등록</button> -->
+              <br>
       <div>
-        <div style="margin-top:4%;" v-for="(comment, index) in comments" v-bind:key="comment.commentNo">
+        <div v-for="(comment, index) in comments" v-bind:key="comment.commentNo">
           <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
           <p class="comment-writer">{{comment.writer}}</p>
           <p class="comment-content">{{comment.content}}</p>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="plane">
-      <img src="../../assets/images/send_120237.png" class="send" width="32px" height="32px" style="padding: 7px; float: left; position: sticky;">
+      <img src="../../assets/images/send_120237.png" class="send" width="43px" height="43px" style="padding: 7px; float: left; position: sticky;">
       <input style="border:none; width:75%" v-model="content" id="content"/>
       <button class="regist-comment" @click="registComment(feed)">등록</button>
     </div>
@@ -144,9 +144,8 @@ export default {
   filter: opacity(.3) drop-shadow(0 0 0 gray);
 }
 .plane{
-    position: sticky;
-    bottom: 0;
-    margin: 0 auto;
+    position: absolute;
+    bottom: 57px;
     width: 100%;
     overflow: hidden;
     border-top: 1px solid lightslategray;

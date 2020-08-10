@@ -1,11 +1,11 @@
 <template>
-<div id="app">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>코스모스</title>
-  </head>
-  <router-view></router-view>
-</div>
+  <v-app id="app">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>코스모스</title>
+    </head>
+    <router-view></router-view>
+  </v-app>
 </template>
 
 <script>

@@ -1,5 +1,7 @@
 package com.web.curation.controller.photo;
 
+import java.util.List;
+
 import com.web.curation.dao.photo.PhotoDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.photo.Photo;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,4 +48,19 @@ public class PhotoController {
         }
         return response;
     }
+
+    @GetMapping("/{feedNo}")
+    @ApiOperation(value = "사진 정보 받아오기")
+    public Object getPhoto(@PathVariable final int feedNo) {
+
+        ResponseEntity response = null;
+        try {
+            List<Photo> photo = photoDao.findAllByFeedNo(feedNo);
+            response = new ResponseEntity<>(photo, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
 }
