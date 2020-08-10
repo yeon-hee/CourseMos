@@ -10,7 +10,7 @@
                             outlined
                             type="text"
                             label="유저 검색"
-                            prepend-inner-icon="mdi-map-marker"
+                            prepend-inner-icon="mdi-account-question"
                             v-model="keyword"
                         ></v-text-field>
                     </v-col>
