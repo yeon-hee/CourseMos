@@ -5,10 +5,11 @@
     <div class="wrapC">
       <br />
       <div
-        class="mt-10 mb-16 font-weight-bold text-center text-sm-h1 text-h2 indigo--text text--darken-2"
+        class="mt-10 mb-5 font-weight-bold text-center text-sm-h1 text-h2 deep-orange--text text--darken-1"
       >Cosmos</div>
-      <!-- <h1>Cosmos</h1> -->
-
+      <div class="logo">
+        <img width="100px" height="100px" src="..\..\assets\images\Logo.png" alt="logo" />
+      </div>
       <div class="input-with-label">
         <input
           v-model="email"
@@ -170,4 +171,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.add-option {
+  margin-top: 50px;
+}
+.btn--login {
+  background-color: rgb(244, 81, 30);
+}
+.input-with-label > input {
+  border-color: rgb(244, 81, 30);
+}
+</style>
 
