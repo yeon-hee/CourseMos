@@ -86,17 +86,15 @@ export default {
         storageRef.put(this.images[i]).then((snapshot) => {
           var imageUrl = firebase
             .storage()
-            .ref("images/" + fullPath)
-            .getDownloadURL();
-          imageUrl.then((url) => {
-            console.log(url);
-            this.uploadedImageUrl.push(url);
+            .ref(snapshot.metadata.fullPath)
+            .getDownloadURL().then((url) => {
+              this.uploadedImageUrl.push(url);
 
-            if (this.uploadedImageUrl.length == this.images.length) {
-              alert("이미지 업로드 완료");
-              this.uploadFeed();
-            }
-          });
+              if (this.uploadedImageUrl.length == this.images.length) {
+                alert("이미지 업로드 완료");
+                this.uploadFeed();
+              }
+            });
         });
       }
     },
@@ -115,13 +113,13 @@ export default {
         data,
         (response) => {
           console.dir(response);
-          let photoData = {
-            photoUrl: null,
-            feedNo: response.data.feedNo,
-          };
+          
           if (this.images.length > 0) {
             for (const url of this.uploadedImageUrl) {
-              photoData.photoUrl = url;
+              const photoData = {
+                photoUrl: url,
+                feedNo: response.data.feedNo,
+              }
               FeedApi.uploadFeedImage(
                 photoData,
                 (response) => {
@@ -173,5 +171,10 @@ export default {
 .addButton {
   border: black;
   float: right;
+}
+.wrapB {
+  min-width: 400px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>;

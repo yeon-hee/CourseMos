@@ -12,25 +12,92 @@
     
     <div class="feed-car">
       <div class="map_wrap">
-        <div id="map" style="width:500px;height:400px;"></div>
+
+        <v-sheet 
+    class="mx-auto" 
+    elevation="11"
+    height= "400px"
+  >
+
+  <v-expand-transition>
+      <v-sheet
+        v-if="model != null"
+        color="grey lighten-4"
+        height="332"
+      >
+          <div id="map" style="width:100%; height:331px;"></div>
+     
+
+      </v-sheet>
+    </v-expand-transition>
+    
+    <v-slide-group
+      v-model="model"
+      class="pa-1"
+      show-arrows
+    >
+
+    <v-slide-item v-slot:default="{ toggle }">
+        <v-card
+          class="ma-1"
+          height="50"
+          width="76"
+          @click="toggle"
+        >
+        <div id="map" style="width:76px; height:50px;"></div>
+        </v-card>
+      </v-slide-item>
+
+      <v-slide-item
+        v-for="photo in photoList"
+        :key="photo.id"
+        v-slot:default="{ toggle }"
+      >
+        <v-card
+          class="ma-1"
+          height="50"
+          width="76"
+          @click="toggle"
+        >
+        <img :src="photo.photoUrl" height="50" width="76">
+        </v-card>
+      </v-slide-item>
+
+      <v-slide-item v-slot:default="{ toggle }">
+        <v-card
+          class="ma-1"
+          height="50"
+          width="76"
+          @click="toggle"
+        >
+        <div id="map" style="width:76px; height:50px;"></div>
+        </v-card>
+      </v-slide-item>
+      
+    </v-slide-group>
+  </v-sheet>
+
+
+        <!-- <div id="map" style="width:100%;height:400px;"></div> -->
+      </div>
+
+        
+     
     </div>
-    </div>
-    <div class="content">
-    <div class="feed-btn">
+    <div class="feed-btn" style="margin-left: 10px;">
       <div>
         <img :src="feed.mine ? redHeart: emptyHeart" width="20px" height="20px" class="like-btn" @click="clickLikeBtn(feed)">
         <span>{{feed.likeCount}}</span>
         <img src="../../assets/images/comment.png" width="20px" height="20px" class="comments-btn">
         <span>{{feed.commentCount}}</span>
-        <a href="javascript:;" @click="clickShare()"><img src="../../assets/images/share.png" width="20px" heig0t="20px" class="share-btn"></a>
-        <img src="../../assets/images/star.png" width="20px" height="20px" class="scrap-btn">
+        <img src="../../assets/images/share.png" width="20px" height="20px" class="share-btn">
+        <!-- <img src="../../assets/images/star.png" width="20px" height="20px" class="scrap-btn"> -->
       </div>
+      
+
+      
     </div>
-    <div style="height:10px;"></div></div>
-
-    
-
-
+    <div style="height:10px;"></div>
     <div class="line"></div>
       <!-- <div style="height:15px;"></div>
       <p>{{feed.contents}}</p>
@@ -44,24 +111,45 @@
     <div class="comment-area"> -->
     <div style="clear: both;"></div>
     <div style="height:15px;"></div><br>
+
+     
+
       
 
- <v-timeline :reverse="reverse" :dense="$vuetify.breakpoint.smAndDown">
+ <v-timeline :dense="$vuetify.breakpoint.smAndDown">
    
-    <li v-for="course in courseList" :key="course.id">
+    <div v-for="course in courseList" :key="course.id">
        <v-timeline-item
             color="teal lighten-3"
             small
           >
-      <div data-v-19a3425a="" class="v-timeline-item theme--light" style="width: 100%; height: 65px;">
-        <div class="v-timeline-item__body" style="margin-right: 100px;">
-          <div data-v-19a3425a="" class="elevation-2 v-card v-sheet theme--light">
-            <div style="float:left;">
-              <img :src="course.thumbnailUrl" style="height:60px; width:60px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+      <div data-v-19a3425a="" class="v-timeline-item theme--light" style="width: 370px; height: 45px;">
+        <div style="margin-right: 102px;">
+          <div  class="elevation-2 v-card v-sheet theme--light" style="border-radius:10px; width:300px; height:57px; border:1px solid #ccc;">
+              <div style="float:left;">
+              <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
             </div>
-            <div style="float:left; margin: 14px 0px 9px 10px; line-height: 1.5em;">
-                <div style="font-size:13px; color:rgb(51,102,255);">{{course.categoryName}}</div>
-                <div style="font-size:16px;">{{course.tradeName}} </div>
+            <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.2em;">
+                <div style="font-size:10px; color:rgb(51,102,255);">{{course.categoryName}}</div>
+                <div style="font-size:13px;">{{course.tradeName}} </div>
+            </div>
+            <div style="float: right; margin: 12px;"> 
+              <a href="javascript:;" @click="clickRoute()" style="margin-bottom: 15px;">
+                <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+              </a>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+
+
+
+          <!-- <div data-v-19a3425a="" class="elevation-2 v-card v-sheet theme--light" style="height: 60px;">
+            <div style="float:left;">
+              <img :src="course.thumbnailUrl" style="height:50px; width:50px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+            </div>
+            <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.4em;">
+                <div style="font-size:12px; color:rgb(51,102,255);">{{course.categoryName}}</div>
+                <div style="font-size:14px;">{{course.tradeName}} </div>
             </div>
             <div data-v-19a3425a="" class="v-card__title headline" style="height: 70px; float : right;">
               <a href="javascript:;" @click="clickRoute()">
@@ -69,53 +157,18 @@
               </a>
             </div>
             <div style="clear: both;"></div>
-            </div>
+            </div> -->
             </div>
            
           <div class="v-timeline-item__opposite">
           </div>
       </div>
         </v-timeline-item>
-    </li>
+    </div>
     </v-timeline><br>
     <!-- 코스 들어가는 곳-->
 <!-- <div class="img" :style="{'background-image': 'url('+defaultImage+')'}" @click="onImgClick"></div> -->
       <!-- <div class="box" style="border:1px solid rgb(183,183,183); height:40px; width:40px; border-radius: 10px;"></div> -->
-    
-     <v-carousel
-    cycle
-    height="400"
-    hide-delimiter-background
-    show-arrows-on-hover
-    style="padding : 85px;"
-  >
-    <v-carousel-item
-      v-for="(photo, i) in photoList"
-      :key="i"
-    >
-      <v-sheet>
-        <img :src="photo.photoUrl">
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">{{ slide }} Slide</div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
-
-
-
-
-
-
-
-
-
-
-
       <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a><br><br>
       
   
@@ -167,8 +220,8 @@ export default {
       res => {
           this.courseList = res.data;
           console.log('코스 정보 받아옴!!');
-          this.initMap();
           this.category();
+          this.listSize = this.courseList.length + 1;
       },
       error => {
         alert(error);
@@ -184,7 +237,9 @@ export default {
       one : {},
       two: {},
       name: {},
+      listSize: {},
       x: {},
+      switch1: false,
       tempList: [],
       address : {},
       infowindow : {},
@@ -203,20 +258,7 @@ export default {
       redHeart: require('../../assets/images/red-heart.png'),
       myComment: false,
       userId: "",
-      colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
-        ],
-      slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
-      ],
+      model: ""
     };
   }, 
   created() {
@@ -228,7 +270,6 @@ export default {
     FeedApi.getFeedPhoto(
       data,
       response => {
-        console.log('이미지 가져옴!!!!!!!!!!!');
         this.photoList = response.data;
         console.log(this.photoList);
       },
@@ -274,7 +315,6 @@ export default {
   methods: {
     category(){
       console.log('분류');
-      console.log(this.ps);
       for(var i=0;i<this.courseList.length;i++){
         this.ps.keywordSearch(this.courseList[i].tradeName, this.placesSearchCB);
       }
@@ -298,7 +338,6 @@ export default {
       }
 
       let feedNo =  feed.feedNo;
-      console.dir(feed);
       let data = {
         token : localStorage.getItem('token'),
         feedNo,
@@ -373,7 +412,6 @@ export default {
                   let ulList = [];
                   const $ = cheerio.load(html); 
                   const $bodyList = $("div.link_search a.thumb_box");
-                  console.log($bodyList);
 
                   // $bodyList.each(function(i, elem){
                   //     ulList[i] = {
@@ -425,9 +463,7 @@ export default {
                         //bounds.extend(new kakao.maps.LatLng(data[j].y, data[j].x));
                         this.bounds.extend(new kakao.maps.LatLng(data[j].y, data[j].x));
                         this.tempList.push(data[j]);
-                        console.log('사이즈는'+this.tempList.length);
                         if(this.tempList.length == this.courseList.length) {
-                          console.log(this.bounds);
                           this.map.setBounds(this.bounds); // 범위 재설정  
                         }
 
@@ -512,13 +548,14 @@ export default {
   padding-top: 3%;
 }
 .like-btn{
-  margin-right: 10px;
+  margin-right: 2px;
 }
 .comments-btn{
   margin-left: 10px;
+  margin-right: 2px;
 }
 .share-btn{
-  margin-left: 20px;
+  margin-left: 11px;
 }
 .scrap-btn{
   float: right;
