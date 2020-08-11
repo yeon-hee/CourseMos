@@ -15,6 +15,7 @@ import Followers from "./views/user/Followers.vue";
 import Followings from "./views/user/Followings.vue";
 import Search from "./views/Search.vue";
 import AccountSetting from "./views/user/AccountSetting.vue";
+import TradeDetail from "./views/trade/TradeDetail.vue";
 import FeedDetail from "./views/feed/FeedDetail.vue";
 import FeedComment from "./components/feed/FeedComment.vue";
 import FeedItemDetail from "./components/feed/FeedItemDetail.vue";
@@ -149,6 +150,11 @@ export default [
         path: "/crawling",
         name: "Crawling",
         component: Crawling,
+      },
+      {
+        path: "/trade",
+        name: "TradeDetail",
+        component: TradeDetail,
       }
     ]
   },

@@ -63,4 +63,28 @@ public class CrawlingController {
       return result.get("src");
     }
 
+    @GetMapping("/detail/{tradeName}")
+    @ApiOperation(value = "상세 정보 크롤링하기")
+    public Object getDetail(@PathVariable final String tradeName) throws IOException {
+  
+        String name = "";
+        for(int i=0;i<tradeName.length();i++){
+          if(tradeName.charAt(i) == ' ') name += '+';
+          else name += tradeName.charAt(i);
+        }    
+  
+        String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query="; // 크롤링 url로 바꾸기
+        url += name;
+        System.out.println(url);
+        Document doc = Jsoup.connect(url).get();
+        Elements element = doc.select("div.ct_box_area");
+        System.out.println(element);
+
+        // Attributes result = element.get(0).attributes();
+        // System.out.println(result);
+        // System.out.println(result.get("src"));
+  
+          
+        return true;
+      }
 }
