@@ -24,6 +24,7 @@ import MapPage from "./views/Map.vue";
 import WriteFeedPage from "./views/feed/WriteFeed.vue";
 import FeedMake from "./views/feed/FeedMake.vue";
 import Main from "./views/Main";
+import WorldCup from "./views/feed/WorldCup.vue";
 
 export default [
   {
@@ -52,10 +53,10 @@ export default [
     component: NotFound,
   },
   {
-    path : "/",
-    name : "Main",
-    component : Main,
-    children : [
+    path: "/",
+    name: "Main",
+    component: Main,
+    children: [
       {
         path: "/feed/main",
         name: "FeedMain",
@@ -155,8 +156,12 @@ export default [
         path: "/trade",
         name: "TradeDetail",
         component: TradeDetail,
-      }
+      },
+        {
+        path: "/worldcup",
+        name: "WorldCup",
+        component: WorldCup,
+      },
     ]
   },
-  
 ];

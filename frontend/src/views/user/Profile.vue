@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="12" sm="6" offset-sm="3">
                 <v-row>
-                    <v-col cols="3">
+                    <v-col cols="3" style="text-align:center;">
                         <v-avatar size="48">
                             <v-img :src="profile_photo" aspect-ratio="1"></v-img>
                         </v-avatar>
@@ -19,18 +19,22 @@
                                 <div class="articles-number">{{feed_count}}</div>
                             </v-col>
                             <v-col cols="4" class="text-center">
+                                <a href="/#/friends/followers">
                                 <span class="profile-number u-fat-text">팔로워</span>
                                 <div class="followers-number">{{follower_count}}</div>
+                                </a>
                             </v-col>
                             <v-col cols="4" class="text-center">
+                                <a href="#/friends/followings">
                                 <span class="profile-number u-fat-text">팔로잉</span>
                                 <div class="followings-number">{{following_count}}</div>
+                                </a>
                             </v-col>
                         </v-row>
                         <v-row>
-                            <v-col cols="10" class="mx-auto">
-                                
-                                <a href="#/users/profile/setting" class="profile-button u-fat-text">프로필 수정</a>
+                            <v-col cols="10" class="mx-auto" style="text-align:center">
+                                <v-btn class="deep-orange white--text"
+                                    onclick="location.href='#/users/profile/setting' ">프로필 수정</v-btn>
                             </v-col>
                         </v-row>
                     </v-col>

@@ -1,7 +1,6 @@
 <template>
     <div>
         <main class="profile-container">
-            <LogoTitle/>
             <section class="profile">
                 <header class="profile-header">
                     <div class="profile-avatar-container">
@@ -61,13 +60,10 @@
                 </ul>
             </section>
         </main>
-     <Nav/>
     </div>
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
 import "../../components/css/user/profile.css";
 import ProfileApi from "../../api/ProfileApi";
 import FeedApi from "../../api/FeedApi";
@@ -77,8 +73,6 @@ import RequestApi from "../../api/RequestApi";
 
 export default {
     components: {
-        LogoTitle,
-        Nav
     },
     created() {
         let data = {
