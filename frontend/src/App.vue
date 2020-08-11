@@ -1,15 +1,15 @@
 <template>
-  <v-app id="app">
-    <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>코스모스</title>
-    </head>
-    <router-view></router-view>
-  </v-app>
+<v-app id="app">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>코스모스</title>
+  </head>
+  <router-view></router-view>
+</v-app>
 </template>
 
 <script>
-import "./components/css/style.scss";
+// import "./components/css/style.scss";
 // import Vue from 'vue'
 // import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 // // import 'bootstrap/dist/css/bootstrap.css'
