@@ -234,9 +234,6 @@ export default {
 
       var el = document.createElement("li"),
         itemStr =
-          '<span class="markerbg marker_' +
-          (index + 1) +
-          '"></span>' +
           '<div class="info">' +
           "   <h3>" +
           (index + 1) +
@@ -357,7 +354,7 @@ export default {
             longitude: this.places[i].y,
             categoryName: category_name,
             thumbnailUrl: this.thumbnails[this.idx],
-            roadAddress : this.places[i].road_address_name
+            roadAddress: this.places[i].road_address_name,
           });
           this.idx++;
         }
@@ -400,15 +397,13 @@ export default {
   width: 300px;
   min-width: 300px;
   max-width: 500px;
+  padding: 0;
   margin: 5px 0;
   margin-left: 20px;
   height: 60px;
   border: 1px solid rgba(0, 0, 0, 0.0975);
   border-radius: 3px;
   box-shadow: 1px 1px 1px 1px grey;
-}
-.info {
-  padding: 2px;
 }
 .place {
   display: inline-flex;
@@ -495,6 +490,7 @@ export default {
   overflow: hidden;
   cursor: pointer;
   min-height: 65px;
+  background: #fff;
 }
 #placesList .item span {
   display: block;
@@ -505,6 +501,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  background: #fff;
 }
 #placesList .item .info {
   padding: 10px 0 10px 55px;

@@ -172,4 +172,9 @@ export default {
   border: black;
   float: right;
 }
+.wrapB {
+  min-width: 400px;
+  max-width: 500px;
+  margin: 0 auto;
+}
 </style>;
