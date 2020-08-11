@@ -20,6 +20,19 @@
 
 export default {
   name: "app",
+  mounted() {
+    this.addScript();
+  },
+  methods : {
+    addScript() {
+      console.log('지도 add');
+      const script = document.createElement('script')
+      /* global kakao */
+      script.onload = () => kakao.maps.load(()=>console.log("Hi"))
+      script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=6eef005ce939915ab51bb458c785e9f4&autoload=false&libraries=services,clusterer,drawing'
+      document.head.appendChild(script);
+    },
+  }
 };
 </script>
 <style scoped>
