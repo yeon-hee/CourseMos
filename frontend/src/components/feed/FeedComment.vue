@@ -146,7 +146,7 @@ export default {
 .plane{
     position: absolute;
     bottom: 57px;
-    width: 380px;
+    width: 100%;
     overflow: hidden;
     border-top: 1px solid lightslategray;
     background-color: white;
