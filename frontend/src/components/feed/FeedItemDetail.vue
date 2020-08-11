@@ -25,13 +25,8 @@
         color="grey lighten-4"
         height="332"
       >
-        <div v-if="model == 0">
-          <div id="map" style="width:100%; height:331px; display: block;"></div>
-        </div>
-        <div v-else>
-          <div id="map" style="width:100%; height:331px; display: none;"></div>
-          안녕
-        </div>
+          <div id="map" style="width:100%; height:331px;"></div>
+     
 
       </v-sheet>
     </v-expand-transition>
@@ -49,7 +44,7 @@
           width="76"
           @click="toggle"
         >
-        <img id="map" height="50" width="76">
+        <div id="map" style="width:76px; height:50px;"></div>
         </v-card>
       </v-slide-item>
 
@@ -67,6 +62,18 @@
         <img :src="photo.photoUrl" height="50" width="76">
         </v-card>
       </v-slide-item>
+
+      <v-slide-item v-slot:default="{ toggle }">
+        <v-card
+          class="ma-1"
+          height="50"
+          width="76"
+          @click="toggle"
+        >
+        <div id="map" style="width:76px; height:50px;"></div>
+        </v-card>
+      </v-slide-item>
+      
     </v-slide-group>
   </v-sheet>
 
@@ -213,7 +220,6 @@ export default {
       res => {
           this.courseList = res.data;
           console.log('코스 정보 받아옴!!');
-          this.initMap();
           this.category();
           this.listSize = this.courseList.length + 1;
       },
