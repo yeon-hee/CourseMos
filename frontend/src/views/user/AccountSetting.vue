@@ -1,13 +1,102 @@
 
 <template>
-  <div>
-  <!-- <LogoTitle /> -->
+  <v-container fluid style="margin-bottom:100px;">
+    <!-- title  -->
+    <v-row>
+      <v-col cols="12" sm="6" offset-sm="3">
+        <h1 class="deep-orange--text">내 계정 설정</h1>
+        <p class="deep-orange--text">My Settings</p>
+      </v-col>
+    </v-row>
+
+    <!-- profile image  -->
+    <v-row>
+      <v-col cols="6" sm="3" offset-sm="3" style="text-align:center">
+        <v-avatar size="96">
+          <img :src="profileThumbnail"/>
+        </v-avatar>
+      </v-col>
+      <v-col cols="6" sm="3" style="text-align:center;">
+        <v-file-input @change="selectImage" accept="image/*" label="image select" ref="profileImage" name="imgFile"></v-file-input>
+        <button class="deep-orange--text  font-weight-bold" @click="updateProfileImage()" value="등록">등록</button>
+      </v-col>
+    </v-row>
+    <!-- user info  -->
+    <template style="margin-top:50px;">
+      <v-row no-gutters style="margin-top:50px;">
+        <v-col cols="4" sm="2" offset-sm="3">
+          <v-subheader>아이디</v-subheader>
+        </v-col>
+        <v-col cols="8" sm="4">
+          <v-text-field
+            label="Outlined"
+            single-line
+            outlined
+            v-model="userId" 
+            v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
+            v-bind:placeholder="placeUserId"
+            id="userId" 
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col cols="4" sm="2" offset-sm="3">
+          <v-subheader>이메일</v-subheader>
+        </v-col>
+        <v-col cols="8" sm="4">
+          <v-text-field
+            label="Outlined"
+            single-line
+            outlined
+            readonly
+            hint="이메일은 변경 불가합니다."
+            v-model="email"
+            v-bind:placeholder="placeEmail"
+            id="email"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col cols="4" sm="2" offset-sm="3">
+          <v-subheader>비밀번호</v-subheader>
+        </v-col>
+        <v-col cols="8" sm="4">
+          <a href="#/users/profile/password" class="btn--text text-decoration-none deep-orange--text font-weight-bold">비밀번호 변경</a>
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters style="margin-top:20px;">
+        <v-col cols="12" sm="6" offset-sm="3">
+          <v-textarea
+            name="input-7-1"
+            filled
+            label="한줄 자기소개"
+            auto-grow
+            cols="32" rows="7"
+            v-bind:class="{error : error.profileComment, complete:!error.profileComment&&profileComment.length!==0}"
+            v-model="profileComment"
+            v-bind:placeholder="placeProfileComment"
+          ></v-textarea>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12" sm="6" 
+            style="text-align:center;">
+          <v-btn class="deep-orange white--text"
+            @click="onChange"
+            :disabled="!isSubmit"
+            :class="{disabled : !isSubmit}">저장
+          </v-btn>
+        </v-col>
+      </v-row>
+      
+    </template>
+
+  <!-- <div>
   <div class="join wrapC total">
     <div class="title">
         <a href="#/users/profile"><img src="../../assets/images/back-arrow.png" width="30px" height="30px" class="back-arrow"></a>
-        <!-- <h1 class="logo">맛동산</h1> -->
     </div>
-    <!-- <div class="line"></div> -->
 
     <div>
         <div class="page-title">내 계정 설정</div>
@@ -18,10 +107,8 @@
     <div class="form-wrap">
       <div class="input-wrap">
         <img :src="profileThumbnail" width="50px" height="50px">
-        <!-- <form name="uploadForm" method="post" enctype="multipart/form-data"> -->
           <input @change="selectImage()" type="file" ref="profileImage" name="imgFile" class="upload-input" accept="image/*">
           <button class="upload-btn" @click="updateProfileImage()" value="등록">등록</button>
-        <!-- </form> -->
       </div>
       <div class="input-wrap">
         <label for="userId">아이디</label>
@@ -49,10 +136,7 @@
 
       <div class="input-wrap">
         <label for="self-info">한줄 자기소개</label>
-        <!-- <input 
-          v-model="profileComment" class="self-info-input"
-          id="email" :type="text" 
-          placeholder="간단한 자기소개를 입력하세요." /> -->
+        
           <textarea class="self-info-textarea" cols="32" rows="7"
             v-bind:class="{error : error.profileComment, complete:!error.profileComment&&profileComment.length!==0}"
             v-model="profileComment"
@@ -68,7 +152,8 @@
       :class="{disabled : !isSubmit}"
       >저장</button>
   </div>
-  </div>
+  </div> -->
+  </v-container>
 </template>
 
 <script>
@@ -116,8 +201,8 @@ export default {
   },
   methods: {
     selectImage() {
-      this.profileImage = this.$refs.profileImage.files[0];
-      // console.dir(this.profileImage)
+      // this.profileImage = this.$refs.profileImage.files[0];
+      console.dir(this.$refs.profileImage)
       this.profileThumbnail = window.URL.createObjectURL(this.profileImage);
       
     },

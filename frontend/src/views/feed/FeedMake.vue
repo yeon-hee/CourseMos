@@ -1,43 +1,86 @@
 <template>
-  <div>
-    <!-- <LogoTitle /> -->
-    <div id="feedMake">
-      <div class="courseMake">
-        <ul class="placeList">
-          <li
-            v-for="(course, index) in courses"
-            v-bind:key="index"
-            class="place"
-            v-on:click="doRemove(index)"
-          >
-            <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
-          </li>
-        </ul>
-        <button v-on:click="saveCourse" class="next">
-          <v-icon x-large>fas fa-arrow-right</v-icon>
-        </button>
-      </div>
-      <div class="map_wrap">
-        <div id="map" style="width:350px;height:350px;"></div>
+  <v-container fluid style="margin-bottom:100px;">
+    <v-row>
+      <v-col>
+        <div class="courseMake" style="justify-content: center;">
+          <ul class="placeList">
+            <li
+              v-for="(course, index) in courses"
+              v-bind:key="index"
+              class="place"
+              v-on:click="doRemove(index)"
+            >
+              <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
+            </li>
+          </ul>
+          <button v-on:click="saveCourse" class="next">
+            <v-icon x-large>fas fa-arrow-right</v-icon>
+          </button>
+        </div>
+      </v-col>
+    </v-row>
 
-        <div id="menu_wrap" class="bg_white">
-          <div class="option">
-            <div>
-              <form v-on:submit.prevent="searchPlaces">
-                키워드 :
-                <input type="text" value="이태원 맛집" id="keyword" />
-                <button type="submit">검색하기</button>
-              </form>
+    <v-row>
+      <v-col cols="12" sm="6" offset-sm="3">
+        <div class="map_wrap mb-26">
+          <div id="map" style="width:400px;height:400px;"></div>
+
+          <div id="menu_wrap" class="bg_white">
+            <div class="option">
+              <div>
+                <form v-on:submit.prevent="searchPlaces">
+                  키워드 :
+                  <input type="text" value="이태원 맛집" id="keyword" />
+                  <button type="submit">검색하기</button>
+                </form>
+              </div>
             </div>
+            <hr />
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
           </div>
-          <hr />
-          <ul id="placesList"></ul>
-          <div id="pagination"></div>
+        </div>
+      </v-col>
+    </v-row>
+<!-- 
+    <div>
+      <div id="feedMake">
+        <div class="courseMake">
+          <ul class="placeList">
+            <li
+              v-for="(course, index) in courses"
+              v-bind:key="index"
+              class="place"
+              v-on:click="doRemove(index)"
+            >
+              <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
+            </li>
+          </ul>
+          <button v-on:click="saveCourse" class="next">
+            <v-icon x-large>fas fa-arrow-right</v-icon>
+          </button>
+        </div>
+        <div class="map_wrap">
+          <div id="map" style="width:350px;height:350px;"></div>
+
+          <div id="menu_wrap" class="bg_white">
+            <div class="option">
+              <div>
+                <form v-on:submit.prevent="searchPlaces">
+                  키워드 :
+                  <input type="text" value="이태원 맛집" id="keyword" />
+                  <button type="submit">검색하기</button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- <Nav /> -->
-  </div>
+    </div> -->
+  </v-container>
 </template>
 
 <script>
