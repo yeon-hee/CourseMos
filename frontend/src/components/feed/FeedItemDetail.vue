@@ -484,6 +484,7 @@ export default {
         },
 
         displayMarker(place) {
+          console.log(place);
             var str = place.category_name.split('>');
             this.name = place.place_name;
             this.address = place.address_name;

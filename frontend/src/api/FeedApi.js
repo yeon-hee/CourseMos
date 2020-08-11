@@ -76,6 +76,12 @@ const getFeedPhoto = (data, callback, errorCallback) => {
         .catch(err => errorCallback(err));
 }
 
+const crawling = (data, callback, errorCallback) => {
+    axios.get(url.url + '/crawling/' + data.tradeName , { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
 const FeedApi = {
     loadFeeds: (data, callback, errorCallback) => loadFeeds(data, callback, errorCallback),
     loadUserFeeds: (data, callback, errorCallback) => loadUserFeeds(data, callback, errorCallback),
@@ -89,7 +95,8 @@ const FeedApi = {
     writeFeed: (data, callback, errorCallback) => writeFeed(data, callback, errorCallback),
     uploadFeedImage: (data, callback, errorCallback) => uploadFeedImage(data, callback, errorCallback),
     searchFeeds: (data, callback, errorCallback) => searchFeeds(data, callback, errorCallback),
-    getFeedPhoto: (data, callback, errorCallback) => getFeedPhoto(data, callback, errorCallback)
+    getFeedPhoto: (data, callback, errorCallback) => getFeedPhoto(data, callback, errorCallback),
+    crawling: (data, callback, errorCallback) => crawling(data, callback, errorCallback)
 }
 
 export default FeedApi

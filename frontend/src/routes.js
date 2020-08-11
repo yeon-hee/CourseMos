@@ -18,6 +18,7 @@ import AccountSetting from "./views/user/AccountSetting.vue";
 import FeedDetail from "./views/feed/FeedDetail.vue";
 import FeedComment from "./components/feed/FeedComment.vue";
 import FeedItemDetail from "./components/feed/FeedItemDetail.vue";
+import Crawling from "./components/feed/Crawling.vue";
 import MapPage from "./views/Map.vue";
 import WriteFeedPage from "./views/feed/WriteFeed.vue";
 import FeedMake from "./views/feed/FeedMake.vue";
@@ -144,6 +145,11 @@ export default [
         name: "FeedItemDetail",
         component: FeedItemDetail,
       },
+      {
+        path: "/crawling",
+        name: "Crawling",
+        component: Crawling,
+      }
     ]
   },
   
