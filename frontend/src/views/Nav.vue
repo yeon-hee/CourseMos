@@ -1,19 +1,19 @@
 <template>
 
   <v-bottom-navigation fixed :value="activeBtn" color="deep-orange darken-1">
-      <v-btn icon value="recent" @click="goMain">
+      <v-btn icon value="main" @click="goMain">
         <v-icon>fas fa-home</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goSearch">
+      <v-btn icon value="search" @click="goSearch">
         <v-icon>fas fa-search</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goFeedMake">
+      <v-btn icon value="feedmake" @click="goFeedMake">
         <v-icon>far fa-plus-square fa-w-16</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goAlerts">
+      <v-btn icon value="alerts" @click="goAlerts">
         <v-icon>far fa-bell</v-icon>
       </v-btn>
-      <v-btn icon value="recent" @click="goProfile">
+      <v-btn icon value="profile" @click="goProfile">
         <v-icon>fas fa-user-circle</v-icon>
       </v-btn>
   </v-bottom-navigation>
