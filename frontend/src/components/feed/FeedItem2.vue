@@ -8,7 +8,10 @@
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>{{feed.userId}}</v-list-item-title>
-        <v-list-item-subtitle>{{region}}</v-list-item-subtitle>
+        <v-list-item-subtitle>
+          <v-icon>fas fa-users</v-icon>
+          {{followerCount}}
+        </v-list-item-subtitle>
       </v-list-item-content>
       <v-spacer></v-spacer>
       <v-list-item-content>
@@ -16,18 +19,21 @@
       </v-list-item-content>
     </v-list-item>
 
+    <v-container>
     <v-row>
       <v-col v-for="course in courses" :key="course.courseOrder" cols=3>
         <v-badge color="indigo" :content="Number(course.courseOrder)" overlap>
           <v-card @click="onImgClick">
-            <v-img :src="course.thumbnailUrl" height="70px" aspect-ratio="1" class="grey lighten-2"/>
-            <v-card-subtitle class="pb-0" style="font-size:0.8em">{{cutStr(course.tradeName)}}</v-card-subtitle>
+            <v-img :src="course.thumbnailUrl" height="4em" width="4em" aspect-ratio="1" class="grey lighten-2"/>
+            <div style="padding-top:2px; font-size:0.8em">{{cutStr(course.tradeName)}}</div>
+            <!-- <v-card-title style="font-size:0.6em"></v-card-title> -->
           </v-card>
         </v-badge>
 
         <span>{{course.content}}</span>
       </v-col>
     </v-row>
+    </v-container>
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn text @click="clickLikeBtn(feed)">
@@ -59,7 +65,7 @@ export default {
   props : ['feed'],
   data: () => {
     return { 
-      followCount : 0,
+      followerCount : 0,
       defaultImage,
       defaultProfile,
       // hashtags: ['#맛집','#파스타','#와인'],
@@ -79,7 +85,20 @@ export default {
     }
     ProfileApi.requestUserProfile(data,
       response => {
-        this.followCount = response.data.userId
+        let data = {
+          token : localStorage.getItem('token'),
+          email : response.data.email
+        }
+
+        ProfileApi.requestUserCount(data,
+          response=> {
+            console.dir(response.data);
+            this.followerCount = response.data.followerCount;
+          },
+          error=> {
+            alert(error);
+          }
+        )
       },
       error => {
         alert(error);
@@ -129,7 +148,7 @@ export default {
     },
     cutStr(str) {
       if(str.length >= 3){
-          return str.substr(0,3)+"...";
+          return str.substr(0,3)+"..";
       } else return str;
     },
     getRegionStr(courses) {
@@ -160,7 +179,7 @@ export default {
       }
       
         // console.log(this.region)
-    }
+    },
   }
 };
 </script>
