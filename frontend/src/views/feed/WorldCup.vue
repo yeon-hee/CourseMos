@@ -1,13 +1,27 @@
 <template>
   <div class="worldCup">
-    <div class="pt-16 mb-5 font-weight-bold text-center text-sm-h3 text-h3 white--text">코스 추천 월드컵</div>
+    <div
+      class="pt-16 mb-5 font-weight-bold text-center text-sm-h3 text-h3 indigo--text text--darken-3"
+    >코스 추천 월드컵</div>
+    <img
+      src="..\..\assets\images\trophy.jpeg"
+      class="trophy"
+      width="100px"
+      height="100px"
+      alt="trophy"
+    />
     <div v-if="round==2">
-      <div class="round mb-5 text-center font-weight-bold white--text text-sm-h4 text-h4">결승전!</div>
+      <div class="round mb-5 text-center font-weight-bold red--text text-sm-h4 text-h4">결승전!</div>
+    </div>
+    <div v-else-if="round==4">
+      <div
+        class="round mb-5 text-center font-weight-bold orange--text text--darken-3 text-sm-h4 text-h4"
+      >4강</div>
     </div>
     <div v-else>
-      <div class="round mb-5 text-center font-weight-bold white--text text-sm-h4 text-h4">{{round}}강</div>
+      <div class="round mb-5 text-center font-weight-bold amber--text text-sm-h4 text-h4">8강</div>
     </div>
-    <v-container fluid>
+    <v-container fluid class="container">
       <v-row dense>
         <v-col class="menu1" :cols="6" v-on:click="choose(idx)">
           <v-card>
@@ -35,6 +49,28 @@
         </v-col>
       </v-row>
     </v-container>
+    <!-- <v-row justify="center">
+      <v-dialog v-model="dialog" max-width="290">
+        <v-card>
+          <v-card-title class="headline">{{winner.name}}이 우승했습니다!</v-card-title>
+          <v-img
+              :src="winner.thumbnailUrl"
+              class="thumbnail white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="200px"
+          >
+          <v-card-text>{{winner.name}}이 들어간 코스를 보여드릴까요?</v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn color="green darken-1" text @click="dialog = false">닫기</v-btn>
+
+            <v-btn color="green darken-1" text @click="search">검색</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>-->
   </div>
 </template>
 
@@ -46,6 +82,7 @@ export default {
       round: 8,
       winner: null,
       winners: [],
+      dialog: false,
       menuList: [
         {
           id: 1,
@@ -112,7 +149,9 @@ export default {
   methods: {
     choose(idx) {
       if (this.round == 2) {
-        this.winner = this.menuList[idx].name;
+        this.winner = this.menuList[idx];
+        this.dialog = true;
+        alert("1등 음식은 " + this.winner.name);
         console.log(this.winner);
       } else {
         this.winners.push(this.menuList[idx]);
@@ -132,12 +171,18 @@ export default {
 <style scoped>
 .worldCup {
   height: 120%;
-  background-color: rgb(244, 81, 30);
+  /* background-color: rgb(244, 81, 30); */
+  max-width: 500px;
+  margin: 0 auto;
 }
 .thumbnail {
   border: 1px solid rgba(0, 0, 0, 0.0975);
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px grey;
+}
+.trophy {
+  display: block;
+  margin: 0 auto;
 }
 .thumbnail:hover {
   animation: shake 0.7s;
