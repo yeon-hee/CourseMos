@@ -70,6 +70,12 @@ const searchFeeds = (data, callback, errorCallback) => {
         .catch(err => errorCallback(err));
 }
 
+const worldcupFeeds = (data, callback, errorCallback) => {
+    axios.get(url.url + '/feeds/worldcup/' + data.worldcup + "?page=" + data.page, { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
 const getFeedPhoto = (data, callback, errorCallback) => {
     axios.get(url.url + '/photos/' + data.feedNo, { headers: { "Authorization": data.token } })
         .then(res => callback(res))
@@ -101,6 +107,7 @@ const FeedApi = {
     writeFeed: (data, callback, errorCallback) => writeFeed(data, callback, errorCallback),
     uploadFeedImage: (data, callback, errorCallback) => uploadFeedImage(data, callback, errorCallback),
     searchFeeds: (data, callback, errorCallback) => searchFeeds(data, callback, errorCallback),
+    worldcupFeeds: (data, callback, errorCallback) => worldcupFeeds(data, callback, errorCallback),
     getFeedPhoto: (data, callback, errorCallback) => getFeedPhoto(data, callback, errorCallback),
     crawling: (data, callback, errorCallback) => crawling(data, callback, errorCallback),
     detailCrawling: (data, callback, errorCallback) => detailCrawling(data, callback, errorCallback)
