@@ -14,71 +14,74 @@
       <div class="map_wrap">
 
         <v-sheet 
-    class="mx-auto" 
-    elevation="11"
-    height= "400px"
-  >
+          class="mx-auto" 
+          elevation="11"
+          height= "400px"
+        >
 
-  <v-expand-transition>
-      <v-sheet
-        v-if="model != null"
-        color="grey lighten-4"
-        height="332"
-      >
-          <div id="map" style="width:100%; height:331px;"></div>
-     
-
-      </v-sheet>
-    </v-expand-transition>
+          <v-expand-transition>
+            <v-sheet
+              v-if="model != null"
+              color="grey lighten-4"
+              height="332"
+            >
+              <div id="map" style="width:100%; height:331px;" v-show="!imageUrl"></div>
+              <v-img :src="imageUrl" v-show="imageUrl" width="90%" height="331px"/>     
+            </v-sheet>
+          </v-expand-transition>
     
-    <v-slide-group
-      v-model="model"
-      class="pa-1"
-      show-arrows
-    >
+          <v-slide-group
+            v-model="model"
+            class="pa-1"
+            show-arrows
+          >
 
-    <v-slide-item v-slot:default="{ toggle }">
-        <v-card
-          class="ma-1"
-          height="50"
-          width="76"
-          @click="toggle"
-        >
-        <div id="map" style="width:76px; height:50px;"></div>
-        </v-card>
-      </v-slide-item>
+            <v-slide-item v-slot:default="{ active }">
+              <v-card
+                class="ma-1"
+                height="50"
+                width="76"
+                @click="clickThumbnail(null)"
+              >
+                <v-scale-transition>
+                  <v-icon
+                    v-if="active"
+                    color="white"
+                    size="48"
+                    v-text="'mdi-close-circle-outline'"
+                  ></v-icon>
+                </v-scale-transition>
+                <v-img src="../../assets/images/map_thumbnail.png" width="76" height="50"/>
+              </v-card>
+            </v-slide-item>
 
-      <v-slide-item
-        v-for="photo in photoList"
-        :key="photo.id"
-        v-slot:default="{ toggle }"
-      >
-        <v-card
-          class="ma-1"
-          height="50"
-          width="76"
-          @click="toggle"
-        >
-        <img :src="photo.photoUrl" height="50" width="76">
-        </v-card>
-      </v-slide-item>
-
-      <v-slide-item v-slot:default="{ toggle }">
-        <v-card
-          class="ma-1"
-          height="50"
-          width="76"
-          @click="toggle"
-        >
-        <div id="map" style="width:76px; height:50px;"></div>
-        </v-card>
-      </v-slide-item>
+            <v-slide-item
+              v-for="photo in photoList"
+              :key="photo.id"
+              v-slot:default="{ active }"
+            >
+              <v-card
+                class="ma-1"
+                height="50"
+                width="76"
+                @click="clickThumbnail(photo.photoUrl)"
+              >
+                <v-scale-transition>
+                  <v-icon
+                    v-if="active"
+                    color="white"
+                    size="48"
+                    v-text="'mdi-close-circle-outline'"
+                  ></v-icon>
+                </v-scale-transition>
+                <img :src="photo.photoUrl" height="50" width="76">
+              </v-card>
+            </v-slide-item>
       
-    </v-slide-group>
-  </v-sheet>
+          </v-slide-group>
+        </v-sheet>
 
 
-        <!-- <div id="map" style="width:100%;height:400px;"></div> -->
       </div>
 
         
@@ -91,7 +94,6 @@
         <img src="../../assets/images/comment.png" width="20px" height="20px" class="comments-btn">
         <span>{{feed.commentCount}}</span>
         <img src="../../assets/images/share.png" width="20px" height="20px" class="share-btn">
-        <!-- <img src="../../assets/images/star.png" width="20px" height="20px" class="scrap-btn"> -->
       </div>
       
 
@@ -258,7 +260,8 @@ export default {
       redHeart: require('../../assets/images/red-heart.png'),
       myComment: false,
       userId: "",
-      model: ""
+      model: "",
+      imageUrl : ""
     };
   }, 
   created() {
@@ -271,7 +274,7 @@ export default {
       data,
       response => {
         this.photoList = response.data;
-        console.log(this.photoList);
+        console.dir(this.photoList);
       },
       error => {
         alert('피드 이미지 조회에 실패했습니다.');
@@ -354,7 +357,9 @@ export default {
           }
         );
     },
-
+    clickThumbnail(img) {
+      this.imageUrl = img;
+    },
     initMap() { 
       console.log('맵 초기화 ~~');
 
