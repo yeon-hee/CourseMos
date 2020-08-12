@@ -3,6 +3,7 @@
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>Cosmos</v-toolbar-title>
     <v-spacer></v-spacer>
+    <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn>
     <v-btn text @click="logout">
       <span>logout</span>
       <!-- <v-icon>fas fa-sign-out-alt</v-icon> -->
@@ -29,7 +30,10 @@ export default {
     },
     goToWrite() {
       this.$router.push("/feed/write");
-    }
-  }
-}
+    },
+    gotoCup() {
+      this.$router.push("/worldcup");
+    },
+  },
+};
 </script>

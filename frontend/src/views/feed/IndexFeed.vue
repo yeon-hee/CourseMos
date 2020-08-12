@@ -2,18 +2,13 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
-        <search-bar
-          inputValue="text"
-          placeholder="검색어를 입력해주세요."
-          label="검색"
-          @search="searchFeeds"
-        />
+        <search-bar inputValue="text" placeholder="검색어를 입력해주세요." label="검색" @search="searchFeeds" />
       </v-col>
     </v-row>
 
     <v-row class="pa-0" v-for="feed in feeds" v-bind:key="feed.feedNo">
       <v-col cols="12" sm="6" offset-sm="3">
-        <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed"/>
+        <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed" />
       </v-col>
     </v-row>
     <!-- <div style="padding-top:0px">
@@ -23,15 +18,19 @@
           label="검색"
           @search="searchFeeds"
       />
-      <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed"/> -->
+    <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed"/>-->
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <button @click="initPage" v-if="isSearch && page==0">Load more</button>
-        <infinite-loading v-else slot="append" @infinite="infiniteHandler" force-use-infinite-wrapper=".el-table__body-wrapper">
-        </infinite-loading>
+        <infinite-loading
+          v-else
+          slot="append"
+          @infinite="infiniteHandler"
+          force-use-infinite-wrapper=".el-table__body-wrapper"
+        ></infinite-loading>
       </v-col>
     </v-row>
-      
+
     <!-- </div> -->
   </v-container>
 </template>
@@ -49,57 +48,56 @@ export default {
   props: ["keyword"],
   data: () => {
     return {
-      page : 0,
-      feeds : [],
-      text : "",
+      page: 0,
+      feeds: [],
+      text: "",
       error: {
         email: "",
-        text: ""
+        text: "",
       },
-      isSearch : false,
-      search : ""
+      isSearch: false,
+      search: "",
     };
   },
-  components: { 
-    SearchBar, 
-    FeedItem2, 
-    // Nav, 
-    // LogoTitle, 
-    InfiniteLoading 
+  components: {
+    SearchBar,
+    FeedItem2,
+    // Nav,
+    // LogoTitle,
+    InfiniteLoading,
   },
-  created() {
-  },
-  methods : {
+  created() {},
+  methods: {
     initPage() {
       let data = {
-          token : localStorage.getItem("token"),
-          search : this.search,
-          page : this.page
+        token: localStorage.getItem("token"),
+        search: this.search,
+        page: this.page,
       };
       FeedApi.searchFeeds(
-          data,
-          response => {
-            if (response.data.length) {
-              this.page += 1;
-              this.feeds = this.feeds.concat(response.data);
-            }else {
-              alert("검색 결과가 없습니다.");
-            }
-          },
-          error => {
-            alert(error);
+        data,
+        (response) => {
+          if (response.data.length) {
+            this.page += 1;
+            this.feeds = this.feeds.concat(response.data);
+          } else {
+            alert("검색 결과가 없습니다.");
           }
-        )
+        },
+        (error) => {
+          alert(error);
+        }
+      );
     },
     infiniteHandler($state) {
-      if(!this.isSearch) {
+      if (!this.isSearch) {
         let data = {
-          token : localStorage.getItem("token"),
-          page : this.page
-        }
+          token: localStorage.getItem("token"),
+          page: this.page,
+        };
         FeedApi.loadFeeds(
           data,
-          response => {
+          (response) => {
             if (response.data.content.length) {
               this.page += 1;
               this.feeds = this.feeds.concat(response.data.content);
@@ -108,19 +106,19 @@ export default {
               $state.complete();
             }
           },
-          error => {
+          (error) => {
             alert(error);
           }
-        )
+        );
       } else {
         let data = {
-          token : localStorage.getItem("token"),
-          search : this.search,
-          page : this.page
+          token: localStorage.getItem("token"),
+          search: this.search,
+          page: this.page,
         };
         FeedApi.searchFeeds(
           data,
-          response => {
+          (response) => {
             if (response.data.length) {
               this.page += 1;
               this.feeds = this.feeds.concat(response.data);
@@ -129,11 +127,10 @@ export default {
               $state.complete();
             }
           },
-          error => {
+          (error) => {
             alert(error);
           }
-        )
-
+        );
       }
     },
     searchFeeds(search) {
@@ -142,10 +139,9 @@ export default {
       this.feeds = [];
       this.page = 0;
       this.$refs.InfiniteLoading.stateChanger.reset();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
-
 </style>
