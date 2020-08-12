@@ -1,5 +1,113 @@
 <template>
-    <div>
+    <v-container fluid class="mt-16 mb-16">
+        <v-row>
+            <v-col cols="12" sm="6" offset-sm="3">
+                <v-row>
+                    <v-col cols="3" style="text-align:center; align-self:center;">
+                        <v-avatar size="96">
+                            <v-img :src="profile_photo" aspect-ratio="1"></v-img>
+                        </v-avatar>
+                        
+                        <div class="profile-name">
+                            <h5 class="profile-title">{{user.userId}}</h5>
+                        </div>
+                    </v-col>
+                    <v-col cols="9">
+                        <v-row>
+                            <v-col cols="4" class="text-center">
+                                <span class="profile-number u-fat-text">게시물</span>
+                                <div class="articles-number">{{count.feedCount}}</div>
+                            </v-col>
+                            <v-col cols="4" class="text-center">
+                                <a href="/#/friends/followers">
+                                <span class="profile-number u-fat-text">팔로워</span>
+                                <div class="followers-number">{{count.followerCount}}</div>
+                                </a>
+                            </v-col>
+                            <v-col cols="4" class="text-center">
+                                <a href="#/friends/followings">
+                                <span class="profile-number u-fat-text">팔로잉</span>
+                                <div class="followings-number">{{count.followingCount}}</div>
+                                </a>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="10" class="mx-auto" style="text-align:center">
+                                <v-btn class="deep-orange white--text"
+                                    onclick="location.href='#/users/profile/setting' ">프로필 수정</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+
+        <v-row class="pa-0">
+            <v-col cols="12" sm="6" offset-sm="3">
+                <div class="profile-bio">
+                    <p class="profile-full-bio">{{user.profileComment}}</p>
+                </div>
+            </v-col>
+        </v-row>
+
+        <v-row class="pa-0">
+            <v-col cols="12" md="6" offset-md="3">
+                <v-card>
+                    <v-container fluid>
+                        <v-row>
+                            <v-col
+                            v-for="feed in feeds" :key="feed.id"
+                            class="d-flex child-flex"
+                            cols="4" md="3"
+                            >
+                                <template>
+                                <v-hover>
+                                <template v-slot:default="{ hover }">
+                                <v-card flat tile class="d-flex">
+                                    <v-img
+                                    @click="onImgClick(feed.feedNo)"
+                                    :src="feed.thumbnail"
+                                    aspect-ratio="1"
+                                    class="grey lighten-2"
+                                    >
+                                    <template v-slot:placeholder>
+                                        <v-row
+                                        class="fill-height ma-0"
+                                        align="center"
+                                        justify="center"
+                                        >
+                                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                                        </v-row>
+                                    </template>
+                                    </v-img>
+                                    <v-fade-transition>
+                                        <v-overlay
+                                            @click="onImgClick(feed.feedNo)"
+                                            v-if="hover"
+                                            absolute
+                                            color="#036358"
+                                        >
+                                            <v-row justify="space-around" class="mb-2">
+                                                <span class="group pa-2">
+                                                    <v-icon>fas fa-heart</v-icon> {{feed.like_count}}
+                                                    <v-icon>fas fa-comment-dots</v-icon> {{feed.comment_count}}
+                                                </span>
+                                            </v-row>
+                                        </v-overlay>
+                                    </v-fade-transition>
+                                </v-card>
+                                </template>
+                                </v-hover>
+                                </template>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card>
+            </v-col>
+        </v-row>
+
+    </v-container>
+    <!-- <div>
         <main class="profile-container">
             <section class="profile">
                 <header class="profile-header">
@@ -60,7 +168,7 @@
                 </ul>
             </section>
         </main>
-    </div>
+    </div> -->
 </template>
 
 <script>

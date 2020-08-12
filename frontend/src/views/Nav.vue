@@ -1,6 +1,6 @@
 <template>
 
-  <v-bottom-navigation  fixed :value="activeBtn" color="deep-orange darken-1">
+  <v-bottom-navigation  fixed :value="activeBtn" color="deep-orange darken-1" style="z-index:100;" background-color="orange lighten-2">
       <v-btn icon value="main" @click="goMain">
         <v-icon>fas fa-home</v-icon>
       </v-btn>

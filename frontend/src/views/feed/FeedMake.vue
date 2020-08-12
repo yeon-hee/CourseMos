@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid style="margin-bottom:100px;">
-    <v-row>
+  <v-container fluid class="mt-16 mb-16">
+    <!-- <v-row>
       <v-col>
         <div class="courseMake" style="justify-content: center;">
           <ul class="placeList">
@@ -23,7 +23,7 @@
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <div class="map_wrap mb-26">
-          <div id="map" style="width:400px;height:400px;"></div>
+          <div id="map" style="width:100%;height:400px;"></div>
 
           <div id="menu_wrap" class="bg_white">
             <div class="option">
@@ -40,6 +40,43 @@
             <div id="pagination"></div>
           </div>
         </div>
+      </v-col>
+    </v-row> -->
+
+    <v-row>
+      <v-col cols="12" sm="6" style="align-self: center; height:715.6px;">
+        <div class="courseMake" style="justify-content: center;">
+          <ul class="placeList">
+            <li
+              v-for="(course, index) in courses"
+              v-bind:key="index"
+              class="place"
+              v-on:click="doRemove(index)"
+            >
+              <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
+            </li>
+          </ul>
+          <button v-on:click="saveCourse" class="next">
+            <v-icon x-large>fas fa-arrow-right</v-icon>
+          </button>
+        </div>
+        <div id="map" style="width:100%;height:400px;"></div>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <div id="menu_wrap" class="bg_white">
+            <div class="option">
+              <div>
+                <form v-on:submit.prevent="searchPlaces">
+                  키워드 :
+                  <input type="text" value="이태원 맛집" id="keyword" />
+                  <button type="submit">검색하기</button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
+          </div>
       </v-col>
     </v-row>
 <!-- 
@@ -277,7 +314,7 @@ export default {
 
       var el = document.createElement("li"),
         itemStr =
-          '<div class="info">' +
+          '<div>' +
           "   <h3>" +
           (index + 1) +
           ". " +
@@ -528,6 +565,7 @@ export default {
   list-style: none;
 }
 #placesList .item {
+  list-style: none;
   position: relative;
   border-bottom: 1px solid #888;
   overflow: hidden;
