@@ -30,66 +30,15 @@
             :open.sync="open"
             transition
             activatable
+            v-model="selection"
+            @update:active="onChange"
         >
         <template v-slot:prepend="{ item }">
-            <v-icon v-if="!item.children">mdi-account</v-icon>
+            <v-icon v-if="!item.children">mdi-account</v-icon> {{ selected.name }}
         </template>
-        
       </v-treeview><br>
 
-      <v-col
-        class="d-flex text-center"
-      >
-        <v-scroll-y-transition mode="out-in">
-          <div
-            v-if="!selected"
-            class="title grey--text text--lighten-1 font-weight-light"
-            style="align-self: center;"
-          >
-            Select a User
-          </div>
-          <v-card
-            v-else
-            :key="selected.id"
-            class="pt-6 mx-auto"
-            flat
-            max-width="400"
-          >
-          </v-card>
-        </v-scroll-y-transition>
-      </v-col>
   </v-card>
-   
-
-
-        <v-form>
-            <v-container>
-                <v-row>
-                    <v-col cols="6" sm="6"
-                            class="mx-auto">
-                        <v-text-field
-                            align="center"
-                            outlined
-                            type="text"
-                            label="유저 검색"
-                            prepend-inner-icon="mdi-account-question"
-                            v-model="keyword"
-                        ></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row class="pa-0">
-                    <v-col cols="6" sm="6"
-                            class="mx-auto">
-                    <div class="resultContainer">
-                        <select v-show="users.length > 0" multiple @change="onChange($event)">
-                            <option v-for="user in users" v-bind:key="user.userId">{{user.userId}}</option>
-                        </select>
-                    </div>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-form>
-                
     </div>
 </template>
 
@@ -105,16 +54,23 @@ export default {
         // Nav
     },
     methods : {
-        onChange(name) {
+        onChange(selection) {
             console.log('들어옴!!');
-            console.log(name);
-            // const userId = event.target.value;
+            console.log(selection[0]);
+            var userId = null;
 
-            // if(userId == localStorage.getItem('userId'))
-            //     this.$router.push("/users/profile");
-            // else 
-            //     this.$router.push("/users/profile/info/" + userId);
-        },
+            for(var i=0;i<this.items.length;i++){
+                if(this.items[i].id === selection[0]) {
+                    userId = this.items[i].name;
+                    break;
+                }
+            }
+            console.log(userId);
+            if(userId == localStorage.getItem('userId'))
+                this.$router.push("/users/profile");
+            else 
+                this.$router.push("/users/profile/info/" + userId);
+        }
     },
     watch : {
         keyword: function(v) {
@@ -141,7 +97,6 @@ export default {
         items: [],
         active: [],
       temp : [],
-      tempList: [],
       open: [1, 2],
       search: null,
       caseSensitive: false,
@@ -176,9 +131,9 @@ export default {
           ? (item, search, textKey) => item[textKey].indexOf(search) > -1
           : undefined
       },
-      selected () {
+      selected () { // 여기 눌리면 오는 곳 
           console.log('안녕!');
-          return '안녕';
+          return '안녕하세요';
       },
   }
 
