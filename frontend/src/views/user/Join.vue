@@ -9,20 +9,20 @@
     <h1>가입하기</h1>
     <div class="form-wrap">
       <div class="input-with-label">
-        <input v-model="userId" id="userId" 
-          v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
-          placeholder="아이디를 입력하세요." type="text" 
-        />
-        <div class="error-text" v-if="error.userId">{{error.userId}}</div>
-        <label for="userId">아이디</label>
-      </div>
-
-      <div class="input-with-label">
         <input v-model="email" id="email" 
           v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}" 
           placeholder="이메일을 입력하세요." type="text" autocapitalize="none"/>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
         <label for="email">이메일</label>
+      </div>
+
+      <div class="input-with-label">
+        <input v-model="userId" id="userId" 
+          v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
+          placeholder="닉네임을 입력하세요." type="text" 
+        />
+        <div class="error-text" v-if="error.userId">{{error.userId}}</div>
+        <label for="userId">닉네임</label>
       </div>
 
       <div class="input-with-label">
@@ -115,7 +115,7 @@ export default {
     checkIdForm() {
       var regex = /[^A-Z^a-z^0-9]+/;
       if ((this.userId.length >= 0 && this.userId.length < 5) || (regex.exec(this.userId) != null) ) {
-        this.error.userId = "아이디는 5글자 이상, 특수문자 미포함입니다.";
+        this.error.userId = "5~20자의 영문 소문자, 숫자만 사용 가능합니다.";
       }
       else this.error.userId = false;
       this.checkForm();

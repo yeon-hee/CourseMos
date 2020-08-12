@@ -83,7 +83,25 @@ const crawling = (data, callback, errorCallback) => {
 }
 
 const detailCrawling = (data, callback, errorCallback) => {
-    axios.get(url.url + '/crawling/detail/' + data.tradeName , { headers: { "Authorization": data.token } })
+    axios.get(url.url + '/crawling/detail/' + data.number , { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
+const detailMenu = (data, callback, errorCallback) => {
+    axios.get(url.url + '/crawling/menu/' + data.number , { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
+const detailBlog = (data, callback, errorCallback) => {
+    axios.get(url.url + '/crawling/blog/' + data.number , { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
+const detailComment = (data, callback, errorCallback) => {
+    axios.get(url.url + '/crawling/review/' + data.number , { headers: { "Authorization": data.token } })
         .then(res => callback(res))
         .catch(err => errorCallback(err));
 }
@@ -103,7 +121,10 @@ const FeedApi = {
     searchFeeds: (data, callback, errorCallback) => searchFeeds(data, callback, errorCallback),
     getFeedPhoto: (data, callback, errorCallback) => getFeedPhoto(data, callback, errorCallback),
     crawling: (data, callback, errorCallback) => crawling(data, callback, errorCallback),
-    detailCrawling: (data, callback, errorCallback) => detailCrawling(data, callback, errorCallback)
+    detailCrawling: (data, callback, errorCallback) => detailCrawling(data, callback, errorCallback),
+    detailMenu: (data, callback, errorCallback) => detailMenu(data, callback, errorCallback),
+    detailBlog: (data, callback, errorCallback) => detailBlog(data, callback, errorCallback),
+    detailComment: (data, callback, errorCallback) => detailComment(data, callback, errorCallback),
 }
 
 export default FeedApi
