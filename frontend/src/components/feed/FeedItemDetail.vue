@@ -26,7 +26,7 @@
               height="332"
             >
               <div id="map" style="width:100%; height:331px;" v-show="!imageUrl"></div>
-              <v-img :src="imageUrl" v-show="imageUrl" width="90%" height="331px"/>     
+              <v-img :src="imageUrl" v-show="imageUrl" width="100%" height="331px"/>     
             </v-sheet>
           </v-expand-transition>
     
