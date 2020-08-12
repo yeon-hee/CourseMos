@@ -65,6 +65,12 @@ const findUserBykeyword = (keyword, callback, errorCallback) => {
         .catch(err => errorCallback(err));
 }
 
+const findAllUser = (data, callback, errorCallback) => {
+    axios.get(url.url + '/users/all' , { headers: { "Authorization": data.token } })
+        .then(res => callback(res))
+        .catch(err => errorCallback(err));
+}
+
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestSignup: (data, callback, errorCallback) => requestSignup(data, callback, errorCallback),
@@ -75,7 +81,8 @@ const UserApi = {
     checkPassword: (data, callback, errorCallback) => checkPassword(data, callback, errorCallback),
     requestUserInfo: (data, callback, errorCallback) => requestUserInfo(data, callback, errorCallback),
     findUserBykeyword: (data, callback, errorCallback) => findUserBykeyword(data, callback, errorCallback),
-    findPassword: (data, callback, errorCallback) => findPassword(data, callback, errorCallback)
+    findPassword: (data, callback, errorCallback) => findPassword(data, callback, errorCallback),
+    findAllUser: (data, callback, errorCallback) => findAllUser(data, callback, errorCallback)
 }
 
 export default UserApi

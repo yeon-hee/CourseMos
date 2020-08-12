@@ -6,19 +6,18 @@
       </v-col>
     </v-row>
 
-    <v-row class="pa-0" v-for="feed in feeds" v-bind:key="feed.feedNo">
+    <!-- <v-row class="pa-0" v-for="feed in feeds" v-bind:key="feed.feedNo">
       <v-col cols="12" sm="6" offset-sm="3">
         <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed" />
       </v-col>
+    </v-row> -->
+
+    <v-row class="pa-0" style="justify-content:center;">
+      <v-col cols="12" md="4" v-for="feed in feeds" v-bind:key="feed.feedNo" class="ma-1">
+        <FeedItem2 :feed="feed"/>
+      </v-col>
     </v-row>
-    <!-- <div style="padding-top:0px">
-      <search-bar
-          inputValue="text"
-          placeholder="검색어를 입력해주세요."
-          label="검색"
-          @search="searchFeeds"
-      />
-    <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed"/>-->
+
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <button @click="initPage" v-if="isSearch && page==0">Load more</button>
@@ -59,12 +58,10 @@ export default {
       search: "",
     };
   },
-  components: {
-    SearchBar,
-    FeedItem2,
-    // Nav,
-    // LogoTitle,
-    InfiniteLoading,
+  components: { 
+    SearchBar, 
+    FeedItem2, 
+    InfiniteLoading 
   },
   created() {},
   methods: {
@@ -100,7 +97,17 @@ export default {
           (response) => {
             if (response.data.content.length) {
               this.page += 1;
+              
               this.feeds = this.feeds.concat(response.data.content);
+              
+              // const list = response.data.content
+              // for(const item of list) {
+                // this.feeds.push(item)
+                // this.feeds[this.feeds.length-1].writeDate = ""
+                // this.feeds[this.feeds.length-1].parseDate
+                // console.dir(this.feeds[this.feeds.length-1])
+              // }
+              // console.dir((this.feeds[this.feeds.length-1].writeDate))
               $state.loaded();
             } else {
               $state.complete();

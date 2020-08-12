@@ -1,6 +1,6 @@
 
 <template>
-  <v-container fluid style="margin-bottom:100px;">
+  <v-container fluid class="mt-16 mb-16">
     <!-- title  -->
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
@@ -17,7 +17,7 @@
         </v-avatar>
       </v-col>
       <v-col cols="6" sm="3" style="text-align:center;">
-        <v-file-input @change="selectImage" accept="image/*" label="image select" ref="profileImage" name="imgFile"></v-file-input>
+        <v-file-input @change="selectImage" accept="image/*" label="image select" ref="profileImageFile" name="imgFile"></v-file-input>
         <button class="deep-orange--text  font-weight-bold" @click="updateProfileImage()" value="등록">등록</button>
       </v-col>
     </v-row>
@@ -159,12 +159,9 @@
 <script>
 import UserApi from "../../api/UserApi";
 import axios from 'axios';
-// import LogoTitle from '../LogoTitle.vue';
 import * as firebase from "firebase/app";
 
 export default {
-
-  // components: {LogoTitle},
   
   created() {
     this.component = this;
@@ -200,17 +197,14 @@ export default {
     }
   },
   methods: {
-    selectImage() {
-      // this.profileImage = this.$refs.profileImage.files[0];
-      console.dir(this.$refs.profileImage)
+    selectImage(e) {
+      this.profileImage = e;
       this.profileThumbnail = window.URL.createObjectURL(this.profileImage);
       
     },
     updateProfileImage() {
       var fullPath = new Date().getTime() + this.profileImage.name
-      console.log(fullPath)
       var storageRef = firebase.storage().ref('images/' + fullPath);
-      // this.uploadTask = firestorage.ref('images/' + file.name).put(file)
 
       storageRef.put(this.profileImage).then( (snapshot) => {
           var imageUrl = firebase.storage().ref('images/' + fullPath).getDownloadURL();
@@ -316,7 +310,7 @@ export default {
 };
 </script>
 <style scoped>
-.total{
+/* .total{
   align-content: center;
   margin: 0 auto;
 }
@@ -400,6 +394,6 @@ export default {
   margin-top: -8%;
   margin-right: 5%;
   border: 1px solid gray;
-}
+} */
 
 </style>

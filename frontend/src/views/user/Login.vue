@@ -1,171 +1,94 @@
 
 
 <template>
-  <v-container fluid>
-    <v-parallax
-      src="..\..\assets\images\Logo.png"
-      height="400"
-      >
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-col class="text-center" cols="12">
-          <h1 class="mt-10 mb-5 font-weight-bold text-center text-sm-h1 text-h2 deep-orange--text text--darken-1">Cosmos</h1>
-        </v-col>
-      </v-row>
-    </v-parallax>
-    <!-- <template>
-      <v-row justify="center">
-        <v-col>
-          <div
-            class="mt-10 mb-5 font-weight-bold text-center text-sm-h1 text-h2 deep-orange--text text--darken-1"
-          >Cosmos
-          </div>
-        </v-col>
-      </v-row>
-      
-      <v-row align="center" justify="center">
-        <v-col>
-          <v-img aspect-ratio="1" src="..\..\assets\images\Logo.png" alt="logo" 
-            max-width="150"
-            max-height="150"/>
-        </v-col>
-      </v-row>
-    
-    </template> -->
-    <template>
-      <v-row class="mt-16">
-        <v-col cols="12" sm="6" offset-sm="3">
-          <v-text-field
-            v-model="email"
-            name="input-10-1"
-            label="이메일을 입력하세요."
-            hint="이메일 형식이 아닙니다."
-            counter
-          ></v-text-field>
-        </v-col>
-      </v-row>
+  <v-container fluid fill-height class="pt-0">
 
-      <v-row>
-        <v-col cols="12" sm="6" offset-sm="3">
-          <v-text-field
-            v-model="password"
-            :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="passwordShow ? 'text' : 'password'"
-            name="input-10-1"
-            label="비밀번호를 입력하세요."
-            hint="영문,숫자 포함 8 자리이상이어야 합니다."
-            counter
-            @click:append="passwordShow = !passwordShow"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      
-      <v-row>
-        <v-col class="text-center" cols="12">
-          <div class="my-2">
-            <v-btn class="deep-orange white--text"
-              @click="onLogin"
-              :disabled="!isSubmit"
-              :class="{disabled : !isSubmit}">로그인</v-btn>
-          </div>
-        </v-col>
-      </v-row>
-    </template>
+    <v-row class="fill-height">
+      <v-col cols="12" md="6" class="pa-0">
+        <v-parallax
+          src="..\..\assets\images\Logo.png"
+          style="height:100%; min-height: 350px;"
+          >
+          <v-row
+            align="center"
+            justify="center"
+          >
+            <v-col class="text-center" cols="12">
+              <h1 class="mt-10 mb-5 font-weight-bold text-center text-sm-h1 text-h2 deep-orange--text text--darken-1">Cosmos</h1>
+            </v-col>
+          </v-row>
+        </v-parallax>
+      </v-col>
+      <v-col cols="12" md="6" style="align-self: flex-end;">
+        <template>
+          <v-row>
+            <v-col cols="12" sm="6" offset-sm="3">
+              <v-text-field
+                v-model="email"
+                name="input-10-1"
+                label="이메일을 입력하세요."
+                hint="이메일 형식이 아닙니다."
+                counter
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-    <template>
-      <v-subheader inset style="justify-content: flex-end;">
-        혹시
-      </v-subheader>
-      <v-divider class="deep-orange"
-      ></v-divider>
+          <v-row>
+            <v-col cols="12" sm="6" offset-sm="3">
+              <v-text-field
+                v-model="password"
+                :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="passwordShow ? 'text' : 'password'"
+                name="input-10-1"
+                label="비밀번호를 입력하세요."
+                hint="영문,숫자 포함 8 자리이상이어야 합니다."
+                counter
+                @click:append="passwordShow = !passwordShow"
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-      <v-row class="text-right">
-        <v-col>
-          <p>비밀번호를 잊으셨나요? 
-            <span>
-              <a href="#/user/find/password" class="btn--text text-decoration-none deep-orange--text font-weight-bold">비밀번호 찾기</a>
-            </span>
-          </p>
-          
-          <p>아직 회원이 아니신가요?
-            <span>
-              <a href="#/user/join" class="btn--text text-decoration-none deep-orange--text font-weight-bold">가입하기</a>
-            </span>
-          </p>
-        </v-col>
-      </v-row>
-    </template>
+          <v-row>
+            <v-col class="text-center" cols="12">
+              <div class="my-2">
+                <v-btn class="deep-orange white--text"
+                  @click="onLogin"
+                  :disabled="!isSubmit"
+                  :class="{disabled : !isSubmit}">로그인</v-btn>
+              </div>
+            </v-col>
+          </v-row>
 
 
-    <!-- <div class="user" id="login">
-      <div class="wrapC">
-        <br />
-        <div
-          class="mt-10 mb-5 font-weight-bold text-center text-sm-h1 text-h2 deep-orange--text text--darken-1"
-        >Cosmos</div>
-        <div class="logo">
-          <img width="100px" height="100px" src="..\..\assets\images\Logo.png" alt="logo" />
-        </div>
-        <div class="input-with-label">
-          <input
-            v-model="email"
-            v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
-            @keyup.enter="Login"
-            id="email"
-            placeholder="이메일을 입력하세요."
-            type="text"
-            autocapitalize="none"
-          />
-          <label for="email">이메일</label>
-          <div class="error-text" v-if="error.email">{{error.email}}</div>
-        </div>
+          <v-row>
+            <v-col>
+              <v-subheader inset style="justify-content: flex-end;">
+                혹시
+              </v-subheader>
+              <v-divider class="deep-orange"
+              ></v-divider>
 
-        <div class="input-with-label">
-          <input
-            v-model="password"
-            type="password"
-            v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
-            id="password"
-            @keyup.enter="Login"
-            placeholder="비밀번호를 입력하세요."
-          />
-          <label for="password">비밀번호</label>
-          <div class="error-text" v-if="error.password">{{error.password}}</div>
-        </div>
-        <button
-          class="btn btn--back btn--login"
-          @click="onLogin"
-          :disabled="!isSubmit"
-          :class="{disabled : !isSubmit}"
-        >로그인</button>
+              <v-row class="text-right">
+                <v-col>
+                  <p>비밀번호를 잊으셨나요? 
+                    <span>
+                      <a href="#/user/find/password" class="btn--text text-decoration-none deep-orange--text font-weight-bold">비밀번호 찾기</a>
+                    </span>
+                  </p>
+                  
+                  <p>아직 회원이 아니신가요?
+                    <span>
+                      <a href="#/user/join" class="btn--text text-decoration-none deep-orange--text font-weight-bold">가입하기</a>
+                    </span>
+                  </p>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </template>
+      </v-col>
+    </v-row>
 
-        <div class="sns-login">
-          <div class="text">
-            <p>SNS 간편 로그인</p>
-            <div class="bar"></div>
-          </div>
-
-          <kakaoLogin :component="component" />
-          <GoogleLogin :component="component" />
-        </div>
-        <div class="add-option">
-          <div class="text">
-            <p>혹시</p>
-            <div class="bar"></div>
-          </div>
-          <div class="wrap">
-            <p>비밀번호를 잊으셨나요?</p>
-            <router-link to="/user/find/password" class="btn--text">비밀번호 찾기</router-link>
-          </div>
-          <div class="wrap">
-            <p>아직 회원이 아니신가요?</p>
-            <router-link to="/user/join" class="btn--text">가입하기</router-link>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </v-container>
 </template>
 

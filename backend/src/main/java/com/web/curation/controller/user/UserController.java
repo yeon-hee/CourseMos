@@ -311,4 +311,25 @@ public class UserController {
         return response;
     }
 
+    @GetMapping("/all")
+    @ApiOperation(value = "유저 정보 전체 가져오기")
+    public Object getAllProfile() { 
+
+        ResponseEntity response = null;
+
+        try { 
+            List<User> user = userDao.findAll();
+            final BasicResponse result = new BasicResponse();
+            response = new ResponseEntity<>(user, HttpStatus.OK); 
+
+        } catch(Exception e) {
+            final BasicResponse result = new BasicResponse();
+            result.status = false;
+            result.data = e.toString();
+            response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
+
+        return response;
+    }
+
 }

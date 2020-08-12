@@ -15,7 +15,7 @@
       </v-list-item-content>
       <v-spacer></v-spacer>
       <v-list-item-content>
-        <v-list-item-subtitle v-text="feed.writeDate"></v-list-item-subtitle>
+        <v-list-item-subtitle v-text="parseDate"></v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -73,11 +73,13 @@ export default {
       emptyHeart: require('../../assets/images/empty-heart.png'),
       redHeart: require('../../assets/images/red-heart.png'),
       courses : [],
-      region : ""
+      region : "",
+      parseDate : {},
     };
   },
   created() {
-    this.feed.writeDate = moment(this.feed.writeDate).format( 'MM월DD일 HH시');
+    this.parseDate = moment(this.feed.parseDate).format( 'MM.DD HH:MM');
+
     let data = {
       token : localStorage.getItem("token"),
       feedNo : this.feed.feedNo,
@@ -92,7 +94,6 @@ export default {
 
         ProfileApi.requestUserCount(data,
           response=> {
-            console.dir(response.data);
             this.followerCount = response.data.followerCount;
           },
           error=> {
@@ -108,7 +109,6 @@ export default {
       response => {
         if(response.data.length ==0) return;
         this.courses = this.courses.concat(response.data);
-        // console.log(this.courses)
         this.getRegionStr(this.courses)
       },
       error => {
@@ -118,7 +118,6 @@ export default {
   },
   methods : {
     onImgClick() {
-      // this.$router.push({name : "/feeds/" + this.feed.feedNo, query : {feedNo : this.feed.feedNo}});
       this.$router.push("/feeds/" + this.feed.feedNo);
     },
     clickLikeBtn(feed){
@@ -162,15 +161,11 @@ export default {
         catch(e) {
           console.log(e);
         }
-        //const roadAddressArray = course.roadAddress.split(' ')
-        //const roadAddress = roadAddressArray[0].concat(" ", roadAddressArray[1])
-        //set.add(roadAddress)
       }
 
       const regionArray = [... set]
-      // console.dir(regionArray)
       for(var i = 0 ; i < regionArray.length; i++) {
-        console.log(regionArray[i])
+        // console.log(regionArray[i])
         if(regionArray.length - 1 != i) {
           this.region += (regionArray[i] + ", ")
         } else {
@@ -178,7 +173,6 @@ export default {
         }
       }
       
-        // console.log(this.region)
     },
   }
 };

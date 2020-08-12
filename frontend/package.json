@@ -53,6 +53,7 @@
     "fibers": "^5.0.0",
     "jest": "^24.9.0",
     "jest-transform-stub": "^2.0.0",
+    "material-design-icons-iconfont": "^5.0.1",
     "sass": "^1.26.10",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "~2.0.7",
