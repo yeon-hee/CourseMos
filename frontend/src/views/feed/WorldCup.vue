@@ -153,7 +153,7 @@ export default {
         this.dialog = true;
         alert("1등 음식은 " + this.winner.name);
         console.log(this.winner);
-        this.$router.push("/feed/main/"+this.winner)
+        this.$router.push("/feed/main/"+this.winner.name)
       } else {
         this.winners.push(this.menuList[idx]);
         this.idx += 2;
