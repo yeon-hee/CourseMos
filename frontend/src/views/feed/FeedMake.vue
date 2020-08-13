@@ -124,6 +124,8 @@
 // import LogoTitle from "../LogoTitle.vue";
 // import Nav from "../Nav.vue";
 import UserApi from "../../api/UserApi";
+import FeedApi from "../../api/FeedApi";
+import defaultImage from "../../assets/images/img-placeholder.png";
 
 export default {
   components: {
@@ -144,6 +146,7 @@ export default {
       ps: {},
       infowindow: {},
       courses: [],
+      temp: {},
       idx: 0,
       thumbnails: [
         "https://mp-seoul-image-production-s3.mangoplate.com/549779_1554251346194232.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80",
@@ -426,17 +429,67 @@ export default {
     addplace(marker, title) {
       for (var i = 0; i < this.places.length; i++) {
         if (this.places[i].place_name == title) {
-          var tmpstr = this.places[i].category_name.split(">");
-          var category_name = tmpstr[tmpstr.length - 1];
-          this.courses.push({
-            tradeName: this.places[i].place_name,
-            latitude: this.places[i].x,
-            longitude: this.places[i].y,
-            categoryName: category_name,
-            thumbnailUrl: this.thumbnails[this.idx],
-            roadAddress: this.places[i].road_address_name,
-          });
-          this.idx++;
+          console.log('여기');
+          console.log(this.places[i]);
+          var mainphoto = "";
+
+          let data = {
+            token : localStorage.getItem('token'),
+            number: this.places[i].id, // 상점 id
+          };
+
+          var placeTemp = this.places[i];
+          var thisTemp = this.temp;
+          var courseTemp = this.courses;
+          var idxTemp = this.idx;
+
+          // 비동기 처리 -> 통신 보내놓고 기다렸다가 마지막에 실행됨
+          FeedApi.detailCrawling(
+              data,
+              res => {
+                  console.log("상세 정보 크롤링 완료!");
+                  thisTemp = res.data;
+                  console.log(placeTemp);
+                  mainphoto = thisTemp.mainphotourl;
+                  if(mainphoto==null) {
+                    mainphoto = defaultImage;
+                    console.log('언디파인드');
+                  }
+                  console.log(mainphoto);
+
+                  var tmpstr = placeTemp.category_name.split(">");
+                  var category_name = tmpstr[tmpstr.length - 1];
+                  courseTemp.push({
+                  tradeName: placeTemp.place_name,
+                  latitude: placeTemp.x,
+                  longitude: placeTemp.y,
+                  categoryName: category_name,
+                  thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기 
+                  roadAddress: placeTemp.road_address_name,
+                  });
+                  idxTemp++;
+                  console.log('코스 정보');
+                  console.log(courseTemp);
+              },
+              error => {
+                  alert(error);
+                  console.log('상세 정보 크롤링 실패했습니다.');
+              }
+          );
+
+          // var tmpstr = this.places[i].category_name.split(">");
+          // var category_name = tmpstr[tmpstr.length - 1];
+          // this.courses.push({
+          //   tradeName: this.places[i].place_name,
+          //   latitude: this.places[i].x,
+          //   longitude: this.places[i].y,
+          //   categoryName: category_name,
+          //   thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기 
+          //   roadAddress: this.places[i].road_address_name,
+          // });
+          // this.idx++;
+          // console.log('코스 정보');
+          // console.log(this.courses);
         }
       }
       console.log(this.courses);
