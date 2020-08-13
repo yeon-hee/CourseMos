@@ -16,9 +16,9 @@ public interface FeedDao extends JpaRepository<Feed, Integer> {
 
     List<Feed> findAllByUserId(String userId);
     
-    @Query(value="select f from Feed as f left join Course as c on f.feedNo = c.feedNo where c.tradeName like concat('%',:search,'%') or c.roadAddress like concat('%', :search, '%')")
+    @Query(value="select distinct(f) from Feed as f left join Course as c on f.feedNo = c.feedNo where c.tradeName like concat('%',:search,'%') or c.roadAddress like concat('%', :search, '%')")
     List<Feed> findAllBySearch(String search, Pageable request);
 
-    @Query(value="select f from Feed as f left join Course as c on f.feedNo = c.feedNo where c.categoryName like concat('%',:category,'%')")
+    @Query(value="select distinct(f) from Feed as f left join Course as c on f.feedNo = c.feedNo where c.categoryName like concat('%',:category,'%')")
     List<Feed> findAllByCategory(String category, Pageable request);
 }
