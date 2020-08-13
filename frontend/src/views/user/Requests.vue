@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <!-- <div> -->
         <!-- <LogoTitle/> -->
         <!-- <tab></tab> -->
-        <v-list subheader>
+        <!-- <v-list subheader>
             <v-subheader>
                 <v-btn text @click="rejectAll"><span>모두 거절</span></v-btn>
                 <v-btn text @click="allowAll"><span>모두 승인</span></v-btn>
@@ -21,7 +21,10 @@
                     <v-btn icon @click="allow(request, index)"><v-icon>fas fa-check</v-icon></v-btn>
                 </v-list-item-icon>
             </v-list-item>
-        </v-list>
+        </v-list> -->
+
+
+
         <!-- <div class="requests">
             <section class="tab-list">
                 <ul class="request-list">
@@ -43,7 +46,32 @@
             </section>
         </div> -->
         <!-- <Nav/> -->
-    </div>
+    <!-- </div> -->
+
+    <v-card>
+        <v-virtual-scroll
+        :items="requestList"
+        :item-height="30"
+        height="200"
+        >
+        <template v-slot="{ item , index}">
+            <v-list-item :key="item.id">
+
+            <v-list-item-content>
+                <v-list-item-title>{{item.follower}}님이 팔로우를 요청하였습니다.</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-icon>
+                    <v-btn icon @click="reject(item, index)"><v-icon>fas fa-times</v-icon></v-btn>
+                </v-list-item-icon>
+                <v-list-item-icon>
+                    <v-btn icon @click="allow(item, index)"><v-icon>fas fa-check</v-icon></v-btn>
+                </v-list-item-icon>
+
+            </v-list-item>
+            <!-- <v-divider></v-divider> -->
+        </template>
+        </v-virtual-scroll>
+    </v-card>
   
 </template>
 

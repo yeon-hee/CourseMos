@@ -10,9 +10,6 @@
       <v-btn icon value="feedmake" @click="goFeedMake">
         <v-icon medium color="white">post_add</v-icon>
       </v-btn>
-      <v-btn icon value="alerts" @click="goAlerts">
-        <v-icon color="white">far fa-bell</v-icon>
-      </v-btn>
       <v-btn icon value="profile" @click="goProfile">
         <v-icon color="white">fas fa-user-circle</v-icon>
       </v-btn>
@@ -36,9 +33,6 @@ export default {
         },
         goFeedMake() {
             this.$router.push('/feedmake')
-        },
-        goAlerts() {
-            this.$router.push('/alertTab')
         },
         goProfile() {
             this.$router.push('/users/profile')

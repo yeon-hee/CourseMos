@@ -139,7 +139,7 @@
     </div>
     </v-timeline><br>
     <a href="javascript:;"  @click="clickComment()" style="float: right; margin-right: 20px; color: rgb(51,102,255); ">댓글 보기...</a><br><br>
-    <Nav />
+    <!-- <Nav /> -->
   </div>
 </template>
 
@@ -150,11 +150,11 @@ import FeedApi from "../../api/FeedApi";
 import UserApi from "../../api/UserApi";
 import AlertApi from "../../api/AlertApi";
 import Map from "../../views/Map.vue";
-import Nav from "../../views/Nav.vue";
+// import Nav from "../../views/Nav.vue";
 import axios from "axios";
 
 export default {
-  components: { Nav },
+  // components: { Nav },
   props : {feedNo : String},
   mounted() {
     console.log('마운트!')
@@ -520,7 +520,7 @@ export default {
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:400px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+/* #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -552,5 +552,5 @@ export default {
 #placesList .item .marker_15 {background-position: 0 -654px;}
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;} */
 </style>
