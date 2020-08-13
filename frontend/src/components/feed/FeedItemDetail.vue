@@ -101,7 +101,7 @@
         <div style="margin-right: 92px;">
           <div  class="elevation-2 v-card v-sheet theme--light" style="border-radius:10px; width:300px; height:57px; border:1px solid #ccc;">
               <div style="float:left;">
-              <img :src="find(course.tradeName)" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+              <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
             </div>
             <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.2em;">
                 <div style="font-size:10px; color:rgb(51,102,255);">{{course.categoryName}}</div>
