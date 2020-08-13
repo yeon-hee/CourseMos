@@ -33,7 +33,7 @@
                         </v-row>
                         <v-row>
                             <v-col cols="10" class="mx-auto" style="text-align:center">
-                                <v-btn class="deep-orange white--text"
+                                <v-btn class="teal darken-4 white--text"
                                     onclick="location.href='#/users/profile/setting' ">프로필 수정</v-btn>
                             </v-col>
                         </v-row>

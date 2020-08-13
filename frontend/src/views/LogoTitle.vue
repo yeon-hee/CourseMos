@@ -1,10 +1,14 @@
 <template>
-  <v-toolbar color="orange lighten-2">
+  <v-toolbar color="#f89077" flat="true">
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-    <v-toolbar-title style="color:white; font-weight: bold;">Cosmos</v-toolbar-title>
+    <v-toolbar-title style="color:white; font-weight: bold; font-size: 38px">Cosmos</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn>
-    <v-btn text @click="logout">
+    <v-btn text @click="gotoCup" color="white">
+      <v-icon>fas fa-gamepad</v-icon>
+      <!-- <span>logout</span> -->
+      <!-- <v-icon>fas fa-sign-out-alt</v-icon> -->
+    </v-btn>
+    <!-- <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn> -->
     <v-menu
       v-model="menu"
       :close-on-content-click="false"
@@ -20,7 +24,7 @@
           v-on="on"
         >
           <v-icon>fas fa-bell</v-icon>
-          <span>alarm</span>
+          <!-- <span>alarm</span> -->
         </v-btn>
       </template>
       <v-card>
@@ -30,7 +34,7 @@
 
     <v-btn text @click="logout" color="white">
       <v-icon>fas fa-sign-out-alt</v-icon>
-      <span>logout</span>
+      <!-- <span>logout</span> -->
       <!-- <v-icon>fas fa-sign-out-alt</v-icon> -->
     </v-btn>
   </v-toolbar>
@@ -38,7 +42,7 @@
 
 <script>
 import "../components/css/logotitle.css";
-import alertMenu from "./user/Alerts.vue";
+import alertMenu from "../components/alert/AlertTab.vue";
 
 export default {
   data() {

@@ -1,20 +1,20 @@
 <template>
 
-  <v-bottom-navigation  fixed :value="activeBtn" color="deep-orange darken-1" style="z-index:100;" background-color="orange lighten-2">
+  <v-bottom-navigation  fixed :value="activeBtn" color="deep-orange darken-1" style="z-index:100;" background-color="#f89077">
       <v-btn icon value="main" @click="goMain">
-        <v-icon>fas fa-home</v-icon>
+        <v-icon color="white">fas fa-home</v-icon>
       </v-btn>
       <v-btn icon value="search" @click="goSearch">
-        <v-icon>fas fa-search</v-icon>
+        <v-icon color="white">fas fa-search</v-icon>
       </v-btn>
       <v-btn icon value="feedmake" @click="goFeedMake">
-        <v-icon>far fa-plus-square fa-w-16</v-icon>
+        <v-icon medium color="white">post_add</v-icon>
       </v-btn>
       <v-btn icon value="alerts" @click="goAlerts">
-        <v-icon>far fa-bell</v-icon>
+        <v-icon color="white">far fa-bell</v-icon>
       </v-btn>
       <v-btn icon value="profile" @click="goProfile">
-        <v-icon>fas fa-user-circle</v-icon>
+        <v-icon color="white">fas fa-user-circle</v-icon>
       </v-btn>
   </v-bottom-navigation>
 </template>
@@ -38,7 +38,7 @@ export default {
             this.$router.push('/feedmake')
         },
         goAlerts() {
-            this.$router.push('/alerts')
+            this.$router.push('/alertTab')
         },
         goProfile() {
             this.$router.push('/users/profile')
