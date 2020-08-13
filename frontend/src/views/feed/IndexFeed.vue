@@ -54,17 +54,24 @@ export default {
         email: "",
         text: "",
       },
-      isSearch: false,
-      search: "",
-    };
+      isSearch : false,
+      search : "",
+      isWorldcup: false,
+      worldcup : ""
+    }
   },
   components: { 
     SearchBar, 
     FeedItem2, 
     InfiniteLoading 
   },
-  created() {},
-  methods: {
+  created() {
+    if(this.$route.params.worldcup) {
+      this.isWorldcup = true;
+      this.worldcup = this.$route.params.worldcup;
+    }
+  },
+  methods : {
     initPage() {
       let data = {
         token: localStorage.getItem("token"),
@@ -87,7 +94,7 @@ export default {
       );
     },
     infiniteHandler($state) {
-      if (!this.isSearch) {
+      if(!this.isSearch && !this.isWorldcup) {
         let data = {
           token: localStorage.getItem("token"),
           page: this.page,
@@ -116,8 +123,8 @@ export default {
           (error) => {
             alert(error);
           }
-        );
-      } else {
+        )
+      } else if(this.isSearch){
         let data = {
           token: localStorage.getItem("token"),
           search: this.search,
@@ -137,12 +144,35 @@ export default {
           (error) => {
             alert(error);
           }
-        );
+        )
+      } else {
+        let data = {
+          token : localStorage.getItem("token"),
+          worldcup : this.worldcup,
+          page : this.page
+        };
+        FeedApi.worldcupFeeds(
+          data,
+          response => {
+            if (response.data.length) {
+              this.page += 1;
+              this.feeds = this.feeds.concat(response.data);
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          },
+          error => {
+            alert(error);
+          }
+        )
       }
     },
     searchFeeds(search) {
       this.isSearch = true;
       this.search = search;
+      this.isWorldcup = false;
+      this.worldcup = "";
       this.feeds = [];
       this.page = 0;
       this.$refs.InfiniteLoading.stateChanger.reset();

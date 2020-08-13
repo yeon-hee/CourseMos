@@ -222,5 +222,19 @@ public class FeedController {
         }
         return response;
     }
-
+    @GetMapping("/worldcup/{category}")
+    @ApiOperation(value = "카테고리로 피드 검색")
+    public Object worldcupFeeds(@PathVariable final String category, @RequestParam int page) {
+        String userId = (String)jwtService.getUserId();
+        
+        ResponseEntity response = null;
+        try {
+            PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
+            List<Feed> feeds = feedDao.findAllByCategory(category, request);
+            response = new ResponseEntity<>(feeds, HttpStatus.OK);
+        } catch(Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
 }
