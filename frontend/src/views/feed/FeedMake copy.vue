@@ -36,47 +36,32 @@
         </div>
         <div id="map" style="width:100%;height:400px;"></div>
       </v-col>
-        
-     
-    </v-row>
-
-
-
-
-
-
-
-
-
-    
-    <v-toolbar
-      color="orange"
-      dark
-    >
-
-       <form v-on:submit.prevent="searchPlaces">
-          <input type="text" 
-          placeholder="검색할 코스를 입력하세요" 
-          style="outline:none; width: 320px;" 
-          id="keyword">
-        </form>
-      <v-spacer></v-spacer>
-
-      <v-btn icon v-on:submit.prevent="searchPlaces">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-toolbar>
-
-        <div id="menu_wrap" class="bg_white" style="height:100%">
+      <v-col cols="12" sm="6">
+        <div id="menu_wrap" class="bg_white" style="height:700px;">
+            <div class="option">
+              <div>
+                <form v-on:submit.prevent="searchPlaces">
+                  <v-text-field
+                    outlined
+                    label="코스 검색"
+                    id="keyword"
+                    prepend-inner-icon="mdi-map-marker"
+                  ></v-text-field>
+                </form>
+              </div>
+            </div>
+            <hr />
             <v-card
+              class="mx-auto"
+              max-width="400"
+              tile
               id="placesList"
             ></v-card>
             <!-- <ul id="placesList"></ul> -->
             <div id="pagination"></div>
           </div>
-
-
-
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -304,8 +289,15 @@ export default {
       //console.log(places.road_address_name);
       //console.log(places.category_name.split('>'));
 
-      var el = document.createElement("div"),
-      itemStr =
+      var el = document.createElement("li"),
+    //   itemStr = '<v-list-item two-line>' +
+    //   '<v-list-item-content>' +
+    //     '<v-list-item-title>'+(index+1)+places.place_name+'</v-list-item-title>' +
+    //     '<v-list-item-subtitle>'+places.road_address_name+places.address_name+'</v-list-item-subtitle>' +
+    //   '</v-list-item-content>' +
+    // '</v-list-item>'; 
+        itemStr =
+          '<div>' +
           "   <h3>" +
           (index + 1) +
           ". " +
@@ -314,14 +306,17 @@ export default {
 
       if (places.road_address_name) {
         itemStr +=
+          "    <span>" +
+          places.road_address_name +
+          "</span>" +
           '   <span class="jibun gray">' +
           places.address_name +
-          "</span><br>";
+          "</span>";
       } else {
         itemStr += "    <span>" + places.address_name + "</span>";
       }
 
-      itemStr += '  <span class="tel">' + places.phone + "</span>";
+      // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
       itemStr += "<hr class='p-2'/>";
       el.innerHTML = itemStr;
       el.className = "item";
@@ -501,9 +496,6 @@ export default {
 </script>
 
 <style scoped>
-input::placeholder {
-  color: white;
-}
 #feedMake {
   width: 400px;
   margin: 0 auto;

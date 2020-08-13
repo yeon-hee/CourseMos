@@ -36,7 +36,6 @@
         </div>
         <div id="map" style="width:100%;height:400px;"></div>
       </v-col>
-        
      
     </v-row>
 
@@ -304,24 +303,34 @@ export default {
       //console.log(places.road_address_name);
       //console.log(places.category_name.split('>'));
 
-      var el = document.createElement("div"),
-      itemStr =
-          "   <h3>" +
-          (index + 1) +
-          ". " +
-          places.place_name +
-          "</h3>";
+      var el = document.createElement("li"),
+      itemStr = '<v-list-item two-line>' +
+      '<v-list-item-content>' +
+        '<v-list-item-title>'+(index+1)+places.place_name+'</v-list-item-title>' +
+        '<v-list-item-subtitle>'+places.road_address_name+places.address_name+'</v-list-item-subtitle>' +
+      '</v-list-item-content>' +
+    '</v-list-item>'; 
+      //   itemStr =
+      //     '<div>' +
+      //     "   <h3>" +
+      //     (index + 1) +
+      //     ". " +
+      //     places.place_name +
+      //     "</h3>";
 
-      if (places.road_address_name) {
-        itemStr +=
-          '   <span class="jibun gray">' +
-          places.address_name +
-          "</span><br>";
-      } else {
-        itemStr += "    <span>" + places.address_name + "</span>";
-      }
+      // if (places.road_address_name) {
+      //   itemStr +=
+      //     "    <span>" +
+      //     places.road_address_name +
+      //     "</span>" +
+      //     '   <span class="jibun gray">' +
+      //     places.address_name +
+      //     "</span>";
+      // } else {
+      //   itemStr += "    <span>" + places.address_name + "</span>";
+      // }
 
-      itemStr += '  <span class="tel">' + places.phone + "</span>";
+      // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
       itemStr += "<hr class='p-2'/>";
       el.innerHTML = itemStr;
       el.className = "item";
