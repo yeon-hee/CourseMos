@@ -114,6 +114,7 @@ export default {
       if (this.round == 2) {
         this.winner = this.menuList[idx].name;
         console.log(this.winner);
+        this.$router.push("/feed/main/"+this.winner)
       } else {
         this.winners.push(this.menuList[idx]);
         this.idx += 2;

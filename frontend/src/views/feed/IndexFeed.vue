@@ -118,7 +118,7 @@ export default {
             alert(error);
           }
         )
-      } else if(isSearch){
+      } else if(this.isSearch){
         let data = {
           token : localStorage.getItem("token"),
           search : this.search,
