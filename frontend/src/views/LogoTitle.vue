@@ -4,20 +4,9 @@
     <v-toolbar-title style="color:white; font-weight: bold;">Cosmos</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn>
-    <v-menu
-      v-model="menu"
-      :close-on-content-click="false"
-      :nudge-width="200"
-      offset-x
-    >
+    <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          text
-          bottom
-          color="white"
-          v-bind="attrs"
-          v-on="on"
-        >
+        <v-btn text bottom color="white" v-bind="attrs" v-on="on">
           <v-icon>fas fa-bell</v-icon>
           <span>alarm</span>
         </v-btn>
@@ -42,12 +31,12 @@ import alertMenu from "./user/Alerts.vue";
 export default {
   data() {
     return {
-      menu : false,
+      menu: false,
       userId: localStorage.getItem("userId"),
     };
   },
-  components: { 
-    alertMenu
+  components: {
+    alertMenu,
   },
   methods: {
     logout() {
