@@ -1,9 +1,12 @@
 <template>
-  <v-toolbar color="#f89077" flat="true">
+  <v-toolbar color="#f89077" flat>
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title style="color:white; font-weight: bold; font-size: 38px">Cosmos</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn>
+    <v-btn text @click="gotoCup" color="white">
+      <v-icon large>emoji_events</v-icon>
+    </v-btn>
+
     <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
       <template v-slot:activator="{ on, attrs }">
         <v-btn text bottom color="white" v-bind="attrs" v-on="on">

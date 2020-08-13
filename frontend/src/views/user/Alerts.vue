@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <!-- <div> -->
         <!-- <LogoTitle/> -->
         <!-- <tab/> -->
-        <v-list subheader>
+        <!-- <v-list subheader>
             <v-subheader><v-btn text @click="closeAll"><span>모두 닫기</span></v-btn></v-subheader>
             <v-list-item v-for="(alert, index) in alertList" :key="alert.id">
                 <v-list-item-avatar>
@@ -15,8 +15,36 @@
                     <v-btn icon @click="close(alert, index)"><v-icon>fas fa-times</v-icon></v-btn>
                 </v-list-item-icon>
             </v-list-item>
-        </v-list>
-    </div>
+        </v-list> -->
+    <v-card>
+        <!-- <v-card-title style="padding:0; justify-content: flex-end;">
+            <v-btn
+                color="error"
+                text
+                @click="closeAll">clear</v-btn>
+        </v-card-title> -->
+        <v-virtual-scroll
+        :items="alertList"
+        :item-height="30"
+        height="200"
+        >
+        <v-btn text @click="closeAll"><span>모두 닫기</span></v-btn>
+        <template v-slot="{ item , index}">
+            <v-list-item :key="item.alertNo">
+
+            <v-list-item-content>
+                <v-list-item-title>{{ item.message }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-icon>
+                <v-btn text @click="close(item, index)" color="primary">닫기</v-btn>
+            </v-list-item-icon>
+
+            </v-list-item>
+            <!-- <v-divider></v-divider> -->
+        </template>
+        </v-virtual-scroll>
+    </v-card>
+    <!-- </div> -->
   
 </template>
 
