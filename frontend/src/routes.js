@@ -62,6 +62,11 @@ export default [{
                 component: FeedMain,
             },
             {
+            path: "/feed/main/:worldcup",
+            name: "FeedMain",
+            component: FeedMain,
+          },
+            {
                 path: "/components",
                 name: "Components",
                 component: Components,

@@ -3,26 +3,10 @@
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title style="color:white; font-weight: bold; font-size: 38px">Cosmos</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn text @click="gotoCup" color="white">
-      <v-icon>fas fa-gamepad</v-icon>
-      <!-- <span>logout</span> -->
-      <!-- <v-icon>fas fa-sign-out-alt</v-icon> -->
-    </v-btn>
-    <!-- <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn> -->
-    <v-menu
-      v-model="menu"
-      :close-on-content-click="false"
-      :nudge-width="200"
-      offset-x
-    >
+    <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn>
+    <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          text
-          bottom
-          color="white"
-          v-bind="attrs"
-          v-on="on"
-        >
+        <v-btn text bottom color="white" v-bind="attrs" v-on="on">
           <v-icon>fas fa-bell</v-icon>
           <!-- <span>alarm</span> -->
         </v-btn>
@@ -47,12 +31,12 @@ import alertMenu from "../components/alert/AlertTab.vue";
 export default {
   data() {
     return {
-      menu : false,
+      menu: false,
       userId: localStorage.getItem("userId"),
     };
   },
-  components: { 
-    alertMenu
+  components: {
+    alertMenu,
   },
   methods: {
     logout() {
