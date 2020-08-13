@@ -1,8 +1,9 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" sm="6" offset-sm="3">
-        <search-bar inputValue="text" placeholder="검색어를 입력해주세요." label="검색" @search="searchFeeds" />
+      <v-col cols="12" sm="4" offset-sm="4">
+        <search-bar 
+                outlined inputValue="text" placeholder="검색어를 입력해주세요." label="검색" @search="searchFeeds" />
       </v-col>
     </v-row>
 
@@ -54,17 +55,24 @@ export default {
         email: "",
         text: "",
       },
-      isSearch: false,
-      search: "",
-    };
+      isSearch : false,
+      search : "",
+      isWorldcup: false,
+      worldcup : ""
+    }
   },
   components: { 
     SearchBar, 
     FeedItem2, 
     InfiniteLoading 
   },
-  created() {},
-  methods: {
+  created() {
+    if(this.$route.params.worldcup) {
+      this.isWorldcup = true;
+      this.worldcup = this.$route.params.worldcup;
+    }
+  },
+  methods : {
     initPage() {
       let data = {
         token: localStorage.getItem("token"),
@@ -87,7 +95,7 @@ export default {
       );
     },
     infiniteHandler($state) {
-      if (!this.isSearch) {
+      if(!this.isSearch && !this.isWorldcup) {
         let data = {
           token: localStorage.getItem("token"),
           page: this.page,
@@ -116,8 +124,8 @@ export default {
           (error) => {
             alert(error);
           }
-        );
-      } else {
+        )
+      } else if(this.isSearch){
         let data = {
           token: localStorage.getItem("token"),
           search: this.search,
@@ -137,12 +145,35 @@ export default {
           (error) => {
             alert(error);
           }
-        );
+        )
+      } else {
+        let data = {
+          token : localStorage.getItem("token"),
+          worldcup : this.worldcup,
+          page : this.page
+        };
+        FeedApi.worldcupFeeds(
+          data,
+          response => {
+            if (response.data.length) {
+              this.page += 1;
+              this.feeds = this.feeds.concat(response.data);
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          },
+          error => {
+            alert(error);
+          }
+        )
       }
     },
     searchFeeds(search) {
       this.isSearch = true;
       this.search = search;
+      this.isWorldcup = false;
+      this.worldcup = "";
       this.feeds = [];
       this.page = 0;
       this.$refs.InfiniteLoading.stateChanger.reset();

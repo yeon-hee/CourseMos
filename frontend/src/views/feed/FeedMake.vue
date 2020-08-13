@@ -1,9 +1,27 @@
 <template>
-  <v-container fluid class="mt-16 mb-16">
-    <!-- <v-row>
-      <v-col>
-        <div class="courseMake" style="justify-content: center;">
-          <ul class="placeList">
+  <v-container fluid class="mt-5 mb-16">
+
+    <v-row>
+      <v-col cols="12" sm="6">
+        <div class="courseMake mb-2" style="justify-content: center;">
+          <v-sheet 
+            elevation="5"
+            max-width="400"
+            width="400"
+            height="58">
+            <v-slide-group show-arrows>
+              <v-slide-item
+                v-for="(course, index) in courses"
+                v-bind:key="index"
+                class="place"
+              >
+                <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;"
+                v-on:click="doRemove(index)" />
+              </v-slide-item>
+            </v-slide-group>
+          </v-sheet>
+
+          <!-- <ul class="placeList">
             <li
               v-for="(course, index) in courses"
               v-bind:key="index"
@@ -12,111 +30,43 @@
             >
               <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
             </li>
-          </ul>
+          </ul> -->
           <button v-on:click="saveCourse" class="next">
-            <v-icon x-large>fas fa-arrow-right</v-icon>
-          </button>
-        </div>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12" sm="6" offset-sm="3">
-        <div class="map_wrap mb-26">
-          <div id="map" style="width:100%;height:400px;"></div>
-
-          <div id="menu_wrap" class="bg_white">
-            <div class="option">
-              <div>
-                <form v-on:submit.prevent="searchPlaces">
-                  키워드 :
-                  <input type="text" value="이태원 맛집" id="keyword" />
-                  <button type="submit">검색하기</button>
-                </form>
-              </div>
-            </div>
-            <hr />
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-          </div>
-        </div>
-      </v-col>
-    </v-row> -->
-
-    <v-row>
-      <v-col cols="12" sm="6" style="align-self: center; height:715.6px;">
-        <div class="courseMake" style="justify-content: center;">
-          <ul class="placeList">
-            <li
-              v-for="(course, index) in courses"
-              v-bind:key="index"
-              class="place"
-              v-on:click="doRemove(index)"
-            >
-              <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
-            </li>
-          </ul>
-          <button v-on:click="saveCourse" class="next">
-            <v-icon x-large>fas fa-arrow-right</v-icon>
+            <v-icon style="color:#0c6212">fas fa-plus</v-icon>
           </button>
         </div>
         <div id="map" style="width:100%;height:400px;"></div>
       </v-col>
       <v-col cols="12" sm="6">
-        <div id="menu_wrap" class="bg_white">
+        <div id="menu_wrap" class="bg_white" style="height:700px;">
             <div class="option">
               <div>
                 <form v-on:submit.prevent="searchPlaces">
-                  키워드 :
-                  <input type="text" value="이태원 맛집" id="keyword" />
-                  <button type="submit">검색하기</button>
+                  <v-text-field
+                    outlined
+                    label="키워드"
+                    id="keyword"
+                    value="이태원 맛집"
+                    prepend-inner-icon="mdi-map-marker"
+                  ></v-text-field>
+                  <!-- 키워드 :
+                  <input type="text" value="이태원 맛집" id="keyword" /> -->
+                  <!-- <button type="submit">검색하기</button> -->
                 </form>
               </div>
             </div>
             <hr />
-            <ul id="placesList"></ul>
+            <v-card
+              class="mx-auto"
+              max-width="400"
+              tile
+              id="placesList"
+            ></v-card>
+            <!-- <ul id="placesList"></ul> -->
             <div id="pagination"></div>
           </div>
       </v-col>
     </v-row>
-<!-- 
-    <div>
-      <div id="feedMake">
-        <div class="courseMake">
-          <ul class="placeList">
-            <li
-              v-for="(course, index) in courses"
-              v-bind:key="index"
-              class="place"
-              v-on:click="doRemove(index)"
-            >
-              <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
-            </li>
-          </ul>
-          <button v-on:click="saveCourse" class="next">
-            <v-icon x-large>fas fa-arrow-right</v-icon>
-          </button>
-        </div>
-        <div class="map_wrap">
-          <div id="map" style="width:350px;height:350px;"></div>
-
-          <div id="menu_wrap" class="bg_white">
-            <div class="option">
-              <div>
-                <form v-on:submit.prevent="searchPlaces">
-                  키워드 :
-                  <input type="text" value="이태원 맛집" id="keyword" />
-                  <button type="submit">검색하기</button>
-                </form>
-              </div>
-            </div>
-            <hr />
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </v-container>
 </template>
 
@@ -316,25 +266,31 @@ export default {
       //console.log(places.category_name.split('>'));
 
       var el = document.createElement("li"),
-        itemStr =
-          '<div>' +
-          "   <h3>" +
-          (index + 1) +
-          ". " +
-          places.place_name +
-          "</h3>";
+      itemStr = '<v-list-item two-line>' +
+      '<v-list-item-content>' +
+        '<v-list-item-title>'+(index+1)+places.place_name+'</v-list-item-title>' +
+        '<v-list-item-subtitle>'+places.road_address_name+places.address_name+'</v-list-item-subtitle>' +
+      '</v-list-item-content>' +
+    '</v-list-item>'; 
+      //   itemStr =
+      //     '<div>' +
+      //     "   <h3>" +
+      //     (index + 1) +
+      //     ". " +
+      //     places.place_name +
+      //     "</h3>";
 
-      if (places.road_address_name) {
-        itemStr +=
-          "    <span>" +
-          places.road_address_name +
-          "</span>" +
-          '   <span class="jibun gray">' +
-          places.address_name +
-          "</span>";
-      } else {
-        itemStr += "    <span>" + places.address_name + "</span>";
-      }
+      // if (places.road_address_name) {
+      //   itemStr +=
+      //     "    <span>" +
+      //     places.road_address_name +
+      //     "</span>" +
+      //     '   <span class="jibun gray">' +
+      //     places.address_name +
+      //     "</span>";
+      // } else {
+      //   itemStr += "    <span>" + places.address_name + "</span>";
+      // }
 
       // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
       itemStr += "<hr class='p-2'/>";
@@ -508,6 +464,7 @@ export default {
     },
 
     doRemove(index) {
+      console.dir(this.courses)
       this.courses.splice(index, 1);
     },
   },

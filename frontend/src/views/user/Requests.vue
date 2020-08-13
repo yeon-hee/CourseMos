@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <LogoTitle/> -->
-        <tab></tab>
+        <!-- <tab></tab> -->
         <v-list subheader>
             <v-subheader>
                 <v-btn text @click="rejectAll"><span>모두 거절</span></v-btn>
@@ -53,13 +53,13 @@
 import "../../components/css/user/requests.css";
 import axios from 'axios';
 import RequestApi from "../../api/RequestApi";
-import Tab from "../../components/alert/AlertTab";
+// import Tab from "../../components/alert/AlertTab";
 
 export default {
     components: {
         // LogoTitle,
         // Nav,
-        Tab
+        // Tab
     },
     created() {
         let data = {

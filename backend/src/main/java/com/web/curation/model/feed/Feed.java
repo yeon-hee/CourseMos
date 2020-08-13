@@ -36,6 +36,7 @@ public class Feed {
     private String thumbnail;
     @Transient
     private boolean isMine;
+    private String tags;
 
     @Column(insertable = false, updatable = false)
     private LocalDateTime writeDate;

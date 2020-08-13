@@ -4,7 +4,7 @@
 
     <v-list-item>
       <v-list-item-avatar color="grey">
-        <img src="@/assets/images/profile_default.png"/>
+        <img :src="profileImage"/>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>{{feed.userId}}</v-list-item-title>
@@ -67,6 +67,7 @@ export default {
     return { 
       followerCount : 0,
       defaultImage,
+      profileImage : require('../../assets/images/profile_default.png'),
       defaultProfile,
       // hashtags: ['#맛집','#파스타','#와인'],
       heartChange: false,
@@ -87,6 +88,10 @@ export default {
     }
     ProfileApi.requestUserProfile(data,
       response => {
+        console.dir(response.data)
+        if(response.data.profilePhoto != undefined && response.data.profilePhoto.length > 10) {
+            this.profileImage = response.data.profilePhoto
+        }
         let data = {
           token : localStorage.getItem('token'),
           email : response.data.email

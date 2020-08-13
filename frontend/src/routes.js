@@ -11,6 +11,7 @@ import Profile from "./views/user/Profile.vue";
 import UserProfile from "./views/user/UserProfile.vue";
 import Alerts from "./views/user/Alerts.vue";
 import Requests from "./views/user/Requests.vue";
+import AlertTab from "./components/alert/AlertTab.vue";
 import Followers from "./views/user/Followers.vue";
 import Followings from "./views/user/Followings.vue";
 import Search from "./views/Search.vue";
@@ -26,142 +27,150 @@ import FeedMake from "./views/feed/FeedMake.vue";
 import Main from "./views/Main";
 import WorldCup from "./views/feed/WorldCup.vue";
 
-export default [
-  {
-    path: "/",
-    name: "Login",
-    component: Login,
-  },
-  {
-    path: "/user/join",
-    name: "Join",
-    component: Join,
-  },
-  {
-    path: "/user/find/password",
-    name: "FindPassword",
-    component: FindPassword,
-  },
-  {
-    path: "/error",
-    name: "Error",
-    component: Error,
-  },
-  {
-    path: "*",
-    name: "NotFound",
-    component: NotFound,
-  },
-  {
-    path: "/",
-    name: "Main",
-    component: Main,
-    children: [
-      {
-        path: "/feed/main",
-        name: "FeedMain",
-        component: FeedMain,
-      },
-      {
-        path: "/components",
-        name: "Components",
-        component: Components,
-      },
-      {
-        path: "/users/profile/password",
-        name: "ChangePassword",
-        component: ChangePassword,
-      },
-      {
-        path: "/user/signup/complete",
-        name: "SignUpComplete",
-        component: SignUpComplete,
-      },
-      {
-        path: "/users/profile",
-        name: "Profile",
-        component: Profile,
-      },
-      {
-        path: "/users/profile/info/:userId",
-        name: "UserProfile",
-        component: UserProfile,
-      },
-      {
-        path: "/alerts",
-        name: "Alerts",
-        component: Alerts,
-      },
-      {
-        path: "/requests",
-        name: "Requests",
-        component: Requests,
-      },
-      {
-        path: "/friends/followers",
-        name: "Followers",
-        component: Followers,
-      },
-      {
-        path: "/friends/followings",
-        name: "Followings",
-        component: Followings,
-      },
-      {
-        path: "/search",
-        name: "Search",
-        component: Search,
-      },
-      {
-        path: "/users/profile/setting",
-        name: "AccountSetting",
-        component: AccountSetting,
-      },
-      {
-        path: "/feeds/:feedNo",
-        name: "FeedDetail",
-        component: FeedDetail,
-      },
-      {
-        path: "/map",
-        name: "Map",
-        component: MapPage,
-      },
-      {
-        path: "/feed/write",
-        name: "WriteFeed",
-        component: WriteFeedPage,
-      },
-      {
-        path: "/feedmake",
-        name: "FeedMake",
-        component: FeedMake,
-      },
-      {
-        path: "/feeds/comments/:feedNo",
-        name: "FeedComment",
-        component: FeedComment,
-      },
-      {
-        path: "/feeds/back/:feedNo",
-        name: "FeedItemDetail",
-        component: FeedItemDetail,
-      },
-      {
-        path: "/crawling",
-        name: "Crawling",
-        component: Crawling,
-      },
-      {
-        path: "/trade",
-        name: "TradeDetail",
-        component: TradeDetail,
-      },
-        {
-        path: "/worldcup",
-        name: "WorldCup",
-        component: WorldCup,
-      },
-    ]
-  },
+export default [{
+        path: "/",
+        name: "Login",
+        component: Login,
+    },
+    {
+        path: "/user/join",
+        name: "Join",
+        component: Join,
+    },
+    {
+        path: "/user/find/password",
+        name: "FindPassword",
+        component: FindPassword,
+    },
+    {
+        path: "/error",
+        name: "Error",
+        component: Error,
+    },
+    {
+        path: "*",
+        name: "NotFound",
+        component: NotFound,
+    },
+    {
+        path: "/",
+        name: "Main",
+        component: Main,
+        children: [{
+                path: "/feed/main",
+                name: "FeedMain",
+                component: FeedMain,
+            },
+            {
+            path: "/feed/main/:worldcup",
+            name: "FeedMain",
+            component: FeedMain,
+          },
+            {
+                path: "/components",
+                name: "Components",
+                component: Components,
+            },
+            {
+                path: "/users/profile/password",
+                name: "ChangePassword",
+                component: ChangePassword,
+            },
+            {
+                path: "/user/signup/complete",
+                name: "SignUpComplete",
+                component: SignUpComplete,
+            },
+            {
+                path: "/users/profile",
+                name: "Profile",
+                component: Profile,
+            },
+            {
+                path: "/users/profile/info/:userId",
+                name: "UserProfile",
+                component: UserProfile,
+            },
+            {
+                path: "/alerts",
+                name: "Alerts",
+                component: Alerts,
+            },
+            {
+                path: "/requests",
+                name: "Requests",
+                component: Requests,
+            },
+            {
+                path: "/alertTab",
+                name: "AlertTab",
+                component: AlertTab
+            },
+            {
+                path: "/friends/followers",
+                name: "Followers",
+                component: Followers,
+            },
+            {
+                path: "/friends/followings",
+                name: "Followings",
+                component: Followings,
+            },
+            {
+                path: "/search",
+                name: "Search",
+                component: Search,
+            },
+            {
+                path: "/users/profile/setting",
+                name: "AccountSetting",
+                component: AccountSetting,
+            },
+            {
+                path: "/feeds/:feedNo",
+                name: "FeedDetail",
+                component: FeedDetail,
+            },
+            {
+                path: "/map",
+                name: "Map",
+                component: MapPage,
+            },
+            {
+                path: "/feed/write",
+                name: "WriteFeed",
+                component: WriteFeedPage,
+            },
+            {
+                path: "/feedmake",
+                name: "FeedMake",
+                component: FeedMake,
+            },
+            {
+                path: "/feeds/comments/:feedNo",
+                name: "FeedComment",
+                component: FeedComment,
+            },
+            {
+                path: "/feeds/back/:feedNo",
+                name: "FeedItemDetail",
+                component: FeedItemDetail,
+            },
+            {
+                path: "/crawling",
+                name: "Crawling",
+                component: Crawling,
+            },
+            {
+                path: "/trade",
+                name: "TradeDetail",
+                component: TradeDetail,
+            },
+            {
+                path: "/worldcup",
+                name: "WorldCup",
+                component: WorldCup,
+            },
+        ]
+    },
 ];
