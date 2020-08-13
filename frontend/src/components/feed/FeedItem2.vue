@@ -9,7 +9,7 @@
       <v-list-item-content>
         <v-list-item-title>{{feed.userId}}</v-list-item-title>
         <v-list-item-subtitle>
-          <v-icon>fas fa-users</v-icon>
+          <v-icon small>fas fa-users</v-icon>
           {{followerCount}}
         </v-list-item-subtitle>
       </v-list-item-content>
@@ -18,8 +18,12 @@
         <v-list-item-subtitle v-text="parseDate"></v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
+    <v-divider></v-divider>
 
     <v-container>
+    <v-card-text class="text--primary">
+      <div>{{feed.contents}}</div>
+    </v-card-text>
     <v-row>
       <v-col v-for="course in courses" :key="course.courseOrder" cols=3>
         <v-badge color="indigo" :content="Number(course.courseOrder)" overlap>
@@ -151,7 +155,7 @@ export default {
         );
     },
     cutStr(str) {
-      if(str.length >= 3){
+      if(str.length > 3){
           return str.substr(0,3)+"..";
       } else return str;
     },
