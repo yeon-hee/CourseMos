@@ -44,9 +44,8 @@
                 <form v-on:submit.prevent="searchPlaces">
                   <v-text-field
                     outlined
-                    label="키워드"
+                    label="코스 검색"
                     id="keyword"
-                    value="이태원 맛집"
                     prepend-inner-icon="mdi-map-marker"
                   ></v-text-field>
                   <!-- 키워드 :
