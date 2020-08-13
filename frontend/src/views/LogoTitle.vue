@@ -4,7 +4,6 @@
     <v-toolbar-title style="color:white; font-weight: bold;">Cosmos</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn color="primary" dark @click="gotoCup">코스 추천받기</v-btn>
-    <v-btn text @click="logout">
     <v-menu
       v-model="menu"
       :close-on-content-click="false"
