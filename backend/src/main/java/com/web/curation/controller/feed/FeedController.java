@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import kr.co.shineware.TagGenerator;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
         @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
@@ -113,6 +114,10 @@ public class FeedController {
     public Object writeFeeds(@RequestBody final Feed feed) {
         ResponseEntity response = null;
 
+        TagGenerator tagGenerator = new TagGenerator(feed.getContents());
+        String tags = tagGenerator.getTags();
+
+        feed.setTags(tags);
         try {
             feedDao.save(feed);
 
@@ -211,7 +216,6 @@ public class FeedController {
     @ApiOperation(value = "키워드로 피드 검색")
     public Object searchFeeds(@PathVariable final String search, @RequestParam int page) {
         String userId = (String) jwtService.getUserId();
-
         ResponseEntity response = null;
         try {
             PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
@@ -222,17 +226,17 @@ public class FeedController {
         }
         return response;
     }
+
     @GetMapping("/worldcup/{category}")
     @ApiOperation(value = "카테고리로 피드 검색")
     public Object worldcupFeeds(@PathVariable final String category, @RequestParam int page) {
-        String userId = (String)jwtService.getUserId();
-        
+        String userId = (String) jwtService.getUserId();
         ResponseEntity response = null;
         try {
             PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
             List<Feed> feeds = feedDao.findAllByCategory(category, request);
             response = new ResponseEntity<>(feeds, HttpStatus.OK);
-        } catch(Exception e) {
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return response;
