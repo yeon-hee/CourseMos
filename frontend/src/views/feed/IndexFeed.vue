@@ -1,8 +1,9 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" sm="6" offset-sm="3">
-        <search-bar inputValue="text" placeholder="검색어를 입력해주세요." label="검색" @search="searchFeeds" />
+      <v-col cols="12" sm="4" offset-sm="4">
+        <search-bar 
+                outlined inputValue="text" placeholder="검색어를 입력해주세요." label="검색" @search="searchFeeds" />
       </v-col>
     </v-row>
 

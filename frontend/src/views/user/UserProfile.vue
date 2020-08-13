@@ -34,7 +34,7 @@
                         <v-row>
                             <v-col cols="10" class="mx-auto" style="text-align:center">
                                 <v-btn class="deep-orange white--text"
-                                    onclick="location.href='#/users/profile/setting' ">프로필 수정</v-btn>
+                                     @click="requestButton(follow_status);">{{message}}</v-btn>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -192,6 +192,7 @@ export default {
         ProfileApi.requestUserProfile(
             data,
             res => {
+                console.dir(res.data)
                 this.user = res.data
                 data.email = this.user.email
 

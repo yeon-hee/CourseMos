@@ -1,33 +1,37 @@
 
 <template>
-  <v-container fluid class="mt-16 mb-16">
-    <!-- title  -->
+  <v-container fluid class="mt-2 mb-16">
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
-        <h1 class="deep-orange--text">내 계정 설정</h1>
-        <p class="deep-orange--text">My Settings</p>
+    <v-card class="pa-5">
+    <!-- title  -->
+    <v-row>
+      <v-col cols="12" >
+        <h1 class="teal--text text--darken-4">내 계정 설정</h1>
+        <p class="teal--text text--darken-4">My Settings</p>
       </v-col>
     </v-row>
 
     <!-- profile image  -->
     <v-row>
-      <v-col cols="6" sm="3" offset-sm="3" style="text-align:center">
+      <v-col cols="6" style="text-align:center">
         <v-avatar size="96">
           <img :src="profileThumbnail"/>
         </v-avatar>
       </v-col>
-      <v-col cols="6" sm="3" style="text-align:center;">
+      <v-col cols="6" style="text-align:center;">
         <v-file-input @change="selectImage" accept="image/*" label="image select" ref="profileImageFile" name="imgFile"></v-file-input>
-        <button class="deep-orange--text  font-weight-bold" @click="updateProfileImage()" value="등록">등록</button>
+        <button class="teal--text text--darken-4  font-weight-bold" @click="updateProfileImage()" value="등록">등록</button>
       </v-col>
     </v-row>
+    <v-divider class="teal darken-4"></v-divider>
     <!-- user info  -->
     <template style="margin-top:50px;">
       <v-row no-gutters style="margin-top:50px;">
-        <v-col cols="4" sm="2" offset-sm="3">
+        <v-col cols="4">
           <v-subheader>아이디</v-subheader>
         </v-col>
-        <v-col cols="8" sm="4">
+        <v-col cols="8">
           <v-text-field
             label="Outlined"
             single-line
@@ -40,10 +44,10 @@
         </v-col>
       </v-row>
       <v-row no-gutters>
-        <v-col cols="4" sm="2" offset-sm="3">
+        <v-col cols="4">
           <v-subheader>이메일</v-subheader>
         </v-col>
-        <v-col cols="8" sm="4">
+        <v-col cols="8">
           <v-text-field
             label="Outlined"
             single-line
@@ -57,16 +61,18 @@
         </v-col>
       </v-row>
       <v-row no-gutters>
-        <v-col cols="4" sm="2" offset-sm="3">
+        <v-col cols="4">
           <v-subheader>비밀번호</v-subheader>
         </v-col>
-        <v-col cols="8" sm="4">
-          <a href="#/users/profile/password" class="btn--text text-decoration-none deep-orange--text font-weight-bold">비밀번호 변경</a>
+        <v-col cols="8"
+          style="align-self: center;">
+          <a href="#/users/profile/password"
+          class="btn--text text-decoration-none teal--text text--darken-4 font-weight-bold">비밀번호 변경</a>
         </v-col>
       </v-row>
 
       <v-row no-gutters style="margin-top:20px;">
-        <v-col cols="12" sm="6" offset-sm="3">
+        <v-col cols="12">
           <v-textarea
             name="input-7-1"
             filled
@@ -80,9 +86,9 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="12" sm="6" 
+        <v-col cols="12"
             style="text-align:center;">
-          <v-btn class="deep-orange white--text"
+          <v-btn class="teal darken-4 white--text"
             @click="onChange"
             :disabled="!isSubmit"
             :class="{disabled : !isSubmit}">저장
@@ -153,6 +159,8 @@
       >저장</button>
   </div>
   </div> -->
+    </v-card>
+      </v-col></v-row>
   </v-container>
 </template>
 

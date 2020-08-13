@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <LogoTitle/> -->
-        <tab/>
+        <!-- <tab/> -->
         <v-list subheader>
             <v-subheader><v-btn text @click="closeAll"><span>모두 닫기</span></v-btn></v-subheader>
             <v-list-item v-for="(alert, index) in alertList" :key="alert.id">
@@ -16,45 +16,20 @@
                 </v-list-item-icon>
             </v-list-item>
         </v-list>
-        <!-- <div id="alerts">
-            <div class="all-button">
-                <button class="all-close" @click="closeAll()">모두닫기</button>
-            </div>
-            <div class="tab-list">
-                <ul class="alert-list">
-                    <hr>
-                    <li v-for="(alert, index) in alertList" :key="alert.id">
-                        <div class="alert">
-                            <div class="alert-info">
-                                <img src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
-                                <div>{{alert.message}}</div> 
-                            </div>
-                            <button class="close-button" @click="close(alert, index)"><i class="fas fa-times"></i></button>
-                        </div>
-                        <hr>
-                    </li>
-                </ul>
-            </div>
-        </div> -->
-    <!-- <Nav/> -->
     </div>
   
 </template>
 
 <script>
-// import LogoTitle from "../LogoTitle.vue";
-// import Nav from "../Nav.vue";
 import "../../components/css/user/alerts.css";
 import axios from 'axios';
 import AlertApi from "../../api/AlertApi";
-import Tab from "../../components/alert/AlertTab";
+// import Tab from "../../components/alert/AlertTab";
 
 
 export default {
     components: {
-        // LogoTitle,
-        // Nav,
-        Tab
+        // Tab
     },
     created() {
         let data = {
