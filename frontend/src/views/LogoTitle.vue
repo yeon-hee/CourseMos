@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="#f89077" flat>
+  <v-toolbar color="#f09894" flat>
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title style="color:white; font-weight: bold; font-size: 38px">Cosmos</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -18,12 +18,6 @@
         <alertMenu></alertMenu>
       </v-card>
     </v-menu>
-
-    <v-btn text @click="logout" color="white">
-      <v-icon>fas fa-sign-out-alt</v-icon>
-      <!-- <span>logout</span> -->
-      <!-- <v-icon>fas fa-sign-out-alt</v-icon> -->
-    </v-btn>
   </v-toolbar>
 </template>
 
