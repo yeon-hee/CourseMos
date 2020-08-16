@@ -162,7 +162,7 @@ export default [{
                 component: Crawling,
             },
             {
-                path: "/trade",
+                path: "/trade/:id",
                 name: "TradeDetail",
                 component: TradeDetail,
             },
