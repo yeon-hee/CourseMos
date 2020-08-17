@@ -25,7 +25,7 @@
       <v-timeline-item
         v-for="course in courses"
         :key="course.courseOrder"
-      >
+      > 
         <template v-slot:icon>
           <v-avatar>
             <img :src="course.thumbnailUrl">
