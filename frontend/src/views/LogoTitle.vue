@@ -1,18 +1,13 @@
 <template>
-  <v-toolbar color="#f09894" flat>
+  <v-toolbar color="white" flat>
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-    <v-toolbar-title style="color:white; font-weight: bold; font-size: 38px">코스모스</v-toolbar-title>
+    <v-toolbar-title style="color:rgb(239,91,91); font-weight: bold; font-size: 38px">코스모스</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn text @click="gotoCup" color="white">
-      <v-icon large>emoji_events</v-icon>
-    </v-btn>
+      <v-icon size="30" @click="gotoCup" color="rgb(239,91,91)" style="margin-right:25px;">emoji_events</v-icon>
 
     <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn text bottom color="white" v-bind="attrs" v-on="on">
-          <v-icon>fas fa-bell</v-icon>
-          <!-- <span>alarm</span> -->
-        </v-btn>
+      <template v-slot:activator="{ on, attrs }" size="20" >
+          <v-icon  size="25" color="rgb(239,91,91)" v-bind="attrs" v-on="on">fas fa-bell</v-icon>
       </template>
       <v-card>
         <alertMenu></alertMenu>
