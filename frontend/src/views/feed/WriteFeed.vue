@@ -1,13 +1,13 @@
 <template>
   <div class="wrap components-page">
-    <div class="wrapB">
+    <div class="wrapB pl-3 pr-3">
       <h1>피드 작성하기</h1>
 
       <h2>내용</h2>
       <div class="wrap">
         <!-- input type=text -->
 
-        <textarea cols="50" rows="5" v-model="contents" style="border-style: solid;"></textarea>
+        <textarea cols="45" rows="5" v-model="contents" style="border-style: solid;"></textarea>
       </div>
 
       <h2>사진 추가하기</h2>
@@ -87,7 +87,8 @@ export default {
           var imageUrl = firebase
             .storage()
             .ref(snapshot.metadata.fullPath)
-            .getDownloadURL().then((url) => {
+            .getDownloadURL()
+            .then((url) => {
               this.uploadedImageUrl.push(url);
 
               if (this.uploadedImageUrl.length == this.images.length) {
@@ -113,13 +114,13 @@ export default {
         data,
         (response) => {
           console.dir(response);
-          
+
           if (this.images.length > 0) {
             for (const url of this.uploadedImageUrl) {
               const photoData = {
                 photoUrl: url,
                 feedNo: response.data.feedNo,
-              }
+              };
               FeedApi.uploadFeedImage(
                 photoData,
                 (response) => {

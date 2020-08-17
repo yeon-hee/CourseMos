@@ -1,19 +1,9 @@
-
-
 <template>
   <v-container fluid fill-height class="pt-0">
-
     <v-row class="fill-height">
       <v-col cols="12" md="6" class="pa-0">
-        <v-parallax
-          src="../../assets/images/Logo.png"
-          
-          style="height:100%; min-height: 350px;"
-          >
-          <v-row
-            align="center"
-            justify="center"
-          >
+        <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 350px;">
+          <v-row align="center" justify="center">
             <v-col cols="12" style="margin-bottom:100px; margin-left:50px">
               <p class="mt-10 mb-5 font-weight-bold" style="color:#0c6212; font-size:72px;">Cos-mos</p>
             </v-col>
@@ -23,10 +13,11 @@
       <v-col cols="12" md="6" style="align-self: flex-end;">
         <template>
           <v-row>
-            <v-col cols="12" sm="6" offset-sm="3" class="pa-0">
+            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pa-0">
               <v-text-field
                 v-model="email"
                 name="input-10-1"
+                color="#0c6212"
                 label="이메일을 입력하세요."
                 hint="이메일 형식이 아닙니다."
                 outlined
@@ -35,12 +26,13 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" sm="6" offset-sm="3" class="pa-0">
+            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pa-0">
               <v-text-field
                 v-model="password"
                 :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="passwordShow ? 'text' : 'password'"
                 name="input-10-1"
+                color="#0c6212"
                 label="비밀번호를 입력하세요."
                 hint="영문,숫자 포함 8 자리이상이어야 합니다."
                 outlined
@@ -50,31 +42,41 @@
           </v-row>
 
           <v-row>
-            <v-col class="text-center" cols="12">
-              <div class="my-2">
-                <v-btn class="teal darken-4 white--text"
+            <v-col class="text-center py-0" cols="12">
+              <div class>
+                <v-btn
+                  class="teal darken-4 white--text"
                   @click="onLogin"
                   :disabled="!isSubmit"
-                  :class="{disabled : !isSubmit}">로그인</v-btn>
+                  :class="{disabled : !isSubmit}"
+                >로그인</v-btn>
               </div>
             </v-col>
           </v-row>
 
-
           <v-row>
             <v-col>
-
-              <v-row class="text-right">
+              <v-row class="text-left">
                 <v-col>
-                  <p>비밀번호를 잊으셨나요? 
+                  <p>
+                    비밀번호를 잊으셨나요?
                     <span>
-                      <a href="#/user/find/password" style="color:#f89077" class="btn--text text-decoration-none font-weight-bold">비밀번호 찾기</a>
+                      <a
+                        href="#/user/find/password"
+                        style="color:#0c6212"
+                        class="float-right btn--text text-decoration-none font-weight-bold"
+                      >비밀번호 찾기</a>
                     </span>
                   </p>
-                  
-                  <p>아직 회원이 아니신가요?
+
+                  <p>
+                    아직 회원이 아니신가요?
                     <span>
-                      <a href="#/user/join" style="color:#f89077" class="btn--text text-decoration-none font-weight-bold">가입하기</a>
+                      <a
+                        href="#/user/join"
+                        style="color:#0c6212"
+                        class="float-right btn--text text-decoration-none font-weight-bold"
+                      >가입하기</a>
                     </span>
                   </p>
                 </v-col>
@@ -84,7 +86,6 @@
         </template>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
