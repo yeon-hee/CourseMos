@@ -4,7 +4,7 @@
     class="mx-auto"
     max-width="500"
   >
-    <v-sheet class="pa-4 primary lighten-2">
+    <v-sheet class="pa-4" style="background-color: #fab7ae;">
       <v-text-field
         v-model="search"
         label="유저 검색"
@@ -14,6 +14,7 @@
         hide-details
         clearable
         clear-icon="mdi-close-circle-outline"
+        style="background-color: #fab7ae;"
       ></v-text-field>
       <v-checkbox
         v-model="caseSensitive"
@@ -132,7 +133,6 @@ export default {
           : undefined
       },
       selected () { // 여기 눌리면 오는 곳 
-          console.log('안녕!');
           return '안녕하세요';
       },
   }
