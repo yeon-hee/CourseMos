@@ -1,8 +1,8 @@
 <template>
-  <div class="foodCup">
+  <div class="playCup">
     <div
-      class="pt-16 mb-5 font-weight-bold text-center text-sm-h3 text-h3 indigo--text text--darken-3"
-    >음식 추천 월드컵</div>
+      class="pt-16 mb-5 font-weight-bold text-center text-sm-h4 text-h4 indigo--text text--darken-3"
+    >놀거리 추천 월드컵</div>
     <img
       src="../../assets/images/trophy.jpeg"
       class="trophy"
@@ -148,7 +148,7 @@ export default {
 </script>
 
 <style scoped>
-.foodCup {
+.playCup {
   height: 120%;
   /* background-color: rgb(244, 81, 30); */
   max-width: 500px;
