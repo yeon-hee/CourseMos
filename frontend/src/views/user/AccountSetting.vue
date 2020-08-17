@@ -7,86 +7,75 @@
           <!-- title  -->
           <v-row>
             <v-col cols="8">
-              <h1 class="teal--text text--darken-4">내 계정 설정</h1>
-              <p class="teal--text text--darken-4">My Settings</p>
-            </v-col>
-            <v-col cols="4" class="d-flex flex-column">
-              <v-btn text @click="logout" color="#245739" class="v-size--x-large">
-                <v-icon x-large>fas fa-sign-out-alt</v-icon>
-                <div>logout</div>
-              </v-btn>
+              <h1>내 계정 설정</h1>
+              <p>My Settings</p>
             </v-col>
           </v-row>
 
           <!-- profile image  -->
-          <v-row>
-            <v-col cols="6" style="text-align:center">
-              <v-avatar size="96">
-                <img :src="profileThumbnail" />
-              </v-avatar>
-            </v-col>
-            <v-col cols="6" style="text-align:center;">
-              <v-file-input
-                @change="selectImage"
-                accept="image/*"
-                label="image select"
-                ref="profileImageFile"
-                name="imgFile"
-              ></v-file-input>
-              <button
-                class="teal--text text--darken-4 font-weight-bold"
-                @click="updateProfileImage()"
-                value="등록"
-              >등록</button>
-            </v-col>
-          </v-row>
-          <v-divider class="teal darken-4"></v-divider>
+          <v-card color='pink lighten-5'>
+            <v-row>
+              <v-col cols="5" style="text-align:center">
+                <v-avatar size="96">
+                  <img :src="profileThumbnail" />
+                </v-avatar>
+              </v-col>
+              <v-col cols="6" style="text-align:center;">
+                <v-file-input
+                  @change="selectImage"
+                  accept="image/*"
+                  label="image select"
+                  ref="profileImageFile"
+                  name="imgFile"
+                  prepend-icon="mdi-camera"
+                ></v-file-input>
+                <v-btn
+                  dark color="pink"
+                  @click="updateProfileImage()"
+                  value="등록"
+                >등록</v-btn>
+              </v-col>
+            </v-row>
+          </v-card>
+          <br>
           <!-- user info  -->
           <template style="margin-top:50px;">
-            <v-row no-gutters style="margin-top:50px;">
-              <v-col cols="4">
+            <!-- <v-row no-gutters style="margin-top:50px;"> -->
+              <!-- <v-col cols="4">
                 <v-subheader>아이디</v-subheader>
-              </v-col>
-              <v-col cols="8">
+              </v-col> -->
+              <!-- <v-col> -->
                 <v-text-field
-                  label="Outlined"
-                  single-line
-                  outlined
+                  label="아이디"
                   v-model="userId"
                   v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
                   v-bind:placeholder="placeUserId"
                   id="userId"
                 ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col cols="4">
+              <!-- </v-col> -->
+            <!-- </v-row> -->
+            <!-- <v-row no-gutters> -->
+              <!-- <v-col cols="4">
                 <v-subheader>이메일</v-subheader>
-              </v-col>
-              <v-col cols="8">
+              </v-col> -->
+              <!-- <v-col> -->
                 <v-text-field
-                  label="Outlined"
-                  single-line
-                  outlined
+                  label="이메일"
                   readonly
                   hint="이메일은 변경 불가합니다."
                   v-model="email"
                   v-bind:placeholder="placeEmail"
                   id="email"
                 ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row no-gutters>
+              <!-- </v-col> -->
+            <!-- </v-row> -->
+            <!-- <v-row no-gutters>
               <v-col cols="4">
                 <v-subheader>비밀번호</v-subheader>
-              </v-col>
-              <v-col cols="8" style="align-self: center;">
-                <a
-                  href="#/users/profile/password"
-                  class="btn--text text-decoration-none teal--text text--darken-4 font-weight-bold"
-                >비밀번호 변경</a>
-              </v-col>
-            </v-row>
+              </v-col> -->
+              <!-- <v-col cols="8" style="align-self: center;"> -->
+              <!-- </v-col> -->
+            <!-- </v-row> -->
 
             <v-row no-gutters style="margin-top:20px;">
               <v-col cols="12">
@@ -106,13 +95,19 @@
             <v-row justify="center">
               <v-col cols="12" style="text-align:center;">
                 <v-btn
-                  class="teal darken-4 white--text"
+                  color="pink"
                   @click="onChange"
                   :disabled="!isSubmit"
                   :class="{disabled : !isSubmit}"
+                  class="pink white--text"
+                  block
+                  depressed
                 >저장</v-btn>
               </v-col>
             </v-row>
+            <v-btn depressed dark block color="pink" @click="goChangePassword">
+              비밀번호 변경
+            </v-btn>
           </template>
 
           <!-- <div>
@@ -321,6 +316,9 @@ export default {
         this.isSubmit = false;
       }
     },
+    goChangePassword() {
+      this.$router.push('/users/profile/password');
+    }
   },
   data: () => {
     return {
@@ -344,89 +342,4 @@ export default {
 };
 </script>
 <style scoped>
-/* .total{
-  align-content: center;
-  margin: 0 auto;
-}
-
-.title{
-    padding-top: 5%;
-}
-
-.back-arrow{
-    float: left;
-    width: 8%;
-}
-
-.logo{
-    text-align: center;
-    float: left;
-    width: 80%;
-}
-
-.line{
-    clear: both;
-    background-color: gray;
-    height: 1px;
-}
-
-.page-title{
-    margin-left: 20%;
-    float: left;
-    font-size: 20px;
-    padding-top: 1%;
-}
-
-.page-title-en{
-    float: left;
-    font-size: 12px;
-    padding-left: 10px;
-    padding-top: 2%;
-}
-
-.space{
-    clear: both;
-    height: 30px;
-}
-
-.input-wrap{
-    margin-top:3%;
-}
-
-.account-input{
-    margin-left: 50px;
-    width: 70%;
-}
-
-.self-info-textarea{
-    padding: 5px;
-    margin-left: 3%;
-    border: 1.1px solid #CCCBCB;
-    resize: none;
-}
-
-.email-text{
-    color: red;
-    font-size: 10px;
-    margin-left: 25%;
-}
-
-.password-change{
-    margin-left: 3%;
-    text-decoration: underline;
-}
-
-.upload-input{
-  margin-left: 24%;
-  margin-top: -10%;
-  float: left;
-  width: 220px;
-  height: 30px;
-}
-.upload-btn{
-  float: right;
-  margin-top: -8%;
-  margin-right: 5%;
-  border: 1px solid gray;
-} */
 </style>
