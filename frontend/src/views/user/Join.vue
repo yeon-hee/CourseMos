@@ -1,83 +1,81 @@
 <template>
   <v-container class="join py-0">
     <v-row>
-      <v-col cols="12" md="6" class="pa-0">
-        <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 670px;">
-          <v-row justify="center">
-            <v-col cols="12" style="margin-left:10px">
-              <p class="mt-10 mb-0 font-weight-bold" style="color:#0c6212; font-size:50px;">가입하기</p>
-            </v-col>
-          </v-row>
+      <v-col cols="12" md="6" class="pa-0" style="margin:0 auto;">
+        <v-row justify="center">
+          <v-col cols="12" style="margin-left:10px">
+            <p class="mt-10 mb-0 font-weight-bold" style="color:#0c6212; font-size:50px;">가입하기</p>
+          </v-col>
+        </v-row>
+        <div
+          class="join-form border rounded"
+          style="background-color: white; margin: 0 auto; width: 350px; opacity:0.8;"
+        >
+          <!-- <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 670px;"> -->
 
           <v-row>
-            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto">
+            <v-col cols="11" class="mx-auto">
               <!-- <label for="email">이메일</label> -->
               <v-text-field
                 v-model="email"
                 id="email"
                 label="이메일"
                 color="#0c6212"
-                v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
                 placeholder="이메일을 입력하세요."
                 type="text"
-                outlined
-              >
-                <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div>
-              </v-text-field>
-              <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div>
+                hint="이메일 형식이 아닙니다"
+              ></v-text-field>
+              <!-- <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div> -->
             </v-col>
           </v-row>
 
           <v-row>
-            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pt-0">
+            <v-col cols="11" class="mx-auto pt-0">
               <!-- <label for="userId">아이디</label> -->
               <v-text-field
                 v-model="userId"
                 id="userId"
                 label="아이디"
                 color="#0c6212"
-                v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
                 placeholder="아이디를 입력하세요."
                 type="text"
-                outlined
+                hint="5~20자의 영문 소문자, 숫자만 사용 가능합니다."
               ></v-text-field>
-              <div class="error-text" style="color:#0c6212;" v-if="error.userId">{{error.userId}}</div>
+              <!-- <div class="error-text" style="color:#0c6212;" v-if="error.userId">{{error.userId}}</div> -->
             </v-col>
           </v-row>
 
           <v-row>
-            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pt-0">
+            <v-col cols="11" class="mx-auto pt-0">
               <!-- <label for="email">비밀번호</label> -->
               <v-text-field
                 v-model="password"
                 id="password"
                 :type="passwordType"
-                v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
                 placeholder="비밀번호를 입력하세요."
                 label="비밀번호"
                 color="#0c6212"
                 autocapitalize="none"
-                outlined
+                hint="영문,숫자 포함 8 자리이상이어야 합니다."
               ></v-text-field>
-              <div class="error-text" v-if="error.password">{{error.password}}</div>
+              <!-- <div class="error-text" v-if="error.password">{{error.password}}</div> -->
             </v-col>
           </v-row>
 
           <v-row>
-            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pt-0">
+            <v-col cols="11" class="mx-auto pt-0">
               <!-- <label for="email">비밀번호</label> -->
               <v-text-field
                 v-model="passwordConfirm"
                 :type="passwordConfirmType"
-                v-bind:class="{error : error.passwordConfirm, complete:!error.passwordConfirm&&passwordConfirm.length!=0}"
                 id="password-confirm"
                 placeholder="비밀번호를 다시한번 입력하세요."
                 label="비밀번호 확인"
                 color="#0c6212"
                 autocapitalize="none"
-                outlined
+                hint="비밀번호가 일치하지 않습니다."
               ></v-text-field>
-              <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div>
+              <!-- <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div> -->
             </v-col>
           </v-row>
 
@@ -91,6 +89,8 @@
 
           <v-row>
             <br />
+            <br />
+            <br />
           </v-row>
 
           <v-row>
@@ -100,65 +100,10 @@
               </div>
             </v-col>
           </v-row>
-
-          <v-row>
-            <br />
-          </v-row>
-        </v-parallax>
+        </div>
       </v-col>
     </v-row>
   </v-container>
-
-  <!-- <div class="user join wrapC">
-    <h1>가입하기</h1>
-    <div class="form-wrap">
-      <div class="input-with-label">
-        <input v-model="email" id="email" 
-          v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}" 
-          placeholder="이메일을 입력하세요." type="text" autocapitalize="none"/>
-        <div class="error-text" v-if="error.email">{{error.email}}</div>
-        <label for="email">이메일</label>
-      </div>
-
-      <div class="input-with-label">
-        <input v-model="userId" id="userId" 
-          v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
-          placeholder="닉네임을 입력하세요." type="text" 
-        />
-        <div class="error-text" v-if="error.userId">{{error.userId}}</div>
-        <label for="userId">닉네임</label>
-      </div>
-
-      <div class="input-with-label">
-        <input v-model="password" id="password" 
-          :type="passwordType" v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}" 
-          placeholder="비밀번호를 입력하세요." />
-        <div class="error-text" v-if="error.password">{{error.password}}</div>
-        <label for="password">비밀번호</label>
-      </div>
-
-      <div class="input-with-label">
-        <input
-          v-model="passwordConfirm"
-          :type="passwordConfirmType"
-          v-bind:class="{error : error.passwordConfirm, complete:!error.passwordConfirm&&passwordConfirm.length!=0}"
-          id="password-confirm"
-          placeholder="비밀번호를 다시한번 입력하세요."
-        />
-        <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div>
-        <label for="password-confirm">비밀번호 확인</label>
-      </div>
-    </div>
-
-    <label>
-      <input v-model="isTerm" type="checkbox" id="term" />
-      <span>약관을 동의합니다.</span>
-    </label>
-
-    <span @click="termPopup=true">약관보기</span>
-
-    <button class="btn-bottom" @click="signup">가입하기</button>
-  </div>-->
 </template>
 
 <script>
@@ -285,5 +230,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.join {
+  background-image: url("../../assets/images/Logo.png");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+</style>
 
 

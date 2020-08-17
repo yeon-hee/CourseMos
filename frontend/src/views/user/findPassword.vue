@@ -1,7 +1,7 @@
 <template>
   <v-container class="join py-0">
     <v-row>
-      <v-col cols="12" md="6" class="pa-0">
+      <v-col cols="12" md="6" class="pa-0" style="margin:0 auto;">
         <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 670px;">
           <v-row justify="center">
             <v-col cols="12" style="margin-left:10px">
@@ -17,12 +17,12 @@
                 id="userId"
                 label="아이디"
                 color="#0c6212"
-                v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
                 placeholder="아이디를 입력하세요."
                 type="text"
                 outlined
+                hint="아이디는 5글자 이상, 특수문자 미포함입니다."
               ></v-text-field>
-              <div class="error-text" style="color:#0c6212;" v-if="error.userId">{{error.userId}}</div>
+              <!-- <div class="error-text" style="color:#0c6212;" v-if="error.userId">{{error.userId}}</div> -->
             </v-col>
           </v-row>
 
@@ -34,13 +34,13 @@
                 id="email"
                 label="이메일"
                 color="#0c6212"
-                v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
                 placeholder="이메일을 입력하세요."
                 type="text"
                 autocapitalize="none"
                 outlined
+                hint="이메일 형식이 아닙니다."
               ></v-text-field>
-              <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div>
+              <!-- <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div> -->
             </v-col>
           </v-row>
 

@@ -17,6 +17,7 @@
               <v-text-field
                 v-model="email"
                 name="input-10-1"
+                color="#0c6212"
                 label="이메일을 입력하세요."
                 hint="이메일 형식이 아닙니다."
                 outlined
@@ -31,6 +32,7 @@
                 :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="passwordShow ? 'text' : 'password'"
                 name="input-10-1"
+                color="#0c6212"
                 label="비밀번호를 입력하세요."
                 hint="영문,숫자 포함 8 자리이상이어야 합니다."
                 outlined
