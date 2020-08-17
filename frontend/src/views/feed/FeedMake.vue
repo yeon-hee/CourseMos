@@ -2,28 +2,61 @@
   <v-container fluid class="mb-14">
 
     <v-row>
-      <v-col cols="12" sm="12" md="6">
-        <div data-v-4d6f63f3="" class="v-card v-sheet theme--light" style="padding: 0px;">
-          <header data-v-4d6f63f3="" class="v-sheet theme--light v-toolbar v-toolbar--extended" style="height: 65px;">
-            <div class="v-toolbar__content" style="height: 56px;">
-               <v-slide-group show-arrows>
-              <v-slide-item
-                v-for="(course, index) in courses"
-                v-bind:key="index"
-                class="place"
-              >
-                <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="margin-top:13px; border-radius: 5px; width:55px; height:55px;"
-                v-on:click="doRemove(index)" />
-              </v-slide-item>
-            </v-slide-group>
-            
-            </div>
-          <button v-on:click="saveCourse" data-v-4d6f63f3="" type="button" class="v-btn v-btn--absolute v-btn--bottom v-btn--contained v-btn--fab v-btn--right v-btn--round theme--dark v-size--small pink">
-            <span class="v-btn__content"><i data-v-4d6f63f3="" aria-hidden="true" class="v-icon notranslate mdi mdi-plus theme--dark"></i>
-            </span>
-          </button>
-          </header>
-        </div>
+      <v-col cols="12" sm="6">
+        <template>
+          <div data-v-4d6f63f3="" class="v-card v-sheet theme--light" style="padding: 0px;">
+            <header data-v-4d6f63f3="" class="v-sheet theme--light v-toolbar v-toolbar--extended" style="height: 65px;">
+              <div class="v-toolbar__content" style="height: 56px;">
+                <v-slide-group show-arrows>
+                <v-slide-item
+                  v-for="(course, index) in courses"
+                  v-bind:key="index"
+                  class="place"
+                >
+                  <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="margin-top:13px; border-radius: 5px; width:55px; height:55px;"
+                  v-on:click="doRemove(index)" />
+                </v-slide-item>
+              </v-slide-group>
+              
+              </div>
+            <button v-on:click="saveCourse" style="background-color:rgb(239,91,91);" data-v-4d6f63f3="" type="button" class="v-btn v-btn--absolute v-btn--bottom v-btn--contained v-btn--fab v-btn--right v-btn--round theme--dark v-size--small">
+              <span class="v-btn__content"><i data-v-4d6f63f3="" aria-hidden="true" class="v-icon notranslate mdi mdi-arrow-right-thick theme--dark"></i>
+              </span>
+            </button>
+            </header>
+          </div>
+          <div id="map" style="width:100%;height:400px; margin:30px 0 15px 0;"></div>
+        </template>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-card
+          class="mx-auto"
+          height="100%"
+
+        >
+          <v-toolbar
+            color="#EF5B5B"
+            dark
+          >
+
+            <form v-on:submit.prevent="searchPlaces">
+                <input type="text" 
+                placeholder="검색할 코스를 입력하세요" 
+                style="outline:none; width: 320px;" 
+                id="keyword">
+              </form>
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon v-on:click="searchPlaces">mdi-magnify</v-icon>
+            </v-btn>
+          </v-toolbar>
+                <div id="menu_wrap" class="bg_white">
+                  <div id="placesList"></div>
+                  <ul id="placesList"></ul> 
+                  <div id="pagination"></div>
+                </div>       
+        </v-card>
       </v-col>
     </v-row>
         
@@ -50,36 +83,8 @@
             <v-icon style="color:#0c6212">fas fa-plus</v-icon>
           </button>
         </div> -->
-        <div id="map" style="width:100%;height:400px; margin:17px 0 15px 0;"></div>
-    <v-card
-    max-width="450"
-    class="mx-auto"
-    height="100%"
-
-  >
-    <v-toolbar
-      color="#fab7ae"
-      dark
-    >
-
-       <form v-on:submit.prevent="searchPlaces">
-          <input type="text" 
-          placeholder="검색할 코스를 입력하세요" 
-          style="outline:none; width: 320px;" 
-          id="keyword">
-        </form>
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon v-on:click="searchPlaces">mdi-magnify</v-icon>
-      </v-btn>
-    </v-toolbar>
-           <div id="menu_wrap" class="bg_white">
-            <div id="placesList"></div>
-            <ul id="placesList"></ul> 
-             <div id="pagination"></div>
-          </div>       
-  </v-card>
+        
+    
   </v-container>
 </template>
 

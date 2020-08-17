@@ -1,38 +1,62 @@
 <template>
-  <div class="components-page">
-    <div class="wrapB pl-3 pr-3">
-      <h1 style="color:rgb(239,91,91);">피드 작성하기</h1>
+  <v-container fluid class="mb-15">
+    <v-row>
+      <v-col cols="12" sm="6" offset-sm="3">
+        <v-card class="pa-5">
+          <h2 style="color:#EF5B5B;" class="mb-3">피드 작성하기</h2>
 
-      <h2 style="color:rgb(239,91,91);">내용</h2>
-      <div>
-        <!-- input type=text -->
+          <div class="v-toolbar__content" style="height: 56px;">
+                <v-slide-group show-arrows>
+                <v-slide-item
+                  v-for="(course, index) in courses"
+                  v-bind:key="index"
+                  class="place"
+                >
+                  <img :src="course.thumbnailUrl" class="thumbnail" 
+                  alt="img" style="margin-top:13px; border-radius: 5px; width:55px; height:55px;"/>
+                </v-slide-item>
+              </v-slide-group>
+              
+            </div>
 
-        <textarea cols="45" rows="5" v-model="contents" style="border-style: solid;"></textarea>
-      </div>
+          <div>
+            <!-- input type=text -->
 
-      <h2 style="color:rgb(239,91,91);">사진 추가하기</h2>
+            <v-textarea 
+            label="Contents"
+            rows="10"
+            outlined
+            v-model="contents"
+            color="#EF5B5B"
+            style="width:100%;"
+            class="my-3"></v-textarea>
+          </div>
 
-      <div>
-        <input
-          @change="selectImage()"
-          type="file"
-          ref="feedImage"
-          name="imgFile"
-          class="upload-input"
-          accept="image/*"
-        />
-        <ul class="profile-pictures">
-          <li class="profile-pictures" v-for="thumbnail in imageThumbnails" :key="thumbnail">
-            <img :src="thumbnail" class="profile-picture-picture" width="40px" height="40px" />
-          </li>
-        </ul>
-      </div>
-      <div>
-        <v-btn class="addButton" large style="color:rgb(239,91,91);" @click="checkImage()">피드 추가</v-btn>
-        <!-- <input class="addButton" type="button" value="피드 추가" @click="checkImage()" /> -->
-      </div>
-    </div>
-  </div>
+
+          <div>
+            <input
+              @change="selectImage()"
+              type="file"
+              ref="feedImage"
+              name="imgFile"
+              class="upload-input"
+              accept="image/*"
+            />
+            <ul class="profile-pictures">
+              <li class="profile-pictures" v-for="thumbnail in imageThumbnails" :key="thumbnail">
+                <img :src="thumbnail" class="profile-picture-picture" width="40px" height="40px" />
+              </li>
+            </ul>
+          </div>
+          <div style="text-align: center;">
+            <v-btn class="addButton my-7" color="#EF5B5B" style="color:white" @click="checkImage()">피드 추가</v-btn>
+          </div>
+        </v-card>
+        
+      </v-col>
+
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -169,15 +193,4 @@ export default {
 </script>
 
 <style scoped>
-.addButton {
-  border: black;
-  float: right;
-}
-.wrapB {
-  min-width: 400px;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.wrap {
-}
 </style>;
