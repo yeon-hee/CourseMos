@@ -1,23 +1,24 @@
 <template>
   <v-bottom-navigation
+    height="48px"
     fixed
     :value="activeBtn"
     color="deep-orange darken-1"
     style="z-index:100;"
-    background-color="#f09894"
+    background-color="rgb(239,91,91)"
   >
     <div class="nav">
       <v-btn style="width:100%;height:100%;" icon value="main" @click="goMain">
-        <v-icon color="white">fas fa-home</v-icon>
+        <v-icon size="25" color="white">fas fa-home</v-icon>
       </v-btn>
       <v-btn style="width:100%;height:100%;" icon value="search" @click="goSearch">
-        <v-icon color="white">fas fa-search</v-icon>
+        <v-icon size="20" color="white">fas fa-search</v-icon>
       </v-btn>
       <v-btn style="width:100%;height:100%;" icon value="feedmake" @click="goFeedMake">
-        <v-icon large color="white">post_add</v-icon>
+        <v-icon size="28" color="white">post_add</v-icon>
       </v-btn>
       <v-btn style="width:100%;height:100%;" icon value="profile" @click="goProfile">
-        <v-avatar class="profile-avatar" size="35">
+        <v-avatar class="profile-avatar" size="25">
           <v-img :src="profile_photo" aspect-ratio="1"></v-img>
         </v-avatar>
       </v-btn>
