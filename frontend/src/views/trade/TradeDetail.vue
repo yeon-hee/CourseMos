@@ -2,6 +2,7 @@
     <div style="height: 100%;">
          <img :src="temp.mainphotourl" style="height: 250px; width: 100%;"><br>
          <div style="text-align: center; margin-top: 8px;">
+             <img src="../../assets/images/backwards_icon_149034.png" width="20px" height="20px" style="float: left; margin-left:7px;" @click="goBack()">
             <p style="display: inline; font-weight: bold; font-size: 20px;">{{temp.placenamefull}} </p>
             <p style="display: inline; color:#8a8a8a; font-size: 14px;">{{temp.catename}}</p>
          </div>
@@ -14,14 +15,10 @@
             <p style="display: inline; margin-left: 6px;">영업시간 : 
             {{temp.openHour.periodList[0].timeList[0].dayOfWeek}} 
             {{temp.openHour.periodList[0].timeList[0].timeSE}} </p><br>
-            <!-- <img src="../../assets/images/detail3.png" style="margin-left: 0.5px;" width="15px" height="15px" class="detail1"> 
-            <p style="display: inline; margin-left: 7px;"><a :href="temp.homepage">{{temp.homepage}}</a></p><br> -->
             <div v-if="temp.phonenum != null">
                 <img src="../../assets/images/detail4.png" style="margin-left: 1.7px;" width="15px" height="15px" class="detail1">
             &nbsp;<p style="display: inline; margin-left: 2px;">{{temp.phonenum}}</p>
             </div>
-            <!-- <img src="../../assets/images/detail4.png" style="margin-left: 1.7px;" width="15px" height="15px" class="detail1">
-            &nbsp;<p style="display: inline; margin-left: 2px;">{{temp.phonenum}}</p> -->
         </div>
         <div class="line"></div>
 
@@ -163,6 +160,12 @@ export default {
             }
         );
     },
+
+    methods: {
+        goBack(){
+            this.$router.push("/feedmake");
+        },
+    }
   
 };
 </script>

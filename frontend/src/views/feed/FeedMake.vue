@@ -3,7 +3,6 @@
 
     <v-row>
       <v-col cols="12" sm="12" md="6">
-
         <div data-v-4d6f63f3="" class="v-card v-sheet theme--light" style="padding: 0px;">
           <header data-v-4d6f63f3="" class="v-sheet theme--light v-toolbar v-toolbar--extended" style="height: 65px;">
             <div class="v-toolbar__content" style="height: 56px;">
@@ -52,7 +51,6 @@
           </button>
         </div> -->
         <div id="map" style="width:100%;height:400px; margin:17px 0 15px 0;"></div>
-
     <v-card
     max-width="450"
     class="mx-auto"
