@@ -1,18 +1,18 @@
 <template>
-  <div class="wrap components-page">
+  <div class="components-page">
     <div class="wrapB pl-3 pr-3">
-      <h1>피드 작성하기</h1>
+      <h1 style="color:rgb(239,91,91);">피드 작성하기</h1>
 
-      <h2>내용</h2>
-      <div class="wrap">
+      <h2 style="color:rgb(239,91,91);">내용</h2>
+      <div>
         <!-- input type=text -->
 
         <textarea cols="45" rows="5" v-model="contents" style="border-style: solid;"></textarea>
       </div>
 
-      <h2>사진 추가하기</h2>
+      <h2 style="color:rgb(239,91,91);">사진 추가하기</h2>
 
-      <div class="wrap">
+      <div>
         <input
           @change="selectImage()"
           type="file"
@@ -27,8 +27,8 @@
           </li>
         </ul>
       </div>
-      <div class="wrap">
-        <v-btn class="addButton" large color="primary" @click="checkImage()">피드 추가</v-btn>
+      <div>
+        <v-btn class="addButton" large style="color:rgb(239,91,91);" @click="checkImage()">피드 추가</v-btn>
         <!-- <input class="addButton" type="button" value="피드 추가" @click="checkImage()" /> -->
       </div>
     </div>
@@ -177,5 +177,7 @@ export default {
   min-width: 400px;
   max-width: 500px;
   margin: 0 auto;
+}
+.wrap {
 }
 </style>;

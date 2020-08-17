@@ -3,7 +3,7 @@
     <v-row class="py-0">
       <v-col class="py-0" cols="12" sm="6" offset-sm="3">
         <v-row>
-          <v-col cols="3" style="text-align:center; align-content:center;">
+          <v-col cols="4" style="text-align:center; align-content:center;">
             <v-avatar class="profile-avatar" size="96">
               <v-img :src="profile_photo" aspect-ratio="1"></v-img>
             </v-avatar>
@@ -12,31 +12,38 @@
               <h5 class="profile-title ml-2">{{user_id}}</h5>
             </div>
           </v-col>
-          <v-col cols="9">
+          <v-col cols="8">
             <v-row class="px-3">
               <v-col cols="4" class="text-center">
                 <span class="profile-number u-fat-text">게시물</span>
-                <div class="articles-number">{{feed_count}}</div>
+                <div class="number">{{feed_count}}</div>
               </v-col>
               <v-col cols="4" class="text-center">
                 <a href="/#/friends/followers">
                   <span class="profile-number u-fat-text">팔로워</span>
-                  <div class="followers-number">{{follower_count}}</div>
+                  <div class="number bold">{{follower_count}}</div>
                 </a>
               </v-col>
               <v-col cols="4" class="text-center">
                 <a href="#/friends/followings">
                   <span class="profile-number u-fat-text">팔로잉</span>
-                  <div class="followings-number">{{following_count}}</div>
+                  <div class="number bold">{{following_count}}</div>
                 </a>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="10" class="mx-auto" style="text-align:center">
+              <v-col cols="10" class="btns d-flex mx-auto" style="text-align:center">
                 <v-btn
-                  class="blue lighten-3 white--text px-10"
+                  class="btn pink lighten-1 white--text px-5"
                   onclick="location.href='#/users/profile/setting' "
                 >프로필 수정</v-btn>
+                <v-btn
+                  class="btn pink lighten-1 white--text px-5 ml-3"
+                  @click="logout"
+                  style="background-color:rgb(239,91,91);"
+                >
+                  <div>로그아웃</div>
+                </v-btn>
               </v-col>
             </v-row>
           </v-col>
@@ -173,6 +180,13 @@ export default {
       this.$router.push("/feeds/" + no);
       console.dir();
     },
+    logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("email");
+      alert("로그아웃 되었습니다.");
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -184,5 +198,23 @@ export default {
 }
 .profile-avatar {
   border: 1px solid #f89077;
+}
+.btns {
+  justify-content: space-around;
+}
+.btn {
+  width: 50%;
+}
+.profile-bio {
+  background-color: #f8bbd0;
+  border-radius: 5px;
+}
+.profile-number {
+  opacity: 0.7;
+  font-size: 15px;
+}
+.number {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
