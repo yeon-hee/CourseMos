@@ -367,29 +367,29 @@ export default {
 
         displayMarker(place) {
           //console.log(place.id);
-          let data = {
-            token : localStorage.getItem('token'),
-            number: place.id, // 상점 id
-          };
+          // let data = {
+          //   token : localStorage.getItem('token'),
+          //   number: place.id, // 상점 id
+          // };
 
-          FeedApi.detailCrawling(
-              data,
-              res => {
+          // FeedApi.detailCrawling(
+          //     data,
+          //     res => {
 
-                  console.log(place.id+" 상세 정보 크롤링 완료!");
-                  this.temp = res.data;
-                  console.log(this.temp);
+          //         console.log(place.id+" 상세 정보 크롤링 완료!");
+          //         this.temp = res.data;
+          //         console.log(this.temp);
 
-                  this.mainPhotoList.push({
-                    name: this.temp.placenamefull,
-                    url: this.temp.mainphotourl});
-                  //console.log(this.mainPhotoList);
-              },
-              error => {
-                  alert(error);
-                  console.log('상세 정보 크롤링 실패했습니다.');
-              }
-          );
+          //         this.mainPhotoList.push({
+          //           name: this.temp.placenamefull,
+          //           url: this.temp.mainphotourl});
+          //         //console.log(this.mainPhotoList);
+          //     },
+          //     error => {
+          //         // alert(error);
+          //         console.log('상세 정보 크롤링 실패했습니다.');
+          //     }
+          // );
 
             var str = place.category_name.split('>');
             this.name = place.place_name;
