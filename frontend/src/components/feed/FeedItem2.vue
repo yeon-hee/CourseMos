@@ -14,42 +14,74 @@
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-spacer></v-spacer>
-      <v-list-item-content>
-        <v-list-item-subtitle v-text="parseDate"></v-list-item-subtitle>
-      </v-list-item-content>
+      <span>
+        {{parseDate}}
+      </span>
     </v-list-item>
     <v-divider></v-divider>
 
     <v-container>
-    <v-card-text class="text--primary">
-      <div>{{feed.contents}}</div>
-    </v-card-text>
-    <v-row>
-      <v-col v-for="course in courses" :key="course.courseOrder" cols=3>
-        <v-badge color="indigo" :content="Number(course.courseOrder)" overlap>
-          <v-card @click="onImgClick">
-            <v-img :src="course.thumbnailUrl" height="4em" width="4em" aspect-ratio="1" class="grey lighten-2"/>
-            <div style="padding-top:2px; font-size:0.8em">{{cutStr(course.tradeName)}}</div>
-            <!-- <v-card-title style="font-size:0.6em"></v-card-title> -->
-          </v-card>
-        </v-badge>
-
-        <span>{{course.content}}</span>
-      </v-col>
-    </v-row>
+    <v-timeline dense>
+      <v-timeline-item
+        v-for="course in courses"
+        :key="course.courseOrder"
+      >
+        <template v-slot:icon>
+          <v-avatar>
+            <img :src="course.thumbnailUrl">
+          </v-avatar>
+        </template>
+        <template v-slot:opposite>
+          <span>{{course.categoryName}}</span>
+        </template>
+        <v-row justify="space-between" @click="onImgClick">
+          <v-col cols="7">{{course.tradeName}}</v-col>
+          <v-col class="text-right text-caption" cols="5" style="color:#f09894">{{course.categoryName}}</v-col>
+        </v-row>
+      </v-timeline-item>
+      
+    </v-timeline>
+          <v-chip-group
+            column
+            active-class="primary--text"
+          >
+            <v-chip v-for="tag in feed.tags" :key="tag">
+              {{ tag }}
+            </v-chip>
+          </v-chip-group>
+    <!-- <span>{{feed.tags}}</span> -->
     </v-container>
+    <!-- <v-container>
+      <v-card-text class="text--primary">
+        <div>{{feed.contents}}</div>
+      </v-card-text>
+      <v-row>
+        <v-col v-for="course in courses" :key="course.courseOrder" cols=3>
+          <v-badge color="indigo" :content="Number(course.courseOrder)" overlap>
+            <v-card @click="onImgClick">
+              <v-img :src="course.thumbnailUrl" height="4em" width="4em" aspect-ratio="1" class="grey lighten-2"/>
+              <div style="padding-top:2px; font-size:0.8em">{{cutStr(course.tradeName)}}</div>
+            </v-card>
+          </v-badge>
+
+          <span>{{course.content}}</span>
+        </v-col>
+      </v-row>
+    </v-container> -->
+    
+    
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn text @click="clickLikeBtn(feed)">
+      <v-btn icon @click="clickLikeBtn(feed)">
         <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left/>
-        <span>{{feed.likeCount}}</span>
       </v-btn>
-      <v-btn text @click="onImgClick">
-        <v-icon left>far fa-comment</v-icon>
-        <span>{{feed.commentCount}}</span>
+      <span>{{feed.likeCount}}</span>
+      <v-btn icon @click="clickComment">
+        <v-icon left small>far fa-comment</v-icon>
       </v-btn>
+      <span>{{feed.commentCount}}</span>
       <v-spacer></v-spacer>
-      <v-btn text>
+      <v-btn icon>
         <v-icon>mdi-bookmark</v-icon>
       </v-btn>
     </v-card-actions>
@@ -80,11 +112,22 @@ export default {
       courses : [],
       region : "",
       parseDate : {},
+      tags : []
     };
   },
   created() {
     this.parseDate = moment(this.feed.parseDate).format( 'MM.DD HH:MM');
-
+    console.dir(this.feed);
+    //태그파싱
+    if(this.feed.tags != " " && this.feed.tags != "") {
+      var tags = this.feed.tags.split(" ");
+    }
+    this.feed.tags = []
+    for(let i in tags) {
+      if(tags[i] == "") continue;
+      this.feed.tags.push(tags[i]);
+    }
+    //
     let data = {
       token : localStorage.getItem("token"),
       feedNo : this.feed.feedNo,
@@ -92,7 +135,7 @@ export default {
     }
     ProfileApi.requestUserProfile(data,
       response => {
-        console.dir(response.data)
+        // console.dir(response.data)
         if(response.data.profilePhoto != undefined && response.data.profilePhoto.length > 10) {
             this.profileImage = response.data.profilePhoto
         }
@@ -153,6 +196,9 @@ export default {
             alert(error);
           }
         );
+    },
+    clickComment() {
+      this.$router.push("/feeds/comments/" + this.feed.feedNo);
     },
     cutStr(str) {
       if(str.length > 3){
