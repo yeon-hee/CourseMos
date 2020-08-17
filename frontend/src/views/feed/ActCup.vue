@@ -1,8 +1,8 @@
 <template>
-  <div class="foodCup">
+  <div class="playCup">
     <div
-      class="pt-16 mb-5 font-weight-bold text-center text-sm-h3 text-h3 indigo--text text--darken-3"
-    >음식 추천 월드컵</div>
+      class="pt-16 mb-5 font-weight-bold text-center text-sm-h4 text-h4 indigo--text text--darken-3"
+    >액티비티 추천 월드컵</div>
     <img
       src="../../assets/images/trophy.jpeg"
       class="trophy"
@@ -64,51 +64,43 @@ export default {
       menuList: [
         {
           id: 1,
-          name: "삼겹살",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/84b10cbdf0ec13b33ad2ce81420c7b96.jpg",
+          name: "아쿠아리움",
+          thumbnailUrl: require("../../assets/images/aqua.jpg"),
         },
         {
           id: 2,
-          name: "소고기",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/03c4a79455ec531adf0cd04513272aa8.jpg",
+          name: "동물카페",
+          thumbnailUrl: require("../../assets/images/animal.jpg"),
         },
         {
           id: 3,
-          name: "치킨",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/5272db391e7bbea26a87c765cd2fe017.jpg",
+          name: "공연장",
+          thumbnailUrl: require("../../assets/images/perform.jpg"),
         },
         {
           id: 4,
-          name: "피자",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/8bf97919e5e9898f5128047cdf520788.jpg",
+          name: "쿠킹클래스",
+          thumbnailUrl: require("../../assets/images/cooking.jpg"),
         },
         {
           id: 5,
-          name: "짜장면",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/eda37ece53fe020e4f78e66049a055d6.jpg",
+          name: "연극",
+          thumbnailUrl: require("../../assets/images/act.jpg"),
         },
         {
           id: 6,
-          name: "짬뽕",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/97864c4aa544198bec6ef110a9f33e80.jpg",
+          name: "전시회",
+          thumbnailUrl: require("../../assets/images/draw.jpg"),
         },
         {
           id: 7,
-          name: "돈까스",
-          thumbnailUrl:
-            "https://d20aeo683mqd6t.cloudfront.net/ko/articles/title_images/000/026/550/medium/IMG_2236s.jpg?2019",
+          name: "공원",
+          thumbnailUrl: require("../../assets/images/park.jpg"),
         },
         {
           id: 8,
-          name: "떡볶이",
-          thumbnailUrl:
-            "https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg",
+          name: "도서관",
+          thumbnailUrl: require("../../assets/images/lib.jpg"),
         },
       ],
     };
@@ -129,7 +121,7 @@ export default {
       if (this.round == 2) {
         this.winner = this.menuList[idx];
         this.dialog = true;
-        alert("1등 음식은 " + this.winner.name + "입니다.");
+        alert("1등 액티비티는 " + this.winner.name + "입니다.");
         console.log(this.winner);
         this.$router.push("/feed/main/" + this.winner.name);
       } else {
@@ -148,7 +140,7 @@ export default {
 </script>
 
 <style scoped>
-.foodCup {
+.playCup {
   height: 120%;
   /* background-color: rgb(244, 81, 30); */
   max-width: 500px;
