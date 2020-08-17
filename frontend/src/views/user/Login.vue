@@ -6,7 +6,7 @@
     <v-row class="fill-height">
       <v-col cols="12" md="6" class="pa-0">
         <v-parallax
-          src="..\..\assets\images\Logo.png"
+          src="../../assets/images/Logo.png"
           
           style="height:100%; min-height: 350px;"
           >

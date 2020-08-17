@@ -1,7 +1,7 @@
 <template>
   <v-toolbar color="#f89077" flat>
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-    <v-toolbar-title style="color:white; font-weight: bold; font-size: 38px">Cosmos</v-toolbar-title>
+    <v-toolbar-title style="color:white; font-weight: bold; font-size: 38px">코스모스</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn text @click="gotoCup" color="white">
       <v-icon large>emoji_events</v-icon>

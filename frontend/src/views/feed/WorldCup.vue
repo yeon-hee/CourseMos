@@ -4,7 +4,7 @@
       class="pt-16 mb-5 font-weight-bold text-center text-sm-h3 text-h3 indigo--text text--darken-3"
     >코스 추천 월드컵</div>
     <img
-      src="..\..\assets\images\trophy.jpeg"
+      src="../../assets/images/trophy.jpeg"
       class="trophy"
       width="100px"
       height="100px"
