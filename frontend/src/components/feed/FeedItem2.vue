@@ -25,7 +25,7 @@
       <v-timeline-item
         v-for="course in courses"
         :key="course.courseOrder"
-      >
+      > 
         <template v-slot:icon>
           <v-avatar>
             <img :src="course.thumbnailUrl">
@@ -36,17 +36,14 @@
         </template>
         <v-row justify="space-between" @click="onImgClick">
           <v-col cols="7">{{course.tradeName}}</v-col>
-          <v-col class="text-right text-caption" cols="5" style="color:#f09894">{{course.categoryName}}</v-col>
+          <v-col class="text-right text-caption" cols="5" style="color:#f09894;">{{course.categoryName}}</v-col>
         </v-row>
       </v-timeline-item>
       
     </v-timeline>
-          <v-chip-group
-            column
-            active-class="primary--text"
-          >
-            <v-chip v-for="tag in feed.tags" :key="tag">
-              {{ tag }}
+          <v-chip-group column>
+            <v-chip v-for="tag in feed.tags" :key="tag" :ripple="false">
+              #{{ tag }}
             </v-chip>
           </v-chip-group>
     <!-- <span>{{feed.tags}}</span> -->
@@ -82,7 +79,7 @@
       <span>{{feed.commentCount}}</span>
       <v-spacer></v-spacer>
       <v-btn icon>
-        <v-icon>mdi-bookmark</v-icon>
+        <!-- <v-icon>mdi-bookmark</v-icon> -->
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -96,11 +93,17 @@ import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
 import moment from "moment";
 import ProfileApi from '../../api/ProfileApi';
+import {
+    mdiAccount,
+} from '@mdi/js'
 
 export default {
   props : ['feed'],
   data: () => {
     return { 
+      icons: {
+        mdiAccount
+      },
       followerCount : 0,
       defaultImage,
       profileImage : require('../../assets/images/profile_default.png'),
