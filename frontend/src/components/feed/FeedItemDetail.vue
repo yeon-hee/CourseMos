@@ -74,14 +74,15 @@
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3" style="padding-right:20px;">
         <template>
-          <v-btn tile outlined @click="clickLikeBtn(feed)">
-            <v-img left :src="feed.mine ? redHeart: emptyHeart" width="20px" height="20px"></v-img> {{feed.likeCount}}
+          <v-btn icon :color="feed.mine ? 'rgb(239,91,91)': emptyHeart" @click="clickLikeBtn(feed)" style="margin-right:10px">
+            <!-- <v-icon>{{heart_icon}}</v-icon>  {{feed.likeCount}} -->
+            <v-img left :src="feed.mine ? redHeart: emptyHeart" width="22px" height="22px"></v-img> {{feed.likeCount}}
           </v-btn>
-          <v-btn tile outlined @click="clickComment()">
-            <v-icon>fas fa-comment-dots</v-icon> {{feed.commentCount}}
+          <v-btn icon @click="clickComment()">
+            <v-icon size="22">far fa-comment</v-icon> {{feed.commentCount}}
           </v-btn>
-          <v-btn tile outlined>
-            <v-icon>fas fa-share-alt</v-icon>
+          <v-btn icon>
+            <v-icon size="22">fas fa-share-alt</v-icon>
           </v-btn>
           <!-- <img :src="feed.mine ? redHeart: emptyHeart" width="20px" height="20px" class="like-btn" @click="clickLikeBtn(feed)">
           <span>{{feed.likeCount}}</span>
@@ -94,7 +95,7 @@
         </template>
       </v-col>
     </v-row>
-    <v-divider color="teal darken-4"></v-divider>
+    <v-divider style="margin-bottom:20px; margin-top:20px;"></v-divider>
 
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
@@ -102,11 +103,12 @@
           
           <v-timeline-item
                     v-for="course in courseList" :key="course.courseOrder"
-                    color="#245739"
+                    color="rgb(239,91,91)"
+                    
                     small>
             <div style="height: 45px; width:100%; float:left;">
               <div>
-                <div  class="elevation-2 v-card v-sheet theme--light" style="border-radius:10px; width:100%; height:57px; border:1px solid #ccc;">
+                <div  class="elevation-1 v-card v-sheet theme--light" style="border-radius:10px; width:100%; height:57px; border:1px solid #ccc;">
                     <div style="float:left;">
                     <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
                   </div>
@@ -115,7 +117,8 @@
                       <div style="font-size:13px;">{{course.tradeName}} </div>
                   </div>
                   <div style="float: right; margin: 12px;"> 
-                    <a href="javascript:;" @click="clickRoute()" style="margin-bottom: 15px;">
+                    <!-- <a href="javascript:;" @click="clickRoute()" style="margin-bottom: 15px;"> -->
+                      <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 15px;">
                       <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
                     </a>
                   </div>
@@ -166,6 +169,7 @@ export default {
   },
   data: () => {
     return { 
+      heart_icon: "far fa-heart",
       map : {},
       markers : [],
       ps : {},
@@ -255,7 +259,7 @@ export default {
       var polyline = new kakao.maps.Polyline({
         path: linePath, // 선을 구성하는 좌표배열 입니다
         strokeWeight: 2, // 선의 두께 입니다
-        strokeColor: '#0c4524', // 선의 색깔입니다
+        strokeColor: 'rgb(239,91,91)', // 선의 색깔입니다
         strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
         strokeStyle: 'solid' // 선의 스타일입니다
       });
@@ -265,7 +269,8 @@ export default {
     displayMarkers() {
       this.courseList.forEach((course, idx) => {
         const markerContent = '<div class = "label"' +
-                              ' style = "height:25px; width:25px; border-radius:50%; background-color: #fab7ae; color: #0c4524; text-align: center;"' +
+                              ' style = "height:25px; width:25px; border-radius:50%; border: rgb(239,91,91) solid 1px;' + 
+                              'background-color: white; color: rgb(239,91,91); text-align: center;"' +
                               '><span>' +
                               (idx + 1)
                               '</span></div>'
@@ -293,9 +298,11 @@ export default {
       if(!feed.mine){
         feed.mine = true;
         feed.likeCount += 1;
+        this.heart_icon = "fas fa-heart"
       } else{
         feed.mine = false;
         feed.likeCount -= 1;
+        this.heart_icon = "far fa-heart"
       }
 
       let feedNo =  feed.feedNo;
@@ -412,7 +419,7 @@ export default {
 
 <style scoped>
 
-.feed-btn{
+/* .feed-btn{
   padding-top: 3%;
 }
 .like-btn{
@@ -424,5 +431,5 @@ export default {
 }
 .share-btn{
   margin-left: 11px;
-}
+} */
 </style>

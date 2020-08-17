@@ -5,7 +5,7 @@
         <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 350px;">
           <v-row align="center" justify="center">
             <v-col cols="12" style="margin-bottom:100px; margin-left:50px">
-              <p class="mt-10 mb-5 font-weight-bold" style="color:#0c6212; font-size:72px;">Cos-mos</p>
+              <p class="mt-10 mb-5 font-weight-bold" style="color:rgb(239,91,91); font-size:72px; font-family: 'Noto Sans KR', sans-serif;">Course Mos</p>
             </v-col>
           </v-row>
         </v-parallax>
@@ -58,23 +58,23 @@
             <v-col>
               <v-row class="text-left">
                 <v-col>
-                  <p>
+                  <p style="font-family: 'Noto Sans KR', sans-serif;">
                     비밀번호를 잊으셨나요?
                     <span>
                       <a
                         href="#/user/find/password"
-                        style="color:#0c6212"
+                        style="color:rgb(239,91,91); font-family: 'Noto Sans KR', sans-serif;"
                         class="float-right btn--text text-decoration-none font-weight-bold"
                       >비밀번호 찾기</a>
                     </span>
                   </p>
 
-                  <p>
+                  <p style="font-family: 'Noto Sans KR', sans-serif;">
                     아직 회원이 아니신가요?
                     <span>
                       <a
                         href="#/user/join"
-                        style="color:#0c6212"
+                        style="color:rgb(239,91,91); font-family: 'Noto Sans KR', sans-serif;"
                         class="float-right btn--text text-decoration-none font-weight-bold"
                       >가입하기</a>
                     </span>
@@ -193,19 +193,18 @@ export default {
 </script>
 
 <style scoped>
-/* .logo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
-.add-option {
-  margin-top: 50px;
+
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
 }
-.btn--login {
-  background-color: rgb(244, 81, 30);
-}
-.input-with-label > input {
-  border-color: rgb(244, 81, 30);
-} */
+            
 </style>
 
