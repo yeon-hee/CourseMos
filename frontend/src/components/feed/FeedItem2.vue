@@ -116,7 +116,7 @@ export default {
     };
   },
   created() {
-    this.parseDate = moment(this.feed.parseDate).format( 'MM.DD HH:MM');
+    this.parseDate = moment(this.feed.writeDate).format( 'MM.DD H:mm');
     console.dir(this.feed);
     //태그파싱
     if(this.feed.tags != " " && this.feed.tags != "") {
