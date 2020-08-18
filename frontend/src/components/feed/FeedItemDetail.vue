@@ -1,7 +1,7 @@
 <template>
   <v-container fluid style="margin-bottom:50px;">
     <v-row>
-      <v-col cols="12" sm="6" offset-sm="3">
+      <v-col cols="12" sm="6" class="pl-6 pr-6">
         <v-sheet 
           class="mx-auto" 
           elevation="11"
@@ -68,8 +68,54 @@
             </v-slide-item>
           </v-slide-group>
         </v-sheet>
+        <v-textarea
+            v-model="feed.contents"
+            label="Solo"
+            solo
+            readonly
+            color="#EF5B5B"
+            outlined
+            rows="7"
+            class="py-5"
+          ></v-textarea>
+      </v-col>
+      <v-col cols="12" sm="6" style="align-self: center;">
+        <v-timeline dense>
+          
+          <v-timeline-item
+                    v-for="course in courseList" :key="course.courseOrder"
+                    color="rgb(239,91,91)"
+                    small>
+            <div style="height: 45px; width:100%; float:left; padding-right:30px;">
+              <div>
+                <div class="elevation-1 v-card v-sheet theme--light"
+                    style="border-radius:10px; width:100%; height:57px; border:1px solid #ccc;"
+                    @click="findTradeInfo(course)">
+                    <div style="float:left;">
+                    <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+                  </div>
+                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.2em;">
+                      <div style="font-size:10px; color:rgb(51,102,255);">{{course.categoryName}}</div>
+                      <div style="font-size:13px;">{{course.tradeName}} </div>
+                  </div>
+                  <div style="float: right; margin: 12px;"> 
+                    <!-- <a href="javascript:;" @click="clickRoute()" style="margin-bottom: 15px;"> -->
+                      <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 15px;">
+                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+                    </a>
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+                  </div>
+                
+                <!-- <div class="v-timeline-item__opposite">
+                </div> -->
+            </div>
+          </v-timeline-item>
+        </v-timeline>
       </v-col>
     </v-row>
+
 
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3" style="padding-right:20px;">
@@ -97,42 +143,7 @@
     </v-row>
     <v-divider style="margin-bottom:20px; margin-top:20px;"></v-divider>
 
-    <v-row>
-      <v-col cols="12" sm="6" offset-sm="3">
-        <v-timeline dense>
-          
-          <v-timeline-item
-                    v-for="course in courseList" :key="course.courseOrder"
-                    color="rgb(239,91,91)"
-                    
-                    small>
-            <div style="height: 45px; width:100%; float:left;">
-              <div>
-                <div  class="elevation-1 v-card v-sheet theme--light" style="border-radius:10px; width:100%; height:57px; border:1px solid #ccc;">
-                    <div style="float:left;">
-                    <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
-                  </div>
-                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.2em;">
-                      <div style="font-size:10px; color:rgb(51,102,255);">{{course.categoryName}}</div>
-                      <div style="font-size:13px;">{{course.tradeName}} </div>
-                  </div>
-                  <div style="float: right; margin: 12px;"> 
-                    <!-- <a href="javascript:;" @click="clickRoute()" style="margin-bottom: 15px;"> -->
-                      <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 15px;">
-                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
-                    </a>
-                  </div>
-                  <div style="clear: both;"></div>
-                </div>
-                  </div>
-                
-                <div class="v-timeline-item__opposite">
-                </div>
-            </div>
-          </v-timeline-item>
-        </v-timeline>
-      </v-col>
-    </v-row>
+
  
   </v-container>
 </template>
@@ -188,7 +199,7 @@ export default {
     };
   }, 
   created() {
-
+    this.ps = new kakao.maps.services.Places();
     let data = {
         token : localStorage.getItem('token'),
         feedNo : this.$route.params.feedNo
@@ -326,92 +337,34 @@ export default {
     clickThumbnail(img) {
       this.imageUrl = img;
     },
+    placesSearchCB(data, status, pagination) {
+      for(var k=0; k<this.courseList.length;k++){
+        for(var j=0; j<data.length;j++){
+          if(this.courseList[k].latitude == data[j].x && this.courseList[k].longitude == data[j].y){
+            if (status === kakao.maps.services.Status.OK) {
+              this.crawlingTradePage(data[j].id)
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+              alert('검색 결과가 존재하지 않습니다.');
+              return;
+
+            } else if (status === kakao.maps.services.Status.ERROR) {
+
+              alert('검색 결과 중 오류가 발생했습니다.');
+              return;
+            }
+          }
+        }
+      }
+    },
+    findTradeInfo(course) {
+      this.ps.keywordSearch(course.tradeName, this.placesSearchCB);
+    },
+    crawlingTradePage(tradeId) {
+      this.$router.push("/trade/" + tradeId);
+    }
     
 
-        
-
-        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-        // placesSearchCB(data, status, pagination) {
-        //     for(var k=0; k<this.courseList.length;k++){
-        //       for(var j=0; j<data.length;j++){
-        //         if(this.courseList[k].latitude == data[j].x && this.courseList[k].longitude == data[j].y){
-        //              if (status === kakao.maps.services.Status.OK) {
-        //                 this.displayMarker(data[j]);    
-        //                 this.bounds.extend(new kakao.maps.LatLng(data[j].y, data[j].x));
-        //                 this.tempList.push(data[j]);
-        //                 if(this.tempList.length == this.courseList.length) {
-        //                   this.map.setBounds(this.bounds); // 범위 재설정  
-        //                 }
-
-        //               } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-
-        //                   alert('검색 결과가 존재하지 않습니다.');
-        //                   return;
-
-        //               } else if (status === kakao.maps.services.Status.ERROR) {
-
-        //                   alert('검색 결과 중 오류가 발생했습니다.');
-        //                   return;
-
-        //               }
-        //             }
-        //          }
-        //       }
-        // },
-
-//         displayMarker(place) {
-//           let data = {
-//             token : localStorage.getItem('token'),
-//             number: place.id, // 상점 id
-//           };
-
-//           FeedApi.detailCrawling(
-//               data,
-//               res => {
-
-//                   console.log(place.id+" 상세 정보 크롤링 완료!");
-//                   this.temp = res.data;
-//                   console.log(this.temp);
-
-//                   this.mainPhotoList.push({
-//                     name: this.temp.placenamefull,
-//                     url: this.temp.mainphotourl});
-//                   //console.log(this.mainPhotoList);
-//               },
-//               error => {
-//                   // alert(error);
-//                   console.log('상세 정보 크롤링 실패했습니다.');
-//               }
-//           );
-
-//             var str = place.category_name.split('>');
-//             this.name = place.place_name;
-//             this.address = place.address_name;
-
-//             // var marker = new kakao.maps.Marker({
-//             //     map: this.map,
-//             //     position: new kakao.maps.LatLng(place.y, place.x) 
-//             // });
-//             // console.dir(place)
-//             var customOverlay = new kakao.maps.CustomOverlay({
-//               position: new kakao.maps.LatLng(place.y, place.x), 
-//               content: '<v-avatar color="indigo"><v-icon dark>mdi-account-circle</v-icon></v-avatar>'
-//             });
-
-// // 커스텀 오버레이를 지도에 표시합니다
-//             customOverlay.setMap(this.map);
-            
-//             // 마커에 클릭이벤트를 등록합니다
-//             // var temp = this.infowindow;
-//             // var temp_map = this.map;
-//             // kakao.maps.event.addListener(marker, 'click', function() {
-//             //     // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-                
-//             //     temp.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-//             //     temp.open(temp_map, marker);
-//             // }
-//             // );
-//         }
   },
 };
 

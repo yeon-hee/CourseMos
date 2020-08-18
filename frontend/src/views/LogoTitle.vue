@@ -1,7 +1,7 @@
 <template>
   <v-toolbar color="white" flat>
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-    <v-toolbar-title style="color:rgb(239,91,91); font-weight: bold; font-size: 38px">코스모스</v-toolbar-title>
+    <v-toolbar-title id="title-bar">코스모스</v-toolbar-title>
     <v-spacer></v-spacer>
       <v-icon size="30" @click="gotoCup" color="rgb(239,91,91)" style="margin-right:20px;">emoji_events</v-icon>
 
@@ -50,3 +50,20 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#title-bar {
+  color:rgb(239,91,91);
+  font-weight: bold;
+  font-size: 48px;
+  font-family: Cafe24Oneprettynight;
+}
+            
+</style>

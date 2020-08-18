@@ -20,7 +20,7 @@
               
               </div>
             <button v-on:click="saveCourse" style="background-color:rgb(239,91,91);" data-v-4d6f63f3="" type="button" class="v-btn v-btn--absolute v-btn--bottom v-btn--contained v-btn--fab v-btn--right v-btn--round theme--dark v-size--small">
-              <span class="v-btn__content"><i data-v-4d6f63f3="" aria-hidden="true" class="v-icon notranslate mdi mdi-arrow-right-thick theme--dark"></i>
+              <span class="v-btn__content"><i data-v-4d6f63f3="" aria-hidden="true" class="v-icon notranslate mdi mdi-arrow-right-bold theme--dark"></i>
               </span>
             </button>
             </header>
@@ -30,7 +30,7 @@
       </v-col>
       <v-col cols="12" sm="6">
         <v-card
-          class="mx-auto"
+          class="ml-6 mr-6"
           height="100%"
 
         >
@@ -196,7 +196,6 @@ export default {
       if (status === kakao.maps.services.Status.OK) {
         ////////////////////////////////////////////////
         this.places = data;
-        console.log(data);
 
         for(var i=0;i<data.length;i++){
           this.dataList.push({
@@ -276,7 +275,6 @@ export default {
           };
 
           itemEl.onclick = function () {
-            console.log('히얼')
             temp3(marker, title);
           };
         })(marker, places[i].place_name);
@@ -296,7 +294,6 @@ export default {
 
     // 검색결과 항목을 Element로 반환하는 함수입니다
     getListItem(index, places) {
-      console.log(places.id);
 
       let data = {
           token : localStorage.getItem('token'),
@@ -312,13 +309,11 @@ export default {
       FeedApi.detailCrawling(
               data,
               res => {
-                  console.log("상세 정보 크롤링 완료!");
                   photo = res.data;
                   mainphoto = photo.mainphotourl;
                   if(mainphoto==null) {
                     mainphoto = defaultImage;
                   }
-                  console.log('사진은 이것' + mainphoto);
                   this.nextfunc(index, places, mainphoto);
               },
               error => {
@@ -496,31 +491,45 @@ export default {
                   '        </div>' + 
                   '    </div>' +    
                   '</div>';
+                  
+                  this.map.setCenter(marker.getPosition())
 
+                  if(this.overlay.Da != undefined) {
+                    this.overlay.setMap(null)
+                  }
                   tempoverlay = new kakao.maps.CustomOverlay({
                       content: content,
                       map: this.map,
                       position: marker.getPosition()       
                   });
+                  
+                  this.overlay = tempoverlay
 
                   tempoverlay.setMap(this.map);
-                  var tempover = tempoverlay;
 
                   var butt = document.getElementById('button');
                   butt.onclick = function () {
-                    tempover.setMap(null);
+                    tempoverlay.setMap(null);
                   };
                   var addbtn = document.getElementById('add'); // 코스에 추가하기
-                  addbtn.onclick = function () {
-                    courseTemp.push({
-                    tradeName: placeTemp.place_name,
-                    latitude: placeTemp.x,
-                    longitude: placeTemp.y,
-                    categoryName: category_name,
-                    thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기 
-                    roadAddress: placeTemp.road_address_name,
-                    });
-                    idxTemp++;
+                  addbtn.onclick = () => {
+                    var newCourseInfo = {
+                      tradeName: placeTemp.place_name,
+                      latitude: placeTemp.x,
+                      longitude: placeTemp.y,
+                      categoryName: category_name,
+                      thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기 
+                      roadAddress: placeTemp.road_address_name,
+                    }
+                    if(this.idx > 0) {
+                      if(this.courses[this.idx-1].latitude != placeTemp.x || this.courses[this.idx-1].longitude != placeTemp.y ){
+                        this.courses.push(newCourseInfo);
+                        this.idx++;
+                      }
+                    } else {
+                      this.courses.push(newCourseInfo)
+                      this.idx++;
+                    }
                   };
 
                   var id = placeTemp.id;
@@ -544,7 +553,6 @@ export default {
     },
 
     closeOverlay(){
-      console.log('닫음');
       this.overlay.setMap(null);
     },
 
