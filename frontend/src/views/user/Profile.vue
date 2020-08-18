@@ -19,13 +19,13 @@
                 <div class="number">{{feed_count}}</div>
               </v-col>
               <v-col cols="4" class="text-center">
-                <a href="/#/friends/followers">
+                <a @click="goFollower">
                   <span class="profile-number u-fat-text">팔로워</span>
                   <div class="number bold">{{follower_count}}</div>
                 </a>
               </v-col>
               <v-col cols="4" class="text-center">
-                <a href="#/friends/followings">
+                <a @click="goFollowing">
                   <span class="profile-number u-fat-text">팔로잉</span>
                   <div class="number bold">{{following_count}}</div>
                 </a>
@@ -34,11 +34,12 @@
             <v-row>
               <v-col cols="10" class="btns d-flex mx-auto" style="text-align:center">
                 <v-btn
-                  class="btn pink lighten-1 white--text px-5"
-                  onclick="location.href='#/users/profile/setting' "
+                  class="white--text px-5"
+                  @click="goSetting"
+                  style="background-color:rgb(239,91,91);"
                 >프로필 수정</v-btn>
                 <v-btn
-                  class="btn pink lighten-1 white--text px-5 ml-3"
+                  class="white--text px-5 ml-3"
                   @click="logout"
                   style="background-color:rgb(239,91,91);"
                 >
@@ -66,22 +67,32 @@
             <v-row>
               <v-col v-for="feed in feeds" :key="feed.id" class="d-flex child-flex" cols="4" md="3">
                 <template>
-                  <v-hover>
-                    <template v-slot:default="{ hover }">
+                  <!-- <v-hover>
+                    <template v-slot:default="{ hover }"> -->
                       <v-card flat tile class="d-flex">
                         <v-img
+                          v-if="feed.thumbnail != undefined &&
+                            feed.thumbnail.length > 10"
                           @click="onImgClick(feed.feedNo)"
                           :src="feed.thumbnail"
                           aspect-ratio="1"
                           class="grey lighten-2"
                         >
-                          <template v-slot:placeholder>
+                          <!-- <template v-slot:placeholder>
                             <v-row class="fill-height ma-0" align="center" justify="center">
                               <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                             </v-row>
-                          </template>
+                          </template> -->
                         </v-img>
-                        <v-fade-transition>
+                        <v-img 
+                          v-else 
+                          src="../../assets/images/image-not-found.jpg" 
+                          aspect-ratio="1"
+                          class="grey lighten-2"
+                          @click="onImgClick(feed.feedNo)"
+                        />
+                        
+                        <!-- <v-fade-transition>
                           <v-overlay
                             @click="onImgClick(feed.feedNo)"
                             v-if="hover"
@@ -97,10 +108,10 @@
                               </span>
                             </v-row>
                           </v-overlay>
-                        </v-fade-transition>
+                        </v-fade-transition> -->
                       </v-card>
-                    </template>
-                  </v-hover>
+                    <!-- </template>
+                  </v-hover> -->
                 </template>
               </v-col>
             </v-row>
@@ -156,6 +167,7 @@ export default {
     FeedApi.loadUserFeeds(
       data,
       (res) => {
+        console.dir(res.data);
         this.feeds = res.data;
         this.feed_count = this.feeds.length;
       },
@@ -187,6 +199,15 @@ export default {
       alert("로그아웃 되었습니다.");
       this.$router.push("/");
     },
+    goFollower() {
+      this.$router.push("/friends/followers")
+    },
+    goFollowing() {
+      this.$router.push("/friends/followings")
+    },
+    goSetting() {
+      this.$router.push("/users/profile/setting")
+    }
   },
 };
 </script>
@@ -206,7 +227,7 @@ export default {
   width: 50%;
 }
 .profile-bio {
-  background-color: #f8bbd0;
+  background-color: #EF9A9A;
   border-radius: 5px;
 }
 .profile-number {

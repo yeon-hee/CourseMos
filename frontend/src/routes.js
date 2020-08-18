@@ -29,6 +29,8 @@ import WorldCup from "./views/feed/WorldCup.vue";
 import FoodCup from "./views/feed/FoodCup.vue";
 import PlayCup from "./views/feed/PlayCup.vue";
 import ActCup from "./views/feed/ActCup.vue";
+import UserFollowers from "./views/user/UserFollowers";
+import UserFollowings from "./views/user/UserFollowings";
 
 export default [{
     path: "/",
@@ -188,6 +190,16 @@ export default [{
         path: "/worldcup/act",
         name: "ActCup",
         component: ActCup,
+    },
+    {
+        path: "/friends/followers/:email",
+        name: "UserFollowers",
+        component: UserFollowers,
+    },
+    {
+        path: "/friends/followings/:email",
+        name: "UserFollowings",
+        component: UserFollowings,
     },
     ]
 },

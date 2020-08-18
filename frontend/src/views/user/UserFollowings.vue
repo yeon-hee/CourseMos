@@ -3,9 +3,20 @@
         <v-row class="py-0">
             <v-col class="py-0" cols="12" sm="6" offset-sm="3">
         <!-- <LogoTitle/> -->
-            <tab/>
+            <v-tabs
+                grow
+                background-color="red lighten-2"
+                dark
+            >
+                <v-tab :to="'/friends/followers/'+email">
+                팔로워
+                </v-tab>
+                <v-tab :to="'/friends/followings/'+email">
+                팔로잉
+                </v-tab>
+            </v-tabs>
             <v-list subheader>
-                <v-list-item v-for="(following, index) in followingList" :key="following.id">
+                <v-list-item v-for="following in followingList" :key="following.id">
                     <v-list-item-avatar>
                         <v-img :src="following.profilePhoto" 
                             v-if="following.profilePhoto != undefined &&
@@ -15,9 +26,6 @@
                     <v-list-item-content>
                         <v-list-item-title>{{following}}</v-list-item-title>
                     </v-list-item-content>
-                    <v-list-item-icon>
-                        <v-btn icon @click="cancel(following, index)"><v-icon>fas fa-window-close</v-icon></v-btn>
-                    </v-list-item-icon>
                 </v-list-item>
             </v-list>
             <!-- <div id="followings">
@@ -57,18 +65,19 @@
 import axios from 'axios';
 import FollowApi from "../../api/FollowApi";
 import ProfileApi from "../../api/ProfileApi";
-import Tab from "../../components/follow/FollowTab";
+// import Tab from "../../components/follow/FollowTab";
 
 
 export default {
     components: {
         // LogoTitle,
         // Nav,
-        Tab
+        // Tab
     },
     created() {
+        this.email = this.$route.params.email;
         let data = {
-            email : localStorage.getItem('email'),
+            email : this.email,
             token : localStorage.getItem('token'),
             follower: localStorage.getItem('userId')
         }
@@ -99,38 +108,11 @@ export default {
             follower_count: 0,
             following_count: 0, 
             followingList: [],
-            user_id: ''
+            user_id: '',
+            email : ""
         };
     },
     methods: {
-        cancel(following, index) {
-            this.followingList.splice(index, 1);
-            let data = {
-                userId: following,
-                follower: localStorage.getItem('userId'),
-                token : localStorage.getItem('token'),
-            };
-            FollowApi.updateFollowing(
-                data,
-                res => {
-                    this.following_count = res.data.followingCount
-                },
-                error => {
-                    console.log(error);
-                }
-            );
-            FollowApi.deleteFollowing(
-                data,
-                res => {
-                    console.log(data)
-                    console.log(res)
-                    console.log('Delete!');
-                },
-                error => {
-                    console.log(error);
-                }
-            );
-        },
     }
 
 }

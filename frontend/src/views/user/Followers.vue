@@ -1,45 +1,51 @@
 <template>
-    <div>
-        <!-- <LogoTitle/> -->
-        <tab/>
-        <v-list subheader>
-            <v-list-item v-for="(follower, index) in followerList" :key="follower.id">
-                <v-list-item-avatar>
-                    <img src="@/assets/images/profile_default.png">
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    <v-list-item-title>{{follower}}</v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                    <v-btn icon @click="block(follower, index)"><v-icon>fas fa-ban</v-icon></v-btn>
-                </v-list-item-icon>
-            </v-list-item>
-        </v-list>
-            <!-- <div id="followers">
-                <section class="tab">
-                    <div class="tab-followers"><a href="#">팔로워 <span>{{follower_count}}</span></a></div>
-                    <div class="tab-followings"><a href="#/friends/followings">팔로잉 <span>{{following_count}}</span></a></div>
-                </section>
-                <hr>
-                <section class="tab-list">
-                    <ul class="follower-list">
-                        <li v-for="(follower, index) in followerList" :key="follower.id">
-                            <div class="follower" >
-                                <div class="follower-info">
-                                    <img class="follower-img" src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
-                                    <div class="follower-name">{{follower}}</div>
-                                </div>
-                                <div class="follower-button">
-                                    <button class="u-fat-text block" @click="block(follower, index)">차단</button>
-                                </div>
-                            </div>
-                            <hr>
-                        </li>
-                    </ul>
-                </section>
-            </div> -->
-        <!-- <Nav/> -->
-    </div>
+    <v-container fluid class="mt-0 mb-5">
+        <v-row class="py-0">
+            <v-col class="py-0" cols="12" sm="6" offset-sm="3">
+                <tab/>
+                <v-list subheader>
+                    <v-list-item v-for="(follower, index) in followerList" :key="follower.id">
+                        <v-list-item-avatar>
+                            <v-img :src="follower.profilePhoto" 
+                                v-if="follower.profilePhoto != undefined &&
+                                follower.profilePhoto.length > 10" />
+                            <v-img src="@/assets/images/profile_default.png" v-else />
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                            <v-list-item-title>{{follower}}</v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-icon>
+                            <v-btn icon @click="block(follower, index)"><v-icon>fas fa-ban</v-icon></v-btn>
+                        </v-list-item-icon>
+                    </v-list-item>
+                </v-list>
+                    <!-- <div id="followers">
+                        <section class="tab">
+                            <div class="tab-followers"><a href="#">팔로워 <span>{{follower_count}}</span></a></div>
+                            <div class="tab-followings"><a href="#/friends/followings">팔로잉 <span>{{following_count}}</span></a></div>
+                        </section>
+                        <hr>
+                        <section class="tab-list">
+                            <ul class="follower-list">
+                                <li v-for="(follower, index) in followerList" :key="follower.id">
+                                    <div class="follower" >
+                                        <div class="follower-info">
+                                            <img class="follower-img" src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
+                                            <div class="follower-name">{{follower}}</div>
+                                        </div>
+                                        <div class="follower-button">
+                                            <button class="u-fat-text block" @click="block(follower, index)">차단</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </section>
+                    </div> -->
+                <!-- <Nav/> -->
+            </v-col>
+        </v-row>
+    </v-container>
   
 </template>
 

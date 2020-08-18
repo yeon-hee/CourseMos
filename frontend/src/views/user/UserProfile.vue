@@ -19,13 +19,13 @@
                 <div class="articles-number">{{feedCount}}</div>
               </v-col>
               <v-col cols="4" class="text-center">
-                <a href="/#/friends/followers">
+                <a @click="goFollower">
                   <span class="profile-number u-fat-text">팔로워</span>
                   <div class="followers-number">{{count.followerCount}}</div>
                 </a>
               </v-col>
               <v-col cols="4" class="text-center">
-                <a href="#/friends/followings">
+                <a @click="goFollowing">
                   <span class="profile-number u-fat-text">팔로잉</span>
                   <div class="followings-number">{{count.followingCount}}</div>
                 </a>
@@ -59,22 +59,31 @@
             <v-row>
               <v-col v-for="feed in feeds" :key="feed.id" class="d-flex child-flex" cols="4" md="3">
                 <template>
-                  <v-hover>
-                    <template v-slot:default="{ hover }">
+                  <!-- <v-hover>
+                    <template v-slot:default="{ hover }"> -->
                       <v-card flat tile class="d-flex">
                         <v-img
+                          v-if="feed.thumbnail != undefined &&
+                            feed.thumbnail.length > 10"
                           @click="onImgClick(feed.feedNo)"
                           :src="feed.thumbnail"
                           aspect-ratio="1"
                           class="grey lighten-2"
                         >
-                          <template v-slot:placeholder>
+                          <!-- <template v-slot:placeholder>
                             <v-row class="fill-height ma-0" align="center" justify="center">
                               <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                             </v-row>
-                          </template>
+                          </template> -->
                         </v-img>
-                        <v-fade-transition>
+                        <v-img 
+                          v-else 
+                          src="../../assets/images/image-not-found.jpg" 
+                          aspect-ratio="1"
+                          class="grey lighten-2"
+                          @click="onImgClick(feed.feedNo)"
+                        />
+                        <!-- <v-fade-transition>
                           <v-overlay
                             @click="onImgClick(feed.feedNo)"
                             v-if="hover"
@@ -90,10 +99,10 @@
                               </span>
                             </v-row>
                           </v-overlay>
-                        </v-fade-transition>
+                        </v-fade-transition> -->
                       </v-card>
-                    </template>
-                  </v-hover>
+                    <!-- </template>
+                  </v-hover> -->
                 </template>
               </v-col>
             </v-row>
@@ -188,6 +197,11 @@ export default {
         console.dir(res.data);
         this.user = res.data;
         data.email = this.user.email;
+        if (
+          res.data.profilePhoto != undefined &&
+          res.data.profilePhoto.length > 10
+        )
+          this.profile_photo = res.data.profilePhoto;
 
         ProfileApi.requestUserCount(
           data,
@@ -285,6 +299,12 @@ export default {
     onImgClick(no) {
       this.$router.push("/feeds/" + no);
     },
+    goFollower() {
+      this.$router.push("/friends/followers/"+this.user.email)
+    },
+    goFollowing() {
+      this.$router.push("/friends/followings/"+this.user.email)
+    }
   },
 };
 </script>

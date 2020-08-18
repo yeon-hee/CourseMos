@@ -1,7 +1,7 @@
 <template>
   <v-tabs
     grow
-    background-color="#3F51B5"
+    background-color="red lighten-2"
     dark
   >
     <v-tab to="/friends/followers">
