@@ -55,20 +55,16 @@
         height="200"
         >
         <template v-slot="{ item , index}">
-            <v-list-item :key="item.id">
+            <div :key="item.id">
 
-            <v-list-item-content>
-                <v-list-item-title>{{item.follower}}님이 팔로우를 요청하였습니다.</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-icon>
+                <div>{{item.follower}}님이 팔로우를 요청하였습니다.</div>
+                <div style="display: inline;"> 
                     <v-btn icon @click="reject(item, index)"><v-icon>fas fa-times</v-icon></v-btn>
-                </v-list-item-icon>
-                <v-list-item-icon>
+                </div>
+                <div style="display: inline;"> 
                     <v-btn icon @click="allow(item, index)"><v-icon>fas fa-check</v-icon></v-btn>
-                </v-list-item-icon>
-
-            </v-list-item>
-            <!-- <v-divider></v-divider> -->
+                </div>
+            </div>
         </template>
         </v-virtual-scroll>
     </v-card>
