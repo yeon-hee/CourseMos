@@ -19,12 +19,40 @@
       </span>
     </v-list-item>
     <v-divider></v-divider>
-
-    <v-container>
-    <v-timeline dense>
+    <br>
+<div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light"  @click="onImgClick" v-if="courses.length != 0">
+  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courses" :key="i" style="padding-bottom:13px;">
+    <div class="v-timeline-item__body" style="margin-right:20px;">
+      <v-card
+        color='rgb(250,199,199)'
+        dark
+        style="width:95%;"
+      >
+        <v-card-title style="font-size:15px; color:black; height:30px; padding:0 0 0 8px;">{{course.tradeName}}</v-card-title>
+        <v-card-text class="white text--primary" style="padding:0px;">
+          <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 8px 0 8px 8px;">
+                <div style="float:left; margin: 13px 0px 9px 10px; line-height: 1.2em;">
+                  <div style="font-size:10px; color:#8a8a8a;">{{course.categoryName}}</div>
+                  <div style="font-size:13px;">{{course.roadAddress}} </div>
+                </div>
+                <div style="clear:both;"/>
+        </v-card-text>
+      </v-card>
+          </div>
+          <div class="v-timeline-item__divide" style="margin-right:16px; z-index:1;">
+            <div class="v-timeline-item__dot v-timeline-item__dot--small">
+              <div class="v-timeline-item__inner-dot red lighten-2">
+                <i aria-hidden="true" class="v-icon notranslate mdi mdi-star theme--dark" style="font-size: 16px;"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <v-container >
+    <!-- <v-timeline dense v-if="courses.length != 0">
       <v-timeline-item
         v-for="course in courses"
-        :key="course.courseOrder"
+        :key="course.courseOrder" 
       > 
         <template v-slot:icon>
           <v-avatar>
@@ -40,48 +68,33 @@
         </v-row>
       </v-timeline-item>
       
-    </v-timeline>
-          <v-chip-group column>
-            <v-chip v-for="tag in feed.tags" :key="tag" :ripple="false">
+    </v-timeline> -->
+            <!-- <v v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102);">
               #{{ tag }}
-            </v-chip>
-          </v-chip-group>
-    <!-- <span>{{feed.tags}}</span> -->
+            </v> -->
     </v-container>
-    <!-- <v-container>
-      <v-card-text class="text--primary">
-        <div>{{feed.contents}}</div>
-      </v-card-text>
-      <v-row>
-        <v-col v-for="course in courses" :key="course.courseOrder" cols=3>
-          <v-badge color="indigo" :content="Number(course.courseOrder)" overlap>
-            <v-card @click="onImgClick">
-              <v-img :src="course.thumbnailUrl" height="4em" width="4em" aspect-ratio="1" class="grey lighten-2"/>
-              <div style="padding-top:2px; font-size:0.8em">{{cutStr(course.tradeName)}}</div>
-            </v-card>
-          </v-badge>
-
-          <span>{{course.content}}</span>
-        </v-col>
-      </v-row>
-    </v-container> -->
-    
     
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn icon @click="clickLikeBtn(feed)">
-        <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left/>
+      <v-btn icon @click="clickLikeBtn(feed)" style="margin-left:2px; width:20px;">
+        <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left />
       </v-btn>
-      <span>{{feed.likeCount}}</span>
-      <v-btn icon @click="clickComment">
-        <v-icon left small>far fa-comment</v-icon>
+      <span style="margin-left:3px;">{{feed.likeCount}}</span>
+      <v-btn icon @click="clickComment" style="margin-left:7px; width:20px;">
+        <img src="../../assets/images/comment.png" width="20px" height="20px"/>
       </v-btn>
-      <span>{{feed.commentCount}}</span>
+      <span style="margin-left:2px;">{{feed.commentCount}}</span>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <!-- <v-icon>mdi-bookmark</v-icon> -->
-      </v-btn>
     </v-card-actions>
+     <v-spacer v-if="feed.tags != null" style="padding: 0 8px 8px 11px;">
+       <div style="margin-bottom: 3px; font-size:15px;">
+        <img src="../../assets/images/detail1.png" style="height:12px; width:12px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray);">
+          {{region}}
+       </div>
+        <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
+          #{{ tag }}
+        </div>
+    </v-spacer>
   </v-card>
   <br>
 </div>
@@ -93,17 +106,11 @@ import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
 import moment from "moment";
 import ProfileApi from '../../api/ProfileApi';
-import {
-    mdiAccount,
-} from '@mdi/js'
 
 export default {
   props : ['feed'],
   data: () => {
     return { 
-      icons: {
-        mdiAccount
-      },
       followerCount : 0,
       defaultImage,
       profileImage : require('../../assets/images/profile_default.png'),
@@ -164,12 +171,13 @@ export default {
       response => {
         if(response.data.length ==0) return;
         this.courses = this.courses.concat(response.data);
-        this.getRegionStr(this.courses)
+        this.getRegionStr(this.courses);
       },
       error => {
         alert(error);
       }
     )
+  
   },
   methods : {
     onImgClick() {
@@ -213,8 +221,10 @@ export default {
       for(var course of courses) {
         try{
           const roadAddressArray = course.roadAddress.split(' ');
-          const roadAddress = roadAddressArray[0].concat(" ", roadAddressArray[1]);
+          const roadAddress = roadAddressArray[1];
+          console.log(roadAddress)
           set.add(roadAddress);
+          console.log(set);
         }
         catch(e) {
           console.log(e);
@@ -225,7 +235,7 @@ export default {
       for(var i = 0 ; i < regionArray.length; i++) {
         // console.log(regionArray[i])
         if(regionArray.length - 1 != i) {
-          this.region += (regionArray[i] + ", ")
+          this.region += (regionArray[i] + " -> ")
         } else {
           this.region += (regionArray[i])
         }
