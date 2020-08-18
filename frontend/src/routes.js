@@ -28,6 +28,7 @@ import Main from "./views/Main";
 import WorldCup from "./views/feed/WorldCup.vue";
 import FoodCup from "./views/feed/FoodCup.vue";
 import PlayCup from "./views/feed/PlayCup.vue";
+import ActCup from "./views/feed/ActCup.vue";
 
 export default [{
     path: "/",
@@ -182,6 +183,11 @@ export default [{
         path: "/worldcup/play",
         name: "PlayCup",
         component: PlayCup,
+    },
+    {
+        path: "/worldcup/act",
+        name: "ActCup",
+        component: ActCup,
     },
     ]
 },
