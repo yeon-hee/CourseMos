@@ -5,7 +5,7 @@
         <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 350px;">
           <v-row align="center" justify="center">
             <v-col cols="12" style="margin-bottom:100px; margin-left:50px">
-              <p class="mt-10 mb-5 font-weight-bold" style="color:rgb(239,91,91); font-size:72px; font-family: 'Noto Sans KR', sans-serif;">Course Mos</p>
+              <p class="mt-10 mb-5 font-weight-bold" style="color:rgb(239,91,91); font-size:82px; font-family: Cafe24Oneprettynight;">Course Mos</p>
             </v-col>
           </v-row>
         </v-parallax>
