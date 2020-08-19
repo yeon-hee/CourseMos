@@ -6,7 +6,7 @@
     >추천 테마</div>
     <v-container fluid class="container pt-0">
       <v-row dense>
-        <v-col class="menu1" :cols="12" @click="gotoFood()">
+        <v-col class="menu1" cols="12" sm="6" offset-sm="3" @click="gotoFood()">
           <v-card>
             <v-img
               src="../../assets/images/foods.jpg"
@@ -18,7 +18,7 @@
             </v-img>
           </v-card>
         </v-col>
-        <v-col class="menu1" :cols="12" @click="gotoPlay()">
+        <v-col class="menu1" cols="12" sm="6" offset-sm="3" @click="gotoPlay()">
           <v-card>
             <v-img
               src="../../assets/images/board.png"
@@ -30,7 +30,7 @@
             </v-img>
           </v-card>
         </v-col>
-        <v-col class="menu1" :cols="12" @click="gotoAct()">
+        <v-col class="menu1" cols="12" sm="6" offset-sm="3" @click="gotoAct()">
           <v-card>
             <v-img
               src="../../assets/images/draw.jpg"

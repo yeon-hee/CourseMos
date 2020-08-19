@@ -223,7 +223,6 @@ export default {
     };
   }, 
   created() {
-    this.ps = new kakao.maps.services.Places();
     let data = {
         token : localStorage.getItem('token'),
         feedNo : this.$route.params.feedNo,
