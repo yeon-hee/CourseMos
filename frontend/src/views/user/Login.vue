@@ -5,7 +5,10 @@
         <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 350px;">
           <v-row align="center" justify="center">
             <v-col cols="12" style="margin-bottom:100px; margin-left:50px">
-              <p class="mt-10 mb-5 font-weight-bold" style="color:rgb(239,91,91); font-size:82px; font-family: Cafe24Oneprettynight;">Course Mos</p>
+              <p
+                class="mt-10 mb-5 font-weight-bold"
+                style="color:rgb(239,91,91); font-size:82px; font-family: Cafe24Oneprettynight; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"
+              >Course Mos</p>
             </v-col>
           </v-row>
         </v-parallax>
@@ -194,17 +197,17 @@ export default {
 
 <style scoped>
 @font-face {
-    font-family: 'Cafe24Oneprettynight';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Cafe24Oneprettynight";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.notosanskr * { 
- font-family: 'Noto Sans KR', sans-serif;
+.notosanskr * {
+  font-family: "Noto Sans KR", sans-serif;
 }
-            
 </style>
 

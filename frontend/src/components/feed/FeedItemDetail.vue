@@ -1,10 +1,11 @@
 <template>
-  <v-container fluid style="margin-bottom:50px;">
+<v-card>
+  <v-container fluid style="margin-bottom:50px; padding:0">
     <v-row>
-      <v-col cols="12" sm="6" class="pl-6 pr-6">
+      <v-col cols="12" sm="6" style="padding: 0 12px 0 12px;">
         <v-sheet 
           class="mx-auto" 
-          elevation="11"
+          elevation="3"
           height= "400px"
         >
 
@@ -68,20 +69,73 @@
             </v-slide-item>
           </v-slide-group>
         </v-sheet>
-        <v-textarea
-            v-model="feed.contents"
-            label="Solo"
-            solo
-            readonly
-            color="#EF5B5B"
-            outlined
-            rows="7"
-            class="py-5"
-          ></v-textarea>
       </v-col>
-      <v-col cols="12" sm="6" style="align-self: center;">
+
+      <v-col cols="12" sm="6" style="align-self: center; padding: 0 12px 12px 12px;">
+        <v-row>
+      <v-col cols="12" sm="6" offset-sm="3" style="padding: 10px 10px 10px 10px;">
+      
+         <div style="padding: 12px 12px 15px 12px;">
+         <div style="display: inline; font-weight:bold;">{{feed.userId}} </div>
+         <div style="display: inline; font-size: 14px; margin:0 0 0 3px;"> {{feed.contents}}</div>
+        </div>
+
+        <div style="padding: 5px 0 0 12px;" >
+          <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
+            #{{ tag }}
+          </div>
+        </div>
+
+      </v-col>
+    </v-row>
+
+      <div class="line"></div>
+        <template>
+           <v-btn icon @click="clickLikeBtn(feed)" style="margin-left:12px; width:20px; margin-top: 5px;">
+            <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left></v-img>
+          </v-btn>
+          <!-- <span style="margin-left:3px;">{{feed.likeCount}}</span> -->
+          <v-btn icon @click="clickComment()" style="margin-left:10px; width:20px; margin-top: 5px;">
+            <img src="../../assets/images/comment.png" width="20px" height="20px"/>
+          </v-btn>
+           <!-- <span style="margin-left:3px;">{{feed.commentCount}}</span> -->
+          <v-btn icon style="margin-left:1px; margin-top: 5px;">
+            <img src="../../assets/images/share.png" width="18px" height="18px"/>
+          </v-btn>
+        </template><br><br>
+
+       <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
+         <div data-v-19a3425a="" class="v-timeline-item v-timeline-item--before theme--light" style="width: 103%; padding-bottom:10px;" v-for="(course,index) in courseList" :key="course.courseOrder">
+           <div class="v-timeline-item__body" style="margin-right:21px;">
+              <v-card >
+                <div>
+                    <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 7px 0 6px 9px;">
+                      <div style="float:left; margin: 10px 0px 9px 8px; line-height: 1.2em;">
+                        <div style="font-size:10px; color:#8a8a8a;" @click="findTradeInfo(course)">{{course.categoryName}}</div>
+                        <div style="font-size:13px;" @click="findTradeInfo(course)">{{course.tradeName}} </div>
+                      </div>
+                      <div style="float: right; margin: 14px 13px 0 0;"> 
+                        <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 10px;">
+                        <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+                        </a>
+                    </div>
+                      <div style="clear:both;"/>
+                </div>
+              </v-card>
+              </div>
+              <div class="v-timeline-item__divider" style="min-width: 15px; margin-right:15px; ">
+                <div class="v-timeline-item__dot v-timeline-item__dot--small">
+                  <div class="v-timeline-item__inner-dot red lighten-1"></div>
+                  <div v-if="index < courseList.length-1">
+                    <img src="../../assets/images/detail5.png" style="padding-top:2px; margin: 13px 0 0 5px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 red);
+                       filter: opacity(.5) drop-shadow(0 0 0 red);" width="14px" height="16px">
+                  </div>
+                </div>
+                </div>
+              </div>
+        </v-timeline><br>
+<!-- 
         <v-timeline dense>
-          
           <v-timeline-item
                     v-for="course in courseList" :key="course.courseOrder"
                     color="rgb(239,91,91)"
@@ -99,53 +153,20 @@
                       <div style="font-size:13px;">{{course.tradeName}} </div>
                   </div>
                   <div style="float: right; margin: 12px;"> 
-                    <!-- <a href="javascript:;" @click="clickRoute()" style="margin-bottom: 15px;"> -->
                       <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 15px;">
                       <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
                     </a>
                   </div>
                   <div style="clear: both;"></div>
                 </div>
-                  </div>
-                
-                <!-- <div class="v-timeline-item__opposite">
-                </div> -->
+              </div>
             </div>
           </v-timeline-item>
-        </v-timeline>
+        </v-timeline> -->
       </v-col>
     </v-row>
-
-
-    <v-row>
-      <v-col cols="12" sm="6" offset-sm="3" style="padding-right:20px;">
-        <template>
-          <v-btn icon :color="feed.mine ? 'rgb(239,91,91)': emptyHeart" @click="clickLikeBtn(feed)" style="margin-right:10px">
-            <!-- <v-icon>{{heart_icon}}</v-icon>  {{feed.likeCount}} -->
-            <v-img left :src="feed.mine ? redHeart: emptyHeart" width="22px" height="22px"></v-img> {{feed.likeCount}}
-          </v-btn>
-          <v-btn icon @click="clickComment()">
-            <v-icon size="22">far fa-comment</v-icon> {{feed.commentCount}}
-          </v-btn>
-          <v-btn icon>
-            <v-icon size="22">fas fa-share-alt</v-icon>
-          </v-btn>
-          <!-- <img :src="feed.mine ? redHeart: emptyHeart" width="20px" height="20px" class="like-btn" @click="clickLikeBtn(feed)">
-          <span>{{feed.likeCount}}</span>
-          <img src="../../assets/images/comment.png" width="20px" height="20px" class="comments-btn">
-          <span>{{feed.commentCount}}</span>
-          <img src="../../assets/images/share.png" width="20px" height="20px" class="share-btn">
-          <a href="javascript:;"  @click="clickComment()"
-            style="float: right; color: rgb(51,102,255); "
-             class="text-decoration-none">댓글 보기...</a> -->
-        </template>
-      </v-col>
-    </v-row>
-    <v-divider style="margin-bottom:20px; margin-top:20px;"></v-divider>
-
-
- 
   </v-container>
+ </v-card>
 </template>
 
 <script>
@@ -154,6 +175,7 @@ import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
 import UserApi from "../../api/UserApi";
 import AlertApi from "../../api/AlertApi";
+import ProfileApi from "../../api/ProfileApi";
 import Map from "../../views/Map.vue";
 import axios from "axios";
 
@@ -191,20 +213,20 @@ export default {
       photoList: [],
       defaultImage, 
       defaultProfile,
+      profileImage : require('../../assets/images/profile_default.png'),
       emptyHeart: require('../../assets/images/empty-heart.png'),
       redHeart: require('../../assets/images/red-heart.png'),
       userId: "",
       model: "",
-      imageUrl : ""
+      imageUrl : "",
+      tags : []
     };
   }, 
   created() {
     let data = {
         token : localStorage.getItem('token'),
-        feedNo : this.$route.params.feedNo
+        feedNo : this.$route.params.feedNo,
     };
-    
-    
     FeedApi.getFeedPhoto(
       data,
       response => {
@@ -220,6 +242,37 @@ export default {
       response => {
         this.userId = response.data.userId;
         this.feed = response.data.feed;
+        console.log(this.feed)
+
+         //태그파싱
+        if(this.feed.tags != " " && this.feed.tags != "") {
+          var tags = this.feed.tags.split(" ");
+        }
+        this.feed.tags = []
+        for(let i in tags) {
+          if(tags[i] == "") continue;
+          this.feed.tags.push(tags[i]);
+        }
+        console.log('태그')
+        console.log(tags);
+
+        ProfileApi.requestUserProfile(
+        data = {
+          userId : this.userId
+        },
+        response => {
+          if(response.data.profilePhoto != undefined && response.data.profilePhoto.length > 10) {
+              this.profileImage = response.data.profilePhoto
+          }
+          let data = {
+            token : localStorage.getItem('token'),
+            email : response.data.email
+          }
+        },
+        error => {
+          alert(error);
+      }
+    )
       },
       error => {
         alert('피드 상세 조회에 실패했습니다.');
@@ -246,6 +299,7 @@ export default {
       this.bounds = new kakao.maps.LatLngBounds()    
       this.ps = new kakao.maps.services.Places()
       this.infowindow = new kakao.maps.InfoWindow({zIndex:1})
+      this.map.setZoomable(false);
 
       this.setMapForCoursesView()
     },
@@ -341,6 +395,7 @@ export default {
         for(var j=0; j<data.length;j++){
           if(this.courseList[k].latitude == data[j].x && this.courseList[k].longitude == data[j].y){
             if (status === kakao.maps.services.Status.OK) {
+               console.log(data[j]);
               this.crawlingTradePage(data[j].id)
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
@@ -359,8 +414,9 @@ export default {
     findTradeInfo(course) {
       this.ps.keywordSearch(course.tradeName, this.placesSearchCB);
     },
-    crawlingTradePage(tradeId) {
-      this.$router.push("/trade/" + tradeId);
+    crawlingTradePage(id) {
+      var feedNo = this.$route.params.feedNo;
+      this.$router.push("/trade/" + id + "/" + feedNo);
     }
     
 
@@ -370,18 +426,11 @@ export default {
 </script>
 
 <style scoped>
-
-/* .feed-btn{
-  padding-top: 3%;
+.line{
+  clear: both;
+  height: 0.5px;
+  width: 100%;
+  background-color: gray;
+  opacity: 30%;
 }
-.like-btn{
-  margin-right: 2px;
-}
-.comments-btn{
-  margin-left: 10px;
-  margin-right: 2px;
-}
-.share-btn{
-  margin-left: 11px;
-} */
 </style>

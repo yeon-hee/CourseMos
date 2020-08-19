@@ -22,10 +22,9 @@
 
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
-        <button @click="initPage" v-if="isSearch && page==0">Load more</button>
         <infinite-loading
-          v-else
           slot="append"
+          ref="infiniteLoading"
           @infinite="infiniteHandler"
           force-use-infinite-wrapper=".el-table__body-wrapper"
         ></infinite-loading>
@@ -74,27 +73,6 @@ export default {
     }
   },
   methods : {
-    initPage() {
-      let data = {
-        token: localStorage.getItem("token"),
-        search: this.search,
-        page: this.page,
-      };
-      FeedApi.searchFeeds(
-        data,
-        (response) => {
-          if (response.data.length) {
-            this.page += 1;
-            this.feeds = this.feeds.concat(response.data);
-          } else {
-            alert("검색 결과가 없습니다.");
-          }
-        },
-        (error) => {
-          alert(error);
-        }
-      );
-    },
     infiniteHandler($state) {
       if(!this.isSearch && !this.isWorldcup) {
         let data = {
@@ -177,7 +155,7 @@ export default {
       this.worldcup = "";
       this.feeds = [];
       this.page = 0;
-      this.$refs.InfiniteLoading.stateChanger.reset();
+      this.$refs.infiniteLoading.stateChanger.reset();
     },
   },
 };

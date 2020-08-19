@@ -2,15 +2,21 @@
   <v-container class="join py-0">
     <v-row>
       <v-col cols="12" md="6" class="pa-0" style="margin:0 auto;">
-        <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 670px;">
-          <v-row justify="center">
-            <v-col cols="12" style="margin-left:10px">
-              <p class="mt-10 mb-0 font-weight-bold" style="color:#0c6212; font-size:50px;">비밀번호 찾기</p>
-            </v-col>
-          </v-row>
+        <v-row justify="center">
+          <v-col cols="12" style="margin-left:10px">
+            <p
+              class="mt-10 mb-0 ml-5 font-weight-bold"
+              style="color:#0c6212; font-size:50px;"
+            >비밀번호 찾기</p>
+          </v-col>
+        </v-row>
 
+        <div
+          class="join-form border rounded"
+          style="background-color: white; margin: 0 auto; width: 350px; opacity:0.8;"
+        >
           <v-row>
-            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pb-0">
+            <v-col cols="11" class="mx-auto">
               <!-- <label for="userId">아이디</label> -->
               <v-text-field
                 v-model="userId"
@@ -19,15 +25,16 @@
                 color="#0c6212"
                 placeholder="아이디를 입력하세요."
                 type="text"
-                outlined
                 hint="아이디는 5글자 이상, 특수문자 미포함입니다."
               ></v-text-field>
               <!-- <div class="error-text" style="color:#0c6212;" v-if="error.userId">{{error.userId}}</div> -->
             </v-col>
           </v-row>
 
+          <v-row></v-row>
+
           <v-row>
-            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pt-0">
+            <v-col cols="11" class="mx-auto pt-0">
               <!-- <label for="email">이메일</label> -->
               <v-text-field
                 v-model="email"
@@ -36,8 +43,6 @@
                 color="#0c6212"
                 placeholder="이메일을 입력하세요."
                 type="text"
-                autocapitalize="none"
-                outlined
                 hint="이메일 형식이 아닙니다."
               ></v-text-field>
               <!-- <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div> -->
@@ -45,6 +50,13 @@
           </v-row>
 
           <v-row>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <br />
             <br />
             <br />
@@ -58,7 +70,7 @@
               </div>
             </v-col>
           </v-row>
-        </v-parallax>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -165,5 +177,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.join {
+  background-image: url("../../assets/images/Logo.png");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+</style>
 
 

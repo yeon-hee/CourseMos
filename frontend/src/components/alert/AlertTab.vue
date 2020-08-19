@@ -1,6 +1,6 @@
 <template>
     <v-card min-height="200" width="350">
-    <v-tabs dark background-color="teal darken-4" grow v-model="tab">
+    <v-tabs dark background-color="#fab7ae" grow v-model="tab">
         <v-tab key="1">
             <span>알림</span>
          </v-tab>
@@ -10,7 +10,7 @@
         </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-model="tab" >
       <v-tab-item key="1">
         <alerts></alerts>
       </v-tab-item>

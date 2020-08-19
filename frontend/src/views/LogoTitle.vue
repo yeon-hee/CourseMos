@@ -5,8 +5,8 @@
     <v-spacer></v-spacer>
       <v-icon size="30" @click="gotoCup" color="rgb(239,91,91)" style="margin-right:20px;">emoji_events</v-icon>
 
-    <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
-      <template v-slot:activator="{ on, attrs }" >
+    <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-y>
+      <template v-slot:activator="{ on, attrs }">
         <v-btn text bottom color="rgb(239,91,91)" v-bind="attrs" v-on="on" style="padding: 0px; min-width:5px;">
           <v-icon size="25">fas fa-bell</v-icon>
         </v-btn>

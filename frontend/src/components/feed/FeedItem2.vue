@@ -121,7 +121,6 @@ export default {
       defaultImage,
       profileImage : require('../../assets/images/profile_default.png'),
       defaultProfile,
-      // hashtags: ['#맛집','#파스타','#와인'],
       heartChange: false,
       emptyHeart: require('../../assets/images/empty-heart.png'),
       redHeart: require('../../assets/images/red-heart.png'),
