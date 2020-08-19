@@ -6,15 +6,16 @@
         <template>
           <div data-v-4d6f63f3="" class="v-card v-sheet theme--light" style="padding: 0px;">
             <header data-v-4d6f63f3="" class="v-sheet theme--light v-toolbar v-toolbar--extended" style="height: 65px;">
-              <div class="v-toolbar__content" style="height: 56px;">
+              <div class="v-toolbar__content" style="height: 60px;">
                 <v-slide-group show-arrows>
                 <v-slide-item
                   v-for="(course, index) in courses"
                   v-bind:key="index"
                   class="place"
-                >
-                  <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="margin-top:13px; border-radius: 5px; width:55px; height:55px;"
+                > <span>
+                  <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="margin-top:4px; border-radius: 5px; width:55px; height:55px;"
                   v-on:click="doRemove(index)" />
+                  <v-icon large color="orange" style="margin-top:5px;">mdi-chevron-right</v-icon></span>
                 </v-slide-item>
               </v-slide-group>
               
@@ -30,9 +31,8 @@
       </v-col>
       <v-col cols="12" sm="6">
         <v-card
-          class="ml-6 mr-6"
           height="100%"
-
+          min-height="300px"
         >
           <v-toolbar
             color="#EF5B5B"
@@ -42,7 +42,7 @@
             <form v-on:submit.prevent="searchPlaces">
                 <input type="text" 
                 placeholder="검색할 코스를 입력하세요" 
-                style="outline:none; width: 320px;" 
+                style="outline:none; width: 100%; color:white;" 
                 id="keyword">
               </form>
             <v-spacer></v-spacer>
@@ -159,10 +159,10 @@ export default {
       (this.ps = new kakao.maps.services.Places()),
         (this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 }));
       //마커추가하려면 객체를 아래와 같이 하나 만든다.
-      var marker = new kakao.maps.Marker({
-        position: this.map.getCenter(),
-      });
-      marker.setMap(this.map);
+      // var marker = new kakao.maps.Marker({
+      //   position: this.map.getCenter(),
+      // });
+      // marker.setMap(this.map);
     },
     // displayInfowindow(marker, title) {
     //   var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
@@ -325,10 +325,10 @@ export default {
 
     nextfunc(index, places){
       var el = document.createElement("div"),
-      itemStr = "<div style=\"line-height: 1.8em; padding: 10px 7px 7px 7px;\">"+
-          "   <h3 style=\" display: inline;\">" +
+      itemStr = "<div style=\"line-height: 1.8em; padding: 10px 7px 7px 25px;\">"+
+          "   <h3 style=\" display: inline; color:red;\">" +
           (index + 1) + " </h3>"+
-           "   <h3 style=\"display: inline; color:#0c4524;\">" +
+           "   <h3 style=\"display: inline; color:orange;\">" +
           places.place_name +
           "</h3><br>";
 
@@ -403,7 +403,7 @@ export default {
         var el = document.createElement("a");
         el.href = "#";
         el.innerHTML = i + " ";
-        el.style = "text-decoration:none; font-size:14px;";
+        el.style = "text-decoration:none; font-size:14px; margin-right:7px";
 
         if (i === pagination.current) {
           el.className = "on";
@@ -612,8 +612,8 @@ input::placeholder {
   display: inline-flex;
   align-items: center;
   margin: 4px;
-  width: 50px;
-  height: 50px;
+  width: 85px;
+  height: 70px;
 }
 .place > img {
   width: 100%;
@@ -659,8 +659,8 @@ input::placeholder {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 380px;
-  margin: 0 auto;
+  width: 100%;
+  /* margin: 0 auto; */
   background: rgba(255, 255, 255, 0.7);
   z-index: 1;
   font-size: 12px;

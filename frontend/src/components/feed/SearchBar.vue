@@ -8,7 +8,8 @@
         <label :for="inputValue"></label> -->
 
         <v-text-field v-model="text" 
-                outlined prepend-inner-icon="fas fa-search"
+                outlined prepend-inner-icon="mdi-magnify"
+                color="red"
                 label="검색어를 입력하세요" @keyup.enter="submit"></v-text-field>
     </div>
 </template>

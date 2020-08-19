@@ -3,22 +3,25 @@
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <v-card class="pa-5">
-          <h2 style="color:#EF5B5B;" class="mb-3">피드 작성하기</h2>
-
-          <div class="v-toolbar__content" style="height: 56px;">
+          <p style="color:#EF5B5B; font-size:20px; font-weight:bold" class="mb-3">피드 작성하기</p>
+          <header data-v-4d6f63f3="" class="v-sheet theme--light v-toolbar v-toolbar--extended rounded-lg elevation-2" style="height: 65px;">
+          <div class="v-toolbar__content" style="height: 60px;">
                 <v-slide-group show-arrows>
                 <v-slide-item
                   v-for="(course, index) in courses"
                   v-bind:key="index"
                   class="place"
                 >
-                  <img :src="course.thumbnailUrl" class="thumbnail" 
-                  alt="img" style="margin-top:13px; border-radius: 5px; width:55px; height:55px;"/>
+                  <span>
+                    <img :src="course.thumbnailUrl" class="thumbnail" 
+                    alt="img" style="margin-top:4px; border-radius: 5px; width:55px; height:55px;"/>
+                    <v-icon large color="orange" style="margin-top:5px;">mdi-chevron-right</v-icon>
+                  </span>
                 </v-slide-item>
               </v-slide-group>
               
             </div>
-
+          </header>
           <div>
             <!-- input type=text -->
 
@@ -193,4 +196,31 @@ export default {
 </script>
 
 <style scoped>
-</style>;
+
+.placeList {
+  width: 300px;
+  min-width: 300px;
+  max-width: 500px;
+  padding: 0;
+  margin: 5px 0;
+  margin-left: 20px;
+  height: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.0975);
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px grey;
+}
+.place {
+  display: inline-flex;
+  align-items: center;
+  margin: 4px;
+  width: 85px;
+  height: 70px;
+}
+.place > img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.0975);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px grey;
+}
+</style>
