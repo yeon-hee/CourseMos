@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" sm="4" offset-sm="4">
+      <v-col cols="12" sm="4" offset-sm="4" class="pb-0">
         <search-bar 
                 style="color:red"
                 outlined inputValue="text" placeholder="검색어를 입력해주세요." label="검색" @search="searchFeeds" />
@@ -15,7 +15,7 @@
     </v-row> -->
 
     <v-row class="pa-0" style="justify-content:center;">
-      <v-col cols="12" md="4" v-for="feed in feeds" v-bind:key="feed.feedNo" class="ma-1">
+      <v-col cols="12" md="4" v-for="feed in feeds" v-bind:key="feed.feedNo" class="ma-1 py-0">
         <FeedItem2 :feed="feed"/>
       </v-col>
     </v-row>

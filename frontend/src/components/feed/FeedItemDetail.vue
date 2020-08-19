@@ -90,19 +90,19 @@
     </v-row>
 
       <div class="line"></div>
-        <template>
+        <div>
            <v-btn icon @click="clickLikeBtn(feed)" style="margin-left:12px; width:20px; margin-top: 5px;">
             <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left></v-img>
           </v-btn>
-          <!-- <span style="margin-left:3px;">{{feed.likeCount}}</span> -->
+          <span style="margin-left:3px; margin-top: 15px; vertical-align:sub;">{{feed.likeCount}}</span>
           <v-btn icon @click="clickComment()" style="margin-left:10px; width:20px; margin-top: 5px;">
             <img src="../../assets/images/comment.png" width="20px" height="20px"/>
           </v-btn>
-           <!-- <span style="margin-left:3px;">{{feed.commentCount}}</span> -->
+           <span style="margin-left:3px; margin-top: 10px; vertical-align:sub;">{{feed.commentCount}}</span>
           <v-btn icon style="margin-left:1px; margin-top: 5px;">
             <img src="../../assets/images/share.png" width="18px" height="18px"/>
           </v-btn>
-        </template><br><br>
+        </div><br><br>
 
        <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
          <div data-v-19a3425a="" class="v-timeline-item v-timeline-item--before theme--light" style="width: 103%; padding-bottom:10px;" v-for="(course,index) in courseList" :key="course.courseOrder">
