@@ -65,7 +65,7 @@
                     비밀번호를 잊으셨나요?
                     <span>
                       <a
-                        href="#/user/find/password"
+                        @click="onClickFindPwd()"
                         style="color:rgb(239,91,91); font-family: 'Noto Sans KR', sans-serif;"
                         class="float-right btn--text text-decoration-none font-weight-bold"
                       >비밀번호 찾기</a>
@@ -76,7 +76,7 @@
                     아직 회원이 아니신가요?
                     <span>
                       <a
-                        href="#/user/join"
+                        @click="onClickJoin()"
                         style="color:rgb(239,91,91); font-family: 'Noto Sans KR', sans-serif;"
                         class="float-right btn--text text-decoration-none font-weight-bold"
                       >가입하기</a>
@@ -176,6 +176,12 @@ export default {
         );
       }
     },
+    onClickJoin() {
+      this.$router.push("/user/join");
+    },
+    onClickFindPwd() {
+      this.$router.push("/user/find/password");
+    }
   },
 
   data: () => {
