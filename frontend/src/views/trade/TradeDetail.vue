@@ -62,10 +62,10 @@
               </div>
           </v-card>
         </v-col>
-        <div style="text-align: center; margin-top: 8px;">
+        <div style="text-align: center; padding-bottom: 11px;">
             <a :href="url" style="text-decoration:none; color: black; font-size: 14px;">블로그 더보기 </a>
             <img src="../../assets/images/detail5.png" style="padding-top: 4px;" width="14px" height="16px">
-        </div><br>
+        </div>
         </v-card><br>
         </div>
 
@@ -81,7 +81,7 @@
                     <div class="line"></div><br>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 4px;">
+            <div style="text-align: center;">
                 <a :href="url" style="text-decoration:none; color: black; font-size: 14px;">리뷰 더보기 </a>
                 <img src="../../assets/images/detail5.png" style="padding-top: 4px;" width="14px" height="16px">
             </div>
@@ -163,7 +163,9 @@ export default {
 
     methods: {
         goBack(){
-            this.$router.push("/feedmake");
+            var feedNo = this.$route.params.feedNo;
+            if(feedNo != null) this.$router.push("/feeds/back/" + feedNo);
+            else this.$router.push("/feedmake");
         },
     }
   

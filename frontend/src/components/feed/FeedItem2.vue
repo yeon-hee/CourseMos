@@ -87,8 +87,8 @@
       <v-spacer></v-spacer>
     </v-card-actions>
      <v-spacer v-if="feed.tags != null" style="padding: 0 8px 8px 11px;">
-       <div style="margin-bottom: 3px; font-size:15px;">
-        <img src="../../assets/images/detail1.png" style="height:12px; width:12px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray);">
+       <div style="margin-bottom: 3px; font-size:15px; ">
+        <img src="../../assets/images/detail1.png" style=" height:12px; width:12px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray);">
           {{region}}
        </div>
         <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
@@ -115,7 +115,6 @@ export default {
       defaultImage,
       profileImage : require('../../assets/images/profile_default.png'),
       defaultProfile,
-      // hashtags: ['#맛집','#파스타','#와인'],
       heartChange: false,
       emptyHeart: require('../../assets/images/empty-heart.png'),
       redHeart: require('../../assets/images/red-heart.png'),

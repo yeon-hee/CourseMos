@@ -172,6 +172,11 @@ export default [{
         component: TradeDetail,
     },
     {
+        path: "/trade/:id/:feedNo",
+        name: "TradeDetail",
+        component: TradeDetail,
+    },
+    {
         path: "/worldcup",
         name: "WorldCup",
         component: WorldCup,
