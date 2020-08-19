@@ -1,5 +1,5 @@
 const Url = {
-    url: "http://localhost:8080"
+    url: "http://i3a303.p.ssafy.io:8080"
 }
 
 export default Url
