@@ -564,8 +564,12 @@ export default {
     },
 
     saveCourse() {
-      this.$store.state.courses = this.courses;
-      this.$router.push("/feed/write");
+      if(this.courses.length<2) {
+        alert("두 개 이상의 코스를 추가해 주세요.")
+      } else {
+        this.$store.state.courses = this.courses;
+        this.$router.push("/feed/write");
+      }
     },
 
     doRemove(index) {
