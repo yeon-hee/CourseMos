@@ -4,7 +4,7 @@
       <v-col cols="12" md="6" class="pa-0" style="margin:0 auto;">
         <v-row justify="center">
           <v-col cols="12" style="margin-left:10px">
-            <p class="mt-10 mb-0 font-weight-bold" style="color:#0c6212; font-size:50px;">가입하기</p>
+            <p class="mt-10 mb-0 ml-5 font-weight-bold" style="color:#0c6212; font-size:50px;">가입하기</p>
           </v-col>
         </v-row>
         <div
