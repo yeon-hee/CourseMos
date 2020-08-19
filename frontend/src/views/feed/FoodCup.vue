@@ -1,8 +1,8 @@
 <template>
   <div class="foodCup">
     <div
-      class="pt-16 mb-5 font-weight-bold text-center text-sm-h3 text-h3 indigo--text text--darken-3"
-    >음식 추천 월드컵</div>
+      class="pt-16 mb-5 font-weight-bold text-center text-sm-h4 text-h4 indigo--text text--darken-3"
+    >먹거리 추천 월드컵</div>
     <img
       src="../../assets/images/trophy.jpeg"
       class="trophy"
@@ -65,50 +65,50 @@ export default {
         {
           id: 1,
           name: "삼겹살",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/84b10cbdf0ec13b33ad2ce81420c7b96.jpg",
+          thumbnailUrl: require("../../assets/images/pork.jpg"),
+          key: "삼겹살",
         },
         {
           id: 2,
-          name: "소고기",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/03c4a79455ec531adf0cd04513272aa8.jpg",
+          name: "족발",
+          thumbnailUrl: require("../../assets/images/foot.jpg"),
+          key: "족발",
         },
         {
           id: 3,
           name: "치킨",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/5272db391e7bbea26a87c765cd2fe017.jpg",
+          thumbnailUrl: require("../../assets/images/chicken.jpg"),
+          key: "치킨",
         },
         {
           id: 4,
           name: "피자",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/8bf97919e5e9898f5128047cdf520788.jpg",
+          thumbnailUrl: require("../../assets/images/pizza.jpg"),
+          key: "피자",
         },
         {
           id: 5,
           name: "짜장면",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/eda37ece53fe020e4f78e66049a055d6.jpg",
+          thumbnailUrl: require("../../assets/images/zza.jpg"),
+          key: "중화요리",
         },
         {
           id: 6,
-          name: "짬뽕",
-          thumbnailUrl:
-            "https://img.piku.co.kr/w/uploads/aPqCxg/97864c4aa544198bec6ef110a9f33e80.jpg",
+          name: "초밥",
+          thumbnailUrl: require("../../assets/images/sushi.jpg"),
+          key: "초밥",
         },
         {
           id: 7,
-          name: "돈까스",
-          thumbnailUrl:
-            "https://d20aeo683mqd6t.cloudfront.net/ko/articles/title_images/000/026/550/medium/IMG_2236s.jpg?2019",
+          name: "파스타",
+          thumbnailUrl: require("../../assets/images/pasta.jpg"),
+          key: "이탈리안",
         },
         {
           id: 8,
           name: "떡볶이",
-          thumbnailUrl:
-            "https://dimg.donga.com/a/500/0/90/5/ugc/CDB/29STREET/Article/5e/b2/04/e8/5eb204e81752d2738236.jpg",
+          thumbnailUrl: require("../../assets/images/dduk.jpg"),
+          key: "분식",
         },
       ],
     };
@@ -129,9 +129,8 @@ export default {
       if (this.round == 2) {
         this.winner = this.menuList[idx];
         this.dialog = true;
-        alert("1등 음식은 " + this.winner.name + "입니다.");
-        console.log(this.winner);
-        this.$router.push("/feed/main/" + this.winner.name);
+        alert("1등 먹거리는 " + this.winner.name + "입니다.");
+        this.$router.push("/feed/main/" + this.winner.key);
       } else {
         this.winners.push(this.menuList[idx]);
         this.idx += 2;

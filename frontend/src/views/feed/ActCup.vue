@@ -2,7 +2,7 @@
   <div class="playCup">
     <div
       class="pt-16 mb-5 font-weight-bold text-center text-sm-h4 text-h4 indigo--text text--darken-3"
-    >액티비티 추천 월드컵</div>
+    >볼거리 추천 월드컵</div>
     <img
       src="../../assets/images/trophy.jpeg"
       class="trophy"
@@ -66,41 +66,49 @@ export default {
           id: 1,
           name: "아쿠아리움",
           thumbnailUrl: require("../../assets/images/aqua.jpg"),
+          key: "아쿠아리움",
         },
         {
           id: 2,
-          name: "동물카페",
-          thumbnailUrl: require("../../assets/images/animal.jpg"),
+          name: "동물원",
+          thumbnailUrl: require("../../assets/images/zoo.jpg"),
+          key: "동물원",
         },
         {
           id: 3,
-          name: "공연장",
+          name: "공연",
           thumbnailUrl: require("../../assets/images/perform.jpg"),
+          key: "공연",
         },
         {
           id: 4,
-          name: "쿠킹클래스",
-          thumbnailUrl: require("../../assets/images/cooking.jpg"),
+          name: "영화관",
+          thumbnailUrl: require("../../assets/images/movie.jpg"),
+          key: "영화",
         },
         {
           id: 5,
-          name: "연극",
-          thumbnailUrl: require("../../assets/images/act.jpg"),
+          name: "쇼핑",
+          thumbnailUrl: require("../../assets/images/shop.jpg"),
+          key: "의류",
         },
         {
           id: 6,
           name: "전시회",
           thumbnailUrl: require("../../assets/images/draw.jpg"),
+          key: "미술관",
         },
         {
           id: 7,
           name: "공원",
           thumbnailUrl: require("../../assets/images/park.jpg"),
+          key: "공원",
         },
         {
           id: 8,
           name: "도서관",
           thumbnailUrl: require("../../assets/images/lib.jpg"),
+          key: "도서관",
         },
       ],
     };
@@ -121,9 +129,9 @@ export default {
       if (this.round == 2) {
         this.winner = this.menuList[idx];
         this.dialog = true;
-        alert("1등 액티비티는 " + this.winner.name + "입니다.");
+        alert("1등 볼거리는 " + this.winner.name + "입니다.");
         console.log(this.winner);
-        this.$router.push("/feed/main/" + this.winner.name);
+        this.$router.push("/feed/main/" + this.winner.key);
       } else {
         this.winners.push(this.menuList[idx]);
         this.idx += 2;
