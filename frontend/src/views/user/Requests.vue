@@ -1,70 +1,22 @@
 <template>
-    <!-- <div> -->
-        <!-- <LogoTitle/> -->
-        <!-- <tab></tab> -->
-        <!-- <v-list subheader>
-            <v-subheader>
-                <v-btn text @click="rejectAll"><span>모두 거절</span></v-btn>
-                <v-btn text @click="allowAll"><span>모두 승인</span></v-btn>
-            </v-subheader>
-            <v-list-item v-for="(request, index) in requestList" :key="request.id">
-                <v-list-item-avatar>
-                    <img src="@/assets/images/profile_default.png">
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    {{request.follower}}님이 팔로우를 요청하였습니다.
-                </v-list-item-content>
-                <v-list-item-icon>
-                    <v-btn icon @click="reject(request, index)"><v-icon>fas fa-times</v-icon></v-btn>
-                </v-list-item-icon>
-                <v-list-item-icon>
-                    <v-btn icon @click="allow(request, index)"><v-icon>fas fa-check</v-icon></v-btn>
-                </v-list-item-icon>
-            </v-list-item>
-        </v-list> -->
-
-
-
-        <!-- <div class="requests">
-            <section class="tab-list">
-                <ul class="request-list">
-                    <li v-for="(request, index) in requestList" :key="request.id">
-                        <div class="request">
-                            <div class="request-info">
-                                <img src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
-                                <div>{{request.follower}}님이 팔로우를 요청하였습니다.</div>
-                            </div>
-                            <div class="request-button">
-                                <button class="u-fat-text deny" @click="reject(request,index)">거절</button>
-                                <button class="u-fat-text approve" @click="allow(request,index)">승인</button>
-                            </div>
-                        </div>
-                        <hr>
-                    </li>
-                    <hr>
-                </ul>
-            </section>
-        </div> -->
-        <!-- <Nav/> -->
-    <!-- </div> -->
-
     <v-card>
         <v-virtual-scroll
         :items="requestList"
-        :item-height="30"
+        item-height="85"
         height="200"
         >
-        <template v-slot="{ item , index}">
-            <div :key="item.id">
-
-                <div>{{item.follower}}님이 팔로우를 요청하였습니다.</div>
-                <div style="display: inline;"> 
-                    <v-btn icon @click="reject(item, index)"><v-icon>fas fa-times</v-icon></v-btn>
-                </div>
-                <div style="display: inline;"> 
-                    <v-btn icon @click="allow(item, index)"><v-icon>fas fa-check</v-icon></v-btn>
-                </div>
-            </div>
+        <template v-slot="{ item , index}" >
+                <v-list :key="item.id" style="margin: 0 0 0 12px;" >
+                        <div style="float: left;" class="text">
+                        {{item.follower}}님이 팔로우를 요청하였습니다. 
+                        </div>
+                        <div style="float: right; margin:6px 12px 0 0;">
+                        <v-btn @click="allow(item, index)" style="height:33px; margin-right:5px; border-radius: 30px; background-color:rgb(239,91,91);">수락</v-btn>
+                        <v-btn @click="reject(item, index)" style="height:33px; border-radius: 30px; background-color:rgb(223,223,223);">거절</v-btn>
+                        </div>
+                        <div style="clear:both;"/>
+                </v-list>
+            <v-divider style="margin: 0 10px 0 10px;"></v-divider> 
         </template>
         </v-virtual-scroll>
     </v-card>
@@ -72,19 +24,11 @@
 </template>
 
 <script>
-// import LogoTitle from "../LogoTitle.vue";
-// import Nav from "../Nav.vue";
 import "../../components/css/user/requests.css";
 import axios from 'axios';
 import RequestApi from "../../api/RequestApi";
-// import Tab from "../../components/alert/AlertTab";
 
 export default {
-    components: {
-        // LogoTitle,
-        // Nav,
-        // Tab
-    },
     created() {
         let data = {
             email : localStorage.getItem('email'),
@@ -165,7 +109,7 @@ export default {
     },
     data() {
         return {
-            requestList: []
+            requestList: [],
         };
     }
 
@@ -177,14 +121,26 @@ export default {
 hr{
     margin: 0;
 }
-
+.line{
+  clear: both;
+  height: 0.5px;
+  width: 100%;
+  background-color: gray;
+  opacity: 30%;
+}
 .request-button{
     padding: 5px;
     height: 40px;
     display: flex;
     margin-right: 0;
 }
-
+.text{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 298px;
+  height: 23px;
+}
 .tab-requests{
     background-color: bisque;
     opacity: 80%;
