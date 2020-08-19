@@ -29,10 +29,10 @@
         dark
         style="width:95%;"
       >
-        <v-card-title style="font-size:15px; color:black; height:30px; padding:0 0 0 8px; color:orange;">{{course.tradeName}}</v-card-title>
+        <v-card-title style="font-size:14px; color:black; height:30px; padding:0 0 0 8px; color:orange;">{{course.tradeName}}</v-card-title>
         <v-card-text class="white text--primary" style="padding:0px;">
-          <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 8px 0 8px 8px;">
-                <div style="float:left; margin: 13px 0px 9px 10px; line-height: 1.2em;">
+          <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 0px 0 6px 8px;">
+                <div style="float:left; margin: 4px 0px 9px 10px; line-height: 1.2em;">
                   <div style="font-size:10px; color:#8a8a8a;">{{course.categoryName}}</div>
                   <div style="font-size:13px;">{{course.roadAddress}} </div>
                 </div>
@@ -97,7 +97,7 @@
         <!-- <img src="../../assets/images/detail1.png" style="height:12px; width:12px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray);"> -->
           <span style="font-size:12px;"> {{region}} </span>
        </div>
-        <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:#0091EA; display:inline; font-size:15px;">
+        <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
           #{{ tag }}
         </div>
     </v-spacer>
