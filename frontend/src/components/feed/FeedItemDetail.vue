@@ -1,6 +1,5 @@
 <template>
-<v-card>
-  <v-container fluid style="margin-bottom:50px; padding:0">
+  <v-container fluid style="margin-bottom:50px; padding: 0px 12px 0px 12px;">
     <v-row>
       <v-col cols="12" sm="6" style="padding: 0 12px 0 12px;">
         <v-sheet 
@@ -71,26 +70,22 @@
         </v-sheet>
       </v-col>
 
-      <v-col cols="12" sm="6" style="align-self: center; padding: 0 12px 12px 12px;">
-        <v-row>
-      <v-col cols="12" sm="6" offset-sm="3" style="padding: 10px 10px 10px 10px;">
+      <v-col cols="12" sm="6" style="align-self: center; padding: 3px 12px 8px 12px;">
       
-         <div style="padding: 12px 12px 15px 12px;">
+         <div style="padding: 12px 2px 15px 2px;">
          <div style="display: inline; font-weight:bold;">{{feed.userId}} </div>
          <div style="display: inline; font-size: 14px; margin:0 0 0 3px;"> {{feed.contents}}</div>
         </div>
 
-        <div style="padding: 5px 0 0 12px;" >
+        <div style="padding: 5px 0 5px 0px;" >
           <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
             #{{ tag }}
           </div>
         </div>
 
-      </v-col>
-    </v-row>
 
       <div class="line"></div>
-        <div>
+        <div style="margin-bottom: 10px;">
            <v-btn icon @click="clickLikeBtn(feed)" style="margin-left:12px; width:20px; margin-top: 5px;">
             <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left></v-img>
           </v-btn>
@@ -102,7 +97,7 @@
           <v-btn icon style="margin-left:1px; margin-top: 5px;">
             <img src="../../assets/images/share.png" width="18px" height="18px"/>
           </v-btn>
-        </div><br><br>
+        </div>
         <!-- <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
           <div class="v-timeline-item v-timeline-item--fill-dot theme--light" 
             v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 108%">
@@ -136,8 +131,8 @@
             </div>
           </div>
         </div><br> -->
-       <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
-         <div data-v-19a3425a="" class="v-timeline-item v-timeline-item--before theme--light" style="width: 103%; padding-bottom:10px;" v-for="(course,index) in courseList" :key="course.courseOrder">
+       <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px; ">
+         <div class="v-timeline-item v-timeline-item--fill-dot theme--light" style="width: 107%; padding-bottom:10px;" v-for="(course, i) in courseList" :key="course.courseOrder">
            <div class="v-timeline-item__body" style="margin-right:21px;">
               <v-card >
                 <div>
@@ -157,15 +152,13 @@
               </div>
               <div class="v-timeline-item__divider" style="min-width: 15px; margin-right:15px; ">
                 <div class="v-timeline-item__dot v-timeline-item__dot--small">
-                  <div class="v-timeline-item__inner-dot red lighten-1"></div>
-                  <div v-if="index < courseList.length-1">
-                    <img src="../../assets/images/detail5.png" style="padding-top:2px; margin: 13px 0 0 5px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 red);
-                       filter: opacity(.5) drop-shadow(0 0 0 red);" width="14px" height="16px">
+                  <div class="v-timeline-item__inner-dot red lighten-2">
+                   <p style="color:white;align-self: start;">{{i+1}}</p>
                   </div>
                 </div>
                 </div>
               </div>
-        </v-timeline><br>
+        </div><br>
 <!-- 
         <v-timeline dense>
           <v-timeline-item
@@ -198,7 +191,6 @@
       </v-col>
     </v-row>
   </v-container>
- </v-card>
 </template>
 
 <script>
