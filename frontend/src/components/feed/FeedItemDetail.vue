@@ -1,6 +1,6 @@
 <template>
-<v-card>
-  <v-container fluid style="margin-bottom:50px; padding:0">
+
+  <v-container fluid style="margin-bottom:25px; padding-top: 0;">
     <v-row>
       <v-col cols="12" sm="6" style="padding: 0 12px 0 12px;">
         <v-sheet 
@@ -71,23 +71,18 @@
         </v-sheet>
       </v-col>
 
-      <v-col cols="12" sm="6" style="align-self: center; padding: 0 12px 12px 12px;">
-        <v-row>
-      <v-col cols="12" sm="6" offset-sm="3" style="padding: 10px 10px 10px 10px;">
+      <v-col cols="12" sm="6" style="padding: 3px 5px 15px 5px;">
       
          <div style="padding: 12px 12px 15px 12px;">
          <div style="display: inline; font-weight:bold;">{{feed.userId}} </div>
-         <div style="display: inline; font-size: 14px; margin:0 0 0 3px;"> {{feed.contents}}</div>
+         <div style="display: inline; font-size: 14px; margin:0 0 0 3px;" v-html="feed.contents"></div>
         </div>
 
-        <div style="padding: 5px 0 0 12px;" >
+        <div style="padding: 5px 0 0 12px; margin-bottom:12px;" >
           <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
             #{{ tag }}
           </div>
         </div>
-
-      </v-col>
-    </v-row>
 
       <div class="line"></div>
         <div>
@@ -99,13 +94,10 @@
             <img src="../../assets/images/comment.png" width="20px" height="20px"/>
           </v-btn>
            <span style="margin-left:3px; margin-top: 10px; vertical-align:sub;">{{feed.commentCount}}</span>
-          <v-btn icon style="margin-left:1px; margin-top: 5px;">
-            <img src="../../assets/images/share.png" width="18px" height="18px"/>
-          </v-btn>
-        </div><br><br>
+        </div><br>
 
-       <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
-         <div data-v-19a3425a="" class="v-timeline-item v-timeline-item--before theme--light" style="width: 103%; padding-bottom:10px;" v-for="(course,index) in courseList" :key="course.courseOrder">
+       <!-- <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
+         <div data-v-19a3425a="" class="v-timeline-item v-timeline-item--before theme--light" style="width: 103%; padding-bottom:10px;" v-for="course in courseList" :key="course.courseOrder">
            <div class="v-timeline-item__body" style="margin-right:21px;">
               <v-card >
                 <div>
@@ -126,47 +118,47 @@
               <div class="v-timeline-item__divider" style="min-width: 15px; margin-right:15px; ">
                 <div class="v-timeline-item__dot v-timeline-item__dot--small">
                   <div class="v-timeline-item__inner-dot red lighten-1"></div>
-                  <div v-if="index < courseList.length-1">
-                    <img src="../../assets/images/detail5.png" style="padding-top:2px; margin: 13px 0 0 5px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 red);
-                       filter: opacity(.5) drop-shadow(0 0 0 red);" width="14px" height="16px">
-                  </div>
+                 
                 </div>
                 </div>
               </div>
-        </v-timeline><br>
-<!-- 
-        <v-timeline dense>
-          <v-timeline-item
-                    v-for="course in courseList" :key="course.courseOrder"
-                    color="rgb(239,91,91)"
-                    small>
-            <div style="height: 45px; width:100%; float:left; padding-right:30px;">
-              <div>
-                <div class="elevation-1 v-card v-sheet theme--light"
-                    style="border-radius:10px; width:100%; height:57px; border:1px solid #ccc;"
-                    @click="findTradeInfo(course)">
-                    <div style="float:left;">
-                    <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
-                  </div>
-                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.2em;">
-                      <div style="font-size:10px; color:rgb(51,102,255);">{{course.categoryName}}</div>
-                      <div style="font-size:13px;">{{course.tradeName}} </div>
-                  </div>
-                  <div style="float: right; margin: 12px;"> 
-                      <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 15px;">
-                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
-                    </a>
-                  </div>
-                  <div style="clear: both;"></div>
+        </v-timeline><br> -->
+
+        <div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
+  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 108%">
+    <div class="v-timeline-item__body" style="margin-right:20px;">
+      <v-card
+        color='white'
+        dark
+        style="width:100%;"
+      >
+        <v-card-text class="white text--primary" style="padding:0px;">
+          <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 6px 0 6px 8px;">
+                <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.3em;">
+                  <div style="font-size:11px; color:#8a8a8a;">{{course.categoryName}}</div>
+                  <div style="font-size:14px;">{{course.tradeName}} </div>
                 </div>
+                <div style="float: right; margin: 14px 13px 0 0;"> 
+                        <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 10px;">
+                        <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+                        </a>
+                </div>
+                <div style="clear:both;"/>
+        </v-card-text>
+      </v-card>
+          </div>
+          <div class="v-timeline-item__divide" style="margin-right:16px; z-index:1;">
+            <div class="v-timeline-item__dot v-timeline-item__dot--small">
+              <div class="v-timeline-item__inner-dot red lighten-2">
+                <p style="color:white;align-self: start;">{{i+1}}</p>
               </div>
             </div>
-          </v-timeline-item>
-        </v-timeline> -->
+          </div>
+        </div>
+    </div><br>
       </v-col>
     </v-row>
   </v-container>
- </v-card>
 </template>
 
 <script>
