@@ -197,12 +197,12 @@ export default [{
                 component: ActCup,
             },
             {
-                path: "/friends/followers/:email",
+                path: "/friends/followers/:email/:userId",
                 name: "UserFollowers",
                 component: UserFollowers,
             },
             {
-                path: "/friends/followings/:email",
+                path: "/friends/followings/:email/:userId",
                 name: "UserFollowings",
                 component: UserFollowings,
             },
