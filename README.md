@@ -1,6 +1,6 @@
 #  웹 디자인 프로젝트 (3팀 : 짬뽕)
 
-> 배포 URL: http://i3a303.p.ssafy.io/#/
+> 배포 URL: http://i3a303.p.ssafy.io/
 
 
 
@@ -10,7 +10,7 @@
 
 ### :page_facing_up: 프로젝트 개요 : 코스모스는 놀거리 코스 공유 SNS 입니다.
 
-#### 	사용자가 직접 가보고 체험해본 맛집, 카페 등의 먹거리와 다양한 놀거리 	장소들을 코스로 묶어 그 경로와 정보들을 공유하는 서비스입니다. 서비스 자체에서 제공하는 정보가 아닌 사용자들이 직접 코스정보를 업로드하도록 하여 다양한 의견의 정보들을 보여줄 수 있도록 차별성을 두었습니다. SNS의 기본기능인 좋아요와 댓글, 팔로우, 알림, 유저검색, 게시물업로드 기능을 포함하며 추가적으로 장소검색, 길찾기, (사용자 취향 맞춤 추천, 태그기능) 도 구현하였습니다.
+#### 	사용자가 직접 가보고 체험해본 맛집, 카페 등의 먹거리와 다양한 놀거리 장소들을 코스로 묶어 그 경로와 정보들을 공유하는 서비스입니다. 서비스 자체에서 제공하는 정보가 아닌 사용자들이 직접 코스정보를 업로드하도록 하여 다양한 의견의 정보들을 보여줄 수 있도록 차별성을 두었습니다. SNS의 기본기능인 좋아요와 댓글, 팔로우, 알림, 유저검색, 게시물업로드 기능을 포함하며 추가적으로 장소검색, 길찾기, (사용자 취향 맞춤 추천, 태그기능) 도 구현하였습니다.
 
 ### :two_men_holding_hands: 프로젝트 팀원 및 역할
 
@@ -107,21 +107,27 @@ See https://cli.vuejs.org/config/
 
 ## - 프로젝트 주요 기능
 
-### :world_map: 장소 검색 및 지도상의 위치 표시 - 카카오 Maps API 활용 
+### :world_map: 장소 검색 및 지도상의 위치 표시 - 카카오 Maps API 활용(http://apis.map.kakao.com/) 
+
+<img src="https://lh5.googleusercontent.com/TheBCYJWrukwa0dpSsvqjta6UwBgO0ajpTwDZw_dHFwY2_P9NGE9lF4A2vbHObi6NnWH2yEZlXJ7vPVFi7pn9-hnDhdQyLVSREo9ygE-XHcAWmiS6vZO4aPjS2IXPRHZ" alt="img" style="zoom:33%;" />     <img src="https://lh3.googleusercontent.com/nXxyktwJLm8P278h90LViLiOya-pWNWcaySKGJrkDKKVeIfrBiCabVWS6apA3Q43YjOEuKR9tqS0D6YCyRzGIKdZusO-tckUBGINkqP9KDYTwnrwHDCTfDExmXivsGNy" alt="img" style="zoom:33%;" />     <img src="https://lh4.googleusercontent.com/EfPRzYykK7Bjp_ynJjI-Xwek9rYfwVaagisJXcCr4540qP06Om3tPW2pL6qeDBHoyHANDph6DyPeJT_jQL_HkHlSFcI5zdI3bIyIkIB6xxFU9HDAix3BHSfrzktgba7S" alt="img" style="zoom:33%;" />
 
 
 
-### :information_source: 장소의 이미지 및 정보 받아오기 - 네이버 API 활용
+### :information_source: 장소의 이미지 및 정보 크롤링 - Jsoup 라이브러리 활용(https://jsoup.org/)
+
+<img src="https://lh4.googleusercontent.com/Rd2qXkuFcb2l6ZkpA3NpqJMD9XlpL2yw8Qja0TPR-Db0ILcAZZuZegPuYIBrLarRuQ9lhnkiquXHc1TxSYfEpWQxREThOwq74jhKFtryza7NJjILeD2mvJgLFQdukKZS" alt="img" style="zoom:33%;" />       <img src="https://lh3.googleusercontent.com/VnvG8OlTWTZPcEYtDQqfO2jV61oj_dJDTRFMY_nUgchBQvNnfKEo9coNA6UG3dF5p_QMKC91B_oZZay_2a6YbZp2s0Y99zfkaAy0vcZ9GReKDo340PfpY-GcGcUEMBy1" alt="img" style="zoom:33%;" />      <img src="https://lh5.googleusercontent.com/pkHyQtLzcJ_w08HH74534hdxTqILKDeGNssl8KbkZe6oN4Rwm85g4LU_CaBnQ5d6Cmsadmv4N949f88Rw4rJE_ru8fX7uhNyUmh1KCwqI25wc8nNJ6RMi-DEZcaCmfgh" alt="img" style="zoom:33%;" />
 
 
 
-### :a: 태그 기능 - 자연어 처리
+### :a: 태그 기능 - 코모란 (키워드 추출) 라이브러리 활용(https://docs.komoran.kr/)
+
+<img src="https://lh6.googleusercontent.com/2P9kw8ZxHuuzs3DNQTKAJwkrysSlpRdid7XZFDHdpJYYUVkD65Ulrp278-h1x5x3Lg9SU6SRd-QU8r9oBHXZ6OU7t2-43Fy0T_IUwk0BmrdliX4MR7kFeMVCPc1kiHUg" alt="img" style="zoom:33%;" />
 
 
 
-### :heart: 사용자 취향 맞춤 코스 추천 기능 - 알고리즘 
+### :heart: 사용자 취향 맞춤 코스 추천 기능 - 알고리즘
 
-
+<img src="https://lh3.googleusercontent.com/4JhHWQxBqarDKB7YQTE2E4OV3FCgsoKkz234wdl9lTG41I3eZjRFZXOP3bTUU3OBdxQHg0NBDZNFVkmKgM8X8k8cISExapPfZ07Iu70WciOce4cquRaNOtlB2Mh9PG0j" alt="img" style="zoom:33%;" />     <img src="https://lh6.googleusercontent.com/FKSfp7WOEIn2oY5R82xwUugJXBspfPUSI9sE6s56HOSc1eOAWbNtapJDUFCaoDqEqnLyrbGBzWMWwWtZ29W6VajT3wdwHjKwznvSZP942M_iBGR2kkny8iVOQV4RI1Gx" alt="img" style="zoom:33%;" />
 
 
 
