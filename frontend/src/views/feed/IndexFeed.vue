@@ -114,6 +114,7 @@ export default {
           data,
           (response) => {
             if (response.data.length) {
+              console.log('검색')
               this.page += 1;
               this.feeds = this.feeds.concat(response.data);
               $state.loaded();

@@ -127,6 +127,7 @@ export default {
       }
     },
     uploadFeed() {
+      this.contents = this.contents.split('\n').join('<br/>');
       let data = {
         token: this.token,
         userId: this.userId,

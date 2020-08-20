@@ -314,7 +314,5 @@ export default {
   text-decoration: none;
   color: #000000;
 }
-.profile-avatar {
-  border: 1px solid #f89077;
-}
+
 </style>

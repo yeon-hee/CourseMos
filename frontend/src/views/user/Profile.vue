@@ -31,17 +31,17 @@
                 </a>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col cols="10" class="btns d-flex mx-auto" style="text-align:center">
+            <v-row style="margin:0;">
+              <v-col cols="10" class="btns d-flex mx-auto" style="text-align:center; padding: 12px 0 0 0; width:100%;">
                 <v-btn
-                  class="white--text px-5"
+                  class="white--text px-5 "
                   @click="goSetting"
-                  style="background-color:rgb(239,91,91);"
+                  style="background-color:rgb(239,91,91); width: 50%; margin:0; padding:0;"
                 >프로필 수정</v-btn>
                 <v-btn
-                  class="white--text px-5 ml-3"
+                  class="white--text px-7 ml-3"
                   @click="logout"
-                  style="background-color:rgb(239,91,91);"
+                  style="background-color:rgb(239,91,91); width: 50%; padding:0;"
                 >
                   <div>로그아웃</div>
                 </v-btn>
@@ -53,8 +53,8 @@
     </v-row>
 
     <v-row class="pa-0">
-      <v-col class="profile-bio-box py-0" cols="12" sm="6" offset-sm="3">
-        <div class="profile-bio">
+      <v-col class="profile-bio-box py-0" cols="12" sm="6" offset-sm="3" >
+        <div class="profile-bio" style="background-color: rgb(252,218,218);">
           <p class="profile-full-bio pa-1">{{profile_comment}}</p>
         </div>
       </v-col>
@@ -217,9 +217,7 @@ export default {
   text-decoration: none;
   color: #000000;
 }
-.profile-avatar {
-  border: 1px solid #f89077;
-}
+
 .btns {
   justify-content: space-around;
 }
