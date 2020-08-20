@@ -27,7 +27,9 @@
           ref="infiniteLoading"
           @infinite="infiniteHandler"
           force-use-infinite-wrapper=".el-table__body-wrapper"
-        ></infinite-loading>
+        >
+          <div slot="no-results">결과가 없습니다</div>
+        </infinite-loading>
       </v-col>
     </v-row>
 
