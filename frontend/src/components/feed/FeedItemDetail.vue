@@ -1,5 +1,5 @@
 <template>
-<v-card>
+
   <v-container fluid style="margin-bottom:25px; padding-top: 0;">
     <v-row>
       <v-col cols="12" sm="6" style="padding: 0 12px 0 12px;">
@@ -124,8 +124,8 @@
               </div>
         </v-timeline><br> -->
 
-        <div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-15px;">
-  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 100%">
+        <div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
+  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 108%">
     <div class="v-timeline-item__body" style="margin-right:20px;">
       <v-card
         color='white'
@@ -159,7 +159,6 @@
       </v-col>
     </v-row>
   </v-container>
- </v-card>
 </template>
 
 <script>
