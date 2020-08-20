@@ -125,7 +125,7 @@
         </v-timeline><br> -->
 
         <div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-15px;">
-  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 103%">
+  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 100%">
     <div class="v-timeline-item__body" style="margin-right:20px;">
       <v-card
         color='white'

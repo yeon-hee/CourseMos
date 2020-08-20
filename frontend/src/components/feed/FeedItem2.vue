@@ -22,12 +22,12 @@
     <v-divider></v-divider>
     <br>
 <div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-15px;" v-if="courses.length != 0" @click="onImgClick">
-  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courses" :key="i" style="padding-bottom:13px; width: 104%">
+  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courses" :key="i" style="padding-bottom:13px; width: 100%">
     <div class="v-timeline-item__body" style="margin-right:20px;">
       <v-card
         color='white'
         dark
-        style="width:103%;"
+        style="width:100%;"
       >
         <v-card-title style="font-size:14px; color:black; height:30px; padding:0 0 0 8px; color:orange;">{{course.tradeName}}</v-card-title>
         <v-card-text class="white text--primary" style="padding:0px;">
