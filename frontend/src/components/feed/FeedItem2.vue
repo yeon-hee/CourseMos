@@ -1,13 +1,13 @@
 <template>
 <div>
-  <v-card>
+  <v-card style="padding-bottom: 2px;">
 
     <v-list-item>
-      <v-list-item-avatar style="border: 2px solid #f89077;">
+      <v-list-item-avatar>
         <img :src="profileImage"/>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title><a style="color:black;"  class="text-decoration-none"
+        <v-list-item-title><a style="color:black;  font-size:15px;"  class="text-decoration-none"
                             href="javascript:void(0);" @click="onClickUserId(feed.userId)">{{feed.userId}}</a></v-list-item-title>
         <v-list-item-subtitle>
           <v-icon x-small>fas fa-users</v-icon>
@@ -21,19 +21,19 @@
     </v-list-item>
     <v-divider></v-divider>
     <br>
-<div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light"  v-if="courses.length != 0" @click="onImgClick">
-  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courses" :key="i" style="padding-bottom:13px;">
+<div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-15px;" v-if="courses.length != 0" @click="onImgClick">
+  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courses" :key="i" style="padding-bottom:13px; width: 104%">
     <div class="v-timeline-item__body" style="margin-right:20px;">
       <v-card
         color='white'
         dark
-        style="width:95%;"
+        style="width:103%;"
       >
         <v-card-title style="font-size:14px; color:black; height:30px; padding:0 0 0 8px; color:orange;">{{course.tradeName}}</v-card-title>
         <v-card-text class="white text--primary" style="padding:0px;">
           <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 0px 0 6px 8px;">
-                <div style="float:left; margin: 4px 0px 9px 10px; line-height: 1.2em;">
-                  <div style="font-size:10px; color:#8a8a8a;">{{course.categoryName}}</div>
+                <div style="float:left; margin: 5px 0px 9px 10px; line-height: 1.2em;">
+                  <div style="font-size:11px; color:#8a8a8a;">{{course.categoryName}}</div>
                   <div style="font-size:13px;">{{course.roadAddress}} </div>
                 </div>
                 <div style="clear:both;"/>
@@ -90,12 +90,12 @@
       <v-spacer></v-spacer>
     </v-card-actions>
      <v-spacer v-if="feed.tags != null" style="padding: 0 8px 8px 11px;">
-       <div style="margin-bottom: 3px; font-size:14px;">
+       <div style="margin-bottom: 6px; font-size:14px;">
          <v-icon small color="#64DD17">
            mdi-map-marker-radius-outline
          </v-icon>
         <!-- <img src="../../assets/images/detail1.png" style="height:12px; width:12px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray);"> -->
-          <span style="font-size:12px;"> {{region}} </span>
+          <span style="font-size:13px;"> {{region}} </span>
        </div>
         <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
           #{{ tag }}
