@@ -6,22 +6,29 @@
         <p style="text-align: center; font-weight: bold; font-size: 17px;">댓글</p>
       </v-col>
     </v-row>
-    <v-row v-for="(comment, index) in comments" v-bind:key="comment.commentNo" style="height: 44px;">
-      <v-col cols="12" sm="6" offset-sm="3">
-        <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile">
-          <p class="comment-writer">{{comment.writer}}</p>
-          <p class="comment-content">{{comment.content}}</p>
-          <v-btn small color="error"
-                v-if="userId==comment.writer" @click="deleteComment(feed, comment, index)" style="float:right;">삭제</v-btn>
-
-          <div style="clear:both;"></div>
+    <v-row v-for="(comment, index) in comments" v-bind:key="comment.commentNo">
+      <v-col cols="12" sm="6" offset-sm="3" style="padding: 0 12px 0 12px;">
+        <v-row>
+          <v-col cols="1">
+            <span><img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"></span>
+          </v-col>
+          <v-col cols="11">
+            <span class="comment-writer">{{comment.writer}}</span>
+            <span class="comment-content">{{comment.content}}
+              <v-icon left small  v-if="userId==comment.writer" @click="deleteComment(feed, comment, index)" style=" margin-bottom: 2px;
+              -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.5) drop-shadow(0 0 0 gray);">{{ icons.mdiDelete }}</v-icon>
+            </span> 
+          </v-col>
+         </v-row>
+        <div class="line"></div>
+        
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="6" offset-sm="3" class="plane">
+      <v-col cols="12" sm="6" offset-sm="3" class="plane" style="padding: 0 12px 0 12px;">
         <img src="../../assets/images/send_120237.png" class="send" width="43px" height="43px" style="padding: 7px; float: left; position: sticky;">
         <input style="border:none; width:70%" v-model="content" id="content"/>
-        <v-btn color="primary" @click="registComment(feed)">등록</v-btn>
+        <v-btn color="primary" style="width:10%; min-width: 50px; margin-top: 8px;" @click="registComment(feed)">등록</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -33,11 +40,15 @@ import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
 import UserApi from "../../api/UserApi";
 import AlertApi from "../../api/AlertApi";
+import {mdiDelete} from '@mdi/js'
 
 export default {
   // props : {feedNo : String},
   data: () => {
     return { 
+      icons: {
+        mdiDelete
+      },
       feedNo: {},
       feed : {},
       photos : [],
@@ -133,6 +144,13 @@ export default {
 
 
 <style scoped>
+.line{
+  clear: both;
+  height: 0.5px;
+  width: 100%;
+  background-color: gray;
+  opacity: 30%;
+}
 .send{
   -webkit-filter: opacity(.10) drop-shadow(0 0 0 gray);
   filter: opacity(.3) drop-shadow(0 0 0 gray);
@@ -151,16 +169,13 @@ export default {
 }
 .comment-writer{
   padding-top: 1.4%;
-  margin-left: 2%;
-  font-size: 15px;
+  font-size: 1em;
   font-weight: 600;
-  float: left;
 }
 .comment-content{
-  margin-left: 2%;
   padding-top: 1.5%;
-  font-size: 15px;
-  float: left;
+   margin-left: 2%;
+  font-size: 1em;
 }
 
 </style>
