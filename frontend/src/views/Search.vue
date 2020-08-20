@@ -4,7 +4,7 @@
     class="mx-auto"
     max-width="500"
   >
-    <v-sheet class="pa-4" style="background-color: #fab7ae;">
+    <v-sheet class="pa-4" style="background-color: rgb(245,152,152);">
       <v-text-field
         v-model="search"
         label="유저 검색"
@@ -14,7 +14,7 @@
         hide-details
         clearable
         clear-icon="mdi-close-circle-outline"
-        style="background-color: #fab7ae;"
+        style="background-color: rgb(245,152,152);"
       ></v-text-field>
       <v-checkbox
         v-model="caseSensitive"
