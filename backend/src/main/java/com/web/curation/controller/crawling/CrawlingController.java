@@ -110,7 +110,9 @@ public class CrawlingController {
         System.out.println(url);
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
-                            .header("Referer", referer + number)
+                            .header("Referer", referer)
+                            .header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+                            .header("Accept-Encoding", "gzip, deflate, br")
                             .ignoreContentType(true).get();
         String str = doc.text();
 
@@ -130,7 +132,9 @@ public class CrawlingController {
         System.out.println(url);
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
-                            .header("Referer", referer + number)
+                            .header("Referer", referer)
+                            .header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+                            .header("Accept-Encoding", "gzip, deflate, br")
                             .ignoreContentType(true).get();
         String str = doc.text();
 
@@ -150,7 +154,9 @@ public class CrawlingController {
         System.out.println(url);
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
-                            .header("Referer", referer + number)
+                            .header("Referer", referer)
+                            .header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+                            .header("Accept-Encoding", "gzip, deflate, br")
                             .ignoreContentType(true).get();
         String str = doc.text();
 
