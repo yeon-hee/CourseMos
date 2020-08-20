@@ -4,37 +4,40 @@
       <v-col cols="12" sm="6" offset-sm="3">
         <v-card class="pa-5">
           <p style="color:#EF5B5B; font-size:20px; font-weight:bold" class="mb-3">피드 작성하기</p>
-          <header data-v-4d6f63f3="" class="v-sheet theme--light v-toolbar v-toolbar--extended rounded-lg elevation-2" style="height: 65px;">
-          <div class="v-toolbar__content" style="height: 60px;">
-                <v-slide-group show-arrows>
-                <v-slide-item
-                  v-for="(course, index) in courses"
-                  v-bind:key="index"
-                  class="place"
-                >
+          <header
+            data-v-4d6f63f3
+            class="v-sheet theme--light v-toolbar v-toolbar--extended rounded-lg elevation-2"
+            style="height: 65px;"
+          >
+            <div class="v-toolbar__content" style="height: 60px;">
+              <v-slide-group show-arrows>
+                <v-slide-item v-for="(course, index) in courses" v-bind:key="index" class="place">
                   <span>
-                    <img :src="course.thumbnailUrl" class="thumbnail" 
-                    alt="img" style="margin-top:4px; border-radius: 5px; width:55px; height:55px;"/>
+                    <img
+                      :src="course.thumbnailUrl"
+                      class="thumbnail"
+                      alt="img"
+                      style="margin-top:4px; border-radius: 5px; width:55px; height:55px;"
+                    />
                     <v-icon large color="orange" style="margin-top:5px;">mdi-chevron-right</v-icon>
                   </span>
                 </v-slide-item>
               </v-slide-group>
-              
             </div>
           </header>
           <div>
             <!-- input type=text -->
 
-            <v-textarea 
-            label="Contents"
-            rows="10"
-            outlined
-            v-model="contents"
-            color="#EF5B5B"
-            style="width:100%;"
-            class="my-3"></v-textarea>
+            <v-textarea
+              label="Contents"
+              rows="10"
+              outlined
+              v-model="contents"
+              color="#EF5B5B"
+              style="width:100%;"
+              class="my-3"
+            ></v-textarea>
           </div>
-
 
           <div>
             <input
@@ -52,12 +55,15 @@
             </ul>
           </div>
           <div style="text-align: center;">
-            <v-btn class="addButton my-7" color="#EF5B5B" style="color:white" @click="checkImage()">피드 추가</v-btn>
+            <v-btn
+              class="addButton my-7"
+              color="#EF5B5B"
+              style="color:white"
+              @click="checkImage()"
+            >피드 추가</v-btn>
           </div>
         </v-card>
-        
       </v-col>
-
     </v-row>
   </v-container>
 </template>
@@ -127,7 +133,7 @@ export default {
       }
     },
     uploadFeed() {
-      this.contents = this.contents.split('\n').join('<br/>');
+      this.contents = this.contents.split("\n").join("<br/>");
       let data = {
         token: this.token,
         userId: this.userId,
@@ -185,6 +191,8 @@ export default {
               }
             );
           }
+          this.$store.state.keywordSave = {};
+          this.$store.state.courses = [];
           this.$router.push("/feed/main");
         },
         (error) => {
@@ -197,7 +205,6 @@ export default {
 </script>
 
 <style scoped>
-
 .placeList {
   width: 300px;
   min-width: 300px;
