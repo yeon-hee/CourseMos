@@ -206,7 +206,7 @@ export default {
       FeedApi.clickLike(
           data,
           response => {
-            console.log("좋아요 클릭");
+            // console.log("좋아요 클릭");
           },
           error => {
             alert(error);
@@ -237,13 +237,18 @@ export default {
       }
 
       const regionArray = [... set]
-      for(var i = 0 ; i < regionArray.length; i++) {
+      
+      var filteredRegionArray = regionArray.filter((ele)=> {
+        return ele != null
+      })
+
+      for(var i = 0 ; i < filteredRegionArray.length; i++) {
         // console.log(regionArray[i])
-        if(regionArray.length - 1 != i) {
-          this.region += (regionArray[i] + " -> ")
-        } else {
-          this.region += (regionArray[i])
-        }
+          if(filteredRegionArray.length - 1 != i) {
+            this.region += (filteredRegionArray[i] + " -> ")
+          } else {
+            this.region += (filteredRegionArray[i])
+          }
       }
       
     },
