@@ -90,7 +90,7 @@
       <v-spacer></v-spacer>
     </v-card-actions>
      <v-spacer v-if="feed.tags != null" style="padding: 0 8px 8px 11px;">
-       <div style="margin-bottom: 6px; font-size:14px;">
+       <div style="margin-bottom: 2px; font-size:14px;">
          <v-icon small color="#64DD17">
            mdi-map-marker-radius-outline
          </v-icon>
