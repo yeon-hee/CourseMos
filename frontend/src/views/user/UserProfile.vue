@@ -300,10 +300,10 @@ export default {
       this.$router.push("/feeds/" + no);
     },
     goFollower() {
-      this.$router.push("/friends/followers/"+this.user.email)
+      this.$router.push("/friends/followers/"+this.user.email+'/'+this.user.userId)
     },
     goFollowing() {
-      this.$router.push("/friends/followings/"+this.user.email)
+      this.$router.push("/friends/followings/"+this.user.email+'/'+this.user.userId)
     }
   },
 };

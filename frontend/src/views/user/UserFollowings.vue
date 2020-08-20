@@ -8,10 +8,10 @@
                 background-color="red lighten-2"
                 dark
             >
-                <v-tab :to="'/friends/followers/'+email">
+                <v-tab :to="'/friends/followers/'+email+'/'+userId">
                 팔로워
                 </v-tab>
-                <v-tab :to="'/friends/followings/'+email">
+                <v-tab :to="'/friends/followings/'+email+'/'+userId">
                 팔로잉
                 </v-tab>
             </v-tabs>
@@ -76,11 +76,22 @@ export default {
     },
     created() {
         this.email = this.$route.params.email;
+        this.userId = this.$route.params.userId;
         let data = {
-            email : this.email,
+            follower : this.userId,
             token : localStorage.getItem('token'),
-            follower: localStorage.getItem('userId')
         }
+
+        FollowApi.getFollowing(
+            data,
+            res => {
+                this.followingList = res.data
+                console.log(res);
+            },
+            error => {
+                alert(error);
+            }
+        )
         ProfileApi.requestCount(
             data,
             res => {
@@ -92,23 +103,14 @@ export default {
                 alert(error);
             }
         )
-        FollowApi.getFollowing(
-            data,
-            res => {
-                this.followingList = res.data
-                console.log(res);
-            },
-            error => {
-                alert(error);
-            }
-        )
+
     },
     data() {
         return {
             follower_count: 0,
             following_count: 0, 
             followingList: [],
-            user_id: '',
+            userId: '',
             email : ""
         };
     },
