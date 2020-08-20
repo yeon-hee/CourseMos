@@ -39,6 +39,7 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("/crawling")
 public class CrawlingController {
   static String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36";
+  static String referer = "https://place.map.kakao.com/";
   @Autowired
   CourseDao courseDao;
 
@@ -80,6 +81,7 @@ public class CrawlingController {
         try{
           Document doc = Jsoup.connect(url)
                               .userAgent(userAgent)
+                              .header("Referer", referer + number)
                               .ignoreContentType(true).get();
           String str = doc.text();
           System.out.println(str);
@@ -105,6 +107,7 @@ public class CrawlingController {
         System.out.println(url);
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
+                            .header("Referer", referer + number)
                             .ignoreContentType(true).get();
         String str = doc.text();
 
@@ -124,6 +127,7 @@ public class CrawlingController {
         System.out.println(url);
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
+                            .header("Referer", referer + number)
                             .ignoreContentType(true).get();
         String str = doc.text();
 
@@ -143,6 +147,7 @@ public class CrawlingController {
         System.out.println(url);
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
+                            .header("Referer", referer + number)
                             .ignoreContentType(true).get();
         String str = doc.text();
 
