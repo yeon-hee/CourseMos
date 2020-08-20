@@ -1,6 +1,6 @@
 <template>
 <v-card>
-  <v-container fluid style="margin-bottom:50px; padding:0">
+  <v-container fluid style="margin-bottom:25px; padding-top: 0;">
     <v-row>
       <v-col cols="12" sm="6" style="padding: 0 12px 0 12px;">
         <v-sheet 

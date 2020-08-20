@@ -3,8 +3,9 @@
         <v-card
     class="mx-auto"
     max-width="500"
+    style="padding-bottom: 60px;"
   >
-    <v-sheet class="pa-4" style="background-color: rgb(245,152,152);">
+    <v-sheet class="pa-4" style="background-color: rgb(245,152,152); ">
       <v-text-field
         v-model="search"
         label="유저 검색"
@@ -37,8 +38,7 @@
         <template v-slot:prepend="{ item }">
             <v-icon v-if="!item.children">mdi-account</v-icon> {{ selected.name }}
         </template>
-      </v-treeview><br><br><br>
-
+      </v-treeview>
   </v-card>
     </div>
 </template>
