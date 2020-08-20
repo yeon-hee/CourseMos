@@ -103,7 +103,7 @@
             <img src="../../assets/images/share.png" width="18px" height="18px"/>
           </v-btn>
         </div><br><br>
-        <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
+        <!-- <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
           <div class="v-timeline-item v-timeline-item--fill-dot theme--light" 
             v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 108%">
             <div class="v-timeline-item__body" style="margin-right:20px;">
@@ -135,8 +135,8 @@
               </div>
             </div>
           </div>
-        </div><br>
-       <!-- <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
+        </div><br> -->
+       <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
          <div data-v-19a3425a="" class="v-timeline-item v-timeline-item--before theme--light" style="width: 103%; padding-bottom:10px;" v-for="(course,index) in courseList" :key="course.courseOrder">
            <div class="v-timeline-item__body" style="margin-right:21px;">
               <v-card >
@@ -165,7 +165,7 @@
                 </div>
                 </div>
               </div>
-        </v-timeline><br> -->
+        </v-timeline><br>
 <!-- 
         <v-timeline dense>
           <v-timeline-item

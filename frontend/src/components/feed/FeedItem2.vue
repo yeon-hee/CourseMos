@@ -21,8 +21,8 @@
     </v-list-item>
     <v-divider></v-divider>
     <br>
-<div  class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-15px;" v-if="courses.length != 0" @click="onImgClick">
-  <div class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courses" :key="i" style="padding-bottom:13px; width: 104%">
+<div data-v-13777b40="" class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-15px;" v-if="courses.length != 0" @click="onImgClick">
+  <div data-v-13777b40="" class="v-timeline-item v-timeline-item--fill-dot theme--light" v-for="(course, i) in courses" :key="i" style="padding-bottom:13px; width: 104%">
     <div class="v-timeline-item__body" style="margin-right:20px;">
       <v-card
         color='white'
