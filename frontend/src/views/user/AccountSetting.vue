@@ -13,7 +13,7 @@
           </v-row>
 
           <!-- profile image  -->
-          <v-card color='pink lighten-5'>
+          <v-card color='deep-orange lighten-5'>
             <v-row>
               <v-col cols="5" style="text-align:center">
                 <v-avatar size="96">
@@ -30,7 +30,7 @@
                   prepend-icon="mdi-camera"
                 ></v-file-input>
                 <v-btn
-                  dark color="pink"
+                  dark color="#EF5B5B"
                   @click="updateProfileImage()"
                   value="등록"
                 >등록</v-btn>
@@ -40,26 +40,16 @@
           <br>
           <!-- user info  -->
           <template style="margin-top:50px;">
-            <!-- <v-row no-gutters style="margin-top:50px;"> -->
-              <!-- <v-col cols="4">
-                <v-subheader>아이디</v-subheader>
-              </v-col> -->
-              <!-- <v-col> -->
                 <v-text-field
+                  color="red"
                   label="아이디"
                   v-model="userId"
                   v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
                   v-bind:placeholder="placeUserId"
                   id="userId"
                 ></v-text-field>
-              <!-- </v-col> -->
-            <!-- </v-row> -->
-            <!-- <v-row no-gutters> -->
-              <!-- <v-col cols="4">
-                <v-subheader>이메일</v-subheader>
-              </v-col> -->
-              <!-- <v-col> -->
                 <v-text-field
+                  color="red"
                   label="이메일"
                   readonly
                   hint="이메일은 변경 불가합니다."
@@ -67,19 +57,11 @@
                   v-bind:placeholder="placeEmail"
                   id="email"
                 ></v-text-field>
-              <!-- </v-col> -->
-            <!-- </v-row> -->
-            <!-- <v-row no-gutters>
-              <v-col cols="4">
-                <v-subheader>비밀번호</v-subheader>
-              </v-col> -->
-              <!-- <v-col cols="8" style="align-self: center;"> -->
-              <!-- </v-col> -->
-            <!-- </v-row> -->
 
             <v-row no-gutters style="margin-top:20px;">
               <v-col cols="12">
                 <v-textarea
+                  color="red"
                   name="input-7-1"
                   filled
                   label="한줄 자기소개"
@@ -88,89 +70,27 @@
                   rows="7"
                   v-bind:class="{error : error.profileComment, complete:!error.profileComment&&profileComment.length!==0}"
                   v-model="profileComment"
-                  v-bind:placeholder="placeProfileComment"
                 ></v-textarea>
               </v-col>
             </v-row>
             <v-row justify="center">
               <v-col cols="12" style="text-align:center;">
                 <v-btn
-                  color="pink"
+                  color="#EF5B5B"
                   @click="onChange"
                   :disabled="!isSubmit"
                   :class="{disabled : !isSubmit}"
-                  class="pink white--text"
+                  class="white--text"
                   block
                   depressed
                 >저장</v-btn>
               </v-col>
             </v-row>
-            <v-btn depressed dark block color="pink" @click="goChangePassword">
+            <v-btn depressed dark block color="#EF5B5B" @click="goChangePassword">
               비밀번호 변경
             </v-btn>
           </template>
 
-          <!-- <div>
-  <div class="join wrapC total">
-    <div class="title">
-        <a href="#/users/profile"><img src="../../assets/images/back-arrow.png" width="30px" height="30px" class="back-arrow"></a>
-    </div>
-
-    <div>
-        <div class="page-title">내 계정 설정</div>
-        <div class="page-title-en">My Settings</div>
-    </div>
-    <div class="space"></div>
-    
-    <div class="form-wrap">
-      <div class="input-wrap">
-        <img :src="profileThumbnail" width="50px" height="50px">
-          <input @change="selectImage()" type="file" ref="profileImage" name="imgFile" class="upload-input" accept="image/*">
-          <button class="upload-btn" @click="updateProfileImage()" value="등록">등록</button>
-      </div>
-      <div class="input-wrap">
-        <label for="userId">아이디</label>
-        <input class="account-input"
-          v-model="userId" 
-          v-bind:class="{error : error.userId, complete:!error.userId&&userId.length!==0}"
-          v-bind:placeholder="placeUserId"
-          id="userId" />
-        <div class="error-text" v-if="error.userId">{{error.userId}}</div>
-      </div>
-
-      <div class="input-wrap">
-        <label for="email">이메일</label>
-        <input class="account-input"
-          v-model="email"
-          v-bind:placeholder="placeEmail"
-          id="email" readonly/>
-        <div class="email-text">이메일은 변경 불가합니다.</div>
-      </div>
-
-      <div class="input-wrap">
-        <label for="password-change">비밀번호 변경</label>
-        <a href="#/users/profile/password" class="password-change">비밀번호 변경</a>
-      </div>
-
-      <div class="input-wrap">
-        <label for="self-info">한줄 자기소개</label>
-        
-          <textarea class="self-info-textarea" cols="32" rows="7"
-            v-bind:class="{error : error.profileComment, complete:!error.profileComment&&profileComment.length!==0}"
-            v-model="profileComment"
-            v-bind:placeholder="placeProfileComment"></textarea>
-      </div>
-    </div>
-
-
-    <button 
-      class="btn-bottom"
-      @click="onChange"
-      :disabled="!isSubmit"
-      :class="{disabled : !isSubmit}"
-      >저장</button>
-  </div>
-          </div>-->
         </v-card>
       </v-col>
     </v-row>
@@ -195,10 +115,13 @@ export default {
       (response) => {
         console.dir(response);
         this.placeEmail = response.data.email;
-        this.placeUserId = response.data.userId;
-        this.placeProfileComment = response.data.profileComment;
+        // this.placeUserId = response.data.userId;
+        this.userId = response.data.userId;
+        if(response.data.profileComment != undefined)
+          this.profileComment = response.data.profileComment;
         this.email = response.data.email;
-        this.profileThumbnail = response.data.profilePhoto;
+        if(response.data.profilePhoto != undefined && response.data.profilePhoto.length > 10)
+          this.profileThumbnail = response.data.profilePhoto;
       },
       (error) => {
         alert(error);
@@ -328,7 +251,7 @@ export default {
       profileComment: "",
       placeUserId: "",
       placeEmail: "",
-      placeProfileComment: "",
+      // placeProfileComment: "",
       isLoading: false,
       error: {
         userId: false,
@@ -336,7 +259,7 @@ export default {
       isSubmit: false,
       termPopup: false,
       profileImage: {},
-      profileThumbnail: "../../assets/images/user.png",
+      profileThumbnail: require("@/assets/images/profile_default.png"),
     };
   },
 };

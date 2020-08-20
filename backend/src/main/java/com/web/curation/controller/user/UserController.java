@@ -208,12 +208,10 @@ public class UserController {
 
         Optional<User> use = userDao.findByUserId(user.getUserId());
         ResponseEntity response = null;
-
-        if(use.isPresent()){ // 있으면 안됨 - 중복 체크
-            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            System.out.println("유저아이디 중복");
-        }
-        else{ // 기존에 없는 유저 아이디일 경우 추가
+        String userId = (String) jwtService.getUserId();
+        // System.out.println(userId + userId.length());
+        // System.out.println(user.getUserId() + user.getUserId().length());
+        if(!use.isPresent() || userId.equals(user.getUserId()) ){ // 있으면 안됨 - 중복 체크
             try {
                 User people = userDao.findByEmail(user.getEmail());
                 people.setUserId(user.getUserId()); // 바뀌는 내용
@@ -232,6 +230,36 @@ public class UserController {
                 response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
             }
         }
+        else{ // 기존에 없는 유저 아이디일 경우 추가
+            final BasicResponse result = new BasicResponse();
+            result.status = false;
+            result.data = "유저 아이디 중복입니다.";
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+            System.out.println("유저아이디 중복");
+        }
+        // if(use.isPresent()){ // 있으면 안됨 - 중복 체크
+        //     response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        //     System.out.println("유저아이디 중복");
+        // }
+        // else{ // 기존에 없는 유저 아이디일 경우 추가
+        //     try {
+        //         User people = userDao.findByEmail(user.getEmail());
+        //         people.setUserId(user.getUserId()); // 바뀌는 내용
+        //         people.setProfileComment(user.getProfileComment());
+        //         userDao.save(people);
+
+        //         final BasicResponse result = new BasicResponse();
+        //         result.status = true;
+        //         result.data = "success";
+        //         response = new ResponseEntity<>(result, HttpStatus.OK);
+
+        //     } catch(Exception e) {
+        //         final BasicResponse result = new BasicResponse();
+        //         result.status = false;
+        //         result.data = e.toString();
+        //         response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        //     }
+        // }
 
         return response;
     }

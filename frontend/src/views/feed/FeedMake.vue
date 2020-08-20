@@ -575,6 +575,7 @@ export default {
     doRemove(index) {
       console.dir(this.courses)
       this.courses.splice(index, 1);
+      this.idx--
     },
   },
 };
