@@ -71,7 +71,7 @@ public class CrawlingController {
 
   @GetMapping("/detail/{number}")
   @ApiOperation(value = "상세 정보 크롤링하기")
-  public Object getDetail(@PathVariable final String number) throws IOException, ParseException {
+  public Object getDetail(@PathVariable final String number) throws Exception {
   
         String url = "https://place.map.kakao.com/m/main/v/"; // 크롤링 url로 바꾸기
         url += number;
@@ -89,10 +89,10 @@ public class CrawlingController {
           JSONObject arr = (JSONObject) jsonObject.get("basicInfo");
           return arr;
         }
-        catch (ParseException e) {
+        catch (Exception e) {
           e.printStackTrace();
           return e;
-      }
+        }
   }
 
   @GetMapping("/menu/{number}")
