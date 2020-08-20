@@ -38,7 +38,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/crawling")
 public class CrawlingController {
-
+  static String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36";
   @Autowired
   CourseDao courseDao;
 
@@ -78,7 +78,9 @@ public class CrawlingController {
         System.out.println(url);
 
         try{
-          Document doc = Jsoup.connect(url).ignoreContentType(true).get();
+          Document doc = Jsoup.connect(url)
+                              .userAgent(userAgent)
+                              .ignoreContentType(true).get();
           String str = doc.text();
           System.out.println(str);
 
@@ -101,7 +103,9 @@ public class CrawlingController {
         String url = "https://place.map.kakao.com/m/main/v/"; // 크롤링 url로 바꾸기
         url += number;
         System.out.println(url);
-        Document doc = Jsoup.connect(url).ignoreContentType(true).get();
+        Document doc = Jsoup.connect(url)
+                            .userAgent(userAgent)
+                            .ignoreContentType(true).get();
         String str = doc.text();
 
         JSONParser jsonParser = new JSONParser();
@@ -118,7 +122,9 @@ public class CrawlingController {
         String url = "https://place.map.kakao.com/m/main/v/"; // 크롤링 url로 바꾸기
         url += number;
         System.out.println(url);
-        Document doc = Jsoup.connect(url).ignoreContentType(true).get();
+        Document doc = Jsoup.connect(url)
+                            .userAgent(userAgent)
+                            .ignoreContentType(true).get();
         String str = doc.text();
 
         JSONParser jsonParser = new JSONParser();
@@ -135,7 +141,9 @@ public class CrawlingController {
         String url = "https://place.map.kakao.com/m/main/v/"; // 크롤링 url로 바꾸기
         url += number;
         System.out.println(url);
-        Document doc = Jsoup.connect(url).ignoreContentType(true).get();
+        Document doc = Jsoup.connect(url)
+                            .userAgent(userAgent)
+                            .ignoreContentType(true).get();
         String str = doc.text();
 
         JSONParser jsonParser = new JSONParser();
