@@ -110,11 +110,7 @@ export default {
     // Nav,
   },
   created() {
-    console.log(this.$store.state.keywordSave);
-    if (this.$store.state.keywordSave != null) {
-      document.getElementById("keyword").value = this.$store.state.keywordSave;
-      this.searchPlaces();
-    }
+    this.$store.state.courses = [];
   },
   mounted() {
     window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
@@ -127,7 +123,7 @@ export default {
       places: null,
       markers: [],
       ps: {},
-      infowindow: {},
+      // infowindow: {},
       courses: [],
       temp: {},
       idx: 0,

@@ -191,8 +191,6 @@ export default {
               }
             );
           }
-          this.$store.state.keywordSave = {};
-          this.$store.state.courses = [];
           this.$router.push("/feed/main");
         },
         (error) => {

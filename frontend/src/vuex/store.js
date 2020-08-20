@@ -12,7 +12,6 @@ const state = {
   email: {},
   userId: {},
   courses: {},
-  keywordSave: {},
 };
 
 export default new Vuex.Store({
