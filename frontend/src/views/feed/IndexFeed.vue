@@ -8,12 +8,6 @@
       </v-col>
     </v-row>
 
-    <!-- <v-row class="pa-0" v-for="feed in feeds" v-bind:key="feed.feedNo">
-      <v-col cols="12" sm="6" offset-sm="3">
-        <FeedItem2 v-for="feed in feeds" v-bind:key="feed.feedNo" v-bind:feed="feed" />
-      </v-col>
-    </v-row> -->
-
     <v-row class="pa-0" style="justify-content:center;">
       <v-col cols="12" md="4" v-for="feed in feeds" v-bind:key="feed.feedNo" class="ma-1 py-0">
         <FeedItem2 :feed="feed"/>
@@ -33,7 +27,6 @@
       </v-col>
     </v-row>
 
-    <!-- </div> -->
   </v-container>
 </template>
 
@@ -89,14 +82,6 @@ export default {
               
               this.feeds = this.feeds.concat(response.data.content);
               
-              // const list = response.data.content
-              // for(const item of list) {
-                // this.feeds.push(item)
-                // this.feeds[this.feeds.length-1].writeDate = ""
-                // this.feeds[this.feeds.length-1].parseDate
-                // console.dir(this.feeds[this.feeds.length-1])
-              // }
-              // console.dir((this.feeds[this.feeds.length-1].writeDate))
               $state.loaded();
             } else {
               $state.complete();
@@ -116,7 +101,6 @@ export default {
           data,
           (response) => {
             if (response.data.length) {
-              console.log('검색')
               this.page += 1;
               this.feeds = this.feeds.concat(response.data);
               $state.loaded();

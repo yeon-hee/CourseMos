@@ -33,179 +33,179 @@ import UserFollowers from "./views/user/UserFollowers";
 import UserFollowings from "./views/user/UserFollowings";
 
 export default [{
-    path: "/",
-    name: "Login",
-    component: Login,
-},
-{
-    path: "/user/join",
-    name: "Join",
-    component: Join,
-},
-{
-    path: "/user/find/password",
-    name: "FindPassword",
-    component: FindPassword,
-},
-{
-    path: "/error",
-    name: "Error",
-    component: Error,
-},
-{
-    path: "*",
-    name: "NotFound",
-    component: NotFound,
-},
-{
-    path: "/",
-    name: "Main",
-    component: Main,
-    children: [{
-        path: "/feed/main",
-        name: "FeedMain",
-        component: FeedMain,
+        path: "/",
+        name: "Login",
+        component: Login,
     },
     {
-        path: "/feed/main/:worldcup",
-        name: "FeedMain",
-        component: FeedMain,
+        path: "/user/join",
+        name: "Join",
+        component: Join,
     },
     {
-        path: "/components",
-        name: "Components",
-        component: Components,
+        path: "/user/find/password",
+        name: "FindPassword",
+        component: FindPassword,
     },
     {
-        path: "/users/profile/password",
-        name: "ChangePassword",
-        component: ChangePassword,
-    },
-    // {
-    //     path: "/user/signup/complete",
-    //     name: "SignUpComplete",
-    //     component: SignUpComplete,
-    // },
-    {
-        path: "/users/profile",
-        name: "Profile",
-        component: Profile,
+        path: "/error",
+        name: "Error",
+        component: Error,
     },
     {
-        path: "/users/profile/info/:userId",
-        name: "UserProfile",
-        component: UserProfile,
+        path: "*",
+        name: "NotFound",
+        component: NotFound,
     },
     {
-        path: "/alerts",
-        name: "Alerts",
-        component: Alerts,
+        path: "/",
+        name: "Main",
+        component: Main,
+        children: [{
+                path: "/feed/main",
+                name: "FeedMain",
+                component: FeedMain,
+            },
+            {
+                path: "/feed/main/:worldcup",
+                name: "FromWordCupToFeedMain",
+                component: FeedMain,
+            },
+            {
+                path: "/components",
+                name: "Components",
+                component: Components,
+            },
+            {
+                path: "/users/profile/password",
+                name: "ChangePassword",
+                component: ChangePassword,
+            },
+            // {
+            //     path: "/user/signup/complete",
+            //     name: "SignUpComplete",
+            //     component: SignUpComplete,
+            // },
+            {
+                path: "/users/profile",
+                name: "Profile",
+                component: Profile,
+            },
+            {
+                path: "/users/profile/info/:userId",
+                name: "UserProfile",
+                component: UserProfile,
+            },
+            {
+                path: "/alerts",
+                name: "Alerts",
+                component: Alerts,
+            },
+            {
+                path: "/requests",
+                name: "Requests",
+                component: Requests,
+            },
+            {
+                path: "/alertTab",
+                name: "AlertTab",
+                component: AlertTab
+            },
+            {
+                path: "/friends/followers",
+                name: "Followers",
+                component: Followers,
+            },
+            {
+                path: "/friends/followings",
+                name: "Followings",
+                component: Followings,
+            },
+            {
+                path: "/search",
+                name: "Search",
+                component: Search,
+            },
+            {
+                path: "/users/profile/setting",
+                name: "AccountSetting",
+                component: AccountSetting,
+            },
+            {
+                path: "/feeds/:feedNo",
+                name: "FeedDetail",
+                component: FeedDetail,
+            },
+            {
+                path: "/map",
+                name: "Map",
+                component: MapPage,
+            },
+            {
+                path: "/feed/write",
+                name: "WriteFeed",
+                component: WriteFeedPage,
+            },
+            {
+                path: "/feedmake",
+                name: "FeedMake",
+                component: FeedMake,
+            },
+            {
+                path: "/feeds/comments/:feedNo",
+                name: "FeedComment",
+                component: FeedComment,
+            },
+            {
+                path: "/feeds/back/:feedNo",
+                name: "FeedItemDetail",
+                component: FeedItemDetail,
+            },
+            {
+                path: "/crawling",
+                name: "Crawling",
+                component: Crawling,
+            },
+            {
+                path: "/trade/:id",
+                name: "TradeDetailForMakeFeed",
+                component: TradeDetail,
+            },
+            {
+                path: "/trade/:id/:feedNo",
+                name: "TradeDetailForFeedDetail",
+                component: TradeDetail,
+            },
+            {
+                path: "/worldcup",
+                name: "WorldCup",
+                component: WorldCup,
+            },
+            {
+                path: "/worldcup/food",
+                name: "FoodCup",
+                component: FoodCup,
+            },
+            {
+                path: "/worldcup/play",
+                name: "PlayCup",
+                component: PlayCup,
+            },
+            {
+                path: "/worldcup/act",
+                name: "ActCup",
+                component: ActCup,
+            },
+            {
+                path: "/friends/followers/:email",
+                name: "UserFollowers",
+                component: UserFollowers,
+            },
+            {
+                path: "/friends/followings/:email",
+                name: "UserFollowings",
+                component: UserFollowings,
+            },
+        ]
     },
-    {
-        path: "/requests",
-        name: "Requests",
-        component: Requests,
-    },
-    {
-        path: "/alertTab",
-        name: "AlertTab",
-        component: AlertTab
-    },
-    {
-        path: "/friends/followers",
-        name: "Followers",
-        component: Followers,
-    },
-    {
-        path: "/friends/followings",
-        name: "Followings",
-        component: Followings,
-    },
-    {
-        path: "/search",
-        name: "Search",
-        component: Search,
-    },
-    {
-        path: "/users/profile/setting",
-        name: "AccountSetting",
-        component: AccountSetting,
-    },
-    {
-        path: "/feeds/:feedNo",
-        name: "FeedDetail",
-        component: FeedDetail,
-    },
-    {
-        path: "/map",
-        name: "Map",
-        component: MapPage,
-    },
-    {
-        path: "/feed/write",
-        name: "WriteFeed",
-        component: WriteFeedPage,
-    },
-    {
-        path: "/feedmake",
-        name: "FeedMake",
-        component: FeedMake,
-    },
-    {
-        path: "/feeds/comments/:feedNo",
-        name: "FeedComment",
-        component: FeedComment,
-    },
-    {
-        path: "/feeds/back/:feedNo",
-        name: "FeedItemDetail",
-        component: FeedItemDetail,
-    },
-    {
-        path: "/crawling",
-        name: "Crawling",
-        component: Crawling,
-    },
-    {
-        path: "/trade/:id",
-        name: "TradeDetail",
-        component: TradeDetail,
-    },
-    {
-        path: "/trade/:id/:feedNo",
-        name: "TradeDetail",
-        component: TradeDetail,
-    },
-    {
-        path: "/worldcup",
-        name: "WorldCup",
-        component: WorldCup,
-    },
-    {
-        path: "/worldcup/food",
-        name: "FoodCup",
-        component: FoodCup,
-    },
-    {
-        path: "/worldcup/play",
-        name: "PlayCup",
-        component: PlayCup,
-    },
-    {
-        path: "/worldcup/act",
-        name: "ActCup",
-        component: ActCup,
-    },
-    {
-        path: "/friends/followers/:email",
-        name: "UserFollowers",
-        component: UserFollowers,
-    },
-    {
-        path: "/friends/followings/:email",
-        name: "UserFollowings",
-        component: UserFollowings,
-    },
-    ]
-},
 ];

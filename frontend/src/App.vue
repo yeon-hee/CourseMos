@@ -9,14 +9,6 @@
 </template>
 
 <script>
-// import "./components/css/style.scss";
-// import Vue from 'vue'
-// import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-// // import 'bootstrap/dist/css/bootstrap.css'
-// // import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-// Vue.use(BootstrapVue)
-// Vue.use(IconsPlugin)
 
 export default {
   name: "app",
@@ -25,10 +17,9 @@ export default {
   },
   methods : {
     addScript() {
-      console.log('지도 add');
       const script = document.createElement('script')
       /* global kakao */
-      script.onload = () => kakao.maps.load(()=>console.log("Hi"))
+      script.onload = () => kakao.maps.load()
       script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=6eef005ce939915ab51bb458c785e9f4&autoload=false&libraries=services,clusterer,drawing'
       document.head.appendChild(script);
     },
