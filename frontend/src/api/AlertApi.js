@@ -20,7 +20,7 @@ const requestCloseAll = (data, callback, errorCallback) => {
 }
 
 const requestLike = (data, callback, errorCallback) => {
-    axios.post(url.url+'/alerts/' + data.feed.userId + '/like' , { headers: { "Authorization": data.token }})
+    axios.post(url.url+'/alerts' , data, { headers: { "Authorization": data.token } })
         .then(res => callback(res))
         .catch(res => errorCallback(res));
 }

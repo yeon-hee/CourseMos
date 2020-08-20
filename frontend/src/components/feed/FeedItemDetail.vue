@@ -397,7 +397,7 @@ export default {
       let data = {
         token : localStorage.getItem('token'),
         feedNo,
-        feed
+        userId: this.feed.userId
       };
 
       FeedApi.clickLike(
@@ -410,6 +410,16 @@ export default {
             console.dir('조아요 클릭 시 오류입니다');
           }
         );
+
+      AlertApi.requestLike(
+       data,
+          res => {
+            console.log("좋아요 알림!");
+          },
+          error => {
+            console.log('조아요 클릭 시 알림 오류입니다');
+          }
+      );
     },
     clickThumbnail(img) {
       this.imageUrl = img;

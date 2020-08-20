@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import com.web.curation.dao.alert.AlertDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.alert.Alert;
+import com.web.curation.model.feed.Feed;
 import com.web.curation.service.JwtService;
 import com.web.curation.util.FeedHub;
 import com.web.curation.util.UserHub;
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -83,15 +85,16 @@ public class AlertController {
         return response;
     }
 
-    @PostMapping("/{Id}/like")
+    @PostMapping
     @ApiOperation(value = "좋아요 알림 추가")
-    public Object addLikeAlert(@PathVariable final String Id) {
+    public Object addLikeAlert(@RequestBody final Alert feed) {
 
         ResponseEntity response = null;
 
         try {
             Alert alert = new Alert();
-            alert.setUserId(Id);
+            
+            alert.setUserId(feed.getUserId());
             String writeUserId = (String) jwtService.getUserId();
             alert.setMessage(writeUserId+"님이 회원님의 게시물을 좋아합니다.");
             alertDao.save(alert);
