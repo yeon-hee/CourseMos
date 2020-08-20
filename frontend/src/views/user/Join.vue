@@ -215,7 +215,7 @@ export default {
             console.log(res);
             this.isSubmit = true;
             alert("회원가입이 성공적으로 되었습니다.");
-            this.$router.push("/user/signup/complete");
+            this.$router.push("/");
           },
           (error) => {
             alert("회원가입에 실패하였습니다.");
