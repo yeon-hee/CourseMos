@@ -103,8 +103,40 @@
             <img src="../../assets/images/share.png" width="18px" height="18px"/>
           </v-btn>
         </div><br><br>
-
-       <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
+        <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
+          <div class="v-timeline-item v-timeline-item--fill-dot theme--light" 
+            v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 108%">
+            <div class="v-timeline-item__body" style="margin-right:20px;">
+              <v-card
+                color='white'
+                dark
+                style="width:100%;"
+              >
+                <v-card-text class="white text--primary" style="padding:0px;">
+                  <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 6px 0 6px 8px;">
+                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.3em;">
+                    <div style="font-size:11px; color:#8a8a8a;">{{course.categoryName}}</div>
+                    <div style="font-size:14px;">{{course.tradeName}} </div>
+                  </div>
+                  <div style="float: right; margin: 14px 13px 0 0;"> 
+                    <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 10px;">
+                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+                    </a>
+                  </div>
+                  <div style="clear:both;"/>
+                </v-card-text>
+              </v-card>
+            </div>
+            <div class="v-timeline-item__divide" style="margin-right:16px; z-index:1;">
+              <div class="v-timeline-item__dot v-timeline-item__dot--small">
+                <div class="v-timeline-item__inner-dot red lighten-2">
+                  <p style="color:white;align-self: start;">{{i+1}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><br>
+       <!-- <v-timeline :dense="$vuetify.breakpoint.smAndDown" style="left:-15px; padding-top: 10px;">
          <div data-v-19a3425a="" class="v-timeline-item v-timeline-item--before theme--light" style="width: 103%; padding-bottom:10px;" v-for="(course,index) in courseList" :key="course.courseOrder">
            <div class="v-timeline-item__body" style="margin-right:21px;">
               <v-card >
@@ -133,7 +165,7 @@
                 </div>
                 </div>
               </div>
-        </v-timeline><br>
+        </v-timeline><br> -->
 <!-- 
         <v-timeline dense>
           <v-timeline-item
