@@ -161,14 +161,10 @@ export default {
         UserApi.requestLogin(
           data,
           (response) => {
-            console.log("로그인 성공");
             alert("로그인에 성공하였습니다.");
             localStorage.setItem("token", response.data.object.token);
             localStorage.setItem("userId", response.data.object.user.userId);
             localStorage.setItem("email", response.data.object.user.email);
-            // this.$store.state.token = response.data.object.token;
-            // this.$store.state.userId = response.data.object.user.userId;
-            // this.$store.state.email = response.data.object.user.email;
 
             this.isSubmit = true;
             this.$router.push("/feed/main");
