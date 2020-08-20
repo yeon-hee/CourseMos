@@ -4,7 +4,7 @@ import Join from "./views/user/Join.vue";
 import FeedMain from "./views/feed/IndexFeed.vue";
 import Components from "./views/Components.vue";
 import ChangePassword from "./views/user/ChangePassword.vue";
-import SignUpComplete from "./views/user/SignUpComplete.vue";
+// import SignUpComplete from "./views/user/SignUpComplete.vue";
 import NotFound from "./views/error/NotFound.vue";
 import Error from "./views/error/Error";
 import Profile from "./views/user/Profile.vue";
@@ -81,11 +81,11 @@ export default [{
         name: "ChangePassword",
         component: ChangePassword,
     },
-    {
-        path: "/user/signup/complete",
-        name: "SignUpComplete",
-        component: SignUpComplete,
-    },
+    // {
+    //     path: "/user/signup/complete",
+    //     name: "SignUpComplete",
+    //     component: SignUpComplete,
+    // },
     {
         path: "/users/profile",
         name: "Profile",
