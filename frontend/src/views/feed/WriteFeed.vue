@@ -137,7 +137,7 @@ export default {
       let data = {
         token: this.token,
         userId: this.userId,
-        contents: this.contents,
+        contents: this.contents.split('\n').join('<br />'),
         thumbnail: null,
       };
 
