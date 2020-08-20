@@ -14,7 +14,7 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="150px"
             >
-              <v-card-title>음식 월드컵</v-card-title>
+              <v-card-title>먹거리 월드컵</v-card-title>
             </v-img>
           </v-card>
         </v-col>
@@ -38,7 +38,7 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="150px"
             >
-              <v-card-title>액티비티 월드컵</v-card-title>
+              <v-card-title>볼거리 월드컵</v-card-title>
             </v-img>
           </v-card>
         </v-col>

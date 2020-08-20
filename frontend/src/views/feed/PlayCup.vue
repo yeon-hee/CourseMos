@@ -64,43 +64,51 @@ export default {
       menuList: [
         {
           id: 1,
-          name: "보드게임방",
+          name: "보드카페",
           thumbnailUrl: require("../../assets/images/board.png"),
+          key: "보드카페",
         },
         {
           id: 2,
           name: "피시방",
           thumbnailUrl: require("../../assets/images/pcroom.jpg"),
+          key: "PC방",
         },
         {
           id: 3,
           name: "노래방",
           thumbnailUrl: require("../../assets/images/karaoke.jpg"),
+          key: "노래",
         },
         {
           id: 4,
-          name: "멀티방",
-          thumbnailUrl: require("../../assets/images/multi.jpg"),
+          name: "당구장",
+          thumbnailUrl: require("../../assets/images/ball.jpg"),
+          key: "당구장",
         },
         {
           id: 5,
           name: "만화방",
           thumbnailUrl: require("../../assets/images/comic.jpg"),
+          key: "만화방",
         },
         {
           id: 6,
           name: "오락실",
           thumbnailUrl: require("../../assets/images/game.jpg"),
+          key: "오락실",
         },
         {
           id: 7,
-          name: "찜질방",
-          thumbnailUrl: require("../../assets/images/hot.jpg"),
+          name: "방탈출",
+          thumbnailUrl: require("../../assets/images/escape.jpg"),
+          key: "방탈출",
         },
         {
           id: 8,
-          name: "영화관",
-          thumbnailUrl: require("../../assets/images/movie.jpg"),
+          name: "VR체험",
+          thumbnailUrl: require("../../assets/images/vr.png"),
+          key: "VR",
         },
       ],
     };
@@ -122,8 +130,7 @@ export default {
         this.winner = this.menuList[idx];
         this.dialog = true;
         alert("1등 놀거리는 " + this.winner.name + "입니다.");
-        console.log(this.winner);
-        this.$router.push("/feed/main/" + this.winner.name);
+        this.$router.push("/feed/main/" + this.winner.key);
       } else {
         this.winners.push(this.menuList[idx]);
         this.idx += 2;
