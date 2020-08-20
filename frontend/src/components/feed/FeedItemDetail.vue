@@ -128,7 +128,8 @@
             </div>
           </div>
         </div><br> -->
-       <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px; ">
+       <v-timeline class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
+       <!-- <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;"> -->
          <div class="v-timeline-item v-timeline-item--fill-dot theme--light" style="width: 107%; padding-bottom:10px;" v-for="(course, i) in courseList" :key="course.courseOrder">
            <div class="v-timeline-item__body" style="margin-right:21px;">
               <v-card >
@@ -155,7 +156,9 @@
                 </div>
                 </div>
               </div>
-        </div><br>
+        <!-- </div> -->
+        </v-timeline>
+        <br>
 <!-- 
         <v-timeline dense>
           <v-timeline-item
