@@ -69,22 +69,19 @@
           </v-slide-group>
         </v-sheet>
       </v-col>
-
       <v-col cols="12" sm="6" style="align-self: center; padding: 3px 12px 8px 12px;">
-      
-         <div style="padding: 12px 2px 15px 2px;">
+        <div style="padding: 12px 2px 15px 2px;">
          <div style="display: inline; font-weight:bold;">{{feed.userId}} </div>
-         <div style="display: inline; font-size: 14px; margin:0 0 0 3px;"> {{feed.contents}}</div>
+         <div style="display: inline; font-size: 14px; margin:0 0 0 3px;"> <div style="display: inline;" v-html="feed.contents"></div>
         </div>
-
+        </div>
         <div style="padding: 5px 0 5px 0px;" >
           <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
             #{{ tag }}
           </div>
         </div>
 
-
-      <div class="line"></div>
+      <v-divider></v-divider>
         <div style="margin-bottom: 10px;">
            <v-btn icon @click="clickLikeBtn(feed)" style="margin-left:12px; width:20px; margin-top: 5px;">
             <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left></v-img>
