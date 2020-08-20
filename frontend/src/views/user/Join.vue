@@ -23,7 +23,7 @@
                 color="#0c6212"
                 placeholder="이메일을 입력하세요."
                 type="text"
-                hint="이메일 형식이 아닙니다"
+                :error-messages="error.email"
               ></v-text-field>
               <!-- <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div> -->
             </v-col>
@@ -39,7 +39,7 @@
                 color="#0c6212"
                 placeholder="아이디를 입력하세요."
                 type="text"
-                hint="5~20자의 영문 소문자, 숫자만 사용 가능합니다."
+                :error-messages="error.userId"
               ></v-text-field>
               <!-- <div class="error-text" style="color:#0c6212;" v-if="error.userId">{{error.userId}}</div> -->
             </v-col>
@@ -56,7 +56,7 @@
                 label="비밀번호"
                 color="#0c6212"
                 autocapitalize="none"
-                hint="영문,숫자 포함 8 자리이상이어야 합니다."
+                :error-messages="error.password"
               ></v-text-field>
               <!-- <div class="error-text" v-if="error.password">{{error.password}}</div> -->
             </v-col>
@@ -73,7 +73,7 @@
                 label="비밀번호 확인"
                 color="#0c6212"
                 autocapitalize="none"
-                hint="비밀번호가 일치하지 않습니다."
+                :error-messages="error.passwordConfirm"
               ></v-text-field>
               <!-- <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div> -->
             </v-col>

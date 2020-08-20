@@ -21,8 +21,9 @@
                 v-model="email"
                 name="input-10-1"
                 color="#0c6212"
-                label="이메일을 입력하세요."
-                hint="이메일 형식이 아닙니다."
+                label="이메일"
+                placeholder="이메일를 입력하세요."
+                :error-messages="error.email"
                 outlined
               ></v-text-field>
             </v-col>
@@ -37,7 +38,7 @@
                 name="input-10-1"
                 color="#0c6212"
                 label="비밀번호를 입력하세요."
-                hint="영문,숫자 포함 8 자리이상이어야 합니다."
+                :error-messages="error.password"
                 outlined
                 @click:append="passwordShow = !passwordShow"
               ></v-text-field>
@@ -121,17 +122,18 @@ export default {
   },
   watch: {
     password: function (v) {
-      this.checkForm();
+      this.checkPasswordForm();
     },
     email: function (v) {
-      this.checkForm();
+      this.checkEmailForm();
     },
   },
   methods: {
     checkForm() {
-      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
-        this.error.email = "이메일 형식이 아닙니다.";
-      else this.error.email = false;
+      if(!this.error.password && !this.error.email) this.isSubmit = true;
+      else this.isSubmit = false;
+    },
+    checkPasswordForm() {
 
       if (
         this.password.length >= 0 &&
@@ -139,12 +141,14 @@ export default {
       )
         this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
+      this.checkForm();
+    },
+    checkEmailForm() {
+      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
+        this.error.email = "이메일 형식이 아닙니다.";
+      else this.error.email = false;
 
-      let isSubmit = true;
-      Object.values(this.error).map((v) => {
-        if (v) isSubmit = false;
-      });
-      this.isSubmit = isSubmit;
+      this.checkForm();
     },
     onLogin() {
       if (this.isSubmit) {
