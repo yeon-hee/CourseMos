@@ -1,66 +1,77 @@
 <template>
   <v-container fluid class="mb-14">
-
     <v-row>
       <v-col cols="12" sm="6">
         <template>
-          <div data-v-4d6f63f3="" class="v-card v-sheet theme--light" style="padding: 0px;">
-            <header data-v-4d6f63f3="" class="v-sheet theme--light v-toolbar v-toolbar--extended" style="height: 65px;">
+          <div data-v-4d6f63f3 class="v-card v-sheet theme--light" style="padding: 0px;">
+            <header
+              data-v-4d6f63f3
+              class="v-sheet theme--light v-toolbar v-toolbar--extended"
+              style="height: 65px;"
+            >
               <div class="v-toolbar__content" style="height: 60px;">
                 <v-slide-group show-arrows>
-                <v-slide-item
-                  v-for="(course, index) in courses"
-                  v-bind:key="index"
-                  class="place"
-                > <span>
-                  <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="margin-top:4px; border-radius: 5px; width:55px; height:55px;"
-                  v-on:click="doRemove(index)" />
-                  <v-icon large color="orange" style="margin-top:5px;">mdi-chevron-right</v-icon></span>
-                </v-slide-item>
-              </v-slide-group>
-              
+                  <v-slide-item v-for="(course, index) in courses" v-bind:key="index" class="place">
+                    <span>
+                      <img
+                        :src="course.thumbnailUrl"
+                        class="thumbnail"
+                        alt="img"
+                        style="margin-top:4px; border-radius: 5px; width:55px; height:55px;"
+                        v-on:click="doRemove(index)"
+                      />
+                      <v-icon large color="orange" style="margin-top:5px;">mdi-chevron-right</v-icon>
+                    </span>
+                  </v-slide-item>
+                </v-slide-group>
               </div>
-            <button v-on:click="saveCourse" style="background-color:rgb(239,91,91);" data-v-4d6f63f3="" type="button" class="v-btn v-btn--absolute v-btn--bottom v-btn--contained v-btn--fab v-btn--right v-btn--round theme--dark v-size--small">
-              <span class="v-btn__content"><i data-v-4d6f63f3="" aria-hidden="true" class="v-icon notranslate mdi mdi-arrow-right-bold theme--dark"></i>
-              </span>
-            </button>
+              <button
+                v-on:click="saveCourse"
+                style="background-color:rgb(239,91,91);"
+                data-v-4d6f63f3
+                type="button"
+                class="v-btn v-btn--absolute v-btn--bottom v-btn--contained v-btn--fab v-btn--right v-btn--round theme--dark v-size--small"
+              >
+                <span class="v-btn__content">
+                  <i
+                    data-v-4d6f63f3
+                    aria-hidden="true"
+                    class="v-icon notranslate mdi mdi-arrow-right-bold theme--dark"
+                  ></i>
+                </span>
+              </button>
             </header>
           </div>
           <div id="map" style="width:100%;height:400px; margin:30px 0 15px 0;"></div>
         </template>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card
-          height="100%"
-          min-height="300px"
-        >
-          <v-toolbar
-            color="#EF5B5B"
-            dark
-          >
-
+        <v-card height="100%" min-height="300px">
+          <v-toolbar color="#EF5B5B" dark>
             <form v-on:submit.prevent="searchPlaces">
-                <input type="text" 
-                placeholder="검색할 코스를 입력하세요" 
-                style="outline:none; width: 100%; color:white;" 
-                id="keyword">
-              </form>
+              <input
+                type="text"
+                placeholder="검색할 코스를 입력하세요"
+                style="outline:none; width: 100%; color:white;"
+                id="keyword"
+              />
+            </form>
             <v-spacer></v-spacer>
 
             <v-btn icon>
               <v-icon v-on:click="searchPlaces">mdi-magnify</v-icon>
             </v-btn>
           </v-toolbar>
-                <div id="menu_wrap" class="bg_white">
-                  <div id="placesList"></div>
-                  <ul id="placesList"></ul> 
-                  <div id="pagination"></div>
-                </div>       
+          <div id="menu_wrap" class="bg_white">
+            <div id="placesList"></div>
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
+          </div>
         </v-card>
       </v-col>
     </v-row>
-        
-<!-- 
+
+    <!-- 
         <div class="courseMake mb-2" style="justify-content: center;">
           <v-sheet 
             elevation="5"
@@ -82,9 +93,7 @@
           <button v-on:click="saveCourse" class="next">
             <v-icon style="color:#0c6212">fas fa-plus</v-icon>
           </button>
-        </div> -->
-        
-    
+    </div>-->
   </v-container>
 </template>
 
@@ -101,7 +110,11 @@ export default {
     // Nav,
   },
   created() {
-    this.$store.state.courses = [];
+    console.log(this.$store.state.keywordSave);
+    if (this.$store.state.keywordSave != null) {
+      document.getElementById("keyword").value = this.$store.state.keywordSave;
+      this.searchPlaces();
+    }
   },
   mounted() {
     window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
@@ -135,8 +148,8 @@ export default {
 
       var mapContainer = document.getElementById("map"), // 지도를 표시할 div
         mapOption = {
-          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
+          center: new kakao.maps.LatLng(37.5012860931305, 127.039604663862), // 지도의 중심좌표
+          level: 4, // 지도의 확대 레벨
         };
 
       // 지도를 생성합니다
@@ -150,8 +163,8 @@ export default {
 
       var container = document.getElementById("map");
       var options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
+        center: new kakao.maps.LatLng(37.5012860931305, 127.039604663862),
+        level: 4,
       };
       this.map = new kakao.maps.Map(container, options);
       this.map.setZoomable(false);
@@ -181,6 +194,7 @@ export default {
 
     searchPlaces() {
       var keyword = document.getElementById("keyword").value;
+      this.$store.state.keywordSave = keyword;
 
       if (!keyword.replace(/^\s+|\s+$/g, "")) {
         alert("키워드를 입력해주세요!");
@@ -197,11 +211,12 @@ export default {
         ////////////////////////////////////////////////
         this.places = data;
 
-        for(var i=0;i<data.length;i++){
+        for (var i = 0; i < data.length; i++) {
           this.dataList.push({
             name: data[i].place_name,
             address: data[i].address_name,
-            id: data[i].id});
+            id: data[i].id,
+          });
         }
 
         // 정상적으로 검색이 완료됐으면
@@ -240,7 +255,6 @@ export default {
         var marker = this.addMarker(placePosition, i);
         var itemEl = this.nextfunc(i, places[i]);
 
-
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
@@ -262,7 +276,8 @@ export default {
             //temp2(marker);
           });
 
-          kakao.maps.event.addListener(marker, "click", function () { // 마커 클릭시 띄우는 인포윈도우
+          kakao.maps.event.addListener(marker, "click", function () {
+            // 마커 클릭시 띄우는 인포윈도우
             temp3(marker, title);
           });
 
@@ -270,7 +285,8 @@ export default {
             //temp(marker, title);
           };
 
-          itemEl.onmouseout = function () { // 리스트
+          itemEl.onmouseout = function () {
+            // 리스트
             temp2.close();
           };
 
@@ -294,10 +310,9 @@ export default {
 
     // 검색결과 항목을 Element로 반환하는 함수입니다
     getListItem(index, places) {
-
       let data = {
-          token : localStorage.getItem('token'),
-          number: places.id, // 상점 id
+        token: localStorage.getItem("token"),
+        number: places.id, // 상점 id
       };
 
       var thisTemp = this.temp;
@@ -305,54 +320,71 @@ export default {
       var idxTemp = this.idx;
       var photo = "";
       var mainphoto = "";
-      
+
       FeedApi.detailCrawling(
-              data,
-              res => {
-                  photo = res.data;
-                  mainphoto = photo.mainphotourl;
-                  if(mainphoto==null) {
-                    mainphoto = defaultImage;
-                  }
-                  this.nextfunc(index, places, mainphoto);
-              },
-              error => {
-                  alert(error);
-                  console.log('상세 정보 크롤링 실패했습니다.');
-              }
-          );
+        data,
+        (res) => {
+          photo = res.data;
+          mainphoto = photo.mainphotourl;
+          if (mainphoto == null) {
+            mainphoto = defaultImage;
+          }
+          this.nextfunc(index, places, mainphoto);
+        },
+        (error) => {
+          alert(error);
+          console.log("상세 정보 크롤링 실패했습니다.");
+        }
+      );
     },
 
-    nextfunc(index, places){
+    nextfunc(index, places) {
       var el = document.createElement("div"),
-      itemStr = "<div style=\"line-height: 1.8em; padding: 10px 7px 7px 25px;\">"+
-          "   <h3 style=\" display: inline; color:red;\">" +
-          (index + 1) + " </h3>"+
-           "   <h3 style=\"display: inline; color:orange;\">" +
+        itemStr =
+          '<div style="line-height: 1.8em; padding: 10px 7px 7px 25px;">' +
+          '   <h3 style=" display: inline; color:red;">' +
+          (index + 1) +
+          " </h3>" +
+          '   <h3 style="display: inline; color:orange;">' +
           places.place_name +
           "</h3><br>";
 
       if (places.road_address_name) {
         itemStr +=
-        "<img src="+ PlaceImage + " style= \"width:7px; height=7px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray); \">" +
-          "   <span style=\"font-size: 13px;\">" + " " + places.address_name +
+          "<img src=" +
+          PlaceImage +
+          ' style= "width:7px; height=7px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray); ">' +
+          '   <span style="font-size: 13px;">' +
+          " " +
+          places.address_name +
           "</span><br>";
       } else {
-        itemStr +=  "<img src="+ PlaceImage + " style= \"width:7px; height=7px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray); \">" +
-        "<span style=\"font-size: 13px;\">" + " " +  places.address_name + "</span><br>";
+        itemStr +=
+          "<img src=" +
+          PlaceImage +
+          ' style= "width:7px; height=7px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray); ">' +
+          '<span style="font-size: 13px;">' +
+          " " +
+          places.address_name +
+          "</span><br>";
       }
-      
-      if(places.phone ){
-         itemStr += "<img src="+ CallImage + " style= \"width:9px; height=9px; \">" ;
+
+      if (places.phone) {
+        itemStr +=
+          "<img src=" + CallImage + ' style= "width:9px; height=9px; ">';
       }
-      itemStr += "<span style=\"font-size: 13px;\">" + " "+ places.phone + "</span></div>";
-      itemStr += "<div style=\" height: 0.5px; width: 100%; background-color: black; opacity: 20%;\"/>";
+      itemStr +=
+        '<span style="font-size: 13px;">' +
+        " " +
+        places.phone +
+        "</span></div>";
+      itemStr +=
+        '<div style=" height: 0.5px; width: 100%; background-color: black; opacity: 20%;"/>';
       el.innerHTML = itemStr;
       el.className = "item";
 
       return el;
     },
-    
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     addMarker(position, idx, title) {
@@ -422,7 +454,8 @@ export default {
 
     // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
     // 인포윈도우에 장소명을 표시합니다
-    displayInfowindow(marker, title) { // 리스트 클릭 했을 경우 
+    displayInfowindow(marker, title) {
+      // 리스트 클릭 했을 경우
       var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
 
       // 인포윈도우를 생성합니다
@@ -435,13 +468,14 @@ export default {
       infowindow.close(this.map, marker);
     },
 
-    addplace(marker, title) { // 코스 리스트에 추가하기 
+    addplace(marker, title) {
+      // 코스 리스트에 추가하기
       for (var i = 0; i < this.places.length; i++) {
         if (this.places[i].place_name == title) {
           var mainphoto = "";
 
           let data = {
-            token : localStorage.getItem('token'),
+            token: localStorage.getItem("token"),
             number: this.places[i].id, // 상점 id
           };
 
@@ -454,105 +488,124 @@ export default {
 
           // 비동기 처리 -> 통신 보내놓고 기다렸다가 마지막에 실행됨신 보내놓고 기다렸다가 마지막에 실행됨
           FeedApi.detailCrawling(
-              data,
-              res => {
-                  thisTemp = res.data;
-                  mainphoto = thisTemp.mainphotourl;
-                  if(mainphoto==null) {
-                    mainphoto = defaultImage;
-                  }
-
-                  var tmpstr = placeTemp.category_name.split(">");
-                  var category_name = tmpstr[tmpstr.length - 1];
-                  // courseTemp.push({
-                  // tradeName: placeTemp.place_name,
-                  // latitude: placeTemp.x,
-                  // longitude: placeTemp.y,
-                  // categoryName: category_name,
-                  // thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기 
-                  // roadAddress: placeTemp.road_address_name,
-                  // });
-                  // idxTemp++;
-
-                  var content = '<div class="wrap">' + 
-                  '    <div class="info">' + 
-                  '        <div style="padding: 5px 0 5px 10px;height: 30px;background:#fcd3ce;border-bottom: 1px solid #ddd;font-size: 15px;font-weight: bold;">' + 
-                          placeTemp.place_name + 
-                  '            <div class="close" id="button">' + ' </div>' + 
-                  '        </div>' + 
-                  '        <div class="body">' + 
-                  '                <img src=' + mainphoto + ' class="img" width="73" height="70" style="border-radius: 5px;">' +
-                  '            <div class="desc">' + 
-                  '                <div class="ellipsis">'+category_name+'</div>' + 
-                  '                <div class="jibun ellipsis">'+placeTemp.address_name+'</div>' + 
-                  '                <div><div id="detail" target="_blank" class="link">상세보기 </div>' +
-                  '                <div id="add" target="_blank" class="link2">코스추가</div></div>' + 
-                  '            </div>' + 
-                  '        </div>' + 
-                  '    </div>' +    
-                  '</div>';
-                  
-                  this.map.setCenter(marker.getPosition())
-
-                  if(this.overlay.Da != undefined) {
-                    this.overlay.setMap(null)
-                  }
-                  tempoverlay = new kakao.maps.CustomOverlay({
-                      content: content,
-                      map: this.map,
-                      position: marker.getPosition()       
-                  });
-                  
-                  this.overlay = tempoverlay
-
-                  tempoverlay.setMap(this.map);
-
-                  var butt = document.getElementById('button');
-                  butt.onclick = function () {
-                    tempoverlay.setMap(null);
-                  };
-                  var addbtn = document.getElementById('add'); // 코스에 추가하기
-                  addbtn.onclick = () => {
-                    var newCourseInfo = {
-                      tradeName: placeTemp.place_name,
-                      latitude: placeTemp.x,
-                      longitude: placeTemp.y,
-                      categoryName: category_name,
-                      thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기 
-                      roadAddress: placeTemp.road_address_name,
-                    }
-                    if(this.idx > 0) {
-                      if(this.courses[this.idx-1].latitude != placeTemp.x || this.courses[this.idx-1].longitude != placeTemp.y ){
-                        this.courses.push(newCourseInfo);
-                        this.idx++;
-                      }
-                    } else {
-                      this.courses.push(newCourseInfo)
-                      this.idx++;
-                    }
-                  };
-
-                  var id = placeTemp.id;
-                  var det = document.getElementById('detail');  // 상세보기로 이동
-                  det.onclick = function () {
-                    if(mainphoto == defaultImage) alert('동록된 상세정보가 없습니다.')
-                    else routetemp.push("/trade/" + id);
-                  };
-
-                  // 인포윈도우를 생성합니다
-                  //this.infowindow.setContent(content);
-                  //this.infowindow.open(this.map, marker);
-              },
-              error => {
-                  alert(error);
-                  console.log('상세 정보 크롤링 실패했습니다.');
+            data,
+            (res) => {
+              thisTemp = res.data;
+              mainphoto = thisTemp.mainphotourl;
+              if (mainphoto == null) {
+                mainphoto = defaultImage;
               }
+
+              var tmpstr = placeTemp.category_name.split(">");
+              var category_name = tmpstr[tmpstr.length - 1];
+              // courseTemp.push({
+              // tradeName: placeTemp.place_name,
+              // latitude: placeTemp.x,
+              // longitude: placeTemp.y,
+              // categoryName: category_name,
+              // thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기
+              // roadAddress: placeTemp.road_address_name,
+              // });
+              // idxTemp++;
+
+              var content =
+                '<div class="wrap">' +
+                '    <div class="info">' +
+                '        <div style="padding: 5px 0 5px 10px;height: 30px;background:#fcd3ce;border-bottom: 1px solid #ddd;font-size: 15px;font-weight: bold;">' +
+                placeTemp.place_name +
+                '            <div class="close" id="button">' +
+                " </div>" +
+                "        </div>" +
+                '        <div class="body">' +
+                "                <img src=" +
+                mainphoto +
+                ' class="img" width="73" height="70" style="border-radius: 5px;">' +
+                '            <div class="desc">' +
+                '                <div class="ellipsis">' +
+                category_name +
+                "</div>" +
+                '                <div class="jibun ellipsis">' +
+                placeTemp.address_name +
+                "</div>" +
+                '                <div><div id="detail" target="_blank" class="link">상세보기 </div>' +
+                '                <div id="add" target="_blank" class="link2">코스추가</div></div>' +
+                "            </div>" +
+                "        </div>" +
+                "    </div>" +
+                "</div>";
+
+              this.map.setCenter(marker.getPosition());
+
+              if (this.overlay.Da != undefined) {
+                this.overlay.setMap(null);
+              }
+              tempoverlay = new kakao.maps.CustomOverlay({
+                content: content,
+                map: this.map,
+                position: marker.getPosition(),
+              });
+
+              this.overlay = tempoverlay;
+
+              tempoverlay.setMap(this.map);
+
+              var butt = document.getElementById("button");
+              butt.onclick = function () {
+                tempoverlay.setMap(null);
+              };
+              var addbtn = document.getElementById("add"); // 코스에 추가하기
+              addbtn.onclick = () => {
+                var newCourseInfo = {
+                  tradeName: placeTemp.place_name,
+                  latitude: placeTemp.x,
+                  longitude: placeTemp.y,
+                  categoryName: category_name,
+                  thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기
+                  roadAddress: placeTemp.road_address_name,
+                };
+                if (this.idx > 0) {
+                  if (
+                    this.courses[this.idx - 1].latitude != placeTemp.x ||
+                    this.courses[this.idx - 1].longitude != placeTemp.y
+                  ) {
+                    this.courses.push(newCourseInfo);
+                    this.idx++;
+                  }
+                } else {
+                  this.courses.push(newCourseInfo);
+                  this.idx++;
+                }
+              };
+
+              var id = placeTemp.id;
+              var det = document.getElementById("detail"); // 상세보기로 이동
+              det.onclick = function () {
+                if (mainphoto == defaultImage)
+                  alert("등록된 상세정보가 없습니다.");
+                else {
+                  // routetemp.push("/trade/" + id);
+                  // let routeData = this.$router.resolve({
+                  //   name: "TradeDetail",
+                  //   params: { id: id },
+                  // });
+                  window.open("/trade/" + id, "_blank", "width=400,height=667");
+                }
+              };
+
+              // 인포윈도우를 생성합니다
+              //this.infowindow.setContent(content);
+              //this.infowindow.open(this.map, marker);
+            },
+            (error) => {
+              alert(error);
+              console.log("상세 정보 크롤링 실패했습니다.");
+            }
           );
         }
-      }    
+      }
     },
 
-    closeOverlay(){
+    closeOverlay() {
       this.overlay.setMap(null);
     },
 
@@ -564,8 +617,8 @@ export default {
     },
 
     saveCourse() {
-      if(this.courses.length<2) {
-        alert("두 개 이상의 코스를 추가해 주세요.")
+      if (this.courses.length < 2) {
+        alert("두 개 이상의 코스를 추가해 주세요.");
       } else {
         this.$store.state.courses = this.courses;
         this.$router.push("/feed/write");
@@ -573,19 +626,18 @@ export default {
     },
 
     doRemove(index) {
-      console.dir(this.courses)
+      console.dir(this.courses);
       this.courses.splice(index, 1);
-      this.idx--
+      this.idx--;
     },
   },
 };
 </script>
 
 <style scoped>
-
-.detail1{
-    -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray);
-    filter: opacity(.2) drop-shadow(0 0 0 gray);
+.detail1 {
+  -webkit-filter: opacity(0.5) drop-shadow(0 0 0 gray);
+  filter: opacity(0.2) drop-shadow(0 0 0 gray);
 }
 input::placeholder {
   color: white;
@@ -627,7 +679,7 @@ input::placeholder {
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px grey;
 }
-.line{
+.line {
   clear: both;
   height: 0.5px;
   width: 100%;
@@ -748,23 +800,105 @@ input::placeholder {
     transform: translate(1px, -2px) rotate(-1deg);
   }
 }
-
 </style>
 
  <style>
-    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 114px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5; }
-    .wrap * {padding: 0;margin: 0; }
-    .wrap .info {width: 286px;height: 102px;border-radius: 5px; border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;}
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888; }
-    .info .title {padding: 5px 0 5px 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 14px;font-weight: bold;}
-    .info .close {position: absolute;top: 6px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-    .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden; background: white;}
-    .info .desc {position: relative;margin: 10px 0 0 75px;height: 70px; }
-    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap; }
-    .desc .jibun {font-size: 12px;color: #888;margin-top: -2px; }
-    .info .img {position: absolute;top: 6px;left: 5px;width: 60px;height: 60px; color: #888;overflow: hidden; }
-    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');}
-    .info .link {color: #5085BB; text-decoration:none; display: inline;}
-    .info .link2 {color: red; text-decoration:none; display: inline;}
+.wrap {
+  position: absolute;
+  left: 0;
+  bottom: 40px;
+  width: 288px;
+  height: 114px;
+  margin-left: -144px;
+  text-align: left;
+  overflow: hidden;
+  font-size: 12px;
+  font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
+  line-height: 1.5;
+}
+.wrap * {
+  padding: 0;
+  margin: 0;
+}
+.wrap .info {
+  width: 286px;
+  height: 102px;
+  border-radius: 5px;
+  border-bottom: 2px solid #ccc;
+  border-right: 1px solid #ccc;
+  overflow: hidden;
+}
+.wrap .info:nth-child(1) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+.info .title {
+  padding: 5px 0 5px 10px;
+  height: 30px;
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  font-weight: bold;
+}
+.info .close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  color: #888;
+  width: 17px;
+  height: 17px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png");
+}
+.info .close:hover {
+  cursor: pointer;
+}
+.info .body {
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+.info .desc {
+  position: relative;
+  margin: 10px 0 0 75px;
+  height: 70px;
+}
+.desc .ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.desc .jibun {
+  font-size: 12px;
+  color: #888;
+  margin-top: -2px;
+}
+.info .img {
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  width: 60px;
+  height: 60px;
+  color: #888;
+  overflow: hidden;
+}
+.info:after {
+  content: "";
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: 0;
+  width: 22px;
+  height: 12px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
+}
+.info .link {
+  color: #5085bb;
+  text-decoration: none;
+  display: inline;
+}
+.info .link2 {
+  color: red;
+  text-decoration: none;
+  display: inline;
+}
 </style>
