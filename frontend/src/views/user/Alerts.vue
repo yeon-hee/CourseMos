@@ -1,28 +1,7 @@
 <template>
-    <!-- <div> -->
-        <!-- <LogoTitle/> -->
-        <!-- <tab/> -->
-        <!-- <v-list subheader>
-            <v-subheader><v-btn text @click="closeAll"><span>모두 닫기</span></v-btn></v-subheader>
-            <v-list-item v-for="(alert, index) in alertList" :key="alert.id">
-                <v-list-item-avatar>
-                    <img src="@/assets/images/profile_default.png">
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    <v-list-item-title v-html="alert.message"></v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                    <v-btn icon @click="close(alert, index)"><v-icon>fas fa-times</v-icon></v-btn>
-                </v-list-item-icon>
-            </v-list-item>
-        </v-list> -->
+
     <v-card>
-        <!-- <v-card-title style="padding:0; justify-content: flex-end;">
-            <v-btn
-                color="error"
-                text
-                @click="closeAll">clear</v-btn>
-        </v-card-title> -->
+        
         <v-virtual-scroll
         :items="alertList"
         :item-height="30"
@@ -44,7 +23,7 @@
         </template>
         </v-virtual-scroll>
     </v-card>
-    <!-- </div> -->
+    
   
 </template>
 
@@ -52,7 +31,7 @@
 import "../../components/css/user/alerts.css";
 import axios from 'axios';
 import AlertApi from "../../api/AlertApi";
-// import Tab from "../../components/alert/AlertTab";
+
 
 
 export default {
@@ -68,7 +47,6 @@ export default {
             data,
             res => {
                 this.alertList = res.data;
-                console.dir(res);
             },
             error => {
                 alert('알림을 불러올 수 없습니다.')
@@ -89,7 +67,6 @@ export default {
                 data,
                 res => {
                     this.alertList.splice(index,1);
-                    console.log('Close!');
                 },
                 error => {
                     console.log(error);
@@ -104,7 +81,6 @@ export default {
             AlertApi.requestCloseAll(
                 data,
                 res => {
-                    console.log('Close All!!!');
                 },
                 error => {
                     console.log(error);

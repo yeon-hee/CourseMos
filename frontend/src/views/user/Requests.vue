@@ -37,7 +37,6 @@ export default {
             data,
             res => {
                 this.requestList = res.data;
-                console.dir(res);
             },
             error => {
                 alert(error);
@@ -53,7 +52,6 @@ export default {
             RequestApi.requestReject( // 팔로우 거절할 경우
                 data,
                 res => {
-                    console.log('Delete!');
                 },
                 error => {
                     console.log(error);
@@ -69,7 +67,6 @@ export default {
             RequestApi.requestAllow( // 팔로우 승인할 경우
                 data,
                 res => {
-                    console.log('Allow!');
                 },
                 error => {
                     console.log(error);
@@ -84,7 +81,6 @@ export default {
             RequestApi.requestAllowAll( // 팔로우 모두 승인
                 data,
                 res => {
-                    console.log('Allow All!');
                 },
                 error => {
                     console.log(error);
@@ -99,7 +95,6 @@ export default {
             RequestApi.requestRejectAll( // 팔로우 모두 거절
                 data,
                 res => {
-                    console.log('Reject All!');
                 },
                 error => {
                     console.log(error);

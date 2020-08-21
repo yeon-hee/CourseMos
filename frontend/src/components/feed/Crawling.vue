@@ -29,9 +29,7 @@ export default {
     FeedApi.crawling(
           data,
           res => {
-            console.log("크롤링 완료!");
             this.photo = res.data;
-            console.log(res.data);
           },
           error => {
             alert(error);

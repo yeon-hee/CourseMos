@@ -104,8 +104,6 @@ import axios from "axios";
 
 export default {
   components: {
-    // KakaoLogin,
-    // GoogleLogin,
   },
   created() {
     this.component = this;

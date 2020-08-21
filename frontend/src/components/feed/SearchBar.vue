@@ -1,11 +1,5 @@
 <template>
     <div>
-        <!-- <input v-model="text"
-               :id="inputValue" :placeholder="placeholder"
-               type="text"
-               @keyup.enter="submit"
-               class="form-control form-control"/>
-        <label :for="inputValue"></label> -->
 
         <v-text-field v-model="text" 
                 outlined prepend-inner-icon="mdi-magnify"
@@ -32,7 +26,4 @@
     }
 </script>
 <style scoped>
-/* div {
-    padding-top : 0;
-} */
 </style>

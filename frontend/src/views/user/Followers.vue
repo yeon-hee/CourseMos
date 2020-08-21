@@ -19,30 +19,6 @@
                         </v-list-item-icon>
                     </v-list-item>
                 </v-list>
-                    <!-- <div id="followers">
-                        <section class="tab">
-                            <div class="tab-followers"><a href="#">팔로워 <span>{{follower_count}}</span></a></div>
-                            <div class="tab-followings"><a href="#/friends/followings">팔로잉 <span>{{following_count}}</span></a></div>
-                        </section>
-                        <hr>
-                        <section class="tab-list">
-                            <ul class="follower-list">
-                                <li v-for="(follower, index) in followerList" :key="follower.id">
-                                    <div class="follower" >
-                                        <div class="follower-info">
-                                            <img class="follower-img" src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
-                                            <div class="follower-name">{{follower}}</div>
-                                        </div>
-                                        <div class="follower-button">
-                                            <button class="u-fat-text block" @click="block(follower, index)">차단</button>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </li>
-                            </ul>
-                        </section>
-                    </div> -->
-                <!-- <Nav/> -->
             </v-col>
         </v-row>
     </v-container>
@@ -60,8 +36,6 @@ import Tab from "../../components/follow/FollowTab";
 
 export default {
     components: {
-        // LogoTitle,
-        // Nav,
         Tab
     },
     created() {
@@ -73,7 +47,6 @@ export default {
             data,
             res => {
                 this.followerList = res.data
-                console.log(res);
             },
             error => {
                 alert(error);
@@ -117,8 +90,6 @@ export default {
             FollowApi.deleteFollower(
                 data,
                 res => {
-                    console.log(res);
-                    console.log('Delete!');
                 },
                 error => {
                     console.log(error);

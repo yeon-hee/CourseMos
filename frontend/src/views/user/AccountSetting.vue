@@ -105,7 +105,6 @@ import * as firebase from "firebase/app";
 export default {
   created() {
     this.component = this;
-    console.log("created");
 
     let data = {
       token: localStorage.getItem("token"),
@@ -113,9 +112,7 @@ export default {
     UserApi.requestUserInfo(
       data,
       (response) => {
-        console.dir(response);
         this.placeEmail = response.data.email;
-        // this.placeUserId = response.data.userId;
         this.userId = response.data.userId;
         if(response.data.profileComment != undefined)
           this.profileComment = response.data.profileComment;
@@ -161,7 +158,6 @@ export default {
           .ref("images/" + fullPath)
           .getDownloadURL();
         imageUrl.then((url) => {
-          console.log(url);
           this.profilePhoto = url;
           let { userId, email, profileComment, profilePhoto } = this;
           let data = {
@@ -219,14 +215,11 @@ export default {
           email,
           profileComment,
         };
-        console.log("프로필 정보 수정 들어옴.");
 
         UserApi.requestSettings(
           data,
           (response) => {
             localStorage.setItem("userId", this.userId);
-            console.log(response);
-            console.log("프로필 정보 변경 성공!");
             alert("변경사항이 저장되었습니다.");
             this.isSubmit = true;
             this.$router.push("/users/profile");

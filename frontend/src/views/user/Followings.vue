@@ -20,31 +20,6 @@
                     </v-list-item-icon>
                 </v-list-item>
             </v-list>
-            <!-- <div id="followings">
-                <section class="tab">
-                    <div class="tab-followers"><a href="#/friends/followers">팔로워 <span>{{follower_count}}</span></a></div>
-                    <div class="tab-followings"><a href="#">팔로잉 <span>{{following_count}}</span></a></div>
-                </section>
-                <hr>
-                <section class="tab-list">
-                    <ul class="following-list">
-                        <li v-for="(following, index) in followingList" :key="following.id">
-                            <div class="following">
-                                <div class="following-info">
-                                    <img class="following-img" src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
-                                    <div class="following-name">{{following}}</div>
-                                </div>
-                                <div class="following-button">
-                                    <button class="u-fat-text cancel" @click="cancel(following, index)">취소</button>
-                                </div>
-                            </div>
-                            <hr>
-                        </li>
-                        <hr>
-                    </ul>
-                </section>
-            </div> -->
-        <!-- <Nav/> -->
             </v-col>
         </v-row>
     </v-container>
@@ -52,8 +27,6 @@
 </template>
 
 <script>
-// import LogoTitle from "../LogoTitle.vue";
-// import Nav from "../Nav.vue";
 import axios from 'axios';
 import FollowApi from "../../api/FollowApi";
 import ProfileApi from "../../api/ProfileApi";
@@ -62,8 +35,6 @@ import Tab from "../../components/follow/FollowTab";
 
 export default {
     components: {
-        // LogoTitle,
-        // Nav,
         Tab
     },
     created() {
@@ -77,7 +48,6 @@ export default {
             res => {
                 this.follower_count = res.data.followerCount
                 this.following_count = res.data.followingCount
-                console.log(res);
             },
             error => {
                 alert(error);
@@ -87,7 +57,6 @@ export default {
             data,
             res => {
                 this.followingList = res.data
-                console.log(res);
             },
             error => {
                 alert(error);
@@ -122,9 +91,6 @@ export default {
             FollowApi.deleteFollowing(
                 data,
                 res => {
-                    console.log(data)
-                    console.log(res)
-                    console.log('Delete!');
                 },
                 error => {
                     console.log(error);
