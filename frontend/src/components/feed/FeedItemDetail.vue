@@ -95,41 +95,7 @@
             <img src="../../assets/images/share.png" width="18px" height="18px"/>
           </v-btn>
         </div>
-        <!-- <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
-          <div class="v-timeline-item v-timeline-item--fill-dot theme--light" 
-            v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 108%">
-            <div class="v-timeline-item__body" style="margin-right:20px;">
-              <v-card
-                color='white'
-                dark
-                style="width:100%;"
-              >
-                <v-card-text class="white text--primary" style="padding:0px;">
-                  <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 6px 0 6px 8px;">
-                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.3em;">
-                    <div style="font-size:11px; color:#8a8a8a;">{{course.categoryName}}</div>
-                    <div style="font-size:14px;">{{course.tradeName}} </div>
-                  </div>
-                  <div style="float: right; margin: 14px 13px 0 0;"> 
-                    <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 10px;">
-                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
-                    </a>
-                  </div>
-                  <div style="clear:both;"/>
-                </v-card-text>
-              </v-card>
-            </div>
-            <div class="v-timeline-item__divide" style="margin-right:16px; z-index:1;">
-              <div class="v-timeline-item__dot v-timeline-item__dot--small">
-                <div class="v-timeline-item__inner-dot red lighten-2">
-                  <p style="color:white;align-self: start;">{{i+1}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><br> -->
        <v-timeline class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
-       <!-- <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;"> -->
          <div class="v-timeline-item v-timeline-item--fill-dot theme--light" style="width: 107%; padding-bottom:10px;" v-for="(course, i) in courseList" :key="course.courseOrder">
            <div class="v-timeline-item__body" style="margin-right:21px;">
               <v-card >
@@ -156,38 +122,8 @@
                 </div>
                 </div>
               </div>
-        <!-- </div> -->
         </v-timeline>
         <br>
-<!-- 
-        <v-timeline dense>
-          <v-timeline-item
-                    v-for="course in courseList" :key="course.courseOrder"
-                    color="rgb(239,91,91)"
-                    small>
-            <div style="height: 45px; width:100%; float:left; padding-right:30px;">
-              <div>
-                <div class="elevation-1 v-card v-sheet theme--light"
-                    style="border-radius:10px; width:100%; height:57px; border:1px solid #ccc;"
-                    @click="findTradeInfo(course)">
-                    <div style="float:left;">
-                    <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
-                  </div>
-                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.2em;">
-                      <div style="font-size:10px; color:rgb(51,102,255);">{{course.categoryName}}</div>
-                      <div style="font-size:13px;">{{course.tradeName}} </div>
-                  </div>
-                  <div style="float: right; margin: 12px;"> 
-                      <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 15px;">
-                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
-                    </a>
-                  </div>
-                  <div style="clear: both;"></div>
-                </div>
-              </div>
-            </div>
-          </v-timeline-item>
-        </v-timeline> -->
       </v-col>
     </v-row>
   </v-container>
@@ -219,7 +155,6 @@ export default {
       },
       error => {
         alert(error);
-        console.dir('코스 정보 받아오는거 실패했습니다.');
       }
     );  
     
@@ -266,7 +201,6 @@ export default {
       response => {
         this.userId = response.data.userId;
         this.feed = response.data.feed;
-        console.log(this.feed)
 
          //태그파싱
         if(this.feed.tags != " " && this.feed.tags != "") {
@@ -277,8 +211,6 @@ export default {
           if(tags[i] == "") continue;
           this.feed.tags.push(tags[i]);
         }
-        console.log('태그')
-        console.log(tags);
 
         ProfileApi.requestUserProfile(
         data = {
@@ -403,21 +335,17 @@ export default {
       FeedApi.clickLike(
           data,
           response => {
-            console.log("좋아요 클릭!");
           },
           error => {
             alert(error);
-            console.dir('조아요 클릭 시 오류입니다');
           }
         );
 
       AlertApi.requestLike(
        data,
           res => {
-            console.log("좋아요 알림!");
           },
           error => {
-            console.log('조아요 클릭 시 알림 오류입니다');
           }
       );
     },
@@ -429,7 +357,6 @@ export default {
         for(var j=0; j<data.length;j++){
           if(this.courseList[k].latitude == data[j].x && this.courseList[k].longitude == data[j].y){
             if (status === kakao.maps.services.Status.OK) {
-               console.log(data[j]);
               this.crawlingTradePage(data[j].id)
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 

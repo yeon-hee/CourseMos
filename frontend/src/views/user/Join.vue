@@ -11,11 +11,9 @@
           class="join-form border rounded"
           style="background-color: white; margin: 0 auto; width: 350px; opacity:0.8;"
         >
-          <!-- <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 670px;"> -->
 
           <v-row>
             <v-col cols="11" class="mx-auto">
-              <!-- <label for="email">이메일</label> -->
               <v-text-field
                 v-model="email"
                 id="email"
@@ -25,13 +23,11 @@
                 type="text"
                 :error-messages="error.email"
               ></v-text-field>
-              <!-- <div class="error-text" style="color:#0c6212;" v-if="error.email">{{error.email}}</div> -->
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="11" class="mx-auto pt-0">
-              <!-- <label for="userId">아이디</label> -->
               <v-text-field
                 v-model="userId"
                 id="userId"
@@ -41,13 +37,11 @@
                 type="text"
                 :error-messages="error.userId"
               ></v-text-field>
-              <!-- <div class="error-text" style="color:#0c6212;" v-if="error.userId">{{error.userId}}</div> -->
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="11" class="mx-auto pt-0">
-              <!-- <label for="email">비밀번호</label> -->
               <v-text-field
                 v-model="password"
                 id="password"
@@ -58,13 +52,11 @@
                 autocapitalize="none"
                 :error-messages="error.password"
               ></v-text-field>
-              <!-- <div class="error-text" v-if="error.password">{{error.password}}</div> -->
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="11" class="mx-auto pt-0">
-              <!-- <label for="email">비밀번호</label> -->
               <v-text-field
                 v-model="passwordConfirm"
                 :type="passwordConfirmType"
@@ -75,7 +67,6 @@
                 autocapitalize="none"
                 :error-messages="error.passwordConfirm"
               ></v-text-field>
-              <!-- <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div> -->
             </v-col>
           </v-row>
 
@@ -208,11 +199,9 @@ export default {
           email,
           password,
         };
-        console.dir(data);
         UserApi.requestSignup(
           data,
           (res) => {
-            console.log(res);
             this.isSubmit = true;
             alert("회원가입이 성공적으로 되었습니다.");
             this.$router.push("/");

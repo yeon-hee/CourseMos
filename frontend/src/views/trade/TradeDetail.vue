@@ -159,17 +159,9 @@ export default {
       url: {},
       review: {},
       feedNo: null,
-      //   prevRoute: null,
     };
   },
-  //   beforeRouteEnter(to, from, next) {
-  //     next((vm) => {
-  //       vm.prevRoute = from;
-  //     });
-  //   },
   created() {
-    // const link = this.prevRoute.path;
-    // console.log(link);
     if (this.$route.params.feedNo != null) {
       this.feedNo = this.$route.params.feedNo;
     }
@@ -184,8 +176,6 @@ export default {
     FeedApi.detailCrawling(
       data,
       (res) => {
-        console.log("상세 정보 크롤링 완료!");
-        console.log(res.data);
         this.temp = res.data;
       },
       (error) => {
@@ -196,8 +186,6 @@ export default {
     FeedApi.detailMenu(
       data,
       (res) => {
-        console.log("메뉴 크롤링 완료!");
-        console.log(res.data);
         this.menu = res.data;
       },
       (error) => {
@@ -208,8 +196,6 @@ export default {
     FeedApi.detailBlog(
       data,
       (res) => {
-        console.log("블로그 크롤링 완료!");
-        console.log(res.data);
         this.blog = res.data;
       },
       (error) => {
@@ -220,8 +206,6 @@ export default {
     FeedApi.detailComment(
       data,
       (res) => {
-        console.log("리뷰 크롤링 완료!");
-        console.log(res.data);
         this.review = res.data;
       },
       (error) => {

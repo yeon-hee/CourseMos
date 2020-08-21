@@ -44,13 +44,9 @@ import "material-design-icons-iconfont/dist/material-design-icons.css";
 
 export default {
   components: {
-    // LogoTitle,
-    // Nav
   },
   methods: {
     onChange(selection) {
-      console.log("들어옴!!");
-      console.log(selection[0]);
       var userId = null;
 
       for (var i = 0; i < this.items.length; i++) {
@@ -59,7 +55,6 @@ export default {
           break;
         }
       }
-      console.log(userId);
       if (userId == localStorage.getItem("userId"))
         this.$router.push("/users/profile");
       else this.$router.push("/users/profile/info/" + userId);
@@ -111,7 +106,6 @@ export default {
             name: this.temp[i].userId,
           });
         }
-        console.log(this.items);
       },
       (error) => {
         alert(error);

@@ -194,7 +194,6 @@ export default {
     ProfileApi.requestUserProfile(
       data,
       (res) => {
-        console.dir(res.data);
         this.user = res.data;
         data.email = this.user.email;
         if (

@@ -128,8 +128,6 @@ import FeedApi from "../../api/FeedApi";
 
 export default {
   components: {
-    // LogoTitle,
-    // Nav
   },
   created() {
     let data = {
@@ -142,8 +140,6 @@ export default {
       (res) => {
         this.follower_count = res.data.followerCount;
         this.following_count = res.data.followingCount;
-        // this.feed_count = res.data.feedCount;
-        console.dir(res);
       },
       (error) => {
         alert(error);
@@ -167,7 +163,6 @@ export default {
     FeedApi.loadUserFeeds(
       data,
       (res) => {
-        console.dir(res.data);
         this.feeds = res.data;
         this.feed_count = this.feeds.length;
       },
@@ -190,7 +185,6 @@ export default {
   methods: {
     onImgClick(no) {
       this.$router.push("/feeds/" + no);
-      console.dir();
     },
     logout() {
       localStorage.removeItem("token");

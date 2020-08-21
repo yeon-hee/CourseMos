@@ -45,36 +45,12 @@
               <div class="v-timeline-item__inner-dot red lighten-2">
                 <p style="color:white;align-self: start;">{{i+1}}</p>
 
-                <!-- <i aria-hidden="true" class="v-icon notranslate mdi mdi-star theme--dark" style="font-size: 16px;"></i> -->
               </div>
             </div>
           </div>
         </div>
     </div>
     <v-container >
-    <!-- <v-timeline dense v-if="courses.length != 0">
-      <v-timeline-item
-        v-for="course in courses"
-        :key="course.courseOrder" 
-      > 
-        <template v-slot:icon>
-          <v-avatar>
-            <img :src="course.thumbnailUrl">
-          </v-avatar>
-        </template>
-        <template v-slot:opposite>
-          <span>{{course.categoryName}}</span>
-        </template>
-        <v-row justify="space-between" @click="onImgClick">
-          <v-col cols="7">{{course.tradeName}}</v-col>
-          <v-col class="text-right text-caption" cols="5" style="color:#f09894;">{{course.categoryName}}</v-col>
-        </v-row>
-      </v-timeline-item>
-      
-    </v-timeline> -->
-            <!-- <v v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102);">
-              #{{ tag }}
-            </v> -->
     </v-container>
     
     <v-divider></v-divider>
@@ -94,8 +70,7 @@
          <v-icon small color="#64DD17">
            mdi-map-marker-radius-outline
          </v-icon>
-        <!-- <img src="../../assets/images/detail1.png" style="height:12px; width:12px; -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray); filter: opacity(.4) drop-shadow(0 0 0 gray);"> -->
-          <span style="font-size:13px;"> {{region}} </span>
+         <span style="font-size:13px;"> {{region}} </span>
        </div>
         <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
           #{{ tag }}
@@ -132,8 +107,6 @@ export default {
   },
   created() {
     this.parseDate = moment(this.feed.writeDate).format( 'YYYY-MM-DD H:mm');
-    // console.dir(this.feed);
-    //태그파싱
     if(this.feed.tags != " " && this.feed.tags != "") {
       var tags = this.feed.tags.split(" ");
     }
@@ -142,7 +115,6 @@ export default {
       if(tags[i] == "") continue;
       this.feed.tags.push(tags[i]);
     }
-    //
     let data = {
       token : localStorage.getItem("token"),
       feedNo : this.feed.feedNo,
@@ -150,7 +122,6 @@ export default {
     }
     ProfileApi.requestUserProfile(data,
       response => {
-        // console.dir(response.data)
         if(response.data.profilePhoto != undefined && response.data.profilePhoto.length > 10) {
             this.profileImage = response.data.profilePhoto
         }
@@ -206,7 +177,6 @@ export default {
       FeedApi.clickLike(
           data,
           response => {
-            // console.log("좋아요 클릭");
           },
           error => {
             alert(error);
@@ -227,9 +197,7 @@ export default {
         try{
           const roadAddressArray = course.roadAddress.split(' ');
           const roadAddress = roadAddressArray[1];
-          // console.log(roadAddress)
           set.add(roadAddress);
-          // console.log(set);
         }
         catch(e) {
           console.log(e);
@@ -243,7 +211,6 @@ export default {
       })
 
       for(var i = 0 ; i < filteredRegionArray.length; i++) {
-        // console.log(regionArray[i])
           if(filteredRegionArray.length - 1 != i) {
             this.region += (filteredRegionArray[i] + " -> ")
           } else {

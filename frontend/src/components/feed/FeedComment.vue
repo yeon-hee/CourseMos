@@ -43,7 +43,6 @@ import AlertApi from "../../api/AlertApi";
 import {mdiDelete} from '@mdi/js'
 
 export default {
-  // props : {feedNo : String},
   data: () => {
     return { 
       icons: {
@@ -82,7 +81,6 @@ export default {
       response => {
         
         this.comments = response.data
-        console.dir(this.comments)
       },
       error => {
         alert('피드 댓글 조회에 실패했습니다.');
@@ -100,7 +98,6 @@ export default {
           feedNo : this.$route.params.feedNo,
           content
         };
-        console.log('댓글 등록 들어옴.');
         feed.commentCount += 1;
 
         FeedApi.registerComment(

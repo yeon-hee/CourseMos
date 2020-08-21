@@ -70,30 +70,6 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <!-- 
-        <div class="courseMake mb-2" style="justify-content: center;">
-          <v-sheet 
-            elevation="5"
-            max-width="400"
-            width="400"
-            height="58"
-            style="border-radius: 5px;">
-            <v-slide-group show-arrows>
-              <v-slide-item
-                v-for="(course, index) in courses"
-                v-bind:key="index"
-                class="place"
-              >
-                <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative; border-radius: 5px;"
-                v-on:click="doRemove(index)" />
-              </v-slide-item>
-            </v-slide-group>
-          </v-sheet>
-          <button v-on:click="saveCourse" class="next">
-            <v-icon style="color:#0c6212">fas fa-plus</v-icon>
-          </button>
-    </div>-->
   </v-container>
 </template>
 
@@ -106,8 +82,6 @@ import CallImage from "../../assets/images/detail4.png";
 
 export default {
   components: {
-    // LogoTitle,
-    // Nav,
   },
   created() {
     this.$store.state.courses = [];
@@ -123,7 +97,6 @@ export default {
       places: null,
       markers: [],
       ps: {},
-      // infowindow: {},
       courses: [],
       temp: {},
       idx: 0,
@@ -167,18 +140,7 @@ export default {
 
       (this.ps = new kakao.maps.services.Places()),
         (this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 }));
-      //마커추가하려면 객체를 아래와 같이 하나 만든다.
-      // var marker = new kakao.maps.Marker({
-      //   position: this.map.getCenter(),
-      // });
-      // marker.setMap(this.map);
     },
-    // displayInfowindow(marker, title) {
-    //   var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
-
-    //   this.infowindow.setContent(content);
-    //   this.infowindow.open(this.map, this.marker);
-    // },
     addScript() {
       const script = document.createElement("script");
       /* global kakao */
@@ -204,7 +166,6 @@ export default {
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
-        ////////////////////////////////////////////////
         this.places = data;
 
         for (var i = 0; i < data.length; i++) {
@@ -240,7 +201,6 @@ export default {
 
       // 검색 결과 목록에 추가된 항목들을 제거합니다
       this.removeAllChildNods(listEl);
-      //this.removeAllChildNods(this.dataList); // 여기
 
       // 지도에 표시되고 있는 마커를 제거합니다
       this.removeMarker();
@@ -329,7 +289,6 @@ export default {
         },
         (error) => {
           alert(error);
-          console.log("상세 정보 크롤링 실패했습니다.");
         }
       );
     },
@@ -494,15 +453,6 @@ export default {
 
               var tmpstr = placeTemp.category_name.split(">");
               var category_name = tmpstr[tmpstr.length - 1];
-              // courseTemp.push({
-              // tradeName: placeTemp.place_name,
-              // latitude: placeTemp.x,
-              // longitude: placeTemp.y,
-              // categoryName: category_name,
-              // thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기
-              // roadAddress: placeTemp.road_address_name,
-              // });
-              // idxTemp++;
 
               var content =
                 '<div class="wrap">' +
@@ -579,22 +529,13 @@ export default {
                 if (mainphoto == defaultImage)
                   alert("등록된 상세정보가 없습니다.");
                 else {
-                  // routetemp.push("/trade/" + id);
-                  // let routeData = this.$router.resolve({
-                  //   name: "TradeDetail",
-                  //   params: { id: id },
-                  // });
                   window.open("/trade/" + id, "_blank", "width=400,height=667");
                 }
               };
 
-              // 인포윈도우를 생성합니다
-              //this.infowindow.setContent(content);
-              //this.infowindow.open(this.map, marker);
             },
             (error) => {
               alert(error);
-              console.log("상세 정보 크롤링 실패했습니다.");
             }
           );
         }
@@ -622,7 +563,6 @@ export default {
     },
 
     doRemove(index) {
-      console.dir(this.courses);
       this.courses.splice(index, 1);
       this.idx--;
     },
