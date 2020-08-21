@@ -166,6 +166,11 @@ export default {
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
+        
+        //기존 오버레이 제거
+        if (this.overlay.Da != undefined) {
+          this.overlay.setMap(null);
+        }
         this.places = data;
 
         for (var i = 0; i < data.length; i++) {
