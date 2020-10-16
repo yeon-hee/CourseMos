@@ -1,49 +1,56 @@
 
 <template>
-  <div class="user join wrapC">
-    <h1>비밀번호 변경하기</h1>
-    <div class="form-wrap">
-      
-      <div class="input-with-label">
-        <input 
-          v-model.lazy="password" 
-          v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
-          id="password" :type="passwordType" 
-          placeholder="현재 비밀번호를 입력하세요." />
-        <label for="password">현재 비밀번호</label>
-        <div class="error-text" v-if="error.password">{{error.password}}</div>
-      </div>
-     
-      <div class="input-with-label">
-        <input 
-            v-model="newPassword"
-            v-bind:class="{error:error.newPassword, complete:!error.newPassword&&newPassword.length!==0}"
+  <v-container fluid class="mt-2 mb-16">
+    <v-row>
+      <v-col cols="12" sm="6" offset-sm="3">
+        <v-card class="pa-5">
+          <v-row>
+            <v-col cols="12">
+              <h1>비밀번호 변경하기</h1>
+              <p>Change Password</p>
+            </v-col>
+          </v-row>
+
+          <v-text-field
+            label="현재 비밀번호" 
+            v-model.lazy="password" 
+            id="password" :type="passwordType"
+            :error-messages="error.password"
+            placeholder="현재 비밀번호를 입력하세요." />
+          
+          <v-text-field
+            label="변경할 비밀번호"
+            v-model.lazy="newPassword"
+            :error-messages="error.newPassword"
             id="newPassword" :type="passwordType" 
             placeholder="변경할 비밀번호를 입력하세요." />
-        <label for="newPassword">변경할 비밀번호</label>
-        <div class="error-text" v-if="error.newPassword">{{error.newPassword}}</div>
-      </div>
 
-      <div class="input-with-label">
-        <input
-          v-model="passwordConfirm"
-          :type="passwordConfirmType"
-          id="password-confirm"
-          placeholder="비밀번호를 다시 한번 입력하세요."
-        />
-        <label for="password-confirm">비밀번호 확인</label>
-        <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div>
-      </div>
-    </div>
+          <v-text-field
+            label="비밀번호 확인"
+            v-model.lazy="passwordConfirm"
+            :type="passwordConfirmType"
+            :error-messages="error.passwordConfirm"
+            id="password-confirm"
+            placeholder="비밀번호를 다시 한번 입력하세요."
+          />
 
-
-    <button 
-      class="btn-bottom"
-      @click="onChange"
-      :disabled="!isSubmit"
-      :class="{disabled : !isSubmit}"
-      >비밀번호 변경하기</button>
-  </div>
+          <v-row justify="center">
+            <v-col cols="12" style="text-align:center;">
+              <v-btn
+                color="pink"
+                class="pink white--text"
+                @click="onChange"
+                :disabled="!isSubmit"
+                :class="{disabled : !isSubmit}"
+              >
+                비밀번호 변경하기
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

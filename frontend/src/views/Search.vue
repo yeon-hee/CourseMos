@@ -1,125 +1,135 @@
 <template>
-    <div>
-        <LogoTitle/>
-        <div id="search">
-            <div class="searchBar">
-                <input type="text" placeholder="유저검색" v-model="keyword">
-                <button>검색</button>
-            </div>
-            <div class="resultContainer">
-                <select v-show="users.length > 0" multiple @change="onChange($event)">
-                    <option v-for="user in users" v-bind:key="user">{{user.userId}}</option>
-                </select>
-            </div>
-        </div>
-        <Nav/>
-    </div>
+  <div>
+    <v-card class="mx-auto" max-width="500" style="padding-bottom: 60px;">
+      <v-sheet class="pa-4" style="background-color: rgb(245,152,152); ">
+        <v-text-field
+          v-model="search"
+          label="유저 검색"
+          dark
+          flat
+          solo-inverted
+          hide-details
+          clearable
+          clear-icon="mdi-close-circle-outline"
+          style="background-color: rgb(245,152,152);"
+        ></v-text-field>
+        <v-checkbox v-model="caseSensitive" dark hide-details label="대소문자 구별하여 검색"></v-checkbox>
+      </v-sheet>
+      <br />
+      <v-treeview
+        :active.sync="active"
+        :items="items"
+        :search="search"
+        :filter="filter"
+        :open.sync="open"
+        transition
+        activatable
+        v-model="selection"
+        @update:active="onChange"
+      >
+        <template v-slot:prepend="{ item }">
+          <v-icon v-if="!item.children">mdi-account</v-icon>
+          {{ selected.name }}
+        </template>
+      </v-treeview>
+    </v-card>
+  </div>
 </template>
 
 <script>
 import LogoTitle from "./LogoTitle.vue";
 import Nav from "./Nav.vue";
 import UserApi from "../api/UserApi";
+import "material-design-icons-iconfont/dist/material-design-icons.css";
 
 export default {
-    components: {
-        LogoTitle,
-        Nav
-    },
-    methods : {
-        onChange(event) {
-            const userId = event.target.value;
+  components: {
+  },
+  methods: {
+    onChange(selection) {
+      var userId = null;
 
-            if(userId == localStorage.getItem('userId'))
-                this.$router.push("/users/profile");
-            else 
-                this.$router.push("/users/profile/info/" + userId);
+      for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i].id === selection[0]) {
+          userId = this.items[i].name;
+          break;
         }
+      }
+      if (userId == localStorage.getItem("userId"))
+        this.$router.push("/users/profile");
+      else this.$router.push("/users/profile/info/" + userId);
     },
-    watch : {
-        keyword: function(v) {
-            if(v.length > 0) {
-                UserApi.findUserBykeyword(
-                    v,
-                    response => {
-                        this.users = response.data
-                    },
-                    error => {
-                        alert('유저 목록 조회에 실패했습니다.');
-                    }
-                );
-            } else {
-                this.users = []
-            }
-        }
+  },
+  watch: {
+    keyword: function (v) {
+      if (v.length > 0) {
+        UserApi.findUserBykeyword(
+          v,
+          (response) => {
+            this.users = response.data;
+          },
+          (error) => {
+            alert("유저 목록 조회에 실패했습니다.");
+          }
+        );
+      } else {
+        this.users = [];
+      }
     },
-    data: () => {
-    return { 
-        keyword : "",
-        users : []
+    selected: "randomAvatar",
+  },
+  data: () => {
+    return {
+      keyword: "",
+      users: [],
+      items: [],
+      active: [],
+      temp: [],
+      open: [1, 2],
+      search: null,
+      caseSensitive: false,
     };
   },
 
-}
+  created() {
+    let data = {
+      token: localStorage.getItem("token"),
+    };
+
+    UserApi.findAllUser(
+      data,
+      (res) => {
+        this.temp = res.data;
+        for (var i = 0; i < this.temp.length; i++) {
+          this.items.push({
+            id: i + 1,
+            name: this.temp[i].userId,
+          });
+        }
+      },
+      (error) => {
+        alert(error);
+      }
+    );
+  },
+
+  computed: {
+    filter() {
+      return this.caseSensitive
+        ? (item, search, textKey) => item[textKey].indexOf(search) > -1
+        : undefined;
+    },
+    selected() {
+      // 여기 눌리면 오는 곳
+      return "안녕하세요";
+    },
+  },
+};
 </script>
 
 <style scoped>
-
-#search{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 85vh;
-    z-index: 1;
+.resultContainer > select {
+  padding-left: 5px;
+  width: 100%;
 }
-
-/* #search::after{
-    position: absolute;
-    top:0;
-    left:0;
-    content:"";
-    width:100%;
-    height: 100%;
-    opacity: 0.5;
-    z-index: -1;
-    background-image: url(../assets/images/foods.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
-
-
-.resultContainer > select > option{
-    padding-left: 5px;
-    width: 250px;
-}
-
-.searchBar{
-    display: flex;
-    align-items: center;
-    height: 40px;
-    width: 250px;
-    border: 1px solid #1b5ac2;
-    background: white;
-
-}
-
-input{
-    font-size: 16px;
-    width: 75%;
-    padding-left: 10px;
-    border: 0px;
-    outline: none;
-}
-
-button{
-    width: 25%;
-    height: 100%;
-    border: 0px;
-    background: #1b5ac2;
-    outline: none;
-    float: right;
-    color: white;
-}
-
 </style>
