@@ -42,6 +42,5 @@
                 this.$router.push("/feed/write");
             }
         }
-
     }
 </script>

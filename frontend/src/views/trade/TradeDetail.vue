@@ -221,6 +221,7 @@ export default {
       else this.$router.push("/feedmake");
     },
   },
+
 };
 </script>
 

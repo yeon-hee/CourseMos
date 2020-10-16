@@ -11,7 +11,6 @@
               <p>My Settings</p>
             </v-col>
           </v-row>
-
           <!-- profile image  -->
           <v-card color='deep-orange lighten-5'>
             <v-row>
@@ -99,15 +98,17 @@
 
 <script>
 import UserApi from "../../api/UserApi";
-import axios from "axios";
+import axios from 'axios';
+import LogoTitle from '../LogoTitle.vue';
 import * as firebase from "firebase/app";
 
 export default {
   created() {
+    this.storageRef = firebase.storage().ref();
     this.component = this;
 
     let data = {
-      token: localStorage.getItem("token"),
+        token : localStorage.getItem('token'),
     };
     UserApi.requestUserInfo(
       data,
@@ -137,6 +138,21 @@ export default {
     },
   },
   methods: {
+    selectImage() {
+      this.profileImage = this.$refs.profileImage.files[0];
+      console.dir(this.profileImage)
+      var reader = new FileReader()
+      console.log(reader.readAsDataURL(this.profileImage))
+      // this.profileImage  = window.URL.createObjectURL(this.profileImage);
+      // this.storageRef.put(this.profileImage).then(function(snapshot) {
+      //     console.dir(snapshot)
+      // }).catch(function(err) {
+      //   console.dir(err)
+      // });
+    },
+    finalCheck(){
+      if(this.userId.length == 0 && this.profileComment.length == 0){
+
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
@@ -251,7 +267,8 @@ export default {
       },
       isSubmit: false,
       termPopup: false,
-      profileImage: {},
+      profileImage : {},
+      storageRef : {},
       profileThumbnail: require("@/assets/images/profile_default.png"),
     };
   },
