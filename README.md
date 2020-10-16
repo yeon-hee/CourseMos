@@ -3,9 +3,6 @@
 > 배포 URL: http://i3a303.p.ssafy.io/
 
 
-
-### - 프로젝트 소개 
-
 #### :name_badge: 프로젝트 이름
 코스모스 
 
