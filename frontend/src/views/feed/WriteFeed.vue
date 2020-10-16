@@ -26,7 +26,6 @@
             </div>
           </header>
           <div>
-            <!-- input type=text -->
 
             <v-textarea
               label="Contents"
@@ -90,13 +89,10 @@ export default {
   },
   created() {
     this.courses = this.$store.state.courses;
-    console.log(this.courses);
   },
   methods: {
     selectImage() {
       const profileImage = this.$refs.feedImage.files[0];
-      File;
-      console.dir(profileImage);
       this.images.push(profileImage);
 
       var binaryData = [];
@@ -147,7 +143,6 @@ export default {
       FeedApi.writeFeed(
         data,
         (response) => {
-          console.dir(response);
 
           if (this.images.length > 0) {
             for (const url of this.uploadedImageUrl) {
@@ -158,7 +153,6 @@ export default {
               FeedApi.uploadFeedImage(
                 photoData,
                 (response) => {
-                  console.log(url);
                 },
                 (error) => {
                   alert(error);
@@ -180,11 +174,9 @@ export default {
               token: localStorage.getItem("token"),
             };
 
-            console.dir(courseData);
             CourseApi.uploadFeedCourses(
               courseData,
               (response) => {
-                console.log(response);
               },
               (error) => {
                 alert(error);

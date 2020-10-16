@@ -113,17 +113,6 @@ export default {
       ],
     };
   },
-  //       created(){
-  //           shuffle(this.menuList) {
-  //           var j, x, i;
-  //           for (i = menuList.length; i; i -= 1) {
-  //               j = Math.floor(Math.random() * i);
-  //               x = menuList[i - 1];
-  //               menuList[i - 1] = menuList[j];
-  //               menuList[j] = x;
-  //           }
-  //       }
-  //   },
   methods: {
     choose(idx) {
       if (this.round == 2) {
@@ -149,7 +138,6 @@ export default {
 <style scoped>
 .foodCup {
   height: 120%;
-  /* background-color: rgb(244, 81, 30); */
   max-width: 500px;
   margin: 0 auto;
 }

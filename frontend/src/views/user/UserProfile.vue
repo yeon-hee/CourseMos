@@ -59,8 +59,6 @@
             <v-row>
               <v-col v-for="feed in feeds" :key="feed.id" class="d-flex child-flex" cols="4" md="3">
                 <template>
-                  <!-- <v-hover>
-                    <template v-slot:default="{ hover }"> -->
                       <v-card flat tile class="d-flex">
                         <v-img
                           v-if="feed.thumbnail != undefined &&
@@ -70,11 +68,6 @@
                           aspect-ratio="1"
                           class="grey lighten-2"
                         >
-                          <!-- <template v-slot:placeholder>
-                            <v-row class="fill-height ma-0" align="center" justify="center">
-                              <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                            </v-row>
-                          </template> -->
                         </v-img>
                         <v-img 
                           v-else 
@@ -83,26 +76,7 @@
                           class="grey lighten-2"
                           @click="onImgClick(feed.feedNo)"
                         />
-                        <!-- <v-fade-transition>
-                          <v-overlay
-                            @click="onImgClick(feed.feedNo)"
-                            v-if="hover"
-                            absolute
-                            color="#036358"
-                          >
-                            <v-row justify="space-around" class="mb-2">
-                              <span class="group pa-2">
-                                <v-icon>fas fa-heart</v-icon>
-                                {{feed.like_count}}
-                                <v-icon>fas fa-comment-dots</v-icon>
-                                {{feed.comment_count}}
-                              </span>
-                            </v-row>
-                          </v-overlay>
-                        </v-fade-transition> -->
                       </v-card>
-                    <!-- </template>
-                  </v-hover> -->
                 </template>
               </v-col>
             </v-row>
@@ -111,68 +85,6 @@
       </v-col>
     </v-row>
   </v-container>
-  <!-- <div>
-        <main class="profile-container">
-            <section class="profile">
-                <header class="profile-header">
-                    <div class="profile-avatar-container">
-                        <img 
-                            :src="profile_photo"
-                            class="profile-avatar"
-                        />
-                        <div class="profile-name">
-                            <h5 class="profile-title">{{user.userId}}</h5>
-                        </div>
-                    </div>
-                    <div class="profile-info">
-                        <ul class="profile-numbers">
-                        
-                            <li class="profile-posts">
-                                    <span class="profile-number u-fat-text">게시물</span>
-                                    <div class="articles-number">{{count.feedCount}}</div>
-                            </li>
-                        
-                            <a href="/#/friends/followers">
-                                <li class="profile-followers">
-                                    <span class="profile-number u-fat-text">팔로워</span>
-                                    <div class="followers-number">{{count.followerCount}}</div>
-                                </li>
-                            </a>
-                            <a href="#/friends/followings">
-                                <li class="profile-following">
-                                    <span class="profile-number u-fat-text">팔로잉</span>
-                                    <div class="followings-number">{{count.followingCount}}</div>
-                                </li>
-                            </a>
-                        </ul>
-                        <a href='javascript:void(0);' @click="requestButton(follow_status);" class="profile-button u-fat-text">{{message}}</a>
-                    </div>
-                </header>
-                <div class="profile-bio">
-                    <p class="profile-full-bio">{{user.profileComment}}</p>
-                </div>
-                <hr>
-                <ul class="profile-pictures">
-                    <li class="profile-picture" v-for="feed in feeds" :key="feed.id">
-                        <a @click="onImgClick(feed.feedNo)">
-                            <img
-                                :src="feed.thumbnail"
-                                class="profile-picture-picture"
-                            />
-                            <div class="profile-picture-overlay">
-                                <span class="profile-picture-number">
-                                    <i class="fa fa-heart"></i> {{feed.like_count}}
-                                </span>
-                                <span class="profile-picture-number">
-                                    <i class="fa fa-comment"></i> {{feed.comment_count}}
-                                </span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-        </main>
-  </div>-->
 </template>
 
 <script>
@@ -194,7 +106,6 @@ export default {
     ProfileApi.requestUserProfile(
       data,
       (res) => {
-        console.dir(res.data);
         this.user = res.data;
         data.email = this.user.email;
         if (

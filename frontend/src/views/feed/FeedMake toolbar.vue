@@ -20,16 +20,6 @@
             </v-slide-group>
           </v-sheet>
 
-          <!-- <ul class="placeList">
-            <li
-              v-for="(course, index) in courses"
-              v-bind:key="index"
-              class="place"
-              v-on:click="doRemove(index)"
-            >
-              <img :src="course.thumbnailUrl" class="thumbnail" alt="img" style="position: relative;" />
-            </li>
-          </ul> -->
           <button v-on:click="saveCourse" class="next">
             <v-icon style="color:#0c6212">fas fa-plus</v-icon>
           </button>
@@ -179,12 +169,6 @@ export default {
       });
       marker.setMap(this.map);
     },
-    // displayInfowindow(marker, title) {
-    //   var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
-
-    //   this.infowindow.setContent(content);
-    //   this.infowindow.open(this.map, this.marker);
-    // },
     addScript() {
       const script = document.createElement("script");
       /* global kakao */
@@ -298,10 +282,6 @@ export default {
 
     // 검색결과 항목을 Element로 반환하는 함수입니다
     getListItem(index, places) {
-      //console.log(places);
-      //console.log(places.category_name);
-      //console.log(places.road_address_name);
-      //console.log(places.category_name.split('>'));
 
       var el = document.createElement("li"),
       itemStr = '<v-list-item two-line>' +
@@ -310,27 +290,6 @@ export default {
         '<v-list-item-subtitle>'+places.road_address_name+places.address_name+'</v-list-item-subtitle>' +
       '</v-list-item-content>' +
     '</v-list-item>'; 
-      //   itemStr =
-      //     '<div>' +
-      //     "   <h3>" +
-      //     (index + 1) +
-      //     ". " +
-      //     places.place_name +
-      //     "</h3>";
-
-      // if (places.road_address_name) {
-      //   itemStr +=
-      //     "    <span>" +
-      //     places.road_address_name +
-      //     "</span>" +
-      //     '   <span class="jibun gray">' +
-      //     places.address_name +
-      //     "</span>";
-      // } else {
-      //   itemStr += "    <span>" + places.address_name + "</span>";
-      // }
-
-      // itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
       itemStr += "<hr class='p-2'/>";
       el.innerHTML = itemStr;
       el.className = "item";
@@ -423,8 +382,6 @@ export default {
     addplace(marker, title) {
       for (var i = 0; i < this.places.length; i++) {
         if (this.places[i].place_name == title) {
-          console.log('여기');
-          console.log(this.places[i]);
           var mainphoto = "";
 
           let data = {
@@ -441,15 +398,11 @@ export default {
           FeedApi.detailCrawling(
               data,
               res => {
-                  console.log("상세 정보 크롤링 완료!");
                   thisTemp = res.data;
-                  console.log(placeTemp);
                   mainphoto = thisTemp.mainphotourl;
                   if(mainphoto==null) {
                     mainphoto = defaultImage;
-                    console.log('언디파인드');
                   }
-                  console.log(mainphoto);
 
                   var tmpstr = placeTemp.category_name.split(">");
                   var category_name = tmpstr[tmpstr.length - 1];
@@ -462,28 +415,12 @@ export default {
                   roadAddress: placeTemp.road_address_name,
                   });
                   idxTemp++;
-                  console.log('코스 정보');
-                  console.log(courseTemp);
               },
               error => {
                   alert(error);
-                  console.log('상세 정보 크롤링 실패했습니다.');
               }
           );
 
-          // var tmpstr = this.places[i].category_name.split(">");
-          // var category_name = tmpstr[tmpstr.length - 1];
-          // this.courses.push({
-          //   tradeName: this.places[i].place_name,
-          //   latitude: this.places[i].x,
-          //   longitude: this.places[i].y,
-          //   categoryName: category_name,
-          //   thumbnailUrl: mainphoto, // 여기서 크롤링한 이미지 받아오기 
-          //   roadAddress: this.places[i].road_address_name,
-          // });
-          // this.idx++;
-          // console.log('코스 정보');
-          // console.log(this.courses);
         }
       }
       console.log(this.courses);
@@ -650,8 +587,6 @@ input::placeholder {
   color: #009900;
 }
 #placesList .item .markerbg {
-  /* float: left;
-  position: absolute; */
   width: 36px;
   height: 37px;
   margin: 10px 0 0 10px;

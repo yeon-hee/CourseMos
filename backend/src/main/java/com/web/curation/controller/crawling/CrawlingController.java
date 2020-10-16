@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
+import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -40,7 +41,7 @@ import io.swagger.annotations.ApiResponses;
 public class CrawlingController {
   static String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36";
   // static String referer = "https://place.map.kakao.com/";
-  static String referer = "https://map.kakao.com/";
+  static String referer = "https://t1.daumcdn.net/kakaomapweb/place";
   @Autowired
   CourseDao courseDao;
 
@@ -83,6 +84,7 @@ public class CrawlingController {
           Document doc = Jsoup.connect(url)
                               .userAgent(userAgent)
                               .referrer(referer)
+                              .method(Method.GET)
                               .header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
                               .header("Accept-Encoding", "gzip, deflate, br")
                               .ignoreContentType(true)
@@ -113,6 +115,7 @@ public class CrawlingController {
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
                             .referrer(referer)
+                            .method(Method.GET)
                             .header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
                             .header("Accept-Encoding", "gzip, deflate, br")
                             .ignoreContentType(true)
@@ -137,6 +140,7 @@ public class CrawlingController {
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
                             .referrer(referer)
+                            .method(Method.GET)
                             .header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
                             .header("Accept-Encoding", "gzip, deflate, br")
                             .ignoreContentType(true)
@@ -161,6 +165,7 @@ public class CrawlingController {
         Document doc = Jsoup.connect(url)
                             .userAgent(userAgent)
                             .referrer(referer)
+                            .method(Method.GET)
                             .header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
                             .header("Accept-Encoding", "gzip, deflate, br")
                             .ignoreContentType(true)

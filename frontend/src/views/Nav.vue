@@ -57,7 +57,6 @@ export default {
   methods: {
     goMain(event) {
       const path = document.location.href.split('http://i3a303.p.ssafy.io')[1];
-      // const path = document.location.href.split('http://localhost:3000')[1];
       if(path == "/feed/main")
         window.location.reload()
       else
@@ -66,16 +65,13 @@ export default {
     },
     goSearch() {
       const path = document.location.href.split('http://i3a303.p.ssafy.io')[1];
-      // const path = document.location.href.split('http://localhost:3000')[1];
       if(path == "/search")
         window.location.reload()
       else
         this.$router.push("/search")
-      this.$router.push("/search");
     },
     goFeedMake() {
       const path = document.location.href.split('http://i3a303.p.ssafy.io')[1];
-      // const path = document.location.href.split('http://localhost:3000')[1];
       if(path == "/feedmake")
         window.location.reload()
       else
@@ -83,7 +79,6 @@ export default {
     },
     goProfile() {
       const path = document.location.href.split('http://i3a303.p.ssafy.io')[1];
-      // const path = document.location.href.split('http://localhost:3000')[1];
       if(path == "/users/profile")
         window.location.reload()
       else

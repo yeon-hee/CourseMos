@@ -113,24 +113,12 @@ export default {
       ],
     };
   },
-  //       created(){
-  //           shuffle(this.menuList) {
-  //           var j, x, i;
-  //           for (i = menuList.length; i; i -= 1) {
-  //               j = Math.floor(Math.random() * i);
-  //               x = menuList[i - 1];
-  //               menuList[i - 1] = menuList[j];
-  //               menuList[j] = x;
-  //           }
-  //       }
-  //   },
   methods: {
     choose(idx) {
       if (this.round == 2) {
         this.winner = this.menuList[idx];
         this.dialog = true;
         alert("1등 볼거리는 " + this.winner.name + "입니다.");
-        console.log(this.winner);
         this.$router.push("/feed/main/" + this.winner.key);
       } else {
         this.winners.push(this.menuList[idx]);
@@ -150,7 +138,6 @@ export default {
 <style scoped>
 .playCup {
   height: 120%;
-  /* background-color: rgb(244, 81, 30); */
   max-width: 500px;
   margin: 0 auto;
 }
