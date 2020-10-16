@@ -58,7 +58,6 @@ public class UserController {
         User findUser = userDao.findUserByEmailAndPassword(user.getEmail(), user.getPassword()).get();
         findUser.setPassword(null);
         findUser.setCreateDate(null);
-        System.out.println(findUser);
         String token = jwtService.create("user", findUser, "user");
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("token", token);
@@ -209,12 +208,10 @@ public class UserController {
 
         Optional<User> use = userDao.findByUserId(user.getUserId());
         ResponseEntity response = null;
-
-        if(use.isPresent()){ // 있으면 안됨 - 중복 체크
-            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            System.out.println("유저아이디 중복");
-        }
-        else{ // 기존에 없는 유저 아이디일 경우 추가
+        String userId = (String) jwtService.getUserId();
+        // System.out.println(userId + userId.length());
+        // System.out.println(user.getUserId() + user.getUserId().length());
+        if(!use.isPresent() || userId.equals(user.getUserId()) ){ // 있으면 안됨 - 중복 체크
             try {
                 User people = userDao.findByEmail(user.getEmail());
                 people.setUserId(user.getUserId()); // 바뀌는 내용
@@ -233,7 +230,63 @@ public class UserController {
                 response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
             }
         }
+        else{ // 기존에 없는 유저 아이디일 경우 추가
+            final BasicResponse result = new BasicResponse();
+            result.status = false;
+            result.data = "유저 아이디 중복입니다.";
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+            System.out.println("유저아이디 중복");
+        }
+        // if(use.isPresent()){ // 있으면 안됨 - 중복 체크
+        //     response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        //     System.out.println("유저아이디 중복");
+        // }
+        // else{ // 기존에 없는 유저 아이디일 경우 추가
+        //     try {
+        //         User people = userDao.findByEmail(user.getEmail());
+        //         people.setUserId(user.getUserId()); // 바뀌는 내용
+        //         people.setProfileComment(user.getProfileComment());
+        //         userDao.save(people);
 
+        //         final BasicResponse result = new BasicResponse();
+        //         result.status = true;
+        //         result.data = "success";
+        //         response = new ResponseEntity<>(result, HttpStatus.OK);
+
+        //     } catch(Exception e) {
+        //         final BasicResponse result = new BasicResponse();
+        //         result.status = false;
+        //         result.data = e.toString();
+        //         response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        //     }
+        // }
+
+        return response;
+    }
+
+    @PutMapping("/profile/image")
+    @ApiOperation(value = "프로필 이미지 수정") // 계정 정보 수정 - 유저아이디 중복 될 경우 알려주기!!!
+    public Object profileImageEdit(@Valid @RequestBody  final User user) {
+        // Put 방식 -> RequestBody로 넘기기 (객체로 받기)
+
+        ResponseEntity response = null;
+
+        try {
+            User people = userDao.findByEmail(user.getEmail());
+            people.setProfilePhoto(user.getProfilePhoto());
+            userDao.save(people);
+
+            final BasicResponse result = new BasicResponse();
+            result.status = true;
+            result.data = "success";
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+
+        } catch(Exception e) {
+            final BasicResponse result = new BasicResponse();
+            result.status = false;
+            result.data = e.toString();
+            response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
         return response;
     }
 
@@ -283,6 +336,27 @@ public class UserController {
             result.status = false;
             response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
         }
+        return response;
+    }
+
+    @GetMapping("/all")
+    @ApiOperation(value = "유저 정보 전체 가져오기")
+    public Object getAllProfile() { 
+
+        ResponseEntity response = null;
+
+        try { 
+            List<User> user = userDao.findAll();
+            final BasicResponse result = new BasicResponse();
+            response = new ResponseEntity<>(user, HttpStatus.OK); 
+
+        } catch(Exception e) {
+            final BasicResponse result = new BasicResponse();
+            result.status = false;
+            result.data = e.toString();
+            response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
+
         return response;
     }
 

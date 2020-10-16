@@ -1,47 +1,42 @@
 <template>
-    <div>
-    <LogoTitle/>
-        <div id="alerts">
-            <section class="tab">
-                <a class="active-tab" href="#"><div class="tab-alerts">알림</div></a>
-                <a href="#/requests"><div class="tab-requests">요청</div></a>
-            </section>
-            <div class="all-button">
-                <button class="all-close" @click="closeAll()">모두닫기</button>
+
+    <v-card>
+        
+        <v-virtual-scroll
+        :items="alertList"
+        :item-height="30"
+        height="200"
+        >
+        <v-btn text @click="closeAll"><span>모두 닫기</span></v-btn>
+
+        <template v-slot="{ item , index}">
+            <v-list :key="item.alertNo" style="margin: 0 0 0 12px;" >
+            <div style="float: left;" class="text">
+                {{ item.message }}
             </div>
-            <div class="tab-list">
-                <ul class="alert-list">
-                    <hr>
-                    <li v-for="(alert, index) in alertList" :key="alert.id">
-                        <div class="alert">
-                            <div class="alert-info">
-                                <img src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
-                                <div>{{alert.message}}</div> 
-                            </div>
-                            <button class="close-button" @click="close(alert, index)"><i class="fas fa-times"></i></button>
-                        </div>
-                        <hr>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    <Nav/>
-    </div>
+            <div style="float: right; margin:6px 12px 0 0;">
+                <v-btn text @click="close(item, index)" style="height:33px; margin-right:5px; border-radius: 30px; background-color:rgb(239,91,91);">닫기</v-btn>
+                </div>
+            <div style="clear:both;"/>
+            </v-list>
+            <v-divider style="margin: 0 10px 0 10px;"></v-divider> 
+        </template>
+        </v-virtual-scroll>
+    </v-card>
+    
   
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
 import "../../components/css/user/alerts.css";
 import axios from 'axios';
 import AlertApi from "../../api/AlertApi";
 
 
+
 export default {
     components: {
-        LogoTitle,
-        Nav
+        // Tab
     },
     created() {
         let data = {
@@ -52,7 +47,6 @@ export default {
             data,
             res => {
                 this.alertList = res.data;
-                console.dir(res);
             },
             error => {
                 alert('알림을 불러올 수 없습니다.')
@@ -73,7 +67,6 @@ export default {
                 data,
                 res => {
                     this.alertList.splice(index,1);
-                    console.log('Close!');
                 },
                 error => {
                     console.log(error);
@@ -88,27 +81,18 @@ export default {
             AlertApi.requestCloseAll(
                 data,
                 res => {
-                    console.log('Close All!!!');
                 },
                 error => {
                     console.log(error);
                 }
             );
-        }
+        },
+
     }
 }
 
 </script>
 
 <style scoped>
-
-hr{
-    margin: 0;
-}
-
-.tab-alerts{
-    background-color: bisque;
-    opacity: 80%;
-}
 
 </style>

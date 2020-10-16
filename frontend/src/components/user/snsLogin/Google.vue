@@ -1,6 +1,6 @@
 <template>
     <div class="google-login">
-        <button  @click="goToWriteFeedPage">
+        <button @click="goToWriteFeedPage">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55" height="55" viewBox="0 0 55 55">
                 <defs>
                     <clipPath id="clip-path">
@@ -39,7 +39,7 @@
             goToWriteFeedPage() {
                 // this.$router.push("/feed/write");
                 // this.$router.push("/components");
-                this.$router.push("/trades/detail");
+                this.$router.push("/feed/write");
             }
         }
     }

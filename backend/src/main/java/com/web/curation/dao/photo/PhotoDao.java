@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PhotoDao extends JpaRepository<Photo, Integer> {
     List<Photo> findByFeedNo(int feedNo);
+    List<Photo> findAllByFeedNo(int feedNo);
 }
