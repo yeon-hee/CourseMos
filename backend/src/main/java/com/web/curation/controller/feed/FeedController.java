@@ -3,20 +3,23 @@ package com.web.curation.controller.feed;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.web.curation.dao.comment.CommentDao;
+import com.web.curation.dao.course.CourseDao;
 import com.web.curation.dao.feed.FeedDao;
 import com.web.curation.dao.like.LoveDao;
 import com.web.curation.dao.photo.PhotoDao;
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.comment.Comment;
 import com.web.curation.model.feed.Feed;
 import com.web.curation.model.like.Love;
 import com.web.curation.model.photo.Photo;
 import com.web.curation.service.JwtService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,11 +29,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import kr.co.shineware.TagGenerator;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
         @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
@@ -51,32 +56,37 @@ public class FeedController {
     @Autowired
     LoveDao likeDao;
     @Autowired
+    CourseDao courseDao;
+    @Autowired
     JwtService jwtService;
 
     @GetMapping
     @ApiOperation(value = "피드 전체보기")
-    public Object loadFeeds() {
-        
-        String userId = (String) jwtService.getUserId();
-        List<Feed> feeds;
-        ResponseEntity response = null;
+    public Object loadFeeds(@RequestParam int page) {
 
+        String userId = (String) jwtService.getUserId();
+        Page<Feed> feeds;
+        ResponseEntity response = null;
+        System.out.println(page);
         try {
-            feeds = feedDao.findAll();
-            for(Feed feed : feeds) {
+            PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
+
+            feeds = feedDao.findAll(request);
+            for (Feed feed : feeds) {
+                System.out.println(feed);
                 int feedNo = feed.getFeedNo();
                 feed.setCommentCount(commentDao.countByFeedNo(feedNo));
                 feed.setLikeCount(likeDao.countByFeedNo(feedNo));
                 Love love = likeDao.findByFeedNoAndUserId(feedNo, userId);
-                if(love != null) {
+                if (love != null) {
                     feed.setMine(true);
-                }else {
+                } else {
                     feed.setMine(false);
                 }
             }
 
-            response = new ResponseEntity<>(feeds, HttpStatus.OK); 
-        } catch(Exception e) {
+            response = new ResponseEntity<>(feeds, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return response;
@@ -85,16 +95,15 @@ public class FeedController {
     @GetMapping("/user/{userId}")
     @ApiOperation(value = "유저 피드 보기")
     public Object loadUserFeeds(@PathVariable final String userId) {
-        
+
         List<Feed> feeds;
         ResponseEntity response = null;
 
         try {
             feeds = feedDao.findAllByUserId(userId);
-            
 
-            response = new ResponseEntity<>(feeds, HttpStatus.OK); 
-        } catch(Exception e) {
+            response = new ResponseEntity<>(feeds, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return response;
@@ -105,11 +114,15 @@ public class FeedController {
     public Object writeFeeds(@RequestBody final Feed feed) {
         ResponseEntity response = null;
 
+        TagGenerator tagGenerator = new TagGenerator(feed.getContents());
+        String tags = tagGenerator.getTags();
+
+        feed.setTags(tags);
         try {
             feedDao.save(feed);
 
-            response = new ResponseEntity<>(feed, HttpStatus.OK); 
-        } catch(Exception e) {
+            response = new ResponseEntity<>(feed, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return response;
@@ -120,23 +133,23 @@ public class FeedController {
     public Object loadFeedDetail(@PathVariable final int feedNo) {
         Feed feed;
         ResponseEntity response = null;
-        String userId = (String)jwtService.getUserId();
+        String userId = (String) jwtService.getUserId();
 
         try {
             feed = feedDao.findByFeedNo(feedNo);
             feed.setCommentCount(commentDao.countByFeedNo(feedNo));
             feed.setLikeCount(likeDao.countByFeedNo(feedNo));
             Love love = likeDao.findByFeedNoAndUserId(feedNo, userId);
-            if(love != null) {
+            if (love != null) {
                 feed.setMine(true);
-            }else {
+            } else {
                 feed.setMine(false);
             }
             Map<String, Object> map = new HashMap<>();
             map.put("feed", feed);
             map.put("userId", userId);
-            response = new ResponseEntity<>(map, HttpStatus.OK); 
-        } catch(Exception e) {
+            response = new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return response;
@@ -151,8 +164,8 @@ public class FeedController {
         try {
             photos = photoDao.findByFeedNo(feedNo);
 
-            response = new ResponseEntity<>(photos, HttpStatus.OK); 
-        } catch(Exception e) {
+            response = new ResponseEntity<>(photos, HttpStatus.OK);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return response;
@@ -166,38 +179,66 @@ public class FeedController {
         ResponseEntity response = null;
         try {
             Feed feed = feedDao.findByFeedNo(feedNo);
-            response = new ResponseEntity<>(feed, HttpStatus.OK); 
-         } catch(Exception e) {
-                response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            }
-            return response;
+            response = new ResponseEntity<>(feed, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+        return response;
+    }
 
-        
     @PutMapping("/{feedNo}/like")
     @ApiOperation(value = "좋아요 누르기")
     public Object likeFeed(@PathVariable final int feedNo) {
-        String userId = (String)jwtService.getUserId();
+        String userId = (String) jwtService.getUserId();
         Love love = likeDao.findByFeedNoAndUserId(feedNo, userId);
         System.out.println(love);
         ResponseEntity response = null;
 
         try {
-            if(love != null) {
+            if (love != null) {
                 likeDao.deleteByFeedNoAndUserId(feedNo, userId);
                 response = new ResponseEntity<>("좋아요 삭제", HttpStatus.OK);
-            }
-            else{
+            } else {
                 Love newLike = new Love();
                 newLike.setFeedNo(feedNo);
                 newLike.setUserId(userId);
                 likeDao.save(newLike);
                 response = new ResponseEntity<>("좋아요 누름", HttpStatus.OK);
-            }                                 
+            }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } 
+        }
+        return response;
+    }
+
+    @GetMapping("/search/{search}")
+    @ApiOperation(value = "키워드로 피드 검색")
+    public Object searchFeeds(@PathVariable final String search, @RequestParam int page) {
+        String userId = (String) jwtService.getUserId();
+        ResponseEntity response = null;
+        try {
+            PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
+            List<Feed> feeds = feedDao.findAllBySearch(search, request);
+            response = new ResponseEntity<>(feeds, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
+    @GetMapping("/worldcup/{category}")
+    @ApiOperation(value = "카테고리로 피드 검색")
+    public Object worldcupFeeds(@PathVariable final String category, @RequestParam int page) {
+        String userId = (String) jwtService.getUserId();
+        ResponseEntity response = null;
+        try {
+            PageRequest request = PageRequest.of(page, 3, Sort.by(Direction.DESC, "writeDate"));
+            List<Feed> feeds = feedDao.findAllByCategory(category, request);
+            response = new ResponseEntity<>(feeds, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
         return response;
     }
 }

@@ -1,7 +1,26 @@
 <template>
-    <div>
-        <LogoTitle/>
-            <div id="followings">
+    <v-container fluid class="mt-0 mb-5">
+        <v-row class="py-0">
+            <v-col class="py-0" cols="12" sm="6" offset-sm="3">
+        <!-- <LogoTitle/> -->
+            <tab/>
+            <v-list subheader>
+                <v-list-item v-for="(following, index) in followingList" :key="following.id">
+                    <v-list-item-avatar>
+                        <v-img :src="following.profilePhoto" 
+                            v-if="following.profilePhoto != undefined &&
+                            following.profilePhoto.length > 10" />
+                        <v-img src="@/assets/images/profile_default.png" v-else />
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                        <v-list-item-title>{{following}}</v-list-item-title>
+                    </v-list-item-content>
+                    <v-list-item-icon>
+                        <v-btn icon @click="cancel(following, index)"><v-icon>fas fa-window-close</v-icon></v-btn>
+                    </v-list-item-icon>
+                </v-list-item>
+            </v-list>
+            <!-- <div id="followings">
                 <section class="tab">
                     <div class="tab-followers"><a href="#/friends/followers">팔로워 <span>{{follower_count}}</span></a></div>
                     <div class="tab-followings"><a href="#">팔로잉 <span>{{following_count}}</span></a></div>
@@ -24,24 +43,28 @@
                         <hr>
                     </ul>
                 </section>
-            </div>
-        <Nav/>
-    </div>
+            </div> -->
+        <!-- <Nav/> -->
+            </v-col>
+        </v-row>
+    </v-container>
   
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
+// import LogoTitle from "../LogoTitle.vue";
+// import Nav from "../Nav.vue";
 import axios from 'axios';
 import FollowApi from "../../api/FollowApi";
 import ProfileApi from "../../api/ProfileApi";
+import Tab from "../../components/follow/FollowTab";
 
 
 export default {
     components: {
-        LogoTitle,
-        Nav
+        // LogoTitle,
+        // Nav,
+        Tab
     },
     created() {
         let data = {
@@ -114,98 +137,4 @@ export default {
 </script>
 
 <style scoped>
-
-#followings{
-    font-family: 'Noto Sans KR', sans-serif;
-    max-width: 500px;
-    min-height: 85vh;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-hr{
-    margin: 0px;
-}
-
-.tab{
-    width: 100%;
-    padding-top: 10px;
-    max-width: 500px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-}
-
-.tab > div{
-    font-size: 20px;
-    font-weight: 500;
-    padding: 10px;
-}
-
-.tab > div > a{
-    text-decoration: none;
-    color: black;
-}
-
-.tab-followers{
-    width: 50%;
-    text-align: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    transition: all .2s ease-in-out;
-}
-
-.tab-followers:hover{
-    background-color: #3897f0;
-}
-
-.tab-followings{
-    width: 50%;
-    text-align: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    background-color: skyblue;
-}
-
-.following {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color:  skyblue;
-}
-
-.following-info{
-    display: flex;
-    align-items: center;
-}
-
-.following-img {
-    border-radius: 50%;
-    padding: 5px 10px;
-}
-
-.following-name{
-    font-size: 18px;
-}
-
-.following-button >button{
-    width: 60px;
-    height: 35px;
-    padding: 0 10px;
-    margin-right: 10px;
-    background-color: rgb(172, 170, 170);
-}
-
-.following-button >button:hover{
-    color:white;
-    background-color:  #3897f0;
-}
-
-.cancel{
-    border:1px solid rgba(0,0,0,.0975);
-    background-color: white;
-    color:black;
-    border-radius: 3px;
-}
-
 </style>

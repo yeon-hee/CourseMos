@@ -1,79 +1,196 @@
 <template>
- <div class="feed-item">
-    <div class="feed-top">
-      <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
-      <div class="user-info">
-        <div class="user-name">
-          <button>{{feed.userId}}</button>
+  <v-container fluid style="margin-bottom:50px; padding: 0px 12px 0px 12px;">
+    <v-row>
+      <v-col cols="12" sm="6" style="padding: 0 12px 0 12px;">
+        <v-sheet 
+          class="mx-auto" 
+          elevation="3"
+          height= "400px"
+        >
+
+          <v-expand-transition>
+            <v-sheet
+              v-if="model != null"
+              color="grey lighten-4"
+              height="332"
+            >
+              <div id="map" style="width:100%; height:331px;" v-show="!imageUrl"></div>
+              <v-img :src="imageUrl" v-show="imageUrl" width="100%" height="331px"/>     
+            </v-sheet>
+          </v-expand-transition>
+    
+          <v-slide-group
+            v-model="model"
+            class="pa-1"
+            show-arrows
+          >
+
+            <v-slide-item v-slot:default="{ active }">
+              <v-card
+                class="ma-1"
+                height="50"
+                width="76"
+                @click="clickThumbnail(null)"
+              >
+                <v-scale-transition>
+                  <v-icon
+                    v-if="active"
+                    color="white"
+                    size="48"
+                    v-text="'mdi-close-circle-outline'"
+                  ></v-icon>
+                </v-scale-transition>
+                <v-img src="../../assets/images/map_thumbnail.png" width="76" height="50"/>
+              </v-card>
+            </v-slide-item>
+
+            <v-slide-item
+              v-for="photo in photoList"
+              :key="photo.photoNo"
+              v-slot:default="{ active }"
+            >
+              <v-card
+                class="ma-1"
+                height="50"
+                width="76"
+                @click="clickThumbnail(photo.photoUrl)"
+              >
+                <v-scale-transition>
+                  <v-icon
+                    v-if="active"
+                    color="white"
+                    size="48"
+                    v-text="'mdi-close-circle-outline'"
+                  ></v-icon>
+                </v-scale-transition>
+                <img :src="photo.photoUrl" height="50" width="76">
+              </v-card>
+            </v-slide-item>
+          </v-slide-group>
+        </v-sheet>
+      </v-col>
+      <v-col cols="12" sm="6" style="align-self: center; padding: 3px 12px 8px 12px;">
+        <div style="padding: 12px 2px 15px 2px;">
+         <div style="display: inline; font-weight:bold;">{{feed.userId}} </div>
+         <div style="display: inline; font-size: 14px; margin:0 0 0 3px;"> <div style="display: inline;" v-html="feed.contents"></div>
         </div>
-      </div>
-    </div>
-    <div class="space"></div>
-    <div class="feed-card">
-      <div v-if="feed.thumbnail=='NULL'">
-        <div class="img" :style="{'background-image': 'url('+defaultImage+')'}"></div>
-      </div>
-      <div v-else>
-        <img :src="feed.thumbnail" alt="img">
-      </div>
-    </div>
-    <div class="content">
-    <div class="feed-btn">
-      <div>
-        <img :src="feed.mine ? redHeart: emptyHeart" width="20px" height="20px" class="like-btn" @click="clickLikeBtn(feed)">
-        <span>{{feed.likeCount}}</span>
-        <img src="../../assets/images/comment.png" width="20px" height="20px" class="comments-btn">
-        <span>{{feed.commentCount}}</span>
-        <img src="../../assets/images/share.png" width="20px" heig0t="20px" class="share-btn">
-        <img src="../../assets/images/star.png" width="20px" height="20px" class="scrap-btn">
-      </div>
-    </div>
-    <div style="height:10px;"></div>
-    <div class="line"></div>
-      <div style="height:15px;"></div>
-      <p>{{feed.contents}}</p>
-       <div class="feed-hashtag">
-         <p class="hashtag">#맛집</p>
-         <p class="hashtag">#파스타</p>
-         <p class="hashtag">#와인</p>
-        <!-- <p v-for="hashtag in hashtags">{{hashtag}}</p> -->
-      </div>
-          <h5 class="feed-time">{{feed.writeDate}}</h5>
-    </div>
-    <div class="comment-area">
-    <div class="line"></div>
-    <div style="height:15px;"></div>
-      <p style="padding-bottom: 10px;">댓글</p>
-      <input class="comment-input"
-             v-model="content"
-             id="content"/>
-      
-      <button class="regist-comment"
-              @click="registComment(feed)">등록</button>
-      <div>
-        <div style="margin-top:3%;" v-for="(comment, index) in comments" v-bind:key="comment.commentNo">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
-          <p class="comment-writer">{{comment.writer}}</p>
-          <p class="comment-content">{{comment.content}}</p>
-          <button v-if="userId==comment.writer" @click="deleteComment(feed, comment, index)" class="delete-comment">삭제</button>
-          <p style="clear:both;"></p>
+        </div>
+        <div style="padding: 5px 0 5px 0px;" >
+          <div v-for="tag in feed.tags" :key="tag" :ripple="false" style="color:rgb(43,73,102); display:inline; font-size:15px;">
+            #{{ tag }}
+          </div>
         </div>
 
-        <!-- <div style="margin-top:3%;">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
-          <p class="comment-writer">홍길동</p>
-          <p class="comment-content">어머, 여기 맛있나요? 저도 한 번 가봐야겠어요^^</p>
-          <p style="clear:both;"></p>
+      <v-divider></v-divider>
+        <div style="margin-bottom: 10px;">
+           <v-btn icon @click="clickLikeBtn(feed)" style="margin-left:12px; width:20px; margin-top: 5px;">
+            <v-img :src="feed.mine ? redHeart: emptyHeart" max-height="20px" max-width="20px" left></v-img>
+          </v-btn>
+          <span style="margin-left:3px; margin-top: 15px; vertical-align:sub;">{{feed.likeCount}}</span>
+          <v-btn icon @click="clickComment()" style="margin-left:10px; width:20px; margin-top: 5px;">
+            <img src="../../assets/images/comment.png" width="20px" height="20px"/>
+          </v-btn>
+           <span style="margin-left:3px; margin-top: 10px; vertical-align:sub;">{{feed.commentCount}}</span>
+          <v-btn icon style="margin-left:1px; margin-top: 5px;">
+            <img src="../../assets/images/share.png" width="18px" height="18px"/>
+          </v-btn>
         </div>
-         <div style="margin-top:3%;">
-          <img src="../../assets/images/user.png" width="30px" height="30px" class="comment-profile"/>
-          <p class="comment-writer">김싸피</p>
-          <p class="comment-content">저도 저번에 다녀왔는데 진짜 짱이었어요!</p>
-          <p style="clear:both;"></p>
-        </div> -->
-      </div>
-    </div>
-  </div>
+        <!-- <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
+          <div class="v-timeline-item v-timeline-item--fill-dot theme--light" 
+            v-for="(course, i) in courseList" :key="i" style="padding-bottom:13px; width: 108%">
+            <div class="v-timeline-item__body" style="margin-right:20px;">
+              <v-card
+                color='white'
+                dark
+                style="width:100%;"
+              >
+                <v-card-text class="white text--primary" style="padding:0px;">
+                  <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 6px 0 6px 8px;">
+                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.3em;">
+                    <div style="font-size:11px; color:#8a8a8a;">{{course.categoryName}}</div>
+                    <div style="font-size:14px;">{{course.tradeName}} </div>
+                  </div>
+                  <div style="float: right; margin: 14px 13px 0 0;"> 
+                    <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 10px;">
+                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+                    </a>
+                  </div>
+                  <div style="clear:both;"/>
+                </v-card-text>
+              </v-card>
+            </div>
+            <div class="v-timeline-item__divide" style="margin-right:16px; z-index:1;">
+              <div class="v-timeline-item__dot v-timeline-item__dot--small">
+                <div class="v-timeline-item__inner-dot red lighten-2">
+                  <p style="color:white;align-self: start;">{{i+1}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><br> -->
+       <v-timeline class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;">
+       <!-- <div class="v-timeline v-timeline--align-top v-timeline--dense theme--light" style="left:-25px;"> -->
+         <div class="v-timeline-item v-timeline-item--fill-dot theme--light" style="width: 107%; padding-bottom:10px;" v-for="(course, i) in courseList" :key="course.courseOrder">
+           <div class="v-timeline-item__body" style="margin-right:21px;">
+              <v-card >
+                <div>
+                    <img :src="course.thumbnailUrl" style="float:left; height:45px; width:45px; border-radius: 8px; margin: 7px 0 6px 9px;">
+                      <div style="float:left; margin: 10px 0px 9px 8px; line-height: 1.2em;">
+                        <div style="font-size:10px; color:#8a8a8a;" @click="findTradeInfo(course)">{{course.categoryName}}</div>
+                        <div style="font-size:13px;" @click="findTradeInfo(course)">{{course.tradeName}} </div>
+                      </div>
+                      <div style="float: right; margin: 14px 13px 0 0;"> 
+                        <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 10px;">
+                        <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+                        </a>
+                    </div>
+                      <div style="clear:both;"/>
+                </div>
+              </v-card>
+              </div>
+              <div class="v-timeline-item__divider" style="min-width: 15px; margin-right:15px; ">
+                <div class="v-timeline-item__dot v-timeline-item__dot--small">
+                  <div class="v-timeline-item__inner-dot red lighten-2">
+                   <p style="color:white;align-self: start;">{{i+1}}</p>
+                  </div>
+                </div>
+                </div>
+              </div>
+        <!-- </div> -->
+        </v-timeline>
+        <br>
+<!-- 
+        <v-timeline dense>
+          <v-timeline-item
+                    v-for="course in courseList" :key="course.courseOrder"
+                    color="rgb(239,91,91)"
+                    small>
+            <div style="height: 45px; width:100%; float:left; padding-right:30px;">
+              <div>
+                <div class="elevation-1 v-card v-sheet theme--light"
+                    style="border-radius:10px; width:100%; height:57px; border:1px solid #ccc;"
+                    @click="findTradeInfo(course)">
+                    <div style="float:left;">
+                    <img :src="course.thumbnailUrl" style="height:45px; width:45px; border-radius: 8px; margin: 5px 0px 5px 8px;">
+                  </div>
+                  <div style="float:left; margin: 10px 0px 9px 10px; line-height: 1.2em;">
+                      <div style="font-size:10px; color:rgb(51,102,255);">{{course.categoryName}}</div>
+                      <div style="font-size:13px;">{{course.tradeName}} </div>
+                  </div>
+                  <div style="float: right; margin: 12px;"> 
+                      <a :href="'https://maps.google.com/?daddr='+course.roadAddress" target="_sub" style="margin-bottom: 15px;">
+                      <img src="../../assets/images/find_route_icon.png" width="30px" height="30px">
+                    </a>
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+              </div>
+            </div>
+          </v-timeline-item>
+        </v-timeline> -->
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -82,99 +199,201 @@ import defaultProfile from "../../assets/images/profile_default.png";
 import FeedApi from "../../api/FeedApi";
 import UserApi from "../../api/UserApi";
 import AlertApi from "../../api/AlertApi";
+import ProfileApi from "../../api/ProfileApi";
+import Map from "../../views/Map.vue";
+import axios from "axios";
 
 export default {
   props : {feedNo : String},
+  mounted() {
+
+    let data = {
+        token : localStorage.getItem('token'),
+        feedNo : this.$route.params.feedNo
+    };
+    FeedApi.getCourse(
+      data,
+      res => {
+          this.courseList = res.data;
+          window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
+      },
+      error => {
+        alert(error);
+        console.dir('코스 정보 받아오는거 실패했습니다.');
+      }
+    );  
+    
+  },
   data: () => {
     return { 
+      heart_icon: "far fa-heart",
+      map : {},
+      markers : [],
+      ps : {},
+      infowindow : {},
+      courseList: [],
+      bounds : {},
       feed : {},
-      photos : [],
-      comments : [],
-      content: "",
+      photoList: [],
       defaultImage, 
       defaultProfile,
-      hashtags: ['#맛집','#파스타','#와인'],
-      heartChange: false,
+      profileImage : require('../../assets/images/profile_default.png'),
       emptyHeart: require('../../assets/images/empty-heart.png'),
       redHeart: require('../../assets/images/red-heart.png'),
-      myComment: false,
-      userId: ""
+      userId: "",
+      model: "",
+      imageUrl : "",
+      tags : []
     };
   }, 
   created() {
     let data = {
         token : localStorage.getItem('token'),
-        feedNo : this.feedNo
+        feedNo : this.$route.params.feedNo,
     };
-    console.log("feedNo : " +this.feedNo);
+    FeedApi.getFeedPhoto(
+      data,
+      response => {
+        this.photoList = response.data;
+      }, // 상단에 보여줄 사진 
+      error => {
+        alert('피드 이미지 조회에 실패했습니다.');
+      }
+    );
+
     FeedApi.loadFeedDetail(
       data,
       response => {
         this.userId = response.data.userId;
         this.feed = response.data.feed;
+        console.log(this.feed)
+
+         //태그파싱
+        if(this.feed.tags != " " && this.feed.tags != "") {
+          var tags = this.feed.tags.split(" ");
+        }
+        this.feed.tags = []
+        for(let i in tags) {
+          if(tags[i] == "") continue;
+          this.feed.tags.push(tags[i]);
+        }
+        console.log('태그')
+        console.log(tags);
+
+        ProfileApi.requestUserProfile(
+        data = {
+          userId : this.userId
+        },
+        response => {
+          if(response.data.profilePhoto != undefined && response.data.profilePhoto.length > 10) {
+              this.profileImage = response.data.profilePhoto
+          }
+          let data = {
+            token : localStorage.getItem('token'),
+            email : response.data.email
+          }
+        },
+        error => {
+          alert(error);
+      }
+    )
       },
       error => {
         alert('피드 상세 조회에 실패했습니다.');
       }
     );
-    FeedApi.loadFeedPhotos(
-      this.feedNo,
-      response => {
-        this.photos = response.data
-        // console.dir(this.photos)
-      },
-      error => {
-        alert('피드 이미지 조회에 실패했습니다.');
-      }
-    );
-    FeedApi.loadFeedComments(
-      this.feedNo,
-      response => {
-        this.comments = response.data
-        console.dir(this.comments)
-      },
-      error => {
-        alert('피드 댓글 조회에 실패했습니다.');
-      }
-    );
+
   },
   methods: {
-    registComment(feed){
-        let { feedNo, content } = this;
-        let data = {
-          token : localStorage.getItem('token'),
-          feedNo,
-          content
-        };
-        console.log('댓글 등록 들어옴.');
-        feed.commentCount += 1;
+    addScript() {
+      const script = document.createElement('script')
+            /* global kakao */
+      script.onload = () => kakao.maps.load(this.initMap)
+      script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=6eef005ce939915ab51bb458c785e9f4&autoload=false&libraries=services,clusterer,drawing'
+      document.head.appendChild(script);
+    },
+    initMap() { 
+      var container = document.getElementById('map') 
+      var options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3
+      }
+      this.map = new kakao.maps.Map(container, options)
 
-        FeedApi.registerComment(
-          data,
-          response => {
-            console.log(response);
-            console.log('댓글 등록 성공');
-            alert("댓글이 등록되었습니다.");
-            this.comments.push(response.data);
+      this.bounds = new kakao.maps.LatLngBounds()    
+      this.ps = new kakao.maps.services.Places()
+      this.infowindow = new kakao.maps.InfoWindow({zIndex:1})
+      this.map.setZoomable(false);
 
-          },
-          error => {
-            alert(error);
-          }
-        );
+      this.setMapForCoursesView()
+    },
+    setMapForCoursesView() {
+      this.setMapBounds()
+      this.addPolyLines()
+      this.displayMarkers()
+    },
+    setMapBounds(){
+        for(const course of this.courseList) {
+          this.bounds.extend(new kakao.maps.LatLng(course.longitude, course.latitude));
+        }
+        this.map.setBounds(this.bounds); // 범위 재설정  
+    },
+    addPolyLines() {
+      var linePath = []
+      for(const course of this.courseList){
+        linePath.push(new kakao.maps.LatLng(course.longitude, course.latitude))
+      }
+      
+      var polyline = new kakao.maps.Polyline({
+        path: linePath, // 선을 구성하는 좌표배열 입니다
+        strokeWeight: 2, // 선의 두께 입니다
+        strokeColor: 'rgb(239,91,91)', // 선의 색깔입니다
+        strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+        strokeStyle: 'solid' // 선의 스타일입니다
+      });
+            // 지도에 선을 표시합니다 
+      polyline.setMap(this.map);
+    },
+    displayMarkers() {
+      this.courseList.forEach((course, idx) => {
+        const markerContent = '<div class = "label"' +
+                              ' style = "height:25px; width:25px; border-radius:50%; border: rgb(239,91,91) solid 1px;' + 
+                              'background-color: white; color: rgb(239,91,91); text-align: center;"' +
+                              '><span>' +
+                              (idx + 1)
+                              '</span></div>'
 
+        var position = new kakao.maps.LatLng(course.longitude, course.latitude);
+        // 커스텀 오버레이를 생성합니다
+        const customOverlay = new kakao.maps.CustomOverlay({
+            position: position,
+            content: markerContent   
+        });
+
+        customOverlay.setMap(this.map);
+      })
+    },
+    clickComment(){
+      this.$router.push("/feeds/comments/" + this.$route.params.feedNo); // 여기 수정
+    },
+    clickShare(){
+       location.href = "holapet://share?m="+this.address;
+    },
+    clickRoute(){
+       location.href = "https://maps.google.com/?daddr="+this.address;
     },
     clickLikeBtn(feed){
       if(!feed.mine){
         feed.mine = true;
         feed.likeCount += 1;
+        this.heart_icon = "fas fa-heart"
       } else{
         feed.mine = false;
         feed.likeCount -= 1;
+        this.heart_icon = "far fa-heart"
       }
 
       let feedNo =  feed.feedNo;
-      console.dir(feed);
       let data = {
         token : localStorage.getItem('token'),
         feedNo,
@@ -188,143 +407,54 @@ export default {
           },
           error => {
             alert(error);
+            console.dir('조아요 클릭 시 오류입니다');
           }
         );
-
-      //  AlertApi.requestLike(
-      //     data,
-      //     response => {
-      //       console.log("좋아요 알림 보내기!");
-      //     },
-      //     error => {
-      //       alert(error);
-      //     }
-      //   );
     },
-    deleteComment(feed, comment, index){
-      //this.comments.splice(index, 1);
-      let feedNo =  this.feedNo;
-      let commentNo = comment.commentNo;
-      let data = {
-        token : localStorage.getItem('token'),
-        feedNo,
-        commentNo
-      };
+    clickThumbnail(img) {
+      this.imageUrl = img;
+    },
+    placesSearchCB(data, status, pagination) {
+      for(var k=0; k<this.courseList.length;k++){
+        for(var j=0; j<data.length;j++){
+          if(this.courseList[k].latitude == data[j].x && this.courseList[k].longitude == data[j].y){
+            if (status === kakao.maps.services.Status.OK) {
+               console.log(data[j]);
+              this.crawlingTradePage(data[j].id)
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
-      FeedApi.deleteComment(
-        data,
-        response => {
-          alert("댓글이 삭제되었습니다.");
-          this.comments.splice(index, 1);
-          // location.reload();
-          // this.$router.push("/feed/main");
-        },
-        error => {
-          alert(error);
+              alert('검색 결과가 존재하지 않습니다.');
+              return;
+
+            } else if (status === kakao.maps.services.Status.ERROR) {
+
+              alert('검색 결과 중 오류가 발생했습니다.');
+              return;
+            }
+          }
         }
-      );
-
-
-
+      }
+    },
+    findTradeInfo(course) {
+      this.ps.keywordSearch(course.tradeName, this.placesSearchCB);
+    },
+    crawlingTradePage(id) {
+      var feedNo = this.$route.params.feedNo;
+      this.$router.push("/trade/" + id + "/" + feedNo);
     }
+    
+
   },
 };
+
 </script>
+
 <style scoped>
-.user-name{
-  margin-top: 3%;
-}
-.feed-top{
-  margin-left: 6%;
-}
-.feed-card{
-  clear: both;
-  margin-top: 1%;
-  margin-right: 7%;
-  border-radius: 0;
-}
-.space{
-  height: 50px;
-}
-.content{
-  margin-right: 15px;
-}
-.hashtag{
-  float: left;
-}
-.feed-time{
-  margin-top: 10px;
-  padding-right: 5%;
-  float:right;
-}
 .line{
   clear: both;
-  height: 1px;
-  width: 94%;
-  background-color: gray;
-}
-.feed-btn{
-  padding-top: 3%;
-}
-.like-btn{
-  margin-right: 10px;
-}
-.comments-btn{
-  margin-left: 10px;
-}
-.share-btn{
-  margin-left: 20px;
-}
-.scrap-btn{
-  float: right;
-  padding-right: 7%;
-}
-.comment-area{
-  padding-left: 7%;
-}
-.comment-input{
-  margin-left: 5%;
-  height: auto;
-  line-height: normal;
-  padding: .3em .9em;
-  width: 80%;
-  border: none;
-  border-radius: 20px;
-  -webkit-appearance: none;
-  background-color: #ECECEC;
-}
-.regist-comment{
-  padding: 1%;
-  margin-left: 3%;
-  border: 1px groove gray;
-  border-radius: 2px;
-}
-.comment-profile{
-  float: left;
-}
-.comment-writer{
-  padding-top: 1.4%;
-  margin-left: 1%;
-  font-size: 15px;
-  font-weight: 600;
-  float: left;
-}
-.comment-content{
-  margin-left: 2%;
-  padding-top: 1.5%;
-  float: left;
-}
-.delete-comment{
-  padding: 1%;
-  border: 1px groove gray;
-  border-radius: 2px;
-  float: right;
-  margin-right: 3%;
-  margin-top: 2%;
-}
-
-.feed-card > div> img {
+  height: 0.5px;
   width: 100%;
-  height: 100%;
+  background-color: gray;
+  opacity: 30%;
 }
 </style>

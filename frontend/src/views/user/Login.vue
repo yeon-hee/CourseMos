@@ -1,76 +1,100 @@
-
-
 <template>
-  <div class="user" id="login">
-    <div class="wrapC">
-      <br>
-      <h1>
-        로그인을 하고 나면
-        <br />좋은 일만 있을 거예요.
-      </h1>
+  <v-container fluid fill-height class="pt-0">
+    <v-row class="fill-height">
+      <v-col cols="12" md="6" class="pa-0">
+        <v-parallax src="../../assets/images/Logo.png" style="height:100%; min-height: 350px;">
+          <v-row align="center" justify="center">
+            <v-col cols="12" style="margin-bottom:100px; margin-left:50px">
+              <p
+                class="mt-10 mb-5 font-weight-bold"
+                style="color:rgb(239,91,91); font-size:82px; font-family: Cafe24Oneprettynight; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"
+              >Course Mos</p>
+            </v-col>
+          </v-row>
+        </v-parallax>
+      </v-col>
+      <v-col cols="12" md="6" style="align-self: flex-end;">
+        <template>
+          <v-row>
+            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pa-0">
+              <v-text-field
+                v-model="email"
+                name="input-10-1"
+                color="#0c6212"
+                label="이메일"
+                placeholder="이메일를 입력하세요."
+                :error-messages="error.email"
+                outlined
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-      <div class="input-with-label">
-        <input
-          v-model="email"
-          v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
-          @keyup.enter="Login"
-          id="email"
-          placeholder="이메일을 입력하세요."
-          type="text"
-          autocapitalize= "none"
-        />
-        <label for="email">이메일</label>
-        <div class="error-text" v-if="error.email">{{error.email}}</div>
-      </div>
+          <v-row>
+            <v-col cols="11" sm="6" offset-sm="3" class="mx-auto pa-0">
+              <v-text-field
+                v-model="password"
+                :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="passwordShow ? 'text' : 'password'"
+                name="input-10-1"
+                color="#0c6212"
+                label="비밀번호를 입력하세요."
+                :error-messages="error.password"
+                outlined
+                @click:append="passwordShow = !passwordShow"
+              ></v-text-field>
+            </v-col>
+          </v-row>
 
-      <div class="input-with-label">
-        <input
-          v-model="password"
-          type="password"
-          v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
-          id="password"
-          @keyup.enter="Login"
-          placeholder="비밀번호를 입력하세요."
-        />
-        <label for="password">비밀번호</label>
-        <div class="error-text" v-if="error.password">{{error.password}}</div>
-      </div>
-      <button
-        class="btn btn--back btn--login"
-        @click="onLogin"
-        :disabled="!isSubmit"
-        :class="{disabled : !isSubmit}"
-      >로그인</button>
+          <v-row>
+            <v-col class="text-center py-0" cols="12">
+              <div class>
+                <v-btn
+                  class="teal darken-4 white--text"
+                  @click="onLogin"
+                  :disabled="!isSubmit"
+                  :class="{disabled : !isSubmit}"
+                >로그인</v-btn>
+              </div>
+            </v-col>
+          </v-row>
 
-      <div class="sns-login">
-        <div class="text">
-          <p>SNS 간편 로그인</p>
-          <div class="bar"></div>
-        </div>
+          <v-row>
+            <v-col>
+              <v-row class="text-left">
+                <v-col>
+                  <p style="font-family: 'Noto Sans KR', sans-serif;">
+                    비밀번호를 잊으셨나요?
+                    <span>
+                      <a
+                        @click="onClickFindPwd()"
+                        style="color:rgb(239,91,91); font-family: 'Noto Sans KR', sans-serif;"
+                        class="float-right btn--text text-decoration-none font-weight-bold"
+                      >비밀번호 찾기</a>
+                    </span>
+                  </p>
 
-        <kakaoLogin :component="component" />
-        <GoogleLogin :component="component" />
-      </div>
-      <div class="add-option">
-        <div class="text">
-          <p>혹시</p>
-          <div class="bar"></div>
-        </div>
-        <div class="wrap">
-          <p>비밀번호를 잊으셨나요?</p>
-          <router-link to="/user/find/password" class="btn--text">비밀번호 찾기</router-link>
-        </div>
-        <div class="wrap">
-          <p>아직 회원이 아니신가요?</p>
-          <router-link to="/user/join" class="btn--text">가입하기</router-link>
-        </div>
-      </div>
-    </div>
-  </div>
+                  <p style="font-family: 'Noto Sans KR', sans-serif;">
+                    아직 회원이 아니신가요?
+                    <span>
+                      <a
+                        @click="onClickJoin()"
+                        style="color:rgb(239,91,91); font-family: 'Noto Sans KR', sans-serif;"
+                        class="float-right btn--text text-decoration-none font-weight-bold"
+                      >가입하기</a>
+                    </span>
+                  </p>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </template>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import "../../components/css/user.scss";
+// import "../../components/css/user.scss";
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/user/snsLogin/Kakao.vue";
@@ -80,8 +104,8 @@ import axios from "axios";
 
 export default {
   components: {
-    KakaoLogin,
-    GoogleLogin
+    // KakaoLogin,
+    // GoogleLogin,
   },
   created() {
     this.component = this;
@@ -97,18 +121,19 @@ export default {
       .letters();
   },
   watch: {
-    password: function(v) {
-      this.checkForm();
+    password: function (v) {
+      this.checkPasswordForm();
     },
-    email: function(v) {
-      this.checkForm();
-    }
+    email: function (v) {
+      this.checkEmailForm();
+    },
   },
   methods: {
     checkForm() {
-      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
-        this.error.email = "이메일 형식이 아닙니다.";
-      else this.error.email = false;
+      if(!this.error.password && !this.error.email) this.isSubmit = true;
+      else this.isSubmit = false;
+    },
+    checkPasswordForm() {
 
       if (
         this.password.length >= 0 &&
@@ -116,42 +141,46 @@ export default {
       )
         this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
+      this.checkForm();
+    },
+    checkEmailForm() {
+      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
+        this.error.email = "이메일 형식이 아닙니다.";
+      else this.error.email = false;
 
-      let isSubmit = true;
-      Object.values(this.error).map(v => {
-        if (v) isSubmit = false;
-      });
-      this.isSubmit = isSubmit;
+      this.checkForm();
     },
     onLogin() {
       if (this.isSubmit) {
         let { email, password } = this;
         let data = {
           email,
-          password
+          password,
         };
         this.isSubmit = false;
         UserApi.requestLogin(
           data,
-          response => {
-            console.log('로그인 성공');
-            alert('로그인에 성공하였습니다.');
+          (response) => {
+            alert("로그인에 성공하였습니다.");
             localStorage.setItem("token", response.data.object.token);
             localStorage.setItem("userId", response.data.object.user.userId);
             localStorage.setItem("email", response.data.object.user.email);
-            // this.$store.state.token = response.data.object.token;
-            // this.$store.state.userId = response.data.object.user.userId;
-            // this.$store.state.email = response.data.object.user.email;
 
             this.isSubmit = true;
             this.$router.push("/feed/main");
           },
-          error => {
-            alert('로그인에 실패하였습니다.');
+          (error) => {
+            alert("로그인에 실패하였습니다.");
             this.isSubmit = true;
           }
         );
       }
+    },
+    onClickJoin() {
+      this.$router.push("/user/join");
+    },
+    onClickFindPwd() {
+      this.$router.push("/user/find/password");
     }
   },
 
@@ -162,12 +191,29 @@ export default {
       passwordSchema: new PV(),
       error: {
         email: false,
-        passowrd: false
+        passowrd: false,
       },
       isSubmit: false,
-      component: this
+      component: this,
+      passwordShow: false,
     };
-  }
+  },
 };
 </script>
+
+<style scoped>
+@font-face {
+  font-family: "Cafe24Oneprettynight";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * {
+  font-family: "Noto Sans KR", sans-serif;
+}
+</style>
 

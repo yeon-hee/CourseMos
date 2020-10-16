@@ -1,47 +1,63 @@
 <template>
-    <div>
-    <LogoTitle/>
-        <div id="alerts">
-            <section class="tab">
-                <a class="active-tab" href="#"><div class="tab-alerts">알림</div></a>
-                <a href="#/requests"><div class="tab-requests">요청</div></a>
-            </section>
-            <div class="all-button">
-                <button class="all-close" @click="closeAll()">모두닫기</button>
-            </div>
-            <div class="tab-list">
-                <ul class="alert-list">
-                    <hr>
-                    <li v-for="(alert, index) in alertList" :key="alert.id">
-                        <div class="alert">
-                            <div class="alert-info">
-                                <img src="@/assets/images/profile_default.png" width="50px" height="50px" alt="user_img">
-                                <div>{{alert.message}}</div> 
-                            </div>
-                            <button class="close-button" @click="close(alert, index)"><i class="fas fa-times"></i></button>
-                        </div>
-                        <hr>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    <Nav/>
-    </div>
+    <!-- <div> -->
+        <!-- <LogoTitle/> -->
+        <!-- <tab/> -->
+        <!-- <v-list subheader>
+            <v-subheader><v-btn text @click="closeAll"><span>모두 닫기</span></v-btn></v-subheader>
+            <v-list-item v-for="(alert, index) in alertList" :key="alert.id">
+                <v-list-item-avatar>
+                    <img src="@/assets/images/profile_default.png">
+                </v-list-item-avatar>
+                <v-list-item-content>
+                    <v-list-item-title v-html="alert.message"></v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                    <v-btn icon @click="close(alert, index)"><v-icon>fas fa-times</v-icon></v-btn>
+                </v-list-item-icon>
+            </v-list-item>
+        </v-list> -->
+    <v-card>
+        <!-- <v-card-title style="padding:0; justify-content: flex-end;">
+            <v-btn
+                color="error"
+                text
+                @click="closeAll">clear</v-btn>
+        </v-card-title> -->
+        <v-virtual-scroll
+        :items="alertList"
+        :item-height="30"
+        height="200"
+        >
+        <v-btn text @click="closeAll"><span>모두 닫기</span></v-btn>
+        <template v-slot="{ item , index}">
+            <v-list-item :key="item.alertNo">
+
+            <v-list-item-content>
+                <v-list-item-title>{{ item.message }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-icon>
+                <v-btn text @click="close(item, index)" color="primary">닫기</v-btn>
+            </v-list-item-icon>
+
+            </v-list-item>
+            <!-- <v-divider></v-divider> -->
+        </template>
+        </v-virtual-scroll>
+    </v-card>
+    <!-- </div> -->
   
 </template>
 
 <script>
-import LogoTitle from "../LogoTitle.vue";
-import Nav from "../Nav.vue";
 import "../../components/css/user/alerts.css";
 import axios from 'axios';
 import AlertApi from "../../api/AlertApi";
+// import Tab from "../../components/alert/AlertTab";
 
 
 export default {
     components: {
-        LogoTitle,
-        Nav
+        // Tab
     },
     created() {
         let data = {
@@ -94,21 +110,13 @@ export default {
                     console.log(error);
                 }
             );
-        }
+        },
+
     }
 }
 
 </script>
 
 <style scoped>
-
-hr{
-    margin: 0;
-}
-
-.tab-alerts{
-    background-color: bisque;
-    opacity: 80%;
-}
 
 </style>
