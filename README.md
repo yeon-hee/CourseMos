@@ -121,7 +121,6 @@ See https://cli.vuejs.org/config/
 ### :a: 태그 기능 - 코모란 (키워드 추출) 라이브러리 활용(https://docs.komoran.kr/)
 
 <img src="https://lh6.googleusercontent.com/2P9kw8ZxHuuzs3DNQTKAJwkrysSlpRdid7XZFDHdpJYYUVkD65Ulrp278-h1x5x3Lg9SU6SRd-QU8r9oBHXZ6OU7t2-43Fy0T_IUwk0BmrdliX4MR7kFeMVCPc1kiHUg"  width="20%" />
-<br>
 
 
 ### :heart: 사용자 취향 맞춤 코스 추천 기능 - 알고리즘
