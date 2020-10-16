@@ -29,18 +29,18 @@
         height="200"
         >
         <v-btn text @click="closeAll"><span>모두 닫기</span></v-btn>
+
         <template v-slot="{ item , index}">
-            <v-list-item :key="item.alertNo">
-
-            <v-list-item-content>
-                <v-list-item-title>{{ item.message }}</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-icon>
-                <v-btn text @click="close(item, index)" color="primary">닫기</v-btn>
-            </v-list-item-icon>
-
-            </v-list-item>
-            <!-- <v-divider></v-divider> -->
+            <v-list :key="item.alertNo" style="margin: 0 0 0 12px;" >
+            <div style="float: left;" class="text">
+                {{ item.message }}
+            </div>
+            <div style="float: right; margin:6px 12px 0 0;">
+                <v-btn text @click="close(item, index)" style="height:33px; margin-right:5px; border-radius: 30px; background-color:rgb(239,91,91);">닫기</v-btn>
+                </div>
+            <div style="clear:both;"/>
+            </v-list>
+            <v-divider style="margin: 0 10px 0 10px;"></v-divider> 
         </template>
         </v-virtual-scroll>
     </v-card>
